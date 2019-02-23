@@ -1,6 +1,8 @@
 # bookbook2
 
-**bookbook2** convert ipython notebooks to html or pdf chapters, init from [bookbook](https://github.com/takluyver/bookbook) package,
+[![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+
+**bookbook2** convert ipython notebooks to html or pdf chapters, initting from [bookbook](https://github.com/takluyver/bookbook) package,
 preserving cross references within and between notebooks.
 
 This code is in early development, so use it at your own risk.
