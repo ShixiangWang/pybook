@@ -76,5 +76,5 @@ dependencies:
   - zeromq=4.2.5=hf484d3e_1006
   - zlib=1.2.11=h7b6447c_3
   - pip:
-    - pylib/bookbook/bookbook2
+    - pylib/bookbook
 prefix: /home/wsx/anaconda3/envs/pybook

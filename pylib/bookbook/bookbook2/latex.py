@@ -99,7 +99,7 @@ filter_links = os.path.join(mydir, 'filter_links.py')
 
 listings = Path('listings.tex')
 if not listings.is_file():
-    with open('listings.tex', w) as f:
+    with open('listings.tex', 'w') as f:
         f.write("% listings style")
 
 

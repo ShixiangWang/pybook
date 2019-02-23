@@ -1,4 +1,4 @@
-Bookbook converts a set of notebooks in a directory to HTML or PDF,
+**Bookbook2** convert ipython notebooks to html/pdf chapters, init from [bookbook](https://github.com/takluyver/bookbook) package,
 preserving cross references within and between notebooks.
 
 This code is in early development, so use it at your own risk.
@@ -6,54 +6,49 @@ This code is in early development, so use it at your own risk.
 Installation
 ------------
 
-Bookbook requires Python 3.5.
+Bookbook requires Python 3.7.
 
-::
-
-    pip install bookbook
-
-To install locally as an editable install, run::
-
-    pip install flit
-    git clone https://github.com/takluyver/bookbook.git
-    cd bookbook
-    flit install --symlink
+```
+git clone https://github.com/ShixiangWang/bookbook2
+cd bookbook2
+pip install .
+```
 
 Running bookbook
 ----------------
 bookbook expects a directory of notebooks whose names indicate their order.  Specifically,
-**the file names must have the form ``x-y.ipynb``**, where typically ``x`` is a number
-indicating the order and ``y`` is a chapter title; e.g.:
-``01-introduction.ipynb``. 
+**the file names must have the form `x-y.ipynb`**, where typically `x` is a number
+indicating the order and `y` is a chapter title; e.g.:
+`01-introduction.ipynb`. 
 
-To run ``bookbook``::
+To run `bookbook`::
 
-    python3 -m bookbook.html           # HTML output under html/
-    python3 -m bookbook.latex [--pdf]  # Latex/PDF output as combined.(tex|pdf)
+    python3 -m bookbook2.html           # HTML output under html/
+    python3 -m bookbook2.latex [--pdf]  # Latex/PDF output as combined.(tex|pdf)
 
-Add ``--help`` to either command for more options.
+Add `--help` to either command for more options.
 
 Chapters and sections
 ---------------------
-Each top-level header (``# xyz`` in markdown) will be converted to a top-level
+Each top-level header (`# xyz` in markdown) will be converted to a top-level
 latex section (a chapter if using the book or report document class).  Lower-level
-headers (``##``, ``###``, etc.) are converted to subsections, subsubsections, etc.
+headers (`##`, `###`, etc.) are converted to subsections, subsubsections, etc.
 A latex label will also be inserted for each.  **The first cell of each notebook
 must start with a top-level header**.
 
 Cross-references
 ----------------
 Markdown references will be converted automatically to latex references.  For instance,
-if the markdown contains the hyperlink ``[02-foo](02-foo.ipynb)`` and ``02-foo.ipynb`` is
-a notebook in the same directory, the link will appear as ``Chapter \ref{sec:02-foo}``.
-The label ``\label{sec:02-foo}`` will be inserted at the start of that notebook,
-so when the latex is compiled to PDF it will appear as ``Chapter 2``.
+if the markdown contains the hyperlink `[02-foo](02-foo.ipynb)` and `02-foo.ipynb` is
+a notebook in the same directory, the link will appear as `Chapter \ref{sec:02-foo}`.
+The label `\label{sec:02-foo}` will be inserted at the start of that notebook,
+so when the latex is compiled to PDF it will appear as `Chapter 2`.
 
 References to sections within a notebook work similarly.  If a notebook contains 
-(in markdown) the section heading ``## bar`` within the notebook starting with top-level
-header ``# foo``, then the markdown hyperlink ``[foo](foo.ipynb#bar)`` will be
-converted to the latex reference ``Section \ref{bar}`` and when compiled to PDF it will
-be rendered as something like ``Section 2.1``.
+(in markdown) the section heading `## bar` within the notebook starting with top-level
+header `# foo`, then the markdown hyperlink `[foo](foo.ipynb#bar)` will be
+converted to the latex reference `Section \ref{bar}` and when compiled to PDF it will
+be rendered as something like `Section 2.1`.
 
 Latex formatting
 ----------------
