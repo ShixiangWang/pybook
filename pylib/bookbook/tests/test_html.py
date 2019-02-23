@@ -2,7 +2,7 @@ from pathlib import Path
 from tempfile import TemporaryDirectory
 from testpath import assert_isfile
 
-from bookbook import html
+from bookbook2 import html
 
 sample_dir = Path(__file__).parent / 'sample'
 

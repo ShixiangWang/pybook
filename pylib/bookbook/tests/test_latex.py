@@ -4,7 +4,7 @@ from testpath import assert_isfile
 
 from nbformat.v4 import new_markdown_cell
 
-from bookbook import latex
+from bookbook2 import latex
 
 sample_dir = Path(__file__).parent / 'sample'
 

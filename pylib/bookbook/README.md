@@ -1,4 +1,6 @@
-**Bookbook2** convert ipython notebooks to html/pdf chapters, init from [bookbook](https://github.com/takluyver/bookbook) package,
+# bookbook2
+
+**bookbook2** convert ipython notebooks to html or pdf chapters, init from [bookbook](https://github.com/takluyver/bookbook) package,
 preserving cross references within and between notebooks.
 
 This code is in early development, so use it at your own risk.
@@ -67,6 +69,6 @@ Related tools
 -------------
 If you are writing a book in Jupyter notebooks, you may also find these to be useful:
 
-- `nbopen <https://github.com/takluyver/nbopen>`_: open notebooks from the command line without launching a new notebook server.  We find it useful to launch a single server in your home directory; then nbopen will use that to open each notebook.
-- `nbdime <https://github.com/jupyter/nbdime>`_: diff/merge for notebooks; includes terminal or graphical output.
-- `nbstripout <https://github.com/kynan/nbstripout>`_: remove output from notebooks before committing them.
+- `nbopen` <https://github.com/takluyver/nbopen>: open notebooks from the command line without launching a new notebook server.  We find it useful to launch a single server in your home directory; then nbopen will use that to open each notebook.
+- `nbdime` <https://github.com/jupyter/nbdime>: diff/merge for notebooks; includes terminal or graphical output.
+- `nbstripout` <https://github.com/kynan/nbstripout>: remove output from notebooks before committing them.

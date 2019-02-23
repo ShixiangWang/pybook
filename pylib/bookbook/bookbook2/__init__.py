@@ -1,4 +1,4 @@
-"""Tools to use a collection of notebooks as 'chapters'
+"""Tool for converting ipython notebooks to html or pdf chapters
 """
 
 __version__ = '0.1.0'
