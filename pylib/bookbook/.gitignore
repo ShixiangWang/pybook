@@ -2,3 +2,5 @@ __pycache__/
 /dist/
 .ipynb_checkpoints
 .vscode/
+build/
+bookbook2.egg-info/
