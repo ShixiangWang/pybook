@@ -10,7 +10,7 @@ This code is in early development, so use it at your own risk.
 Installation
 ------------
 
-Bookbook requires Python 3.7.
+**bookbook2** requires Python 3.
 
 Install from PyPI (<https://pypi.org/project/bookbook2/>) with pip:
 
