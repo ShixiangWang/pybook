@@ -104,10 +104,8 @@ if not listings.is_file():
 
 
 def pandoc_convert_links(source):
-    return pandoc(source, 'markdown', 'latex',
-                  extra_args=['--filter', filter_links,
-                              '--listings -H', listings]
-                  )
+    return pandoc(source, 'markdown', 'latex', 
+                extra_args=['--filter', filter_links])
 
 class MyLatexExporter(CustomLatexExporter):
     def default_filters(self):
