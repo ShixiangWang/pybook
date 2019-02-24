@@ -97,10 +97,14 @@ def combine_notebooks(notebook_files: Sequence[Path]) -> NotebookNode:
 mydir = os.path.dirname(os.path.abspath(__file__))
 filter_links = os.path.join(mydir, 'filter_links.py')
 
-listings = Path('listings.tex')
-if not listings.is_file():
-    with open('listings.tex', 'w') as f:
-        f.write("% listings style")
+
+# I dont know why use this code, which cause problem in test
+# It is need to be checked in the future.
+#
+# listings = Path('listings.tex')
+# if not listings.is_file():
+#     with open('listings.tex', 'w') as f:
+#         f.write("% listings style")
 
 
 def pandoc_convert_links(source):

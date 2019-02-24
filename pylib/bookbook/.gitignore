@@ -7,3 +7,5 @@ bookbook2.egg-info/
 .pytest/
 .pytest_cache/
 listings.tex
+html/
+combined.pdf
