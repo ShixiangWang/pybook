@@ -74,3 +74,8 @@ If you are writing a book in Jupyter notebooks, you may also find these to be us
 - `nbopen` <https://github.com/takluyver/nbopen>: open notebooks from the command line without launching a new notebook server.  We find it useful to launch a single server in your home directory; then nbopen will use that to open each notebook.
 - `nbdime` <https://github.com/jupyter/nbdime>: diff/merge for notebooks; includes terminal or graphical output.
 - `nbstripout` <https://github.com/kynan/nbstripout>: remove output from notebooks before committing them.
+
+
+<h3 align="center">License</h3>
+
+<h5 align="center">MIT &copy; Shixiang Wang, Thomas Kluyver</h5>
