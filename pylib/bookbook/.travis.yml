@@ -15,7 +15,7 @@ python:
   - "3.7"
 # command to install dependencies
 install:
-- wget -c https://github.com/jgm/pandoc/releases/download/2.6/pandoc-2.6-1-amd64.deb && sudo dpkg -i pandoc-2.6-1-amd64.deb
+- wget https://github.com/jgm/pandoc/releases/download/1.19.1/pandoc-1.19.1-1-amd64.deb && sudo dpkg -i pandoc-1.19.1-1-amd64.deb
 - pip install jupyter_client
 - pip install -r requirements.txt
 # command to run tests

@@ -19,7 +19,7 @@ def test_sampledir():
 
 def test_convert_link():
     sample = "[link](01-abc.ipynb)"
-    res = latex.pandoc_convert_links(sample)
+    res = latex.pandoc_convert_links(sample) # SOMETHING WRONG
     assert '\\ref{sec:01-abc}' in res
     assert '.ipynb' not in res
 

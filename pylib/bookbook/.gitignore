@@ -4,3 +4,6 @@ __pycache__/
 .vscode/
 build/
 bookbook2.egg-info/
+.pytest/
+.pytest_cache/
+listings.tex
