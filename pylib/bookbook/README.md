@@ -1,6 +1,6 @@
 # bookbook2
 
-[![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+[![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental) [![Build Status](https://travis-ci.org/ShixiangWang/bookbook2.svg?branch=master)](https://travis-ci.org/ShixiangWang/bookbook2)
 
 **bookbook2** convert ipython notebooks to html or pdf chapters, initting from [bookbook](https://github.com/takluyver/bookbook) package,
 preserving cross references within and between notebooks.
@@ -68,14 +68,12 @@ Latex formatting
 ----------------
 bookbook uses nbconvert under the hood.  Custom formatting of latex output
 can be accomplished by using a template, in the same way as would be done
-using nbconvert by itself.  See `the nbconvert
-documentation <http://nbconvert.readthedocs.io/en/latest/customizing.html>` for
-more details.
+using nbconvert by itself.  See **[the nbconvert documentation](http://nbconvert.readthedocs.io/en/latest/customizing.html)** for more details.
 
 
 Examples of projects using bookbook
 -----------------------------------
-- `Book on Riemann solvers <http://github.com/clawpack/riemann_book>` (in development) by David Ketcheson, Mauricio del Razo, and Randall LeVeque.  This example uses a custom nbconvert template and shows how to store your notebooks with no output (for version control) while automatically executing them before running bookbook, so that PDF and HTML versions include the output.
+- **[Book on Riemann solvers](http://github.com/clawpack/riemann_book)** (in development) by David Ketcheson, Mauricio del Razo, and Randall LeVeque.  This example uses a custom nbconvert template and shows how to store your notebooks with no output (for version control) while automatically executing them before running bookbook, so that PDF and HTML versions include the output.
 
 Related tools
 -------------
