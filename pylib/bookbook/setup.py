@@ -14,7 +14,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name='bookbook2',
-    version='0.1.0',
+    version='0.1.1',
     author='Shixiang Wang',
     author_email='w_shixiang@163.com',
     description='Convert ipython notebooks to html or pdf chapters',

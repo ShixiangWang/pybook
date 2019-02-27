@@ -2,3 +2,4 @@
 """
 
 name = "bookbook2"
+__author__ = "Shixiang Wang"
