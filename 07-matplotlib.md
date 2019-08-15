@@ -1,4 +1,4 @@
-# 第7章 Matplotlib {#matplotlib}
+# 第 7 章 Matplotlib
 
 **本章内容提要**：
 
