@@ -1,4 +1,4 @@
-# 第8章 Pandas入门 {#pandas-intro}
+# 第8章 Pandas 入门 {#pandas-intro}
 
 **本章内容提要**：
 

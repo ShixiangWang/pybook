@@ -1,4 +1,4 @@
-# 第6章 NumPy {#numpy}
+# 第 6 章 NumPy {#numpy}
 
 **本章内容提要**：
 

@@ -1,4 +1,4 @@
-# 第3章 基本数据结构 {#data-structure}
+# 第 3 章 基本数据结构 {#data-structure}
 
 **本章内容提要**：
 
