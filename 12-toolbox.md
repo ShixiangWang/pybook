@@ -8,6 +8,7 @@
 - 迭代器
 - 生成器
 - 装饰器？
+- 魔术命令
 
  ### 序列解包
 
@@ -184,3 +185,42 @@ except ZeroDivisionError:
 ```
 
 
+### 利用迭代器读入大型数据集
+
+Python open() 函数本身就返回迭代器
+
+```python
+def read_large_file(file_object):
+    """A generator function to read a large file lazily."""
+
+    # Loop indefinitely until the end of the file
+    while True:
+        data = file_object.readline()
+        if not data:
+            break
+        # Yield the line of data
+        yield data
+
+with open('xxx.csv') as file:
+    gen_file = read_large_file(file)
+
+    # Print the first three lines of the file
+    print(next(gen_file))
+    print(next(gen_file))
+    print(next(gen_file))
+``` 
+
+Pandas read_csv 迭代器，使用 chunksize 选项，会生成 reader 迭代器。
+
+```python
+import pandas as pd
+
+df_reader = pd.read_csv('xxx.csv', chunksize=10)
+
+print(next(df_reader))
+print(next(df_reader))
+```
+
+### 魔术命令
+
+常见魔术命令列表，举几个最常见的作为示例

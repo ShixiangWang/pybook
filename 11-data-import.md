@@ -11,7 +11,7 @@
 
 “三军未动，粮草先行”。数据是数据分析的起点，也是数据分析的核心之一。现实世界中的数据类型是多种多样的，有来自计算机本地存储的 Excel 文件、CSV 文件中的，也有来自网页数据，专用数据库中的，还有需要调用程序 API 获取的。本章将从实际数据处理常见的类型出发，讲解如何利用工具导入它们，为后续的数据分析和可视化提供源泉。
 
-## 11.1 常见文本文件
+## 11.1 常见文件类型
 
 ### 11.1.1 CSV 文件
 
@@ -54,6 +54,15 @@ Out[3]: [['姓名', '年龄', '班级'], ['周某某', '9', '3班'], ['王某某
 
 上述代码首先创建了一个列表，作为存储文本内容的容器。之前文件保存的时候使用的是 utf-8 编码，所以打开也使用相同的编码。接着使用 readlines() 方法读入所有的行并进行 for 循环迭代。对于读入的每一行，我们首先使用 strip() 方法去掉每一行末尾的换行符，然后使用 split() 方法将内容按照英文逗号进行分割，得到子列表并将其添加到 records 列表。上述的操作都是基于文本是字符串，可以看到年龄那一栏存储的方式就是字符串，如果要做后续分析，读者需要在之前将其转换为整型。
 
+读者需要注意要打开的文件路径，这里使用 records.csv 需要保证该文件必须在 Python 的当前工作目录下才可以运行。在 IPython Shell 或 Jupyter Notebook 中，使用命令 !pwd 可以查看当前的工作目录，而 !ls 可以查看当前工作目录下的文件。
+
+```python
+In [2]: !ls
+records.csv  records.tsv  records.txt
+
+In [3]: !pwd
+/c/Shixiang/pybook/files/chapter11
+```
 
 #### 使用 csv 标准模块
 
@@ -221,12 +230,141 @@ Out[20]:
 1  王某某  10  6班
 ```
 
+从上面的代码调用来看，我们创建的 read_csv() 和 Pandas 库提供的函数是没有差别的。利用前面章节学习的知识，我们也可以修改函数，让结果都保持一致。
+
+```python
+def read_csv(file_path, sep=',', method='default'):
+    """导入 CSV 及其变体文本"""
+    res = []
+    with open(file_path, "r", encoding='utf-8') as f:
+        if method == "default":
+            for line in f.readlines():
+                res.append(line.strip().split(sep))
+        elif method == "csv":
+            print("Using csv module...")
+            import csv
+            csv_reader = csv.reader(f, delimiter=sep)
+            for row in csv_reader:
+                res.append(row)
+        else:
+            raise ValueError('不支持的导入方法！')
+    import pandas as pd
+    # 将结果转换为 DataFrame
+    res = pd.DataFrame(res[1:], columns=res[0])
+    return res
+```
+
+运行上述函数并进行测试。
+
+```python
+In [21]: read_csv('records.tsv', sep='\t', method='csv')
+Using csv module...
+Out[21]: 
+    姓名  年龄  班级
+0  周某某   9  3班
+1  王某某  10  6班
+```
+
+读者不妨试试修改要读入的文件和函数选项看看函数是否都能够正常工作。
+
 ### 11.2.3 Excel 文件
 
+尽管本书不推荐读者使用 Excel 处理和保存数据，但是因为微软系统和 Office 办公套件的流行我们总会遇见并且必须面对 Excel 文件的处理。在 Python 中，我们无法通过直接使用 open() 函数或标准模块来导入 Excel 数据，但有很多工具包提供了该功能，比较知名的有 Pandas、openpyxl、xlrd、xlutils 以及 pyexcel。
 
-## 11.2 其他文本文件
+#### 检查数据
+
+Excel 本身是微软提供的一款非常强大的数据分析软件，我们可以对 Excel 的单元格进行非常多的操作，包括设定格式、插入函数命令等。一旦我们在 Excel 中对数据进行了额外操作，我们使用 Python 进行导入时就需要额外小心，因为这种数据非常容易出错。
+
+既然是使用 Python 处理数据，那么读者提供的 Excel 数据应当尽量是规整的，具体可以参考以下几条要求进行检查：
+
+- 表格的第一行应当是列名
+- 所有的单元格尽量避免出现空格，特别是行名和列名。读者可以使用其他符号，如下划线、分号、短横杠等进行替代
+- 名字尽量简短易懂
+- 确保缺失值都使用 NA 进行标注
+
+我们知道，Excel 文件一般是以 xls 或 xlsx 作为文件拓展名。除了它们，Excel 是支持保存为其他格式的，推荐将数据导出为 CSV 文件后用前面介绍过的方法导入。
+
+#### 准备工作空间
 
 
+https://www.datacamp.com/community/tutorials/python-excel-tutorial
+
+
+### 常见设定
+
+nrows, fill_na_values
+
+## 11.2 其他文件类型
+
+用 os 模块列出当前工作目录：
+
+```python
+import os
+wd = os.getcwd()
+os.listdir(wd)
+```
+
+pickled files
+
+```python
+import pickle
+with open('xxx.pkl', 'rb') as file:
+    data = pickle.load(file)
+
+print(data)
+```
+
+SAS: Statistical Analysis System - business analytics and biostatistics
+Stata: "Statistics" + "data" - academic social sciences research
+
+```python
+import pandas as pd
+from sas7bdat import SAS7BDAT
+
+with SAS7BDAT('xxx.sas7bdat') as file:
+    df_sas = file.to_data_frame()
+```
+
+```python
+import pandas as pd
+data = pd.read_stata('xxx.dta')
+```
+
+HDF5 文件
+
+```python
+import h5py
+filename = 'xxx.hdf5'
+data = h5py.File(filename, 'r')
+print(type(data))
+
+for key in data.keys():
+    print(key)
+
+print(type(data['meta']))
+
+for key in data['meta'].keys():
+    print(key)
+
+print(data['meta']['Description'].value, data['meta']['Detector'].value)
+```
+
+MATLAB file
+
+scipy.io.loadmat() - read
+scipy.io.savemat() - write
+
+```python
+import scipy.io
+filename = 'xxx.mat'
+mat = scipy.io.loadmat(filename)
+print(type(mat))
+
+print(type(mat['x']))
+
+# keys - MATLAB variable names
+# values - objects assigned to variables
+```
 
 ## 11.3 网页数据
 
