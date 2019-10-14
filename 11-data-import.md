@@ -2,12 +2,10 @@
 
 **本章内容提要**:
 
-- 文本文件
-- 其他文件类型
-- 网页数据
-- 数据库数据
+- 常见文本类型的读写
+- 网页数据解析
+- 数据库
 - API
-- 数据导出
 
 “三军未动，粮草先行”。数据是数据分析的起点，也是数据分析的核心之一。现实世界中的数据类型是多种多样的，有来自计算机本地存储的 Excel 文件、CSV 文件中的，也有来自网页数据，专用数据库中的，还有需要调用程序 API 获取的。本章将从实际数据处理常见的类型出发，讲解如何利用工具导入它们，为后续的数据分析和可视化提供源泉。
 
@@ -267,13 +265,19 @@ Out[21]:
 
 读者不妨试试修改要读入的文件和函数选项看看函数是否都能够正常工作。
 
+#### 导出 CSV
+
+将处理后得到的结构化数据导出为 CSV 文件是保存数据的最佳方式，方便分享和再次分析。导出或者粘贴为 Excel 表格是非常不推荐的方式，Excel 会自动对输入文本进行分析和转换，虽然大部分时候这种方式简化了我们的操作，但有时候却会得到意料之外的结果，特别是在要求数据严谨的科学领域。例如，在 Excel 表格中键入 MARCH1，它是一个基因的名字，紧接着键入回车后它会被 Excel 自动转换为日期 3 月 1 号！有一篇科学研究报道称，生物医学文献中 Excel 保存的数据中，有 20% 左右的表格都出现了问题，这极大了影响了科学研究的可重复性，而且这种错误很难发现，因而会影响所有使用包含错误数据的研究。
+
+将数据保存为 CSV 文件其实是导入 CSV 文件的逆操作。
+
 ### 11.2.3 Excel 文件
 
 尽管本书不推荐读者使用 Excel 处理和保存数据，但是因为微软系统和 Office 办公套件的流行我们总会遇见并且必须面对 Excel 文件的处理。在 Python 中，我们无法通过直接使用 open() 函数或标准模块来导入 Excel 数据，但有很多工具包提供了该功能，比较知名的有 Pandas、openpyxl、xlrd、xlutils 以及 pyexcel。
 
 #### 检查数据
 
-Excel 本身是微软提供的一款非常强大的数据分析软件，我们可以对 Excel 的单元格进行非常多的操作，包括设定格式、插入函数命令等。一旦我们在 Excel 中对数据进行了额外操作，我们使用 Python 进行导入时就需要额外小心，因为这种数据非常容易出错。
+Excel 本身是微软提供的一款非常强大的数据分析软件，我们可以对 Excel 的单元格进行非常多的操作，包括设定格式、插入函数命令等。一旦我们在 Excel 中对数据进行了额外操作，我们使用 Python 进行导入时就需要额外小心，因为跟数据无关的额外信息破坏了数据的规律性，增加了文件的复杂性，所以 Python 在解析时非常容易出错。
 
 既然是使用 Python 处理数据，那么读者提供的 Excel 数据应当尽量是规整的，具体可以参考以下几条要求进行检查：
 
@@ -284,8 +288,62 @@ Excel 本身是微软提供的一款非常强大的数据分析软件，我们�
 
 我们知道，Excel 文件一般是以 xls 或 xlsx 作为文件拓展名。除了它们，Excel 是支持保存为其他格式的，推荐将数据导出为 CSV 文件后用前面介绍过的方法导入。
 
-#### 准备工作空间
+#### 准备工作
 
+在前面执行导入操作时，我们默认 IPython Shell 或 Jupyter Notebook 是在要导入文件的同一目录下启动的，此时 Python 的工作路径与文件目录一致，我们在为导入函数传入文件路径参数时只需要指定文件名即可。但更为实际的情况可能是执行的脚本、Notebook 没有和要操作的数据文件位于同一路径，一个解决办法是通过绝对路径或相对路径的方式指定文件路径，另一个办法是在 Python 程序中切换工作目录。
+
+假设 records.csv 文件有以下路径层级：C 盘中有 data 文件夹（目录），data 下有文件 records.csv，而我们在 C 盘下启动了 Jupyter Notebook 或 IPython Shell。那么 Python 如何访问 records.csv 文件路径呢？
+
+```
+C:
+├─data
+│  └─records.csv
+```
+
+绝对路径是以根目录为起始的路径，Windows 系统一般以盘符开始，如 C:；而 macOS 和 Linux 系统则以 / 开始。相对路径是指以当前路径为参考的路径。以 C: 为当前路径，文件 records.csv 的绝对路径和相对路径给出如下：
+
+```python
+# 绝对路径
+C:/data/records.csv
+# 相对路径
+data/records.csv
+```
+
+另外，我们可以通过 os 模块提供的 chdir() 函数在 Python 脚本内部切换工作目录。常见操作如下：
+
+```python
+# 导入 os
+import os
+
+# 获取当前工作目录，cwd 为 current working directory 首字母缩写
+cwd = os.getcwd()
+cwd
+
+# 更改工作目录
+os.chdir("/path/to/your/data-folder")
+
+# 列出当前目录的所有文件和子目录
+os.listdir('.')
+```
+
+#### 使用 Pandas 读写 Excel
+
+```python
+# Import pandas
+import pandas as pd
+
+# Assign spreadsheet filename to `file`
+file = 'example.xlsx'
+
+# Load spreadsheet
+xl = pd.ExcelFile(file)
+
+# Print the sheet names
+print(xl.sheet_names)
+
+# Load a sheet into a DataFrame by name: df1
+df1 = xl.parse('Sheet1')
+```
 
 https://www.datacamp.com/community/tutorials/python-excel-tutorial
 
@@ -371,5 +429,3 @@ print(type(mat['x']))
 ## 11.4 数据库数据
 
 ## 11.5 API
-
-## 11.6 数据导出与保存
