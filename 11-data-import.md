@@ -231,7 +231,7 @@ Out[20]:
 从上面的代码调用来看，我们创建的 read_csv() 和 Pandas 库提供的函数是没有差别的。利用前面章节学习的知识，我们也可以修改函数，让结果都保持一致。
 
 ```python
-def read_csv(file_path, sep=',', method='default'):
+def read_csv2(file_path, sep=',', method='default'):
     """导入 CSV 及其变体文本"""
     res = []
     with open(file_path, "r", encoding='utf-8') as f:
@@ -255,7 +255,7 @@ def read_csv(file_path, sep=',', method='default'):
 运行上述函数并进行测试。
 
 ```python
-In [21]: read_csv('records.tsv', sep='\t', method='csv')
+In [21]: read_csv2('records.tsv', sep='\t', method='csv')
 Using csv module...
 Out[21]: 
     姓名  年龄  班级
@@ -269,7 +269,80 @@ Out[21]:
 
 将处理后得到的结构化数据导出为 CSV 文件是保存数据的最佳方式，方便分享和再次分析。导出或者粘贴为 Excel 表格是非常不推荐的方式，Excel 会自动对输入文本进行分析和转换，虽然大部分时候这种方式简化了我们的操作，但有时候却会得到意料之外的结果，特别是在要求数据严谨的科学领域。例如，在 Excel 表格中键入 MARCH1，它是一个基因的名字，紧接着键入回车后它会被 Excel 自动转换为日期 3 月 1 号！有一篇科学研究报道称，生物医学文献中 Excel 保存的数据中，有 20% 左右的表格都出现了问题，这极大了影响了科学研究的可重复性，而且这种错误很难发现，因而会影响所有使用包含错误数据的研究。
 
-将数据保存为 CSV 文件其实是导入 CSV 文件的逆操作。
+将数据保存为 CSV 文件其实是导入 CSV 文件的逆操作。因此我们这里也可以提出相应的两种办法：一是结合使用 open() 和 print() 函数将数据按分隔符输出到文件；而是直接调用 Pandas 提供的 to_csv() 方法。
+
+先读入测试数据：
+
+```python
+In [3]: rds1 = read_csv('records.csv')
+In [4]: rds2 = pd.read_csv('records.csv')
+In [5]: rds1
+Out[5]: [['姓名', '年龄', '班级'], ['周某某', '9', '3班'], ['王某某', '10', '6班']]
+In [6]: rds2
+Out[6]: 
+    姓名  年龄  班级
+0  周某某   9  3班
+1  王某某  10  6班
+```
+
+如果只是简单地将数据以 CSV 格式打印到屏幕，我们可以使用下面的命令：
+
+```python
+In [13]: for row in rds1:
+    ...:     print(','.join(row))
+    ...: 
+姓名,年龄,班级
+周某某,9,3班
+王某某,10,6班
+```
+
+接下来是如何将数据打印输出到文件中，我们先看一下 print() 函数说明：
+
+```python
+In [12]: print?
+Docstring:
+print(value, ..., sep=' ', end='\n', file=sys.stdout, flush=False)
+
+Prints the values to a stream, or to sys.stdout by default.
+Optional keyword arguments:
+file:  a file-like object (stream); defaults to the current sys.stdout.    
+sep:   string inserted between values, default a space.
+end:   string appended after the last value, default a newline.
+flush: whether to forcibly flush the stream.
+Type:      builtin_function_or_method
+```
+
+可以看到，print() 函数支持参数 file 用于设定文件流，默认是系统标准输出。因此，我们可以联合 open() 函数打开一个文件 test1.csv 并进行写入：
+
+```python
+In [16]: with open('test1.csv', 'w', encoding='utf-8') as f:
+    ...:     for row in rds1:
+    ...:         print(','.join(row), file=f)
+```
+
+使用系统命令查看文件内容是否正确：
+
+```python
+In [17]: !cat test1.csv
+姓名,年龄,班级
+周某某,9,3班
+王某某,10,6班
+```
+
+这样我们就确定将数据成功导出到 CSV 文件中了。
+
+相比而言，直接使用 Pandas 的 to_csv() 方法就可以完成上面的操作：
+
+```python
+In [18]: rds2.to_csv('test2.csv')
+
+In [19]: !cat test2.csv
+,姓名,年龄,班级
+0,周某某,9,3班
+1,王某某,10,6班
+```
+
+由此可见，无论数据读写，Pandas 提供的工具更加简便直观。
 
 ### 11.2.3 Excel 文件
 
