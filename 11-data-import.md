@@ -370,7 +370,7 @@ Excel 本身是微软提供的一款非常强大的数据分析软件，我们�
 ```
 C:
 ├─data
-│  └─records.csv
+   └─records.csv
 ```
 
 绝对路径是以根目录为起始的路径，Windows 系统一般以盘符开始，如 C:；而 macOS 和 Linux 系统则以 / 开始。相对路径是指以当前路径为参考的路径。以 C: 为当前路径，文件 records.csv 的绝对路径和相对路径给出如下：
@@ -391,9 +391,13 @@ import os
 # 获取当前工作目录，cwd 为 current working directory 首字母缩写
 cwd = os.getcwd()
 cwd
+# 或者使用魔术命令 pwd
+pwd
 
 # 更改工作目录
 os.chdir("/path/to/your/data-folder")
+# 或者使用魔术命令 cd
+cd /path/to/your/data-folder
 
 # 列出当前目录的所有文件和子目录
 os.listdir('.')
@@ -401,21 +405,118 @@ os.listdir('.')
 
 #### 使用 Pandas 读写 Excel
 
+前面我们向读者介绍了 Pandas 可以非常方便地导入 CSV 文本数据，这里将了解如何使用 Pandas 读写 Excel 文件。一个 Excel 可以存储多张表格，因此读入 Excel 的操作大有不同。
+
+这里使用事先已经创建好的 Excel 文件 data.xlsx 作为示例数据，它包含了两个数据集，分别存储在两个表格中。
+
+我们首先查看下当前的工作目录，并将其切换到数据对应的目录中。
+
 ```python
-# Import pandas
-import pandas as pd
+In [2]: import os
+In [3]: os.getcwd()  # 获取当前工作目录 
+Out[3]: 'C:\\Shixiang\\pybook'
+In [4]: os.listdir('files/chapter11')  # 列出目录下的文件及子目录
+Out[4]: 
+['data.xlsx',
+ 'lung.csv',
+ 'mtcars.csv',
+ 'records.csv',
+ 'records.tsv',
+ 'records.txt',
+ 'test1.csv',
+ 'test2.csv']
 
-# Assign spreadsheet filename to `file`
-file = 'example.xlsx'
+In [5]: cd files  # 切换工作目录
+C:\Shixiang\pybook\files
+In [6]: os.getcwd()  # 获取当前工作目录
+Out[6]: 'C:\\Shixiang\\pybook\\files'
+In [7]: pwd
+Out[7]: 'C:\\Shixiang\\pybook\\files'
 
-# Load spreadsheet
-xl = pd.ExcelFile(file)
+In [8]: os.chdir('chapter11')  # 将工作目录切换为数据所在目录
+In [9]: pwd
+Out[9]: 'C:\\Shixiang\\pybook\\files\\chapter11'
+```
 
-# Print the sheet names
-print(xl.sheet_names)
+上面代码分别演示了使用 os 模块的函数和 IPython 魔术命令进行工作目录的获取和切换，下面开始进行数据的读入。
 
-# Load a sheet into a DataFrame by name: df1
-df1 = xl.parse('Sheet1')
+```python
+In [10]: import pandas as pd
+In [11]: file = 'data.xlsx'
+In [12]: xl = pd.ExcelFile(file)
+In [13]: # 打印表格名字
+In [14]: print(xl.sheet_names)
+['mtcars', 'lung']
+```
+
+我们的确可以看到 data.xlsx 文件中存在两张表名分别为 mtcars 和 lung 的表格，下面我们将这 2 个数据集解析出来。
+
+```python
+In [15]: mtcars = xl.parse('mtcars')
+In [16]: mtcars.head()  # 只查看头几行
+Out[16]: 
+    mpg  cyl   disp   hp  drat     wt   qsec  vs  am  gear  carb
+0  21.0    6  160.0  110  3.90  2.620  16.46   0   1     4     4
+1  21.0    6  160.0  110  3.90  2.875  17.02   0   1     4     4
+2  22.8    4  108.0   93  3.85  2.320  18.61   1   1     4     1
+3  21.4    6  258.0  110  3.08  3.215  19.44   1   0     3     1
+4  18.7    8  360.0  175  3.15  3.440  17.02   0   0     3     2
+
+In [17]: lung = xl.parse('lung')
+In [18]: lung.head()
+Out[18]: 
+   inst  time  status  age  ...  ph.karno  pat.karno  meal.cal  wt.loss    
+0   3.0   306       2   74  ...      90.0      100.0    1175.0      NaN    
+1   3.0   455       2   68  ...      90.0       90.0    1225.0     15.0    
+2   3.0  1010       1   56  ...      90.0       90.0       NaN     15.0    
+3   5.0   210       2   57  ...      90.0       60.0    1150.0     11.0    
+4   1.0   883       2   60  ...     100.0       90.0       NaN      0.0    
+
+[5 rows x 10 columns]
+```
+
+然后我们就可以根据前面学习过的 Pandas 知识操作它们了。
+
+现在我们假设已经分析好了数据，接下来想要把结果导出为 Excel 文件，怎么做呢？使用 Pandas 的 to_excel() 函数就可以完成。
+
+```python
+In [21]: lung.to_excel('~/测试导出.xlsx')
+```
+
+如果读者也运行了上面这个命令，快去打开家目录下的 测试导出.xlsx 文件看看成功导出没吧。
+
+该函数支持非常多的选项：
+
+```python
+In [22]: lung.to_excel?
+Signature:
+lung.to_excel(
+    excel_writer,       
+    sheet_name='Sheet1',
+    na_rep='',
+    float_format=None,  
+    columns=None,       
+    header=True,        
+    index=True,
+    index_label=None, 
+    startrow=0,       
+    startcol=0,       
+    engine=None,      
+    merge_cells=True, 
+    encoding=None,    
+    inf_rep='inf',    
+    verbose=True,     
+    freeze_panes=None,
+)
+Docstring:
+Write object to an Excel sheet.
+...
+```
+
+例如，默认的表名是 Sheet1，我们可以通过以下代码进行修改为 lung：
+
+```python
+In [23]: lung.to_excel('~/测试导出.xlsx', sheet_name='lung')
 ```
 
 https://www.datacamp.com/community/tutorials/python-excel-tutorial
