@@ -4,8 +4,7 @@
 
 - 常见文本类型的读写
 - 网页数据解析
-- 数据库
-- API
+- 读写数据库
 
 “三军未动，粮草先行”。数据是数据分析的起点，也是数据分析的核心之一。现实世界中的数据类型是多种多样的，有来自计算机本地存储的 Excel 文件、CSV 文件中的，也有来自网页数据，专用数据库中的，还有需要调用程序 API 获取的。本章将从实际数据处理常见的类型出发，讲解如何利用工具导入它们，为后续的数据分析和可视化提供源泉。
 
@@ -344,7 +343,7 @@ In [19]: !cat test2.csv
 
 由此可见，无论数据读写，Pandas 提供的工具更加简便直观。
 
-### 11.2.3 Excel 文件
+### 11.1.3 Excel 文件
 
 尽管本书不推荐读者使用 Excel 处理和保存数据，但是因为微软系统和 Office 办公套件的流行我们总会遇见并且必须面对 Excel 文件的处理。在 Python 中，我们无法通过直接使用 open() 函数或标准模块来导入 Excel 数据，但有很多工具包提供了该功能，比较知名的有 Pandas、openpyxl、xlrd、xlutils 以及 pyexcel。
 
@@ -483,7 +482,7 @@ Out[18]:
 In [21]: lung.to_excel('~/测试导出.xlsx')
 ```
 
-如果读者也运行了上面这个命令，快去打开家目录下的 测试导出.xlsx 文件看看成功导出没吧。
+如果读者也运行了上面这个命令，快去打开家目录下的“测试导出.xlsx”文件看看成功导出没吧。
 
 该函数支持非常多的选项：
 
@@ -519,54 +518,71 @@ Write object to an Excel sheet.
 In [23]: lung.to_excel('~/测试导出.xlsx', sheet_name='lung')
 ```
 
-https://www.datacamp.com/community/tutorials/python-excel-tutorial
+### 11.1.4 pickle 文件
 
+上面介绍的 CSV 文件和 Excel 文件都可以通过外部程序进行修改，这可能与某些安全程序的目的可能相悖，有时也不利于分析的可重复性。特别是 CSV 和 Excel 等文件类型都无法保存 Python 特有的数据结构，例如类。为此，Python 提供了一个标准模块 pickle 实现对一个 Python 对象结构的二进制序列化和反序列化：通过 pickle 模块的序列化操作我们能够将 Python 程序中运行的对象信息保存到文件中去，永久存储；通过pickle 模块的反序列化操作，我们能够从文件中创建上一次程序保存的对象。
 
-### 常见设定
+pickle 文件与 CSV 这种文本文件相比有几点本质的不同：
 
-nrows, fill_na_values
+- pickle 文件是二进制格式的
+- pickle 文件无法通过文本编辑器直观阅读
+- CSV 文件在 Python 系统外广泛使用，而 pickle 文件是 Python 专有的
+- pickle 文件可以保存 Python 大量的数据类型
 
-## 11.2 其他文件类型
-
-用 os 模块列出当前工作目录：
-
-```python
-import os
-wd = os.getcwd()
-os.listdir(wd)
-```
-
-pickled files
+pickle 文件的读取和保存通过 pickle 模块的 load() 和 dump() 函数实现，下面简单举例说明。
 
 ```python
-import pickle
-with open('xxx.pkl', 'rb') as file:
-    data = pickle.load(file)
-
-print(data)
+In [1]: import pickle
+In [2]: data = {'a':[1,2,3], 'b':['yes','no']}
+In [3]: with open('data.pkl', 'wb') as f:
+   ...:     pickle.dump(data, f)
 ```
 
-SAS: Statistical Analysis System - business analytics and biostatistics
-Stata: "Statistics" + "data" - academic social sciences research
+这里我们首先创建了一个字典 data，然后使用 open() 函数并以二进制写入的方式创建了文件 data.pkl，pkl 是 pickle 文件特有的拓展名，在 with 语句内部，我们使用 dump() 函数将数据写入，保证了 data.pkl 文件无论如何都会正常关闭。
+
+此处使用 pickle 文件的好处是显而易见的，这个数据并不是很好用 CSV 格式表示。另外，如果考虑使用纯文本保存，我们需要调用 for 循环，而这种情况下数据如果更复杂点就会难以还原了。
+
+导入 pickle 文件操作类似，不过我们需要把 open() 的模式设定为二进制写入 'rb'，另外是调用 load() 函数而非 dump()。
+
+```python
+In [4]: with open('data.pkl', 'rb') as file:
+   ...:     data_restore = pickle.load(file)
+   ...: 
+
+In [5]: print(data_restore)
+{'a': [1, 2, 3], 'b': ['yes', 'no']}
+```
+
+### 11.1.5 SAS 与 Stata 文件
+
+作为数据分析从业者，我们可能没有使用过 SAS 和 Stata，但肯定对它们的大名有所耳闻。SAS 是 Statistical Analysis System 的缩写，是由美国北卡罗来纳州立大学 1966 年开发的统计分析软件。经过多年来的完善和发展，SAS 在国际上已被誉为统计分析的标准软件，在各个领域得到广泛应用，尤其是商业分析以及生物统计学。Stata 则是由 Statistics 和 data 这两个词各取一部分拼接而成（与 Pandas 一词的来源相似），是一套提供其使用者数据分析、数据管理以及绘制专业图表的完整及整合性统计软件，主要用于学术研究，尤其是社会科学领域。
+
+SAS 和 Stata 作为专业的统计分析软件，它们都有自己独有的数据存储方式。SAS 目前主要使用 sas7bdat 作为文件拓展名，而 Stata 使用 dta 作为文件拓展名。
+
+sas7bdat 文件的导入需要提前安装好 sas7bdat 包。安装之后，我们通过 SAS7BDAT() 函数打开数据集文件，并调用 to_data_frame() 方法可以将文件导入为一个 Pandas 的 DataFrame 对象。
 
 ```python
 import pandas as pd
 from sas7bdat import SAS7BDAT
 
-with SAS7BDAT('xxx.sas7bdat') as file:
+# 此处 xxxx 应修改为实际文件名
+with SAS7BDAT('xxxx.sas7bdat') as file:
     df_sas = file.to_data_frame()
 ```
 
+而 dta 文件可以直接通过 Pandas 库提供的 read_stata() 函数导入。
+
 ```python
 import pandas as pd
-data = pd.read_stata('xxx.dta')
+# 此处 xxxx 应修改为实际文件名
+data = pd.read_stata('xxxx.dta')
 ```
 
-HDF5 文件
+#### 11.1.6 HDF5 文件
 
 ```python
 import h5py
-filename = 'xxx.hdf5'
+filename = 'data.hdf5'
 data = h5py.File(filename, 'r')
 print(type(data))
 
@@ -581,7 +597,7 @@ for key in data['meta'].keys():
 print(data['meta']['Description'].value, data['meta']['Detector'].value)
 ```
 
-MATLAB file
+#### 11.1.7 MATLAB 文件
 
 scipy.io.loadmat() - read
 scipy.io.savemat() - write
@@ -598,8 +614,14 @@ print(type(mat['x']))
 # values - objects assigned to variables
 ```
 
+#### 11.1.8 json 文件
+
+#### 11.1.9 yml 文件
+
 ## 11.3 网页数据
+
+XML 与 HTML 的关系简单解析
 
 ## 11.4 数据库数据
 
-## 11.5 API
+读写SQL
