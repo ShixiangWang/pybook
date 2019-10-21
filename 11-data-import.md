@@ -580,39 +580,78 @@ data = pd.read_stata('xxxx.dta')
 
 #### 11.1.6 HDF5 文件
 
+HDF（Hierarchical Data Format）指一种为存储和处理大容量科学数据设计的文件格式及相应库文件。HDF 最早由美国国家超级计算应用中心 NCSA 开发，目前在非盈利组织 HDF 小组维护下继续发展。当前流行的版本是 HDF5。HDF5 拥有一系列的优异特性，使其特别适合进行大量科学数据的存储和操作，如它支持非常多的数据类型，灵活，通用，跨平台，可扩展，高效的 I/O 性能，支持几乎无限量的单文件存储等。它的官网地址为：https://support.hdfgroup.org/HDF5/。
+
+在正式学习如何导入和操作 HDF5 文件之前，我们先来了解下它的主要特点。
+
+一个 HDF5 文件是存储两类对象的容器，这两类对象分别为：
+
+- dataset：类似数组的数据集合；
+- group；结构类似目录的容器，其中可以包含一个或多个 dataset 及其它的 group。
+
+一个 HDF5 文件从一个命名为 "/" 的 group 开始，所有的 dataset 和其它 group 都包含在此 group 下。当操作 HDF5 文件时，如果没有显式指定 group 的 dataset 都是默认指 "/" 下的 dataset。
+
+HDF5 文件的 dataset 和 group 都可以拥有描述性的元数据，称作 attribute（属性）。
+
+Python 中有一系列的工具可以操作和使用 HDF5 数据，其中最常用的是 h5py 和 PyTables。用 h5py 操作 HDF5 文件，我们可以像使用目录一样使用 group，像使用 NumPy 数组一样使用 dataset，像使用字典一样使用属性，非常方便和易用。
+
+接下来具体介绍如何使用 h5py 进行导入时间序列数据，并进行简单的可视化。
+
 ```python
-import h5py
-filename = 'data.hdf5'
-data = h5py.File(filename, 'r')
-print(type(data))
-
-for key in data.keys():
-    print(key)
-
-print(type(data['meta']))
-
-for key in data['meta'].keys():
-    print(key)
-
-print(data['meta']['Description'].value, data['meta']['Detector'].value)
+In [6]: import h5py
+In [7]: import numpy as np
+In [8]: import matplotlib.pyplot as plt
+In [9]: filename = 'data.hdf5'
+In [10]: data = h5py.File(filename, 'r')  # 读入 data.hdf5
+In [11]: print(type(data))  # 查看对象类型
+<class 'h5py._hl.files.File'>
+In [12]: group = data['strain']  # 获取 HDF5 的 group
+In [13]: # 检查 group 的键
+In [13]: for key in group.keys():
+    ...:     print(key)
+    ...: 
+Strain
+In [14]: # 获取数据集的值
+In [14]: strain = data['strain']['Strain'].value
+In [15]: # 设定采样数
+    ...: s
+    ...: num_samples = 10000
+    ...: 
+    ...: # 设定时间向量
+    ...: time = np.arange(0, 1, 1/num_samples)
+In [16]: # 绘图
+    ...: plt.plot(time, strain[:num_samples])
+    ...: plt.xlabel('GPS Time (s)')
+    ...: plt.ylabel('strain')
+    ...: plt.show()
 ```
+
+结果图形如图11-1所示。
+
+![图11-1 HDF5 存储的时间序列数据可视化](images/chapter11/hdf5_time_series.png)
+
+上述代码将 HDF5 文件导入为一个 h5py 类实例，该对象有自己一套操作方法，读者仅仅依靠上面这个简单的例子不足以掌握它们，如果读者比较感兴趣，请通过网络资料或其他参考书籍自行学习和练习。
 
 #### 11.1.7 MATLAB 文件
 
-scipy.io.loadmat() - read
-scipy.io.savemat() - write
+MATLAB 是 matrix 和 laboratory 两个词的组合，译作矩阵实验室。它是由美国mathworks 公司发布的主要面对科学计算、可视化以及交互式程序设计的高科技计算环境。MATLAB 主要应用于科学计算、工程技术等领域，与工业界结合非常紧密，也是深度学习应用的主要平台之一。
+
+MATLAB 所使用的数据格式以 mat 为文件拓展名，在 Python 中可以通过来自 scipy.io 模块中的 loadmat() 和 savemat() 函数进行读写。下面的代码片段提供了一个数据导入的操作范例。
 
 ```python
 import scipy.io
 filename = 'xxx.mat'
+# 读入 mat 文件
 mat = scipy.io.loadmat(filename)
 print(type(mat))
-
+# mat['x'] 中的 x 是
+# MATLAB 文件中的变量 x，
+# mat['x'] 是 变量 x 的值
 print(type(mat['x']))
-
-# keys - MATLAB variable names
-# values - objects assigned to variables
+print(mat['x'])
 ```
+
+不难理解，mat 文件中存储的变量名和相应值（来自 MATLAB）转换为了 Python 中的键值对形式。
 
 #### 11.1.8 json 文件
 
