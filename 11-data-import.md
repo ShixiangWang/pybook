@@ -745,7 +745,13 @@ Out[13]:
 
 用法的确是这样的。利用 dump() 函数和类似的操作，读者不妨试试将 Python 对象导出保存为 JSON 文件。
 
-#### 11.1.9 yml 文件
+#### 11.1.9 YAML 文件
+
+https://stackoverflow.com/questions/1773805/how-can-i-parse-a-yaml-file-in-python
+
+https://www.jianshu.com/p/eaa1bf01b3a6
+
+Technically YAML is a superset of JSON. This means that, in theory at least, a YAML parser can understand JSON, but not necessarily the other way around.
 
 ## 11.3 网页数据
 
