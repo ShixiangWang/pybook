@@ -674,17 +674,76 @@ JSON 的语法规则如下：
 
 ```json
 {
-"sites": [
-{ "名字": "Mike Wang" , "个人主页":"www.xxx.com" },
-{ "名字": "Mike Zhang" , "个人主页":"www.xx1.com" },
-{ "名字": "Mike Li" , "个人主页":"www.xx2.com" }
-]
-}
+    "sites": [
+        { "名字": "Mike Wang" , "个人主页":"www.xxx.com" },
+        { "名字": "Mike Zhang" , "个人主页":"www.xx1.com" },
+        { "名字": "Mike Li" , "个人主页":"www.xx2.com" }
+        ]
+    }
 ```
 
-不难发现，这种结构在 Python 中就是列表和字典的嵌套。
+不难发现，这种结构在 Python 中就是列表和字典的嵌套，因此使用 Python 非常容易完成 JSON 的解析。Python 提供了一个标准模块 json 专门处理这项工作，其中 loads()、load() 函数用于将 JSON 结构解析为 Python 对象，dumps()、dump() 函数用于将 Python 对象解析为 JSON 结构。这里，带 s 结尾的函数的用处是处理非文本对象，而不带 s 结尾的函数用处是处理文件，请读者注意区分。
 
+我们先通过一个简单的示例了解 loads() 和 dumps() 两个函数的用法。
 
+```python
+In [1]: import json
+In [2]: json_data = '{ "名字": "Mike Wang" , "个人主页":"www.x 
+   ...: xx.com" }'
+In [3]: json.loads(json_data)  # 解析 json 数据为字典
+Out[3]: {'名字': 'Mike Wang', '个人主页': 'www.xxx.com'}       
+In [4]: data = json.loads(json_data)
+In [5]: json.dumps(data)  # 将字典解析为 json 数据
+Out[5]: '{"\\u540d\\u5b57": "Mike Wang", "\\u4e2a\\u4eba\\u4e3b\\u9875": "www.xxx.com"}'
+```
+
+Python 与 JSON 的对应关系如下表所示：
+
+| Python 对象  | JSON 等价物  |
+|---|---|
+| 字典 | 对象 |
+| 列表、元组| 数组|
+| 字符串 | 字符串 |
+| 数值 | 数值 |
+| True | true |
+| False | false |
+| None | null |
+
+下面是一些简单的测试：
+
+```python
+In [7]: json.dumps([1, 2, 3])
+Out[7]: '[1, 2, 3]'
+In [8]: json.dumps(True)
+Out[8]: 'true'
+In [9]: json.dumps(None)
+Out[9]: 'null'
+In [10]: json.dumps(('a', 'b', 'c'))
+Out[10]: '["a", "b", "c"]'
+```
+
+load() 和 dump() 这两个函数的输入是文本对象，读者根据前面所学的知识可以推测使用下面的代码应该可以导入 JSON 文件。
+
+```python
+with open('xxx.json') as f:
+  data = json.load(f)
+```
+
+现在我们试一试：
+
+```python
+In [12]: with open('files/chapter11/data.json', 'r', encoding= 
+    ...: 'utf-8') as f:
+    ...:     data = json.load(f)
+    ...: 
+In [13]: data
+Out[13]: 
+{'sites': [{'名字': 'Mike Wang', '个人主页': 'www.xxx.com'},   
+  {'名字': 'Mike Zhang', '个人主页': 'www.xx1.com'},
+  {'名字': 'Mike Li', '个人主页': 'www.xx2.com'}]}
+```
+
+用法的确是这样的。利用 dump() 函数和类似的操作，读者不妨试试将 Python 对象导出保存为 JSON 文件。
 
 #### 11.1.9 yml 文件
 
