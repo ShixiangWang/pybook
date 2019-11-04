@@ -1,0 +1,22 @@
+user1:
+  type: user
+  name: a
+  password: 123
+user2:
+  type: user
+  name: b
+  password: 456
+user3:
+  type: group
+  name:
+    - aa
+    - bb
+    - cc
+  password:
+    - 123
+    - 456
+    - null
+summary:
+  - user1
+  - user2
+  - user3

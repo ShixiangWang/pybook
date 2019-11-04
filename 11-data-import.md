@@ -747,16 +747,336 @@ Out[13]:
 
 #### 11.1.9 YAML 文件
 
-https://stackoverflow.com/questions/1773805/how-can-i-parse-a-yaml-file-in-python
+YAML 是 "Yet Another Markup Language"（仍是一种标记语言）的缩写，它常见于配置文件，如 Markdown 文档的文件头元信息注释就常常采用 YAML 格式。YAML 可以简单表达清单、散列表，标量等数据形态。它使用空白符号缩进和大量依赖外观的特色，巧妙避开各种封闭符号，如：引号、各种括号等，这些符号在嵌套结构时会变得复杂而难以辨认，因而特别适合用来表达或编辑数据结构、各种配置文件、倾印调试内容、文件大纲。
 
-https://www.jianshu.com/p/eaa1bf01b3a6
+下面是一个 YAML 格式的简单示例：
 
-Technically YAML is a superset of JSON. This means that, in theory at least, a YAML parser can understand JSON, but not necessarily the other way around.
+```yaml
+a string: bla
+another dict:
+  foo: bar
+  key: value
+  the answer: 42
+```
+
+YAML 与 JSON 格式的关系很亲密，JSON 的语法是 YAML 1.2 版的子集，因此大部分的 JSON 文件都可以被 YAML 的剖析器剖析。虽然 YAML 也可以采用类似 JSON 的写法，不过 YAML 标准并不建议这样使用，除非这样编写能让文件可读性增加。
+
+YAML 遵循以下规则：
+
+- 使用英文井号进行注释标识，这与 Python 一致；
+- 使用缩进表示层级关系，并只能使用空格缩进，不能使用制表符；
+- 区分大小写；
+- 缩进的空格数目不固定，只需要相同层级的元素左侧对齐；
+- 文件中的字符串不需要使用引号标注，但若字符串包含有特殊字符则需用引号标注；
+
+这里提醒读者注意第二点，因为 Python 是同时支持空格和制表符缩进的，只要在书写代码块时保持一致即可，而 YAML 不支持制表符缩进，这样如果我们工作时同时编辑和处理 Python 和 YAML 文件时稍不注意 YAML 可能会产生意想不到的语法错误。最好的解决办法是对代码编辑器设定将制表符转换为特定数目的空格符，一般是 4 个或者 2 个，这样我们就可以对所有文件使用制表符缩进了。具体的办法请读者自行搜索解决。
+
+YAML 支持的数据结构如下：
+
+- 对象：键值对的集合，类似 Python 中的字典；
+- 数组：一组按序排列的值，简称 "序列或列表"。数组前加有 “-” 符号，符号与值之间需用空格分隔；
+- 标量：单个的、不可再分的值，如：字符串、bool 值、整数、浮点数、时间、日期、null 等；
+- None：空值，用 null 或 ~ 表示。
+
+下面是常见标量的表示方式：
+
+```yaml
+字符串: name
+特殊: "name\n"
+数值: 3.14
+布尔值: true
+空值: null
+空值2: ~
+时间值: 2019-11-11t11:33:22.55-06:00
+日期值: 2019-11-11
+```
+
+Python 提供了 yaml 模块以进行 YAML 文件的解析，使用方法和函数名都与 json 类似，即使用文件操作函数 open() 文件，使用 safe_load() 解析 YAML 文件（load() 函数也可以使用，但不安全），使用 dump() 保存 YAML 文件。
+
+下面就 YAML 文件的导入举两个例子，导出与操作 JSON 文件一致，因而不再赘述。
+
+第一个例子是将上面展示的标量表示方式保存到 YAML 文件 data1.yml 中（YAML 一般以 .yml 作为文件拓展名），我们使用 Python yaml 模块解析看看它们在 Python 的表现方式。
+
+```python
+In [1]: import yaml
+In [2]: with open('files/chapter11/data1.yml', encoding='utf-8') as f:
+    ...:     data = yaml.safe_load(f)
+    ...: 
+In [3]: data
+Out[3]: 
+{'字符串': 'name',
+ '特殊': 'name\n',
+ '数值': 3.14,
+ '布尔值': True,
+ '空值': None,
+ '空值2': None,
+ '时间值': datetime.datetime(2019, 11, 11, 17, 33, 22, 550000),        
+ '日期值': datetime.date(2019, 11, 11)}
+```
+
+结果显示是一个 Python 字典，每一行的内容都转换为了一个键值对。
+
+我们再观察一个嵌套键值对和数组的结果。
+
+```python
+user1:
+  type: user
+  name: a
+  password: 123
+user2:
+  type: user
+  name: b
+  password: 456
+user3:
+  type: group
+  name:
+    - aa
+    - bb
+    - cc
+  password:
+    - 123
+    - 456
+    - null
+summary:
+  - user1
+  - user2
+  - user3
+```
+
+上面我们虚构了一组简单地用户管理数据，用户 user1 和 user1 是个体用户，user3 是群组用户。
+
+```python
+In [12]: with open('files/chapter11/data2.yml', encoding='utf-8') as f:        
+    ...:     data = yaml.safe_load(f)
+    ...: 
+
+In [13]: data
+Out[13]: 
+{'user1': {'type': 'user', 'name': 'a', 'password': 123},
+ 'user2': {'type': 'user', 'name': 'b', 'password': 456},
+ 'user3': {'type': 'group',
+  'name': ['aa', 'bb', 'cc'],
+  'password': [123, 456, None]},
+ 'summary': ['user1', 'user2', 'user3']}
+ ```
+
+ 读者不妨对比上一小节介绍的 JSON 和本节介绍的 YAML，从视觉感官来看，虽然两者都比较容易看懂，YAML 的写法更加易读，而 JSON 的写法更加容易和 Python 解析后展示的结果直观对应起来。可能就是这种差异让出处相同、用处相同的两者在实际的应用方向上存在差异：JSON 常用于数据交换（机器解读），而 YAML 常用作配置文件（人类编辑）。
 
 ## 11.3 网页数据
 
-XML 与 HTML 的关系简单解析
+网页数据的解析常与一个广泛流行的领域“爬虫”相关联。本书不会对涉及爬虫技术的解读，但有必要向读者简单介绍下网页数据格式和简单的处理办法。
+
+我们目前所浏览的网页全部是一种叫作“超文本标记语言”（HyperText Markup Language），简称 HTML 的文件。超文本是一种组织信息的方式，它包括一系列标签．通过这些标签可以将网络上的文档格式统一，文字、图表与其他信息媒体相关联。这些相互关联的信息媒体可能在同一文本中，也可能是其他文件，或是地理位置相距遥远的某台计算机上的文件。
+
+如果我们在本地浏览 HTML 文件，它就是一个简单的带有各种标签的文本，它必须在浏览器上运行和被浏览器解析才能观察到相应的网页效果。
+
+下面是一个简单的 HTML 文件内容，它设定了一个网页的标题、内容标题和段落文字。
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>一个网页</title>
+</head>
+<body>
+    <h1>第一个标题</h1>
+    <p>第一个段落。</p>
+</body>
+</html>
+```
+
+读者可以将它存储到一个以 .html 作为文件拓展名的文件中，然后用浏览器打开它查看网页的显示效果。
+
+虽然内容比较短，但我们也可以轻易地从中发现 HTML 格式的规律，它使用的大部分标签都是以 \<tag> 的形式开始，以 \</tag> 的形式结束，它的标签作用一般由对应的英文所展示，所以也比较容易理解。
+
+进一步，如果我们如果把这些标签想象为树的结构，可以得到以下的信息：
+
+```
+html
+|__ head
+|   |__ title: 一个网页
+|
+|__ body
+    |__ h1: 第一个标题
+    |__ p: 第一个段落
+```
+
+当然，我们上网浏览的网页都比这要复杂得多。互联网中，HTML 这种树结构中存储着巨量的信息，作为数据分析人员我们有时候不可避免要面对解析它们。
+
+Python 标准模块 html.parser 提供一个简单的 HTML 解析器，这个模块定义了一个 HTMLParser 类，该类的实例用来接受 HTML 数据，并在标记开始、标记结束、文本、注释和其他元素标记出现的时候调用对应的方法。要实现具体的行为，我们需要使用 HTMLParser 的子类并重载其方法。
+
+下面是一个来自 Python 官方文档的示例：
+
+```python
+In [1]: from html.parser import HTMLParser
+   ...: 
+   ...: class MyHTMLParser(HTMLParser):
+   ...:     def handle_starttag(self, tag, attrs):
+   ...:         print("Encountered a start tag:", tag)
+   ...: 
+   ...:     def handle_endtag(self, tag):
+   ...:         print("Encountered an end tag :", tag)
+   ...: 
+   ...:     def handle_data(self, data):
+   ...:         print("Encountered some data  :", data)
+   ...: 
+   ...: parser = MyHTMLParser()
+   ...: parser.feed('<html><head><title>Test</title></head>'
+   ...:             '<body><h1>Parse me!</h1></body></html>')
+Encountered a start tag: html
+Encountered a start tag: head
+Encountered a start tag: title
+Encountered some data  : Test
+Encountered an end tag : title
+Encountered an end tag : head
+Encountered a start tag: body
+Encountered a start tag: h1
+Encountered some data  : Parse me!
+Encountered an end tag : h1
+Encountered an end tag : body
+Encountered an end tag : html
+```
+
+接下来我们试着用这个解析器解析上面的 HTML 文件。
+
+```python
+In [2]: with open('files/chapter11/data.html', encoding='utf=8') as f:
+   ...:    parser.feed(f.read())
+   ...: 
+Encountered some data  :
+
+Encountered a start tag: html
+Encountered some data  :
+
+Encountered a start tag: head
+Encountered some data  :
+
+Encountered a start tag: meta
+Encountered some data  :
+
+Encountered a start tag: title
+Encountered some data  : 一个网页
+Encountered an end tag : title
+Encountered some data  :
+
+Encountered an end tag : head
+Encountered some data  :
+
+Encountered a start tag: body
+Encountered some data  :
+
+Encountered a start tag: h1
+Encountered some data  : 第一个标题
+Encountered an end tag : h1
+Encountered some data  :
+
+Encountered a start tag: p
+Encountered some data  : 第一个段落。
+Encountered an end tag : p
+Encountered some data  :
+
+Encountered an end tag : body
+Encountered some data  :
+
+Encountered an end tag : html
+Encountered some data  :
+```
+
+通过对上述程序增加判断语句，我们可以提取自己感兴趣的数据。不过对于 Python 初学者来说，我们有更好的选择，那就是大名鼎鼎的 BeautifulSoup 包。
+
+例如，我们要提取上面 h1 标签存储的信息：
+
+```python
+In [3]: from bs4 import BeautifulSoup
+In [4]: with open('files/chapter11/data.html', encoding='utf=8') as f:
+   ...:    html_data = f.read()
+In [5]: parsed_html = BeautifulSoup(html_data)  # 构建数据对象
+In [6]: parsed_html.body.find('h1').text        # 查找 h1 并获取内容
+Out[6]: '第一个标题'
+```
+
+爬虫技术和 BeautifulSoup 包的使用方法实在太过丰富，HTML 也是一门语言，因为一时难以详尽，本书都不宜进行过多介绍。感兴趣的读者请阅读官方网站 https://www.crummy.com/software/BeautifulSoup/ 和购买专业的爬虫技术书籍进行学习。
 
 ## 11.4 数据库数据
 
-读写SQL
+本章的最后一节本书对读写数据库进行简单的介绍。商业分析的工作者通常需要掌握数据库操作，而数据科学家们则比较少使用数据库。
+
+J.Martin 给数据库下了一个比较完整的定义：
+
+> 数据库是存储在一起的相关数据的集合，这些数据是结构化的，无有害的或不必要的冗余，并为多种应用服务；数据的存储独立于使用它的程序；对数据库插入新数据，修改和检索原有数据均能按一种公用的和可控制的方式进行。当某个系统中存在结构上完全分开的若干个数据库时，则该系统包含一个“数据库集合”。
+
+使用数据库可以带来许多好处：如减少了数据的冗余度，从而大大地节省了数据的存储空间；实现数据资源的充分共享等等。
+
+目前数据库可以分为两类：
+
+- 关系型数据库 - 指采用了关系模型来组织数据的数据库。关系模型指的就是二维表格模型，而一个关系型数据库就是由二维表及其之间的联系所组成的一个数据组织。简单地说，它的数据格式就像含有多张紧密表格的 Excel 文件。当前主流的关系数据库有 Oracle，Microsoft SQL Server、MySQL、PostgreSQL、DB2、Microsoft Access、SQLite、Teradata、MariaDB、SAP 等；
+- 非关系型数据库 - 指非关系型的，分布式的。非关系型数据库以键值对存储，且结构不固定，每一个元组可以有不一样的字段，每个元组可以根据需要增加一些自己的键值对，不局限于固定的结构，可以减少一些时间和空间的开销。其实就是本书在前面介绍过的 JSON 格式。非关系数据库的主要代表有 Redis、Amazon DynamoDB、Memcached、Microsoft Azure Cosmos DB。
+
+关系型数据库都是需要通过 SQL 语句进行操作，SQL 是结构化查询语言（Structured Query Language）的缩写，它是一种具有特定用途的编程语言，用于存取数据以及查询、更新和管理关系数据库系统。因而关系型数据库通常被称为 SQL 数据库，而非关系型数据库则称为 NoSQL 数据库。SQL 的内容超出本书范围，请读者参考网络资料和专业书籍进行学习。
+
+大部分的数据库都是由商业公司发布，体积都比较庞大，安装麻烦，而且有的需要收费。目前主流还是关系型数据库，下面选择 SQLite 进行学习。SQLite 是开源软件，实现了自给自足的、无服务器的、零配置的、事务性的 SQL 数据库引擎，在世界上部署最为广泛。
+
+在 Python 中使用 SQLite 需要 sqlite3 模块。下面的代码展示了如何创建（连接）数据库、创建游标、创建表格、对表格操作、提交修改、关闭数据库整个流程。所有的数据库都遵循相似的操作流程。
+
+```python
+# 导入模块
+import sqlite3 
+# 连接数据库 
+connection = sqlite3.connect("data.db") 
+# 创建游标
+crsr = connection.cursor() 
+# 对数据库使用 SQL 语句创建表格
+sql_command = """CREATE TABLE emp (  
+staff_number INTEGER PRIMARY KEY,  
+fname VARCHAR(20),  
+lname VARCHAR(30),  
+gender CHAR(1),  
+joining DATE);"""
+# 执行 SQL 语句
+crsr.execute(sql_command) 
+# 使用 SQL 语句在表格中插入数据
+sql_command = """INSERT INTO emp VALUES (23, "Rishabh", "Bansal", "M", "2014-03-28");"""
+crsr.execute(sql_command) 
+# 再次插入数据
+sql_command = """INSERT INTO emp VALUES (1, "Bill", "Gates", "M", "1980-10-28");"""
+crsr.execute(sql_command) 
+# 提交修改到数据库（如果不执行该操作，上面的修改将不会保存）
+connection.commit() 
+# 关闭数据库连接
+connection.close() 
+```
+
+现在我们已经创建数据并存储在数据库中，当我们需要使用这些数据时，就可以连接数据库并获取数据，下面展示了数据获取的流程。
+
+```python
+# 导入模块
+import sqlite3 
+# 连接 data 数据库
+connection = sqlite3.connect("data.db") 
+# 创建游标
+crsr = connection.cursor() 
+# 从表格 emp 中查询数据
+crsr.execute("SELECT * FROM emp")  
+# 将数据存储到 ans 变量
+ans= crsr.fetchall()  
+# 循环打印数据
+for i in ans: 
+    print(i) 
+# 关闭数据库连接
+connection.close() 
+```
+
+不难看出，操作数据库有一个通用的模式：
+
+- 导入需要的模块
+- 连接数据库
+- 创建游标对象
+- 执行数据操作，主要是执行 SQL 语句
+- 关闭数据库连接
+
+## 11.5 章末小结
+
+- 常见文本类型的读写
+- 网页数据解析
+- 读写数据库
