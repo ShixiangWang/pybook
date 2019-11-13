@@ -131,34 +131,99 @@ globals函数返回全局变量字典，而locals返回局部变量的字典。
 
 ### 函数式编程
 
-TODO: 截图 71
+函数式编程是一种以函数为基础的编程方式，函数的使用方法和其他对象基本一样，可以分配给变量，作为参数传递以及从其他函数返回。尽管Python不倚重函数，但也可以进行函数式程序设计。
 
-闭包：函数工厂
+函数式编程的一个关键部分是高阶函数。高阶函数以函数作为参数，或者以函数作为返回结果。
 
-返回函数。
+```python
+def do_twice(func, args):
+    return fun(func(args))
 
+def add_two(x):
+    return x + 2
+
+print(do_twice(add_two, 1))
 ```
+
+```python
 def multiplier(factor):
     def multiplyByFactor(number):
         return number*factor
     return multiplyByFactor
 ```
 
-函数的使用方法和其他对象基本一样，可以分配给变量，作为参数传递以及从其他函数返回。
-尽管Python不倚重函数，但也可以进行函数式程序设计。
+闭包：函数工厂
+
+函数式编程需要使用纯函数。纯函数没有副作用并且返回值只依赖于它的参数。
+
+```python
+# Pure function
+def pure_func(x, y):
+    return x + y * x
+
+# Impure function
+# 这个函数改变了 a_list 的状态
+# 所以不是纯函数
+a_list = []
+def impure_func(args):
+    a_list.append(args)
+```
+
+使用纯函数有一些优点，也有一些缺点。
+
+纯函数
+
+- 更容易推断和测试
+- 更高效
+- 更容易并行
+
+不过有时候比较难写，另外一些事情情况需要函数的副作用而纯函数无法提供该特性。
+
+lambda 表达式可以创建匿名函数 （第八章有简单使用过）
+
+lambda 函数可以赋给变量，并且可以向正常函数一样使用。不过这种情况使用 def 定义函数更好。
+
+```python
+double = lambda x: x * 2
+print(double(4))
+```
 
 这里要提到一些有用函数
 
-map 将序列中的元素全部传递给一个函数 
+
+内置函数 map()、filter() 以及 reduce() 都是非常实用的用于操作可迭代对象（如列表、元组）的高阶函数。
+
+map 将序列中的元素全部传递给一个函数，并返回一个可迭代对象
+
+```python
+def double(x):
+    return x * 2
+
+
+data = [11, 22, 33, 44]
+res = map(double, data)
+
+print(list(res))
+```
+
+这里可以直接使用匿名函数：
+
+```
+print(list(map(lambda x: x* 2, data)))
+```
 
 filter 基于一个返回布尔值的函数对元素进行过滤
 
-上面两者可以用列表推导式替换
-
-lambda 表达式可以创建匿名函数
+```python
+list(filter(lambda x: x % 2 == 0, data))
+```
 
 reduce （使用函数聚合）
 
+
+### 生成器
+
+TODO P65
 
 
 ### 捕获异常
