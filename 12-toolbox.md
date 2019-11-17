@@ -55,14 +55,14 @@ AssertionError: a is not equal to 10
 
 用于动态编程。
 
-```
+```python
 >>> exec("print('Hello world')")
 Hello world
 ```
 
 它可能会干扰命名空间（作用域）
 
-```
+```python
 >>> from math import sqrt
 >>> exec('sqrt = 1')
 >>> sqrt(4)
@@ -73,7 +73,7 @@ TypeError: 'int' object is not callable
 
 可以指定命名空间来避免
 
-```
+```python
 >>> scope = {}
 >>> exec('sqrt = 1', scope)
 >>> scope['sqrt']
@@ -82,7 +82,7 @@ TypeError: 'int' object is not callable
 
 exec 语句会执行一系列 Python 语句，而 eval 计算以字符串形式书写的表达式，并返回结果值。
 
-```
+```python
 >>> eval('sqrt = 1')
 Traceback (most recent call last):
   File "<stdin>", line 1, in <module>
@@ -96,7 +96,7 @@ SyntaxError: invalid syntax
 
 eval 也可以使用命名空间。
 
-```
+```python
 >>> scope = {}
 >>> scope['x'] = 2
 >>> scope['y'] = 3
@@ -107,7 +107,7 @@ eval 也可以使用命名空间。
 
 ### 作用域
 
-```
+```python
 >>> x = 1
 >>> scope = vars()
 >>> scope['x']
@@ -119,7 +119,7 @@ eval 也可以使用命名空间。
 <class 'dict'>
 ```
 
-在执行 x = 1 赋值语句后，符号 x 引用到值 1.这就像字典一样，键引用值。当然，变量和所对应的值用的时一个不可见的字典，实际上这已经很接近真实情况，内建的 vars 函数可以返回这个字典。
+在执行 x = 1 赋值语句后，符号 x 引用到值 1。这就像字典一样，键引用值。当然，变量和所对应的值用的时一个不可见的字典，实际上这已经很接近真实情况，内建的 vars 函数可以返回这个字典。
 
 这个就叫做命名空间或作用域。除了全局作用域外，每个函数调用都会创建一个新的作用域。
 
@@ -219,6 +219,72 @@ list(filter(lambda x: x % 2 == 0, data))
 ```
 
 reduce （使用函数聚合）
+
+### itertools 模块
+
+itertools 是 Python 的一个标准库，提供了许多用于函数式编程的函数。
+
+其中一类函数用于生成无限迭代器，包括 count()、cycle() 和 repeat()。
+
+- count() 函数从一个数开始计数到无限
+- cycle() 函数无限迭代一个可迭代对象（如列表或字符串）
+- repeat() 函数重复一个序列有限或无限次
+
+下面以 count() 作为简单示例：
+
+```python
+In [22]: for i in count(11): 
+    ...:     print(i) 
+    ...:     if i > 20: 
+    ...:         break 
+    ...:                                                                  
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+```
+
+上面代码输出了序列 11-21，因为是无限迭代器，所以需要通过 break 辅助跳出循环。
+
+itertools 库中也有一些类似 map() 和 filter() 的函数，如 takewhile() 函数可以从可迭代对象中根据预测函数提取元素，chain() 函数可以将多个可迭代对象串联为一个，accumulate() 函数可以对可迭代对象求和。下面代码仅作简单的示例。
+
+```python
+In [23]: from itertools import chain, takewhile, accumulate 
+In [24]: list(chain(list(range(1,5)), list(range(6,10))))                 
+Out[24]: [1, 2, 3, 4, 6, 7, 8, 9]
+In [25]: nms = list(accumulate(range(20)))                                
+In [26]: nms                                                              
+Out[26]: 
+[0,
+ 1,
+ 3,
+ 6,
+ 10,
+ 15,
+ 21,
+ 28,
+ 36,
+ 45,
+ 55,
+ 66,
+ 78,
+ 91,
+ 105,
+ 120,
+ 136,
+ 153,
+ 171,
+ 190]
+In [27]: print(list(takewhile(lambda x: x <= 10, nms)))                   
+[0, 1, 3, 6, 10]
+```
 
 
 ### 生成器
@@ -482,6 +548,8 @@ df_reader = pd.read_csv('xxx.csv', chunksize=10)
 print(next(df_reader))
 print(next(df_reader))
 ```
+
+### 正则表达式
 
 ### 魔术命令
 
