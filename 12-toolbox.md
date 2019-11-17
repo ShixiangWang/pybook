@@ -223,7 +223,118 @@ reduce （使用函数聚合）
 
 ### 生成器
 
-TODO P65
+生成器是一类像列表、元组的可迭代对象。生成器不像列表支持索引，但是同样可以使用 for 循环进行迭代（可迭代对象都可以使用 for 循环迭代，这是迭代器的一个特性）。
+
+创建生成器的方式比较特别，需要使用函数和一个新的关键字 yield。下面我们看一个生成 1-9 序列的例子。
+
+```python
+In [1]: def range2(i): 
+   ...:     while i > 0: 
+   ...:         yield i 
+   ...:         i -= 1 
+   ...:                                                                   
+In [2]: for x in range2(9): 
+   ...:     print(x) 
+   ...:                                                                   
+9
+8
+7
+6
+5
+4
+3
+2
+1
+In [3]: range2(9)                                                         
+Out[3]: <generator object range2 at 0x7fde103f1f50>
+In [4]: range(1, 10)                                                      
+Out[4]: range(1, 10)
+```
+
+从 for 循环中的使用来看，跟列表和元组完全没有差别，但 range2() 的结果跟我们学习过的 range() 是相似的，它们返回的是对象而非实际的序列。我们可以直接使用 list() 显式地将生成器转换为列表。
+
+```python
+In [5]: list(range(1, 10))                                                
+Out[5]: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+In [6]: list(range2(9))                                                   
+Out[6]: [9, 8, 7, 6, 5, 4, 3, 2, 1]
+```
+
+这里读者可能会有点困惑，生成器和列表到底有什么区别呢？这里的关键在于理解生成器的一个特性：它是惰性求值的。我们再来观察下 range2() 函数：
+
+```python
+def range2(i): 
+    while i > 0: 
+        yield i 
+        i -= 1 
+```
+
+相比于直接返回要生成的序列，这里我们定义了计算下一个值的规则，即 i -= 1，在调用该生成器后，计算机不会立马执行所有的计算，而是存储该规则，等待我们需要时再执行，这一点我们可以利用 next() 函数进行验证。
+
+```python
+In [7]: a = range2(10)     
+In [8]: next(a)                                                           
+Out[8]: 10
+In [9]: next(a)                                                          
+Out[9]: 9
+```
+
+这种按需计算的方式显著地提升了计算的性能，一方面生成器降低了内存的使用（文件不需要一次性读入），另一方面我们不必等待所有的序列生成后才能开始使用。读者可能没有发现，文件的读取使用的就是生成器，open() 函数读入的对象需要逐行存储或计算，并非一次性存储到内存中。
+
+### 修饰器
+
+修饰器是一种可以修饰（改）其他函数的函数，这在不更改原函数的情况下拓展原函数的特性非常好用。例如，我们想要在一个函数调用运行前后添加信息输出。
+
+我们创建一个函数 hello() 代表实际的工作函数，创建修饰器 add_text() 用来完成对 hello() 的额外修饰。
+
+```python
+In [16]: def add_text(func): 
+    ...:     def wrap(): 
+    ...:         print("== This is head of function ==") 
+    ...:         func() 
+    ...:         print("== This is the end of function ==") 
+    ...:     return wrap 
+    ...:  
+    ...: def hello(): 
+    ...:     print("Hello world!") 
+    ...:                                                                  
+```
+
+下面看看我们增加对 hello() 的修饰会让它有什么不同。
+
+```python
+In [17]: hello = add_text(hello)                                      
+
+In [18]: hello()                                                      
+== This is head of function ==
+Hello world!
+== This is the end of function ==
+```
+
+我们在 add_text() 中添加的信息成功在运行时输出了。现在我们关注修饰器的创建，从逻辑上理解它的结构：它以一个函数作为输入，并在内部定义一个嵌套函数作为返回值。这样，当实际上一个函数被作为参数传入时，该函数被重塑为一个新的函数 wrap() 并被作为结果返回，完成了一个新的函数构建，但从外观来看，我们感觉到原函数被“修饰”了。
+
+为了简化修饰器的分配，Python 允许在原函数定义前使用符号 @ 指派修饰器，从而简化了代码的编写。
+
+```python
+In [19]: def add_text(func): 
+    ...:     def wrap(): 
+    ...:         print("== This is head of function ==") 
+    ...:         func() 
+    ...:         print("== This is the end of function ==") 
+    ...:     return wrap 
+    ...:  
+    ...: @add_text 
+    ...: def hello(): 
+    ...:     print("Hello world!") 
+    ...:                                                                  
+
+In [20]: hello()                                                          
+== This is head of function ==
+Hello world!
+== This is the end of function ==
+```
+
 
 
 ### 捕获异常
