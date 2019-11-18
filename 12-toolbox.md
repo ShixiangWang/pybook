@@ -551,6 +551,153 @@ print(next(df_reader))
 
 ### 正则表达式
 
+正则表达式是一种操作字符串的强大工具。它是一种领域专属语言（domain specific language, DSL），意思是它以一种库的形式呈现在各类现代编程语言中，而不仅仅 Python 中。这与结构化查询语句 SQL 是类似的。
+
+正则表达式通常有两大用处：
+
+- 验证字符串匹配莫种模式，如验证邮箱格式、电话号码
+- 对字符串执行替换，如将美式英语转换为英式英语
+
+Python 提供了一个标准库 re 用于操作正则表达式。在我们定义好正则表达式后，函数 re.match() 可以用来查看是否它匹配一个字符串的起始。如果匹配成功，则返回一个匹配对象；如果匹配失败，返回 None。为了避免混淆，我们这里都使用原生字符串 r'string' 创建正则表达式。
+
+```python
+In [1]: import re                                                         
+In [2]: pattern = r'spam'                                                 
+In [3]: if re.match(pattern, 'spamxxx'): 
+   ...:     print('匹配成功') 
+   ...: else: 
+   ...:     print('匹配失败') 
+   ...:                                                                   
+匹配成功
+In [5]: print(re.match(pattern, 'xspamxx'))                               
+None
+```
+
+另外有函数 re.search() 用于在字符串任意之处寻找匹配的模式，re.findall() 寻找匹配一个模式的所有子串。
+
+```python
+In [6]: print(re.search(pattern, 'xspamxx'))                              
+<re.Match object; span=(1, 5), match='spam'>
+In [7]: print(re.findall(pattern, 'xspamxxspamspam'))                     
+['spam', 'spam', 'spam']
+```
+
+我们可以看到上面 re.search() 返回的结果是一个 Match 对象，有几个常用的方法可以获取匹配的信息。
+
+```python
+In [8]: match = re.search(pattern, 'xspamxx')                             
+In [9]: match.group()                                                     
+Out[9]: 'spam'
+In [10]: match.start()                                                    
+Out[10]: 1
+In [11]: match.end()                                                      
+Out[11]: 5
+In [12]: match.span()                                                     
+Out[12]: (1, 5)
+```
+
+re 模块最常用的函数之一可能就是 sub() 了，它可以基于正则表达式实现字符串部分内容的替换。
+
+```python
+In [13]: re.sub?                                                          
+Signature: re.sub(pattern, repl, string, count=0, flags=0)
+Docstring:
+Return the string obtained by replacing the leftmost
+non-overlapping occurrences of the pattern in string by the
+replacement repl.  repl can be either a string or a callable;
+if a string, backslash escapes in it are processed.  If it is
+a callable, it's passed the Match object and must return
+a replacement string to be used.
+File:      ~/miniconda3/lib/python3.7/re.py
+Type:      function
+```
+
+当不修改 count 时，默认会替换字符串中所有匹配的模式。
+
+```python
+In [14]: to_sub = 'apple orange apple'                                    
+In [16]: re.sub(r'apple', 'juice', to_sub)                                
+Out[16]: 'juice orange juice'
+In [17]: re.sub(r'apple', 'juice', to_sub, count=1)                       
+Out[17]: 'juice orange apple'
+```
+
+元字符是一类特殊的字符，它们在正则表达式中有特别的含义和用处，是正则表达式的核心，常见常用的主要有下面一些：
+
+- 锚定符
+    - ^ —— 用于锚定行首
+    - $ —— 用于锚定行尾
+- 数目符
+    - . —— 任意一个字符
+    - ? —— 0 个或 1 个
+    - \+ —— 一个或以上
+    - \* —— 任意个（包括 0 个）
+    - {m, n} —— 至少 m 个，至多 n 个
+- 可选符
+    - [abc] —— a b c 三个中任意一个
+    - [^abc] —— 不能是 a b c 中任意一个（即排除 a b c）
+    - [a-z] —— 所有小写字母
+    - [A-Z] —— 所有大写字母
+    - [0-9] —— 所有数字
+
+锚定符用于定义正则表达式的起始和结尾。
+
+```python
+In [22]: print(re.search(r'^apple', ' apple'))  # 限定必须以 a 起始                          
+None
+In [23]: print(re.search(r'apple$', 'apple '))  # 限定必须以 e 结束                              
+None
+In [24]: print(re.search(r'apple', ' apple'))                               
+<re.Match object; span=(1, 6), match='apple'>
+In [25]: print(re.search(r'apple', 'apple '))                               
+<re.Match object; span=(0, 5), match='apple'>
+```
+
+数目符和可选符用于占位、筛选和模糊匹配。
+
+```python
+In [26]: print(re.search(r'[a-z]', 'happy new year'))                       
+<re.Match object; span=(0, 1), match='h'>
+In [27]: print(re.search(r'[a-z]', 'HAPPY NEW YEAR'))                       
+None
+In [28]: print(re.search(r'[A-Z]', 'HAPPY NEW YEAR'))                       
+<re.Match object; span=(0, 1), match='H'>
+In [29]: print(re.search(r'[A-Za-z]', 'HAPPY new YEar'))                    
+<re.Match object; span=(0, 1), match='H'>
+
+In [30]: print(re.search(r'[A-Z]', 'happy new year'))                       
+None
+```
+
+假设我们需要匹配 11 位的手机号码，格式如下：
+
+```
+TEL: 12345678912
+```
+
+正则表达式可以写为
+
+```python
+r'^TEL: [0-9]{11}$'
+```
+
+下面测试看看：
+
+```python
+In [31]: print(re.match(r'^TEL: [0-9]{11}$', 'TEL: 12345678912'))           
+<re.Match object; span=(0, 16), match='TEL: 12345678912'>
+In [32]: print(re.match(r'^TEL: [0-9]{11}$', 'TEL: 1234567891'))            
+None
+In [33]: print(re.match(r'^TEL: [0-9]{11}$', 'TEL: 12345678912 '))          
+None
+In [34]: print(re.match(r'^TEL: [0-9]{11}$', 'EL: 12345678912'))            
+None
+In [35]: print(re.match(r'^TEL: [0-9]{11}$', 'TEL:12345678912'))            
+None
+```
+
+第一次当我们输入正确格式的数据时，返回了匹配。后面所有的字符串都有所不同，因此都不能匹配。不知道读者是否感受到了正则表达式的强大，如果工作中有遇到可以用正则表达式解决的问题，赶紧用起来吧。
+
 ### 魔术命令
 
 常见魔术命令列表，举几个最常见的作为示例
