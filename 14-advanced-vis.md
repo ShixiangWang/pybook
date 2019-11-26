@@ -2,8 +2,9 @@
 
 **本章内容提要**:
 
-- 自定义图形？前面讲过
-- 2 维数组可视化 前面也有涉及
-- 使用 Seaborn
-- 时间序列可视化
-
+- Matplotlib 未提到的知识点和其他图形 https://www.yiibai.com/matplotlib/
+- 使用 Seaborn https://mp.weixin.qq.com/s/AU-IEEQvmBxBZ7GBZIZwBA
+- 时间序列可视化 
+- Python 里的 ggplot2?
+- PyEcharts https://mp.weixin.qq.com/s/5GJKIt5OkMh7C3xqoTJsTA
+- Plotly?

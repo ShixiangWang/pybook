@@ -19,13 +19,13 @@ Pandas 采用了 NumPy 库的编码风格，不过前者聚焦于表格和混杂
 
 在正式学习 Pandas 之前，读者需要了解 Pandas 库导入约定：
 
-```
+```python
 import pandas as pd
 ```
 
 Pandas 提供的数据结构 Series 和 DataFrame 使用非常频繁，所以直接将它们导入当前命名空间会非常方便：
 
-```
+```python
 from pandas import Series, DataFrame
 ```
 
@@ -633,13 +633,7 @@ KeyError                                  Traceback (most recent call last)
 -> 3078                 return self._engine.get_loc(key)
    3079             except KeyError:
 
-pandas/_libs/index.pyx in pandas._libs.index.IndexEngine.get_loc()
-
-pandas/_libs/index.pyx in pandas._libs.index.IndexEngine.get_loc()
-
-pandas/_libs/hashtable_class_helper.pxi in pandas._libs.hashtable.PyObjectHashTable.get_item()
-
-pandas/_libs/hashtable_class_helper.pxi in pandas._libs.hashtable.PyObjectHashTable.get_item()
+...
 
 KeyError: 0
 
@@ -651,46 +645,7 @@ KeyError                                  Traceback (most recent call last)
 
 ~/anaconda3/lib/python3.7/site-packages/pandas/core/frame.py in __getitem__(self, key)
    2686             return self._getitem_multilevel(key)
-   2687         else:
--> 2688             return self._getitem_column(key)
-   2689 
-   2690     def _getitem_column(self, key):
-
-~/anaconda3/lib/python3.7/site-packages/pandas/core/frame.py in _getitem_column(self, key)
-   2693         # get column
-   2694         if self.columns.is_unique:
--> 2695             return self._get_item_cache(key)
-   2696 
-   2697         # duplicate columns & possible reduce dimensionality
-
-~/anaconda3/lib/python3.7/site-packages/pandas/core/generic.py in _get_item_cache(self, item)
-   2487         res = cache.get(item)
-   2488         if res is None:
--> 2489             values = self._data.get(item)
-   2490             res = self._box_item_values(item, values)
-   2491             cache[item] = res
-
-~/anaconda3/lib/python3.7/site-packages/pandas/core/internals.py in get(self, item, fastpath)
-   4113 
-   4114             if not isna(item):
--> 4115                 loc = self.items.get_loc(item)
-   4116             else:
-   4117                 indexer = np.arange(len(self.items))[isna(self.items)]
-
-~/anaconda3/lib/python3.7/site-packages/pandas/core/indexes/base.py in get_loc(self, key, method, tolerance)
-   3078                 return self._engine.get_loc(key)
-   3079             except KeyError:
--> 3080                 return self._engine.get_loc(self._maybe_cast_indexer(key))
-   3081 
-   3082         indexer = self.get_indexer([key], method=method, tolerance=tolerance)
-
-pandas/_libs/index.pyx in pandas._libs.index.IndexEngine.get_loc()
-
-pandas/_libs/index.pyx in pandas._libs.index.IndexEngine.get_loc()
-
-pandas/_libs/hashtable_class_helper.pxi in pandas._libs.hashtable.PyObjectHashTable.get_item()
-
-pandas/_libs/hashtable_class_helper.pxi in pandas._libs.hashtable.PyObjectHashTable.get_item()
+...
 
 KeyError: 0
 
@@ -833,7 +788,9 @@ Test1    11
 Name: b, dtype: int64
 ```
 
-字符索引、整数索引、切片、iloc 和 loc 操作符以及逻辑索引等都可以实现数据的筛选，可见对于想要的结果 Pandas 库提供了灵活多样的实现方式。
+如果要索引单个元素，我们可以使用类似的运算符 at 和 iat。
+
+字符索引、整数索引、切片、iloc 和 loc 操作符以及逻辑索引等都可以实现数据的筛选。可见，对于想要的结果 Pandas 库提供了灵活多样的实现方式。
 
 最后，下表对 DataFrame 各种索引方式进行简单汇总。
 
@@ -852,7 +809,7 @@ Name: b, dtype: int64
 | df.iat[i, j]            | 使用整数索引获取指定位置标量值 |
 | reindex                 | 通过标签选取行或列             |
 
-
+Pandas 库提供的方括号 [] 可以代表多种含义，包括单元素索引、多元素切片、逻辑索引等等，因此让 Python 猜测我们使用方括号意图会非常低效。为了高效和书写的一致性，本书推荐使用基于位置的 at 和 loc，以及基于标签的 iat 和 iloc。
 
 ### 8.3.7 算术运算
 
@@ -1031,7 +988,7 @@ a    1
 dtype: int64
 ```
 
-DataFrame 对象有2个维度，默认是按照行进行排序，如果想要该为按列排序，需要将 axis 选项设为 1。
+DataFrame 对象有 2 个维度，默认是按照行进行排序，如果想要该为按列排序，需要将 axis 选项设为 1。
 
 在操作 DataFrame 时，有一个排序参数非常实用，就是 by。它可以根据某一列值进行排序，例如在实际处理中，我们可能需要根据月份和日期排序，而数据本身是杂乱的，这个选项就可以派上大用场。
 
@@ -1141,9 +1098,12 @@ max    4.000000  29.000000  300.00000
 | mean、median、sum | 均值、中位数、总和       |
 | mad               | 平均绝对离差             |
 | var、std          | 方差、标准差             |
+| rank             | 排名（秩序）             |
 | cumsum、cumprod   | 累计和、累计积           |
+| cor   | 相关性           |
+| cov   | 协方差           |
 
 
 ## 8.5 章末小结
 
-虽然本章已经介绍了大量关于 Pandas 的内容，包括 2 个核心数据对象 Series 和 DataFrame，以及如何创建、使用它们。但这些还远远不够，它们仅仅是读者熟练掌握 Pandas 的基础。再接下来的更多章节中，我们将更深入地对 Pandas 进行学习并更广泛地将它应用到示例中去。Pandas，它是 Python 数据分析的灵魂。
+虽然本章已经介绍了大量关于 Pandas 的内容，包括 2 个核心数据对象 Series 和 DataFrame，以及如何创建、使用它们。但这些还远远不够，它们仅仅是读者熟练掌握 Pandas 的基础。再接下来的更多章节中，我们将更深入地对 Pandas 进行学习并更广泛地将它应用到示例中去。Pandas，它是 Python 数据分析的灵魂工具。
