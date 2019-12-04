@@ -9,14 +9,38 @@
 - 简单可视化
 - Pandas 自定义
 
+本书在第 8 章、第 11 章分别向读者介绍了 Pandas 的基本数据结构、操作和导入常见的数据文件，本章的内容将更加深入，除了介绍更多的数据类型，本章还包含数据清洗、转换等数据处理的一些核心技能。
+
 ## 13.1 深入 Pandas 数据结构
 
+### 13.1.1 回顾
 
-![自己用中文画下这个图](https://d33wubrfki0l68.cloudfront.net/571b056757d68e6df81a3e3853f54d3c76ad6efc/32d37/diagrams/data-science.png)
+在学习新的知识之前，我们不妨先来回顾和整理一下目前接触到的 Pandas 的数据结构以及它们的联系。
 
-### Pandas 数据结构解读
+NumPy 数组是 Pandas 数据结构的构成核心，用于存储数据值。我们常用一维和二维的 ndarray。
 
-![图13-1 Numpy 数组与 Pandas 数据结构对比（图片来自网络）](images/chapter13/numpy_pandas_comparison.png)
+```python
+In [1]: import numpy as np                                                                                                                                                                
+In [2]: a = np.arange(9)                                                                                                                                                                  
+In [3]: a                                                                                                                                                                                 
+Out[3]: array([0, 1, 2, 3, 4, 5, 6, 7, 8])
+In [4]: b = np.arange(9).reshape((3, 3))                                                                                                                                                  
+In [5]: b                                                                                                                                                                                 
+Out[5]: 
+array([[0, 1, 2],
+       [3, 4, 5],
+       [6, 7, 8]])
+```
+
+
+
+![图13-1 Numpy 数组与 Pandas 数据结构对比（图片来自网络）](images/chapter13/numpy_pandas_comparison.png) (重画，只保留一维和二维)
+
+```python
+In [7]: pd.RangeIndex(10)                                                                                                                                                                 
+Out[7]: RangeIndex(start=0, stop=10, step=1)
+```
+
 
 对比 NumPy (np) 和 Pandas (pd) 每个维度下的数据结构，不难看出
 
@@ -518,6 +542,10 @@ Date 和 Symbol 列当成 id
 
 
 ## 13.5 Pandas 可视化
+
+
+![自己用中文画下这个图](https://d33wubrfki0l68.cloudfront.net/571b056757d68e6df81a3e3853f54d3c76ad6efc/32d37/diagrams/data-science.png)
+
 
 https://www.yiibai.com/pandas/python_pandas_visualization.html
 
