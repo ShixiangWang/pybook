@@ -20,42 +20,77 @@
 NumPy 数组是 Pandas 数据结构的构成核心，用于存储数据值。我们常用一维和二维的 ndarray。
 
 ```python
-In [1]: import numpy as np                                                                                                                                                                
-In [2]: a = np.arange(9)                                                                                                                                                                  
-In [3]: a                                                                                                                                                                                 
+In [1]: import numpy as np
+In [2]: a = np.arange(9)
+In [3]: a                                                                              
 Out[3]: array([0, 1, 2, 3, 4, 5, 6, 7, 8])
-In [4]: b = np.arange(9).reshape((3, 3))                                                                                                                                                  
-In [5]: b                                                                                                                                                                                 
+In [4]: b = np.arange(9).reshape((3, 3))   
+In [5]: b                                                                               
 Out[5]: 
 array([[0, 1, 2],
        [3, 4, 5],
        [6, 7, 8]])
 ```
 
+Pandas 的 Series 就是在一维 ndarray 的基础上添加了对数据含义的描述，也就是所谓的索引或标签。与 ndarray 本身所支持的整数索引所不同的是，Pandas 同时支持整数索引和字符索引。
 
-
-![图13-1 Numpy 数组与 Pandas 数据结构对比（图片来自网络）](images/chapter13/numpy_pandas_comparison.png) (重画，只保留一维和二维)
+默认情况下整数索引会被使用，而且是一个范围索引对象 RangeIndex，该对象减少了对内存的利用。例如，0-9 即可用起点 0，步长 1，终止点 10 加以表述。更大范围的数值也是如此。
 
 ```python
-In [7]: pd.RangeIndex(10)                                                                                                                                                                 
+In [6]: import pandas as pd
+In [7]: pd.RangeIndex(10)
 Out[7]: RangeIndex(start=0, stop=10, step=1)
 ```
 
+下面代码确认了 RangeIndex 默认被使用：
 
-对比 NumPy (np) 和 Pandas (pd) 每个维度下的数据结构，不难看出
+```python
+In [8]: a_series = pd.Series([5, 7, 9])
+In [9]: a_series.index                               
+Out[9]: RangeIndex(start=0, stop=3, step=1)
+```
 
-pd 多维数据表 = np 多维数组 + 描述
+当然，Pandas 的特色在于对 字符索引的支持，字符索引既可以明确数值含义，也建立的映射关系方便数据的访问、修改等操作。
 
-其中
+加上字符索引，上面的 Series 摇身一变成为了 3 个用户某个属性的度量值。
 
-Series = 1darray + index
+```python
+In [10]: a_series = pd.Series([5, 7, 9], index = ['user1', 'user2', 'user3'])
+In [11]: a_series                                 
+Out[11]: 
+user1    5
+user2    7
+user3    9
+dtype: int64
+```
 
-DataFrame = 2darray + index + columns
-
-Panel = 3darray + index + columns + item
+不妨加上个名字，让含义限定为信用得分。
 
 
-Panel：三维数据。Panel 是 DataFrame 的容器。不过，需要指出的是 Panel 在未来版本中会被废除，因此不想花时间看的同学可跳过。
+```python
+In [12]: a_series = pd.Series([5, 7, 9], index = ['user1', 'user2', 'user3'], name='credit_score')
+In [13]: a_series            
+Out[13]: 
+user1    5
+user2    7
+user3    9
+Name: credit_score, dtype: int64
+```
+
+这里 Series 只能表示用户的一种属性，DataFrame 进行了拓展，支持多种属性且不同属性的数据类型可以不同。这完美地与工作中常见的表格数据对应了起来。虽然说数据的主体表现方式是一个矩阵，但与 2 维 ndarray 是完全不同的。
+
+行索引依旧是使用 index 描述，为了描述不同的列，DataFrame 引入了 column 属性值。这样，两个维度的索引和数据含义的描述对应了起来。
+
+
+总结一下，Pandas 的数据结构是由 NumPy 数组加上数据描述组成，其中
+
+- Series = 1 维 ndarray + index
+- DataFrame = 多个 1 维 ndarray + index + column
+
+这些知识可以归纳为一个比较形象的图形，如图 13-1 所示。
+
+![图13-1 Numpy 数组与 Pandas 数据结构对比（图片来自网络）](images/chapter13/numpy_pandas_comparison.png) (重画，只保留一维和二维)
+
 
 ### 分类数据
 
