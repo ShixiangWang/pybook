@@ -50,7 +50,7 @@ In [9]: a_series.index
 Out[9]: RangeIndex(start=0, stop=3, step=1)
 ```
 
-当然，Pandas 的特色在于对 字符索引的支持，字符索引既可以明确数值含义，也建立的映射关系方便数据的访问、修改等操作。
+当然，Pandas 的特色在于对字符索引的支持，字符索引既可以明确数值含义，也建立的映射关系方便数据的访问、修改等操作。
 
 加上字符索引，上面的 Series 摇身一变成为了 3 个用户某个属性的度量值。
 
@@ -79,6 +79,19 @@ Name: credit_score, dtype: int64
 
 这里 Series 只能表示用户的一种属性，DataFrame 进行了拓展，支持多种属性且不同属性的数据类型可以不同。这完美地与工作中常见的表格数据对应了起来。虽然说数据的主体表现方式是一个矩阵，但与 2 维 ndarray 是完全不同的。
 
+以下代码展示了一个典型的数据框，行一般用于表示独立的记录，如这里的 student；列一般表示记录的相关属性，如这里 student 的 score 和 height。
+
+```python
+In [14]: df = pd.DataFrame([[5, 166], [7, 178], [9, 160]], 
+    ...: index=['student1', 'student2', 'student3'], columns=['score', 'height'])       
+In [15]: df                                              
+Out[15]: 
+          score  height
+student1      5     166
+student2      7     178
+student3      9     160
+```
+
 行索引依旧是使用 index 描述，为了描述不同的列，DataFrame 引入了 column 属性值。这样，两个维度的索引和数据含义的描述对应了起来。
 
 
@@ -92,11 +105,86 @@ Name: credit_score, dtype: int64
 ![图13-1 Numpy 数组与 Pandas 数据结构对比（图片来自网络）](images/chapter13/numpy_pandas_comparison.png) (重画，只保留一维和二维)
 
 
-### 分类数据
+### 13.1.2 分类变量
+
+本小节介绍一个新的数据类型——分类变量。分类有时也称为因子型变量（factor），它用于表示重复的文本列。一些包含有限个元素的列常常会在需要处理的数据中出现，如性别、国家、一些程序描述词（低、中、高）等。分类变量的元素是固定的，如性别只会有男、女。分类变量有时候可能有顺序，如低 < 中 < 高。
+
+看到这里，读者可能心中对分类变量有了一个比较形象的描述：有序的集合。没错，它看起来就是如此。那么分类变量在数据分析时有什么用呢？Pandas 库为什么要提供这样一个数据类型？
+
+- 节省存储——分类变量在存储时是将字符串映射为整数值的，这大大节省了内存的使用。数据越大，效率越高。例如，有 10 万个 one、two、three，分类变量将它们映射为 1、2、3 进行存储，而不是实际的英文字符。
+- 分类排序——例如有 3 个分类 one、two、three，我们需要绘制它们的频数条形图。我们可以使用分类变量按照自己的的想法排列这三个分类，控制绘图时它们的排序。
+
+#### 创建分类变量
+
+有两种办法可以创建分类变量，一种是在创建 Pandas 的 Series 或 DataFrame 时指定数据类型 dtype 为 category，第二种是直接使用 Pandas 提供的构造器函数 Categorical()。
+
+我们先看第一种办法：
+
+```python
+In [16]: pd.Series(['a', 'a', 'b', 'c', 'b'], dtype='category')                                             
+Out[16]: 
+0    a
+1    a
+2    b
+3    c
+4    b
+dtype: category
+Categories (3, object): [a, b, c]
+```
+
+我们对比下不指定该参数值时的结果：
+
+```python
+In [17]: pd.Series(['a', 'a', 'b', 'c', 'b'])                                                               
+Out[17]: 
+0    a
+1    a
+2    b
+3    c
+4    b
+dtype: object
+```
+
+两者的差别主要体现在 dtype 上，默认存储字符使用的是 object 类型，当 dtype 指定为 category 后，Pandas 将 5 个字符转换具有 3 个唯一值 [a, b, c] 的类别。也就是说这个生成的 Series 存储的数据是从 [a, b, c] 中重复抽样的结果。
+
+我们再看如何使用第二种方法构造分类变量。
+
+```python
+In [2]: pd.Categorical(['a', 'a', 'b', 'c', 'b'])
+Out[2]: 
+[a, a, b, c, b]
+Categories (3, object): [a, b, c]
+```
+
+函数文档显示我们可以自定义类别以及是否排序。
+
+```python
+pd.Categorical(
+    values,
+    categories=None,
+    ordered=None,
+    dtype=None,
+    fastpath=False,
+)
+```
+
+我们试一试：
+
+```python
+In [6]: pd.Categorical(['a', 'a', 'b', 'c', 'b'], categories=['a', 'c'])                                    
+Out[6]: 
+[a, a, NaN, c, NaN]
+Categories (2, object): [a, c]
+
+In [7]: pd.Categorical(['a', 'a', 'b', 'c', 'b'], ordered=True)                                             
+Out[7]: 
+[a, a, b, c, b]
+Categories (3, object): [a < b < c]
+```
 
 https://www.yiibai.com/pandas/python_pandas_categorical_data.html
 
-### 时间序列
+### 13.1.3 时间序列
 
 #### 日期
 
@@ -110,7 +198,7 @@ https://www.yiibai.com/pandas/python_pandas_timedelta.html
 
 ## 13.2 迭代与函数应用
 
-### 迭代
+### 13.2.1 迭代
 
 Pandas对象之间的基本迭代的行为取决于类型。当迭代一个系列时，它被视为数组式，基本迭代产生这些值。其他数据结构，如：DataFrame和Panel，遵循类似惯例迭代对象的键。
 简而言之，基本迭代(对于i在对象中)产生 -
@@ -124,20 +212,20 @@ Pannel - 项目标签
 iteritems() - 迭代(key，value)对iterrows() - 将行迭代为(索引，系列)对itertuples() - 以namedtuples的形式迭代行
 
 
-### 函数应用
+### 13.2.2 函数应用
 
 要将自定义或其他库的函数应用于Pandas对象，有三个重要的方法，下面来讨论如何使用这些方法。使用适当的方法取决于函数是否期望在整个DataFrame，行或列或元素上进行操作。
 
 表合理函数应用：pipe()行或列函数应用：apply()元素函数应用：applymap()
 
-### 字符串函数
+### 13.2.3 字符串函数
 
 Pandas提供了一组字符串函数，可以方便地对字符串数据进行操作。 最重要的是，这些函数忽略(或排除)丢失/NaN值。
 几乎这些方法都使用Python字符串函数(请参阅： http://docs.python.org/3/library/stdtypes.html#string-methods )。 因此，将Series对象转换为String对象，然后执行该操作。
 
 https://www.yiibai.com/pandas/python_pandas_working_with_text_data.html
 
-### 分组计算
+### 13.2.4 分组计算
 
 用某一特定标签 (label) 将数据 (data) 分组的语法如下：
 
@@ -254,9 +342,9 @@ data.groupby('Symbol').apply(top)
 
 ## 13.3 数据清洗
 
-### NA 值处理
+### 13.3.1 NA 值处理
 
-### 合并
+### 13.2.2 合并
 
 
 按键 (key) 合并可以分「单键合并」和「多键合并」。
@@ -312,7 +400,7 @@ pd.merge( df_price, df_volume, how='inner' )
 
 如果觉得后缀 _x, _y 没有什么具体含义时，可以设定 suffixes 来改后缀。比如 df1 和 df2 存储的是 portoflio1 和 portfolio2 的产品信息，那么将后缀该成 ‘1’ 和 ‘2’ 更贴切。
 
-### 连接
+### 13.3.3 连接
 
 Numpy 数组可相互连接，用 np.concat；同理，Series 也可相互连接，DataFrame 也可相互连接，用 pd.concat。
 
@@ -405,7 +493,7 @@ df1
 
 ## 13.4 数据转换
 
-### 重塑
+### 13.4.1 重塑
 
 DataFrame 和「多层索引的 Series」其实维度是一样，只是展示形式不同。而重塑就是通过改变数据表里面的「行索引」和「列索引」来改变展示形式。
 
@@ -498,7 +586,7 @@ mcol = pd.Index(['行业','雇员','价格'], name='特征')
 df = pd.DataFrame( data, index=midx, columns=mcol )
 df
 
-### 透视
+### 13.4.2 透视
 
 数据源表通常只包含行和列，那么经常有重复值出现在各列下，因而导致源表不能传递有价值的信息。这时可用「透视」方法调整源表的布局用作更清晰的展示。
 
