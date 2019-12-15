@@ -182,48 +182,815 @@ Out[7]:
 Categories (3, object): [a < b < c]
 ```
 
-https://www.yiibai.com/pandas/python_pandas_categorical_data.html
+第一行代码我们指定了合法的类别是 "a" 和 "c"，所以其他的字母都会被转换为 NaN 值。第二行代码的结果显示了不仅有 3 个类别，而且还存在 a < b < c 的顺序关系。
+
+对于分类数据，我们一个常见需求是获取元素的频数或频率，这可以通过 describe() 方法实现。
+
+```python
+In [9]: cts = pd.Categorical(['a', 'a', 'b', 'c', 'b'], ordered=True)                                            
+In [10]: cts.describe()                                                                                          
+Out[10]: 
+            counts  freqs
+categories               
+a                2    0.4
+b                2    0.4
+c                1    0.2
+```
+
+该对象的类别也是有用的，这可能使用对象的属性值 categories 获取。
+
+```python
+In [11]: cts.categories                                                                                          
+Out[11]: Index(['a', 'b', 'c'], dtype='object')
+```
+
+另外，ordered 属性可以给出对象是否经过排序，返回的是一个布尔值。
+
+```python
+In [12]: cts.ordered                                                                                             
+Out[12]: True
+```
+
+对分类对象常见的操作有重命名、新增、删除和比较，下面举例介绍。
+
+上面我们看到分类信息存储在对象的 categories 属性中，我们重写该属性即可重命名类别。
+
+```python
+In [13]: cts_new = cts.copy()                                                                                    
+In [14]: cts_new.categories = ['aa', 'bb', 'cc']                                                                 
+In [15]: cts                                                                                                     
+Out[15]: 
+[a, a, b, c, b]
+Categories (3, object): [a < b < c]
+In [16]: cts_new                                                                                                 
+Out[16]: 
+[aa, aa, bb, cc, bb]
+Categories (3, object): [aa < bb < cc]
+```
+
+最后的输出显示所有的元素都被替换了，这是一个非常有用的特性。
+
+增加新的类别可以使用 add_categories() 方法实现，新的类别会被添加到最后。
+
+```python
+In [17]: cts_new.add_categories(['ff'])                                                                          
+Out[17]: 
+[aa, aa, bb, cc, bb]
+Categories (4, object): [aa < bb < cc < ff]
+```
+
+删除类别后，原有的值会被 NaN 值替代：
+
+```python
+In [19]: cts_new.remove_categories("bb")                                                                         
+Out[19]: 
+[aa, aa, NaN, cc, NaN]
+Categories (2, object): [aa < cc]
+```
+
+分类对象的比较在对象是有序时比较有用。
+
+```python
+In [23]: cts                                                                                                     
+Out[23]: 
+[a, a, b, c, b]
+Categories (3, object): [a < b < c]
+In [24]: cts2 = pd.Categorical(['b', 'c', 'a', 'a'], ordered=True)                                               
+In [25]: cts > cts2                                                                                              
+---------------------------------------------------------------------------
+ValueError                                Traceback (most recent call last)
+<ipython-input-25-d954cff14835> in <module>
+----> 1 cts > cts2
+
+~/miniconda3/lib/python3.7/site-packages/pandas/core/arrays/categorical.py in f(self, other)
+    113                 other_codes = other._codes
+    114 
+--> 115             mask = (self._codes == -1) | (other_codes == -1)
+    116             f = getattr(self._codes, op)
+    117             ret = f(other_codes)
+
+ValueError: operands could not be broadcast together with shapes (5,) (4,)
+In [26]: cts2 = pd.Categorical(['b', 'c', 'a', 'a', 'a'], ordered=True)
+In [27]: cts > cts2                                                                                              
+Out[27]: array([False, False,  True,  True,  True]) 
+```
+
+当两个对象都是分类对象时一定要注意长度要一致，并且设定的类别一致。
+
+当其中一个对象是标量时，计算会自动进行广播。
+
+```python
+In [28]: cts > 'b'                                                                                               
+Out[28]: array([False, False, False,  True, False])
+```
+
+读者可以自行尝试其他对比类型的结果。
 
 ### 13.1.3 时间序列
 
-#### 日期
+数据的生成和采集往往是连续的过程，这离不开时间的累积。
+时间序列即是按时间顺序组成的数据序列，它展示了数据变化的趋势、可能的周期性和规律性。
+时间序列分析的主要目的是根据已有的历史数据寻找规律、建立模型用来对未来的数据值进行预测。
+这种类型的分析常用于金融领域，Pandas 的创建的初始目的就是为了处理金融数据，因此提供
+了时间日期对象和丰富的时序分析功能特性。
 
-https://www.yiibai.com/pandas/python_pandas_date_functionality.html
+#### 时间日期
+
+Python 的标准库就提供了对日期和时间的支持，如计算当前的时间戳，我们可以使用下面的代码：
+
+```python
+In [32]: import time         
+In [33]: time.time()                                                                                             
+Out[33]: 1576340722.0232272
+```
+
+时间戳是以 1970 年 1 月 1 日零点经过了多长时间来表示。
+
+时间戳单位最适于做日期运算。但是 1970 年之前的日期就无法以此表示了。
+未来太遥远的日期也不可以，Linux/macOS 和 Windows 系统只支持到 2038 年。
+
+将时间戳传递给 localtime() 函数，我们可以获得更为可读的时间记录。
+
+```python
+In [34]: time.localtime(time.time())                                                                             
+Out[34]: time.struct_time(tm_year=2019, tm_mon=12, tm_mday=15, tm_hour=10, tm_min=6, tm_sec=45, tm_wday=6, tm_yda
+y=349, tm_isdst=0)
+```
+
+如果想要获得更为简要的时间表示，可以将上述代码传为 asctime() 的参数：
+
+```python
+In [36]: time.asctime(time.localtime(time.time()))                                                               
+Out[36]: 'Sun Dec 15 10:09:29 2019'
+```
+
+#### 时间日期格式化符号
+
+上一个代码的结果是按照星期、日期、时间、年份的结果输出的，很多时候我们需要自己格式化时间日期的显示。
+因此，了解相关的格式化符号是有必要的，它在所有的时间日期有关的 Python 包或其他编程语言里面都是通用的。
+
+常用的格式化符号汇总如下表。
+
+| 符号 | 含义                                      |
+| ---- | ----------------------------------------- |
+| %y   | 两位数的年份表示（00-99）                 |
+| %Y   | 四位数的年份表示（000-9999）              |
+| %m   | 月份（01-12）                             |
+| %d   | 月内中的一天（0-31                        |
+| %H   | 24小时制小时数（0-23                      |
+| %I   | 12小时制小时数（01-12）                   |
+| %M   | 分钟数（00=59）                           |
+| %S   | 秒（00-59）                               |
+| %a   | 简化星期名称                              |
+| %A   | 完整星期名称                              |
+| %b   | 简化的月份名称                            |
+| %B   | 完整的月份名称                            |
+| %c   | 本地相应的日期表示和时间表示              |
+| %j   | 年内的一天（001-366）                     |
+| %p   | 本地A.M.或P.M.的等价符                    |
+| %U   | 一年中的星期数（00-53）星期天为星期的开始 |
+| %w   | 星期（0-6），星期天为星期的开始           |
+| %W   | 一年中的星期数（00-53）星期一为星期的开始 |
+| %x   | 本地相应的日期表示                        |
+| %X   | 本地相应的时间表示                        |
+| %Z   | 当前时区的名称                            |
+| %%   | %号本身                                   |
+
+time 模块提供了 strftime() 函数用于格式化。
+下面举一个简单的例子，以年月日时间的顺序输出当前时间日期，该格式是我们平时最常见的格式。
+
+```python
+In [37]: time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())                                                    
+Out[37]: '2019-12-15 10:28:23'
+```
+
+#### datetime 模块
+
+datetime 模块也是 Python 提供的标准库，它在分析中更为常用。
+该模块提供了 4 个主要的类用于表示时间日期及其变化。
+
+- time：只包含时、分、秒、微妙等信息
+- date：只包含年、月、日、星期等信息
+- datetime：包含上述两种信息
+- timedelta：表示 datetime 之间差值的类
+
+这里我们仅介绍最常见的时间日期表示，更为详细的内容请读者阅读官方文档。
+
+时间表示一般可以分为本地时间和世界标准时，当然也可以用时间戳，但可读性很差。
+
+```python
+In [39]: now = datetime.datetime.now()  # 当前本地时间                                                               
+In [40]: now                                                                                                     
+Out[40]: datetime.datetime(2019, 12, 15, 10, 34, 54, 516482)
+In [41]: utc = datetime.datetime.utcnow()  # 当前世界标准时                                                                      
+In [42]: utc                                                                                                     
+Out[42]: datetime.datetime(2019, 12, 15, 2, 35, 18, 609633)
+In [45]: now.timestamp()  # 当前时间戳                                                                                       
+Out[45]: 1576377294.516482
+```
+
+格式化字符串可以调用 strftime() 方法（注意，在 time 模块中使用的是同名函数）。
+
+
+```python
+In [46]: now.strftime("%Y-%m-%d %H:%M:%S")                                                                       
+Out[46]: '2019-12-15 10:34:54'
+```
+
+时间差也比较常用，直接将两个 datetime 对象相减就可以，返回的是相差的秒数和微秒数。
+另外也可以直接通过对应的属性值访问。
+
+```python
+In [47]: now2 = datetime.datetime.now()                                                                          
+In [48]: now2 - now                                                                                              
+Out[48]: datetime.timedelta(seconds=486, microseconds=231216)
+In [49]: td = now2 - now
+In [52]: td.seconds                                                                                              
+Out[52]: 486
+```
+
+由于 datetime 模块比较好用，Pandas 库直接将其引入作为一个子模块。
+
+下面代码显示了调用 datetime 子模块的 now() 函数得到的是一个 datetime 对象。
+
+```python
+In [55]: pd.datetime.now()                                                                                       
+Out[55]: datetime.datetime(2019, 12, 15, 10, 47, 58, 642985)
+```
+
+#### Pandas 日期序列
+
+在处理时间日期数据时我们会经常需要生成日期序列以及转换不同的日期频率（季度、月份、周等），
+Pandas 库在这方面提供了相关的功能特性。
+
+使用 date_range() 函数可以创建日期序列，默认的频率是天。
+
+```python
+In [56]: pd.date_range('20190101', periods=7)                                                             
+Out[56]: 
+DatetimeIndex(['2019-01-01', '2019-01-02', '2019-01-03', '2019-01-04',
+               '2019-01-05', '2019-01-06', '2019-01-07'],
+              dtype='datetime64[ns]', freq='D')
+```
+
+D 是 Day 的缩写。我们可以更改日期的频率，比如说月份。
+
+```python
+In [58]: pd.date_range('20190101', periods=7, freq='M')                                                   
+Out[58]: 
+DatetimeIndex(['2019-01-31', '2019-02-28', '2019-03-31', '2019-04-30',
+               '2019-05-31', '2019-06-30', '2019-07-31'],
+              dtype='datetime64[ns]', freq='M')
+
+```
+
+商业分析中常常只使用工作日，这可以使用 bdate_range() 生成序列，它会自动跳过周末。
+
+```python
+In [59]: pd.bdate_range('20190101', periods=7)                                                            
+Out[59]: 
+DatetimeIndex(['2019-01-01', '2019-01-02', '2019-01-03', '2019-01-04',
+               '2019-01-07', '2019-01-08', '2019-01-09'],
+              dtype='datetime64[ns]', freq='B')
+```
+
+此时输出结果显示频率是 B（商业的英文单词首字母）。在生成的序列中，1 月 5 号
+和 6 号被自动跳过了。
 
 
 #### 时间差
 
-https://www.yiibai.com/pandas/python_pandas_timedelta.html
+Pandas 库提供了 Timedelta 类来表示时间差异，相比于 datetime 模块提供的函数，
+它更加的灵活和功能丰富。
+
+我们可以直接传入具有描述性的英文语句，它会被 Pandas 自动解析。
+
+```python
+In [60]: pd.Timedelta('1 days 2 hours 3 minutes 4 seconds')                                               
+Out[60]: Timedelta('1 days 02:03:04')
+```
+
+我们也可以使用整数值，并指定时间差的单位来生成 Timedelta 对象。
+
+```python
+In [61]: pd.Timedelta(10, unit='h')                                                                       
+Out[61]: Timedelta('0 days 10:00:00')
+```
+
+我们还可以传入关键字参数表示时间的频率。
+
+```python
+In [64]: pd.Timedelta(days=10)                                                                            
+Out[64]: Timedelta('10 days 00:00:00')
+In [65]: pd.Timedelta(hours=10)                                                                           
+Out[65]: Timedelta('0 days 10:00:00')
+In [66]: pd.Timedelta(minutes=10)                                                                         
+Out[66]: Timedelta('0 days 00:10:00')
+```
+
+Timedelta 对象常用于时间的加减运算中，运算支持自动广播，下面是简单的例子。
+
+```python
+In [67]: pd.date_range('20190101', periods=7)                                                             
+Out[67]: 
+DatetimeIndex(['2019-01-01', '2019-01-02', '2019-01-03', '2019-01-04',
+               '2019-01-05', '2019-01-06', '2019-01-07'],
+              dtype='datetime64[ns]', freq='D')
+In [68]: pd.date_range('20190101', periods=7) + pd.Timedelta(hours=10)                                    
+Out[68]: 
+DatetimeIndex(['2019-01-01 10:00:00', '2019-01-02 10:00:00',
+               '2019-01-03 10:00:00', '2019-01-04 10:00:00',
+               '2019-01-05 10:00:00', '2019-01-06 10:00:00',
+               '2019-01-07 10:00:00'],
+              dtype='datetime64[ns]', freq='D')
+In [69]: pd.date_range('20190101', periods=7) - pd.Timedelta(hours=10)                                    
+Out[69]: 
+DatetimeIndex(['2018-12-31 14:00:00', '2019-01-01 14:00:00',
+               '2019-01-02 14:00:00', '2019-01-03 14:00:00',
+               '2019-01-04 14:00:00', '2019-01-05 14:00:00',
+               '2019-01-06 14:00:00'],
+              dtype='datetime64[ns]', freq='D')
+```
 
 
 ## 13.2 迭代与函数应用
 
 ### 13.2.1 迭代
 
-Pandas对象之间的基本迭代的行为取决于类型。当迭代一个系列时，它被视为数组式，基本迭代产生这些值。其他数据结构，如：DataFrame和Panel，遵循类似惯例迭代对象的键。
-简而言之，基本迭代(对于i在对象中)产生 -
+Pandas 对象之间的基本迭代的行为取决于数据类型。
+当迭代一个 Series 对象时，它被视为数组，迭代会逐一使用元素值。
+而 DataFrame 遵循类似的规则迭代对象的列标签。
 
-Series - 值
-DataFrame - 列标签
-Pannel - 项目标签
+我们先分别生成一个 Series 和 DataFrame 对象。
 
-要遍历数据帧(DataFrame)中的行，可以使用以下函数 -
+```python
+In [74]: s = pd.Series(['a', 'b', 'c'])                                                                   
+In [75]: df = df = {'姓名': ['小明','小王','小张'], '语文':[80,85,90], '数学':[99,88,86]}                 
+In [76]: df = pd.DataFrame(df)                                                                            
+In [77]: s                                                                                                
+Out[77]: 
+0    a
+1    b
+2    c
+dtype: object
+In [78]: df                                                                                               
+Out[78]: 
+   姓名  语文  数学
+0  小明  80  99
+1  小王  85  88
+2  小张  90  86
+```
 
-iteritems() - 迭代(key，value)对iterrows() - 将行迭代为(索引，系列)对itertuples() - 以namedtuples的形式迭代行
+用 for 循环迭代两个对象看看结果是否如前面所说。
 
+```python
+In [80]: for i in s: 
+    ...:     print(i) 
+    ...:                                                                                                  
+a
+b
+c
+In [81]: for i in df: 
+    ...:     print(i) 
+    ...:                                                                                                  
+姓名
+语文
+数学
+```
+
+的确如此。Series 对象和 DataFrame 对象的 for 循环差别很大。
+
+当我们需要迭代 Series 对象的索引时可以通过 index 属性访问。
+
+```python
+In [82]: for i in s.index: 
+    ...:     print(i) 
+    ...:                                                                                                  
+0
+1
+2
+```
+
+迭代 DataFrame 的需求常常不只是获取列标签，还有对内容进行迭代。
+可以使用的方法有以下 3 种。
+
+- iteritems() - 迭代键值对。
+- iterrows() - 将行迭代为索引 Series 对。
+- itertuples() - 以命名元组的形式迭代行。
+
+先看看第一个方法：
+
+```python
+In [84]: for key, value in df.iteritems(): 
+    ...:     print(key, value) 
+    ...:                                                                                                  
+姓名 0    小明
+1    小王
+2    小张
+Name: 姓名, dtype: object
+语文 0    80
+1    85
+2    90
+Name: 语文, dtype: int64
+数学 0    99
+1    88
+2    86
+Name: 数学, dtype: int64
+In [85]: for key, value in df.iteritems(): 
+    ...:     print(type(value)) 
+    ...:                                                                                                  
+<class 'pandas.core.series.Series'>
+<class 'pandas.core.series.Series'>
+<class 'pandas.core.series.Series'>
+```
+
+iteritems() 方法以 DataFrame 的列标签为键，列值为值进行迭代。
+每一个值都是 Series 对象。
+
+我们再来看第二个方法：
+
+```python
+In [87]: for key, value in df.iterrows(): 
+    ...:     print(key, value) 
+    ...:                                                                                                  
+0 姓名    小明
+语文    80
+数学    99
+Name: 0, dtype: object
+1 姓名    小王
+语文    85
+数学    88
+Name: 1, dtype: object
+2 姓名    小张
+语文    90
+数学    86
+Name: 2, dtype: object
+In [88]: for row, value in df.iterrows(): 
+    ...:     print(type(value)) 
+    ...:                                                                                                  
+<class 'pandas.core.series.Series'>
+<class 'pandas.core.series.Series'>
+<class 'pandas.core.series.Series'>
+```
+
+
+iterrows() 方法的结果也是 Series 对象，以 DataFrame 的列标签作为索引。
+读者需要注意的是，此时由于每一行是一个 Series 对象，之前 DataFrame 每列
+的数据类型会自动强制转换，因此当前每一个 Series 都是字符对象 object。
+
+我们最后看看第三个方法 itertuples()：
+
+```python
+In [89]: for key, value in df.itertuples(): 
+    ...:     print(key, value) 
+    ...:                                                                                                  
+---------------------------------------------------------------------------
+ValueError                                Traceback (most recent call last)
+<ipython-input-89-6b42ad46ae68> in <module>
+----> 1 for key, value in df.itertuples():
+      2     print(key, value)
+      3 
+
+ValueError: too many values to unpack (expected 2)
+
+In [90]: for value in df.itertuples(): 
+    ...:     print(value) 
+    ...:                                                                                                  
+Pandas(Index=0, 姓名='小明', 语文=80, 数学=99)
+Pandas(Index=1, 姓名='小王', 语文=85, 数学=88)
+Pandas(Index=2, 姓名='小张', 语文=90, 数学=86)
+
+In [91]: for value in df.itertuples(): 
+    ...:     print(type(value)) 
+    ...:                                                                                                  
+<class 'pandas.core.frame.Pandas'>
+<class 'pandas.core.frame.Pandas'>
+<class 'pandas.core.frame.Pandas'>
+```
+
+当我们使用与前两个方法类似的操作时，程序报错了，原因是该方法生成的每一个元素
+都是一个类名为 Pandas 的独立元组。我们可以使用 tuple() 将其转换为 Python 内置
+的元组对象。
+
+```python
+In [92]: for value in df.itertuples(): 
+    ...:     print(tuple(value)) 
+    ...:                                                                                                  
+(0, '小明', 80, 99)
+(1, '小王', 85, 88)
+(2, '小张', 90, 86)
+```
 
 ### 13.2.2 函数应用
 
-要将自定义或其他库的函数应用于Pandas对象，有三个重要的方法，下面来讨论如何使用这些方法。使用适当的方法取决于函数是否期望在整个DataFrame，行或列或元素上进行操作。
+针对 DataFrame 对象一般有 3 个不同层面的操作：一是整个 DataFrame，
+二是按行或按列，三是每一个元素。如果我们想要将包/库提供的函数
+应用到 DataFrame 上，有三个相应的重要方法，它们分别是
+pipe()、apply() 和 applymap()。
 
-表合理函数应用：pipe()行或列函数应用：apply()元素函数应用：applymap()
+> Series 对象也可以使用，不过此处内容聚焦于 DataFrame 对象的操作。
+
+#### pipe() 
+
+pipe() 是表格级别的函数应用，我们先定义一个乘法器。
+
+```python
+In [97]: def timer(e1, e2): 
+    ...:     return(e1*e2) 
+    ...:   
+```
+
+创建用于示例的 DataFrame 对象：
+
+```python
+In [98]: df1 = pd.DataFrame(6*np.random.randn(6, 3), columns=['col1', 'col2', 'col3'])
+In [99]: df1                                                                                              
+Out[99]: 
+        col1      col2       col3
+0  -2.327459  4.391074   8.796776
+1   3.736191  2.711543 -11.112365
+2  -5.686908 -0.246942  -0.692201
+3   4.060646  9.178073   1.355170
+4  10.171053 -3.417467   0.447833
+5  -7.363384 -0.176782  -6.391243
+```
+
+使用 pipe() 调用该上述定义的乘法器，对 df1 乘以 10。
+
+```python
+In [100]: df1.pipe(timer, 10)                                                                             
+Out[100]: 
+         col1       col2        col3
+0  -23.274593  43.910736   87.967759
+1   37.361914  27.115432 -111.123654
+2  -56.869085  -2.469423   -6.922007
+3   40.606458  91.780725   13.551700
+4  101.710534 -34.174668    4.478325
+5  -73.633838  -1.767825  -63.912430
+```
+
+这里 10 自动进行了广播拓展到 df1 相同的大小再进行的运算，传入
+pipe() 第二个参数也可以是相同大小的 DataFrame。
+
+```python
+In [103]: df1.pipe(timer, pd.DataFrame(6*np.random.randn(6, 3), columns=['col1', 'col2', 'col3']))        
+Out[103]: 
+        col1        col2       col3
+0   5.756520  -26.905602  21.285264
+1  20.548535  -10.953445 -99.671865
+2  -2.653793    1.188218   2.159359
+3  15.746131  225.602231  13.177158
+4  95.979467   -1.891072   0.294889
+5  14.734334    0.651522  27.829243
+```
+
+pipe() 函数的实用性并不强，由于广播机制的存在，我们完全可以直接
+使用运算符达到相同的目的。
+
+```python
+In [104]: df1 * 10                                                                                        
+Out[104]: 
+         col1       col2        col3
+0  -23.274593  43.910736   87.967759
+1   37.361914  27.115432 -111.123654
+2  -56.869085  -2.469423   -6.922007
+3   40.606458  91.780725   13.551700
+4  101.710534 -34.174668    4.478325
+5  -73.633838  -1.767825  -63.912430
+In [105]: df1 * df1                                                                                       
+Out[105]: 
+         col1       col2        col3
+0    5.417067  19.281527   77.383267
+1   13.959126   7.352467  123.484665
+2   32.340928   0.060981    0.479142
+3   16.488844  84.237015    1.836486
+4  103.450327  11.679079    0.200554
+5   54.219421   0.031252   40.847987
+```
+
+#### apply()
+
+apply() 是 3 个方法中最常用最实用的，可以对列或行进行函数应用。
+默认情况下，apply() 对列进行操作。
+
+还是使用上面的数据和函数，目的也一样，对每列乘以 10。
+
+```python
+In [114]: df1.apply(timer, axis=0, e2=10)                                                                 
+Out[114]: 
+         col1       col2        col3
+0  -23.274593  43.910736   87.967759
+1   37.361914  27.115432 -111.123654
+2  -56.869085  -2.469423   -6.922007
+3   40.606458  91.780725   13.551700
+4  101.710534 -34.174668    4.478325
+5  -73.633838  -1.767825  -63.912430
+```
+
+这里 df1 被 apply() 传入为 timer() 函数的第一个参数，第二个参数必须用
+关键字参数指定。
+
+我们可以指定 apply() 应用于特定的列或行，实际上此时就是 Series 对象使用 apply()。
+
+例如，我们只操作第 3 列或第 3 行。
+
+```python
+In [123]: df1.iloc[:,2].apply(timer, e2=10)                                                               
+Out[123]: 
+0     87.967759
+1   -111.123654
+2     -6.922007
+3     13.551700
+4      4.478325
+5    -63.912430
+Name: col3, dtype: float64
+
+In [124]: df1.iloc[2,].apply(timer, e2=10)                                                                
+Out[124]: 
+col1   -56.869085
+col2    -2.469423
+col3    -6.922007
+Name: 2, dtype: float64
+```
+
+#### applymap()
+
+applymap() 进行的是元素级别的应用，它也完全可以做到上述 pipe() 的示例结果。
+
+这里我们直接调用匿名函数，更加方便快捷。
+
+```python
+In [125]: df1.applymap(lambda x: 10 * x)                                                                  
+Out[125]: 
+         col1       col2        col3
+0  -23.274593  43.910736   87.967759
+1   37.361914  27.115432 -111.123654
+2  -56.869085  -2.469423   -6.922007
+3   40.606458  91.780725   13.551700
+4  101.710534 -34.174668    4.478325
+5  -73.633838  -1.767825  -63.912430
+```
+
+当然这体现不出该方法的优势，applymap() 在对所有元素做选择性操作时才是最有价值的。
+
+例如，我们对 df1 中小于 0 的平方，大于 0 的加 10。
+
+```python
+In [126]: df1.applymap(lambda x: x ** 2 if x < 0 else x + 10)                                             
+Out[126]: 
+        col1       col2        col3
+0   5.417067  14.391074   18.796776
+1  13.736191  12.711543  123.484665
+2  32.340928   0.060981    0.479142
+3  14.060646  19.178073   11.355170
+4  20.171053  11.679079   10.447833
+5  54.219421   0.031252   40.847987
+```
 
 ### 13.2.3 字符串函数
 
-Pandas提供了一组字符串函数，可以方便地对字符串数据进行操作。 最重要的是，这些函数忽略(或排除)丢失/NaN值。
-几乎这些方法都使用Python字符串函数(请参阅： http://docs.python.org/3/library/stdtypes.html#string-methods )。 因此，将Series对象转换为String对象，然后执行该操作。
+除了数值计算，数据分析常常也处理文本数据，字符串函数在其中作用重大。
+Pandas 库为文本数据提供了字符属性，可以方便地利用 Python 内置字符串函数
+同名方法进行操作。
 
-https://www.yiibai.com/pandas/python_pandas_working_with_text_data.html
+本小节将对常见的字符串操作函数进行举例，最后进行表格汇总。
+
+我们先构建一个样例数据。
+
+```python
+In [127]: sample_data = pd.Series(['Mike', 'Shixiang', np.nan, '012345', 'HAPPY', 'hurry'])               
+In [128]: sample_data                                                                                     
+Out[128]: 
+0        Mike
+1    Shixiang
+2         NaN
+3      012345
+4       HAPPY
+5       hurry
+dtype: object
+```
+
+使用字符串方法前需要访问 str 属性。
+
+#### lower()
+
+lower() 方法将所有字母变为小写。
+
+```python
+In [129]: sample_data.str.lower()                                                                         
+Out[129]: 
+0        mike
+1    shixiang
+2         NaN
+3      012345
+4       happy
+5       hurry
+dtype: object
+```
+
+#### upper()
+
+upper() 方法的作用与 lower() 相反。
+
+```python
+In [130]: sample_data.str.upper()                                                                         
+Out[130]: 
+0        MIKE
+1    SHIXIANG
+2         NaN
+3      012345
+4       HAPPY
+5       HURRY
+dtype: object
+```
+
+#### len()
+
+len() 方法获取字符长度。
+
+```python
+In [131]: sample_data.str.len()                                                                           
+Out[131]: 
+0    4.0
+1    8.0
+2    NaN
+3    6.0
+4    5.0
+5    5.0
+dtype: float64
+```
+
+#### replace()
+
+replace() 方法替换字符串。
+
+```python
+In [132]: sample_data.str.replace('H', 'YY')                                                              
+Out[132]: 
+0        Mike
+1    Shixiang
+2         NaN
+3      012345
+4      YYAPPY
+5       hurry
+dtype: object
+```
+
+#### count()
+
+count() 方法对指定字符进行计数。
+
+```python
+In [133]: sample_data.str.count('a')                                                                      
+Out[133]: 
+0    0.0
+1    1.0
+2    NaN
+3    0.0
+4    0.0
+5    0.0
+dtype: float64
+```
+
+#### swapcase()
+
+swapcase() 方法转换字母大小写。
+
+```python
+In [134]: sample_data.str.swapcase()                                                                      
+Out[134]: 
+0        mIKE
+1    sHIXIANG
+2         NaN
+3      012345
+4       happy
+5       HURRY
+dtype: object
+```
+
+其他的方法不再一一列举，全部都汇总为下表。
+
+| 方法                  | 描述                                                         |
+| --------------------- | ------------------------------------------------------------ |
+| `lower()`             | 将`Series/Index`中的字符串转换为小写                         |
+| `upper()`             | 将`Series/Index`中的字符串转换为大写                         |
+| `len()`               | 计算字符串长度                                               |
+| `strip()`             | 帮助从两侧的系列/索引中的每个字符串中删除空格(包括换行符)    |
+| `split(' ')`          | 用给定的模式拆分每个字符串                                   |
+| `cat(sep=' ')`        | 使用给定的分隔符连接系列/索引元素                            |
+| `get_dummies()`       | 返回具有单热编码值的 DataFrame                               |
+| `contains(pattern)`   | 如果元素中包含子字符串，则返回每个元素的布尔值`True`，否则为`False` |
+| `replace(a,b)`        | 将字符`a`替换为值`b`                                         |
+| `repeat(value)`       | 重复每个元素指定的次数                                       |
+| `count(pattern)`      | 返回模式中每个元素的出现总数                                 |
+| `startswith(pattern)` | 如果系列/索引中的元素以模式开始，则返回`true`                |
+| `endswith(pattern)`   | 如果系列/索引中的元素以模式结束，则返回`true`                |
+| `find(pattern)`       | 返回模式第一次出现的位置                                     |
+| `findall(pattern)`    | 返回模式的所有出现的列表                                     |
+| `swapcase()`          | 变换字母大小写                                               |
+| `islower()`           | 检查系列/索引中每个字符串中的所有字符是否小写，返回布尔值    |
+| `isupper()`           | 检查系列/索引中每个字符串中的所有字符是否大写，返回布尔值    |
+| `isnumeric()`         | 检查系列/索引中每个字符串中的所有字符是否为数字，返回布尔值  |
 
 ### 13.2.4 分组计算
 
