@@ -994,120 +994,227 @@ dtype: object
 
 ### 13.2.4 分组计算
 
-用某一特定标签 (label) 将数据 (data) 分组的语法如下：
+分组计算提供了一种非常强大的汇总技术，它的核心可以分为 3 个步骤：
+拆分、应用和合并。
 
+前面的 apply() 函数可以让我们对某列或行进行数值计算，在真实的世界中，
+我们可能需要根据表格的某一列分组，然后分别计算每个组别中其他列的汇总值，如和，均值。
 
+Pandas 提供了 groupby() 方法完成上面的需求。
 
-    data.groupBy( label )
+我们看一个来自 Pandas 官方文档的示例，计算不同动物最大速度的均值。
 
+```python
+df = pd.DataFrame({'Animal': ['Falcon', 'Falcon',
+                               'Parrot', 'Parrot'],
+                   'Max Speed': [380., 370., 24., 26.]})
+In [136]: df                                                                                                
+Out[136]: 
+   Animal  Max Speed
+0  Falcon      380.0
+1  Falcon      370.0
+2  Parrot       24.0
+3  Parrot       26.0
 
+In [137]: df.groupby(['Animal']).mean()                                                                     
+Out[137]: 
+        Max Speed
+Animal           
+Falcon      375.0
+Parrot       25.0
+```
 
-单标签分组
-首先我们按 Symbol 来分组：
+虽然数据很简单，但它足以帮助我们理解它的操作方法，其核心步骤描述如下：
 
-grouped = data1.groupby('Symbol')
-grouped
-<pandas.core.groupby.groupby.DataFrameGroupBy
-object at 0x7fbbc7248d68>
-
-
-又要提起那句说了无数遍的话「万物皆对象」了。这个 grouped 也不例外，当你对如果使用某个对象感到迷茫时，用 dir() 来查看它的「属性」和「内置方法」。以下几个属性和方法是我们感兴趣的：
-
-
-
-ngroups: 组的个数 (int)
-
-size(): 每组元素的个数 (Series)
-
-groups: 每组元素在原 DataFrame 中的索引信息 (dict)
-
-get_groups(label): 标签 label 对应的数据 (DataFrame)
-
-
-
-下面看看这些属性和方法的产出结果。
-
-多标签分组
-groupBy 函数除了支持单标签分组，也支持多标签分组 (将标签放入一个列表中)。
-
-grouped2 = data1.groupby(['Symbol', 'Year', 'Month'])
-print_groups( grouped2 )
-
-6.3
-
-整合 (aggregating)
-
-
-
-做完分组之后 so what？当然是在每组做点数据分析再整合啦。
-
-
-
-一个最简单的例子就是上节提到的 size() 函数，用 grouped 对象 (上面根据 Symbol 分组得到的) 来举例。
-
-grouped.size()
-
-
-除了上述方法，整合还可以用内置函数 aggregate() 或 agg() 作用到「组对象」上。用 grouped4 对象 (上面根据 Symbol, Year, Month 分组得到的) 来举例。
-
-result = grouped4.agg( np.mean )
-result.head().append(result.tail())
-
-6.4
-
-split-apply-combine
-
-
-
-前几节做的事情的实质就是一个 split-apply-combine 的过程，如下图所示：
-
-https://mmbiz.qpic.cn/mmbiz_png/e4kxNicDVcCGMVUbnH2BxNCcAgACx6iblP6pLTxaHdhwy3TViaaW8RoqrRYwMEyJQgGYBUoDTmiaE2QpJt85cIDvIg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1
-
-
-该 split-apply-combine 过程有三步：
-
-
-
-根据 key 来 split 成 n 组
-
-将函数 apply 到每个组
-
-把 n 组的结果 combine 起来
-
-Apply 函数
-在 split-apply-combine 过程中，apply 是核心。Python 本身有高阶函数 apply() 来实现它，既然是高阶函数，参数可以是另外的函数了，比如刚定义好的 top()。
-
-
-
-将 top() 函数 apply 到按 Symbol 分的每个组上，按每个 Symbol 打印出来了 Volume 栏下的 5 个最大值。
-
-data.groupby('Symbol').apply(top)
-
-
-
-
-
-【split-apply-combine】用 apply 函数做数据分析时美滋滋。
+- 拆分 - 将 DataFrame 按照 Animal 分为两个子 DataFrame；
+- 应用 - 对两个子 DataFrame 的速度列进行均值函数计算得到汇总值；
+- 合并 - 将分组计算的结果合并起来。
 
 ## 13.3 数据清洗
 
-### 13.3.1 NA 值处理
+作为一名数据工作者，我们 80% 的时间不是花在数据的转换和计算上，而是花在数据清洗上。
+由于原始数据的来源不一致、数据记录的人力物力投入不平衡、数据存储格式的设计不相同等等
+各种原因，数据的缺失、不规整是现实生活中不可避免问题。特别是在当前流行的机器学习
+和数据挖掘等领域，质量层次不齐的数据导致模型预测面临严重的准确性和可拓展性问题。
 
-### 13.2.2 合并
+### 13.3.1 缺失值值处理
+
+当数据记录缺失时，一般用 NA（Not Available）值代表，NA 值处理时数据清洗的重点。
+由计算引入的 NaN（Not A Number）也可以归入缺失值。
+
+我们先生成一个简单的缺失值数据。
+
+```python
+In [138]: df = pd.DataFrame(np.random.randn(4, 4), index = ['user1', 'user2', 'user3', 'user4'], columns=['c
+     ...: ol1', 'col2', 'col3', 'col4'])                                                                    
+In [139]: df                                                                                                
+Out[139]: 
+           col1      col2      col3      col4
+user1  0.368869  1.021476 -0.771651 -1.908077
+user2  0.023887  0.799769 -0.230265 -0.800586
+user3 -0.139025 -0.032772  1.078525 -1.453405
+user4 -1.042709  1.022162 -0.686548 -1.497647
+In [141]: df = df.reindex(['user0', 'user1', 'user2', 'user3', 'user4', 'user5'])
+In [142]: df                                                                                                
+Out[142]: 
+           col1      col2      col3      col4
+user0       NaN       NaN       NaN       NaN
+user1  0.368869  1.021476 -0.771651 -1.908077
+user2  0.023887  0.799769 -0.230265 -0.800586
+user3 -0.139025 -0.032772  1.078525 -1.453405
+user4 -1.042709  1.022162 -0.686548 -1.497647
+user5       NaN       NaN       NaN       NaN
+```
+
+#### 检查缺失值
+
+Pandas 库提供了 isnull() 和 notnull() 函数对缺失值进行检测。
+
+我们既可以检测整个 DataFrame，也可以值关注某一列。
+
+```python
+In [143]: df.isnull()                                                                                       
+Out[143]: 
+        col1   col2   col3   col4
+user0   True   True   True   True
+user1  False  False  False  False
+user2  False  False  False  False
+user3  False  False  False  False
+user4  False  False  False  False
+user5   True   True   True   True
+
+In [144]: df.col1.isnull()                                                                                  
+Out[144]: 
+user0     True
+user1    False
+user2    False
+user3    False
+user4    False
+user5     True
+Name: col1, dtype: bool
+```
+
+#### 缺失值相关计算
+
+当数据存在缺失值时，Pandas 计算时会自动忽略它们。当所有的元素是缺失值时，
+结果返回缺失值。注意在求和数据时，缺失值会被当做 0 处理。
+
+```python
+In [145]: df.sum()                                                                                          
+Out[145]: 
+col1   -0.788979
+col2    2.810636
+col3   -0.609939
+col4   -5.659715
+dtype: float64
+
+In [146]: pd.Series([np.nan, np.nan]).sum()                                                                 
+Out[146]: 0.0
+
+In [147]: pd.Series([np.nan, np.nan]).mean()                                                                
+Out[147]: nan
+```
+
+#### 填充缺失值
+
+Pandas 库提供了诸多方法用于清除缺失值。其中，fillna() 函数可以通过集中方法
+填充缺失值，下面举例介绍。
+
+最常见的策略是用一个标量填充缺失值，如果没有特别的需求，一般可以设为 0。
+
+```python
+In [148]: df.fillna(0)                                                                                      
+Out[148]: 
+           col1      col2      col3      col4
+user0  0.000000  0.000000  0.000000  0.000000
+user1  0.368869  1.021476 -0.771651 -1.908077
+user2  0.023887  0.799769 -0.230265 -0.800586
+user3 -0.139025 -0.032772  1.078525 -1.453405
+user4 -1.042709  1.022162 -0.686548 -1.497647
+user5  0.000000  0.000000  0.000000  0.000000
+```
+
+还可以设定缺失值根据前后的数据进行填充，分为向前和向后两种。
+
+```python
+In [150]: df.fillna(method='pad')   # 向前填充                                                                   
+Out[150]: 
+           col1      col2      col3      col4
+user0       NaN       NaN       NaN       NaN
+user1  0.368869  1.021476 -0.771651 -1.908077
+user2  0.023887  0.799769 -0.230265 -0.800586
+user3 -0.139025 -0.032772  1.078525 -1.453405
+user4 -1.042709  1.022162 -0.686548 -1.497647
+user5 -1.042709  1.022162 -0.686548 -1.497647
+
+In [151]: df.fillna(method='backfill')  # 向后填充                                                               
+Out[151]: 
+           col1      col2      col3      col4
+user0  0.368869  1.021476 -0.771651 -1.908077
+user1  0.368869  1.021476 -0.771651 -1.908077
+user2  0.023887  0.799769 -0.230265 -0.800586
+user3 -0.139025 -0.032772  1.078525 -1.453405
+user4 -1.042709  1.022162 -0.686548 -1.497647
+user5       NaN       NaN       NaN       NaN
+```
+
+含缺失值的数据提供的是不完整的信息，在样本较多时可以考虑直接舍弃。
+
+使用 dropna() 方法可以直接去掉含缺失值的行或列，默认是行。
+
+```python
+In [152]: df.dropna()                                                                                       
+Out[152]: 
+           col1      col2      col3      col4
+user1  0.368869  1.021476 -0.771651 -1.908077
+user2  0.023887  0.799769 -0.230265 -0.800586
+user3 -0.139025 -0.032772  1.078525 -1.453405
+user4 -1.042709  1.022162 -0.686548 -1.497647
+```
+
+如果按列去除，df 就没有可以用的数据了。
+
+```python
+In [153]: df.dropna(axis=1)                                                                                 
+Out[153]: 
+Empty DataFrame
+Columns: []
+Index: [user0, user1, user2, user3, user4, user5]
+```
+
+### 13.2.2 连接
+
+最后用于汇报或者绘图的数据可能来自多个数据表格，我们有时需要将它们合并到一起。
+Pandas 库提供了 merge() 函数用于 DataFrame 的连接。
+
+连接操作一般是根据键进行的，键是两个数据表格共有的列。按键连接根据键的多少
+可以分为单键连接和多键连接。连接操作与 SQL 操作极为相似。
+
+无论多少个键的连接、不同类型的连接都是使用 merge() 函数，只是参数设定不同。
+merge() 函数的参数列表显示如下：
+
+```python
+pd.merge(
+    left,
+    right,
+    how='inner',
+    on=None,
+    left_on=None,
+    right_on=None,
+    left_index=False,
+    right_index=False,
+    sort=False,
+    suffixes=('_x', '_y'),
+    copy=True,
+    indicator=False,
+    validate=None,
+)
+```
+
+接下来根据不同的连接需求分别介绍。
 
 
-按键 (key) 合并可以分「单键合并」和「多键合并」。
 
-
-
-单键合并
-
-
-单键合并用 merge 函数，语法如下：
-
-
-
-    pd.merge( df1, df2, how=s, on=c )
 
 
 
