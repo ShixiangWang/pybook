@@ -5,7 +5,6 @@
 - 深入 Pandas 数据结构
 - 迭代与函数应用
 - 数据清洗
-- 数据转换
 - 简单可视化
 - Pandas 自定义
 
@@ -113,8 +112,6 @@ student3      9     160
 
 - 节省存储——分类变量在存储时是将字符串映射为整数值的，这大大节省了内存的使用。数据越大，效率越高。例如，有 10 万个 one、two、three，分类变量将它们映射为 1、2、3 进行存储，而不是实际的英文字符。
 - 分类排序——例如有 3 个分类 one、two、three，我们需要绘制它们的频数条形图。我们可以使用分类变量按照自己的的想法排列这三个分类，控制绘图时它们的排序。
-
-#### 创建分类变量
 
 有两种办法可以创建分类变量，一种是在创建 Pandas 的 Series 或 DataFrame 时指定数据类型 dtype 为 category，第二种是直接使用 Pandas 提供的构造器函数 Categorical()。
 
@@ -1182,10 +1179,10 @@ Columns: []
 Index: [user0, user1, user2, user3, user4, user5]
 ```
 
-### 13.2.2 连接
+### 13.3.2 连接
 
-最后用于汇报或者绘图的数据可能来自多个数据表格，我们有时需要将它们合并到一起。
-Pandas 库提供了 merge() 函数用于 DataFrame 的连接。
+最后用于汇报或者绘图的数据可能来自多个数据表格，我们有时需要将它们合并到一起，
+称为连接。Pandas 库提供了 merge() 函数用于 DataFrame 的连接。
 
 连接操作一般是根据键进行的，键是两个数据表格共有的列。按键连接根据键的多少
 可以分为单键连接和多键连接。连接操作与 SQL 操作极为相似。
@@ -1211,320 +1208,314 @@ pd.merge(
 )
 ```
 
-接下来根据不同的连接需求分别介绍。
-
-
-
-
-
-
-c 是 df1 和 df2 共有的一栏，合并方式 (how=s) 有四种：
-
-
-
-左连接 (left join)：合并之后显示 df1 的所有行
-
-右连接 (right join)：合并之后显示 df2 的所有行
-
-外连接 (outer join)：合并 df1 和 df2 共有的所有行
-
-内连接 (inner join)：合并所有行 (默认情况)
-
-
-left join
-pd.merge( df_price, df_volume, how='left' )
-
-right join
-pd.merge( df_price, df_volume, how='right' )
-
-outer join
-pd.merge( df_price, df_volume, how='outer' )
-
-inner join
-pd.merge( df_price, df_volume, how='inner' )
-
-
-多键合并
-
-
-多键合并用的语法和单键合并一样，只不过 on=c 中的 c 是多栏。
-
-    pd.merge( df1, df2, how=s, on=c )
-
-
-当 df1 和 df2 有两个相同的列 (Asset 和 Instrument) 时，单单只对一列 (Asset) 做合并产出的 DataFrame 会有另一列 (Instrument) 重复的名称。这时 merge 函数给重复的名称加个后缀 _x, _y 等等。
-
-如果觉得后缀 _x, _y 没有什么具体含义时，可以设定 suffixes 来改后缀。比如 df1 和 df2 存储的是 portoflio1 和 portfolio2 的产品信息，那么将后缀该成 ‘1’ 和 ‘2’ 更贴切。
-
-### 13.3.3 连接
-
-Numpy 数组可相互连接，用 np.concat；同理，Series 也可相互连接，DataFrame 也可相互连接，用 pd.concat。
-
-
-
-连接 Series
-
-
-在 concat 函数也可设定参数 axis，
-
-
-
-axis = 0 (默认)，沿着轴 0 (行) 连接，得到一个更长的 Series
-
-axis = 1，沿着轴 1 (列) 连接，得到一个 DataFrame
-
-
-
-被连接的 Series 它们的 index 可以重复 (overlapping)，也可以不同。
-
-
-
-overlapping index
-先定义三个 Series，它们的 index 各不同。
-
-s1 = pd.Series([0, 1], index=['a', 'b'])
-s2 = pd.Series([2, 3, 4], index=['c', 'd', 'e'])
-s3 = pd.Series([5, 6], index=['f', 'g'])
-
-
-沿着「轴 0」连接得到一个更长的 Series。
-
-pd.concat([s1, s2, s3])
-
-将 s1 和 s3 沿「轴 0」连接来创建 s4，这样 s4 和 s1 的 index 是有重复的。
-
-将 s1 和 s4 沿「轴 1」内连接 (即只连接它们共有 index 对应的值)
-
-pd.concat([s1, s4], axis=1, join='inner')
-
-hierarchical index
-最后还可以将 n 个 Series 沿「轴 0」连接起来，再赋予 3 个 keys 创建多层 Series。
-
-连接 DataFrame 的逻辑和连接 Series 的一模一样。
-
-
-
-沿着行连接 (axis = 0)
-
-沿着行连接分两步
-
-
-
-先把 df1 和 df2 列标签补齐
-
-再把 df1 和 df2 纵向连起来
-
-pd.concat( [df1, df2] )
-
-
-得到的 DataFrame 的 index = [0,1,2,0,1]，有重复值。如果 index 不包含重要信息 (如上例)，可以将 ignore_index 设置为 True，这样就得到默认的 index 值了。
-
-沿着列连接 (axis = 1)
-先创建两个 DataFrame，df1 和 df2。
-
-df1 = pd.DataFrame( np.arange(6).reshape(3,2), 
-                    index=['a','b','c'],
-                    columns=['one','two'] )
-df1
-
-沿着列连接分两步
-
-
-
-先把 df1 和 df2 行标签补齐
-
-再把 df1 和 df2 横向连起来
-
-5数据表的重塑和透视
-
-
-重塑 (reshape) 和透视 (pivot) 两个操作只改变数据表的布局 (layout)：
-
-
-
-重塑用 stack 和 unstack 函数 (互为逆转操作)
-
-透视用 pivot 和 melt 函数 (互为逆转操作)
-
-
-## 13.4 数据转换
-
-### 13.4.1 重塑
-
-DataFrame 和「多层索引的 Series」其实维度是一样，只是展示形式不同。而重塑就是通过改变数据表里面的「行索引」和「列索引」来改变展示形式。
-
-
-
-列索引 → 行索引，用 stack 函数
-
-行索引 → 列索引，用 unstack 函数
-
-
-创建 DataFrame df (1 层行索引，1 层列索引)
-
-symbol = ['JD', 'AAPL']
-data = {'行业': ['电商', '科技'],
-        '价格': [25.95, 172.97],
-        '交易量': [27113291, 18913154]}
-df = pd.DataFrame( data, index=symbol )
-df.columns.name = '特征'
-df.index.name = '代号'
-df
-
-stack: 列索引 → 行索引
-列索引 (特征) 变成了行索引，原来的 DataFrame df 变成了两层 Series (第一层索引是代号，第二层索引是特征)。
-
-c2i_Series = df.stack()
-c2i_Series
-
-unstack: 行索引 → 列索引
-行索引 (代号) 变成了列索引，原来的 DataFrame df 也变成了两层 Series (第一层索引是特征，第二层索引是代号)。
-
-i2c_Series = df.unstack()
-i2c_Series
-
-规律总结
-对 df 做 stack 和 unstack 都得到了「两层 Series」，但是索引的层次不同，那么在背后的规律是什么？首先我们先来看看两个「两层 Series」的 index 包含哪些信息 (以及 df 的 index 和 columns)。
-
-现在可以总结规律：
-
-
-
-当用 stack 将 df 变成 c2i_Series 时，df 的列索引 c 加在其行索引 r 后面得到 [r, c] 做为 c2i_Series 的多层索引
-
-
-
-当用 unstack 将 df 变成 i2c_Series 时，df 的行索引 r 加在其列索引 c 后面得到 [c, r] 做为 i2c_Series 的多层索引
-
-
-
-基于层和名称来 unstack
-对于多层索引的 Series，unstack 哪一层有两种方法来确定：
-
-
-
-基于层 (level-based)
-
-基于名称 (name-based)
-
-
-
-
-1. 基于层来 unstack() 时，没有填层数，默认为最后一层。
-
-2. 基于层来 unstack() 时，选择第一层 (参数放 0)
-
-c2i_Series.unstack(0)
-
-
-3. 基于名称来 unstack 
-
-c2i_Series.unstack('代号')
-
-
-多层 DataFrame
-
-
-创建 DataFrame df (2 层行索引，1 层列索引)
-
-data = [ ['电商', 101550, 176.92], 
-         ['电商', 175336, 25.95], 
-         ['金融', 60348, 41.79], 
-         ['金融', 36600, 196.00] ]
-
-midx = pd.MultiIndex( levels=[['中国','美国'],
-                              ['BABA', 'JD', 'GS', 'MS']], 
-                      labels=[[0,0,1,1],[0,1,2,3]],
-                      names = ['地区', '代号'])
-
-mcol = pd.Index(['行业','雇员','价格'], name='特征')
-
-df = pd.DataFrame( data, index=midx, columns=mcol )
-df
-
-### 13.4.2 透视
-
-数据源表通常只包含行和列，那么经常有重复值出现在各列下，因而导致源表不能传递有价值的信息。这时可用「透视」方法调整源表的布局用作更清晰的展示。
-
-
-
-知识点
-本节「透视」得到的数据表和 Excel 里面的透视表 (pivot table) 是一样的。透视表是用来汇总其它表的数据：
-
-首先把源表分组，将不同值当做行 (row)、列 (column) 和值 (value)
-
-
-然后对各组内数据做汇总操作如排序、平均、累加、计数等
-
-
-这种动态将·「源表」得到想要「终表」的旋转 (pivoting) 过程，使透视表得以命名。
-
-
-在 Pandas 里透视的方法有两种：
-
-
-
-用 pivot 函数将「一张长表」变「多张宽表」，
-
-用 melt 函数将「多张宽表」变「一张长表」，
-
-
-从长到宽 (pivot)
-
-
-
-当我们做数据分析时，只关注不同股票在不同日期下的 Adj Close，那么可用 pivot 函数可将原始 data「透视」成一个新的 DataFrame，起名 close_price。在 pivot 函数中
-
-
-
-将 index 设置成 ‘Date’
-
-将 columns 设置成 ‘Symbol’
-
-将 values 设置 ‘Adj Close’
-
-
-
-close_price 实际上把 data[‘Date’] 和 data[‘Symbol’] 的唯一值当成支点(pivot 就是支点的意思) 创建一个 DataFrame，其中
-
-
-
-行标签 = 2019-02-21, 2019-02-22, 2019-02-25, 2019-02-26
-
-列标签 = AAPL, JD, BABA, FB, GS
-
-
-
-在把 data[‘Adj Close’] 的值放在以如上的行标签和列标签创建的 close_price 来展示。
-
-
-从宽到长 (melt)
-
-
-pivot 逆反操作是 melt。
-
-
-
-前者将「一张长表」变成「多张宽表」
-
-后者将「多张宽表」变成「一张长表」
-
-
-
-具体来说，函数 melt 实际是将「源表」转化成 id-variable 类型的 DataFrame，下例将
-
-
-
-Date 和 Symbol 列当成 id
-
-其他列 Open, High, Low, Close, Adj Close 和 Volume 当成 variable，而它们对应的值当成 value
-
-
-## 13.5 Pandas 可视化
-
-
-![自己用中文画下这个图](https://d33wubrfki0l68.cloudfront.net/571b056757d68e6df81a3e3853f54d3c76ad6efc/32d37/diagrams/data-science.png)
-
+我们接着构建用于连接的两个数据框，一个 DataFrame 存储故事的 id 的名字，
+一个 DataFrame 存储故事所属的 subject 和故事评分。
+
+```python
+In [155]: stories = pd.DataFrame({'story_id':[1,2,3], 'title':['lions', 'tigers', 'bears']})              
+
+In [156]: data = pd.DataFrame({'subject':[1,2,1,2], 'story_id':[1,2,5,6], 'rating':[6.7, 7.8, 3.2, 9.0]}) 
+
+In [157]: stories                                                                                         
+Out[157]: 
+   story_id   title
+0         1   lions
+1         2  tigers
+2         3   bears
+
+In [158]: data                                                                                            
+Out[158]: 
+   subject  story_id  rating
+0        1         1     6.7
+1        2         2     7.8
+2        1         5     3.2
+3        2         6     9.0
+```
+
+接下来根据不同的需求分别介绍连接操作。
+
+#### 左连接
+
+连接的 DataFrame 根据参数的顺序按 left 和 right 区分。
+按左连接（left join）操作合并之后显示 left 的所有行。
+
+连接的方式由 how 参数控制，用于连接的列名由 on 参数指定。
+
+```python
+In [159]: pd.merge(stories, data, how='left', on='story_id')                                              
+Out[159]: 
+   story_id   title  subject  rating
+0         1   lions      1.0     6.7
+1         2  tigers      2.0     7.8
+2         3   bears      NaN     NaN
+```
+
+连接后不存在的数值将以 NaN 填充。
+
+#### 右连接
+
+在理解左连接后，理解其他的操作就比较简单了。
+右连接（right join）操作合并之后显示 right 的所有行。
+其实这与对调输入的两个 DataFrame 的左连接结果一致。
+
+```python
+In [160]: pd.merge(stories, data, how='right', on='story_id')                                             
+Out[160]: 
+   story_id   title  subject  rating
+0         1   lions        1     6.7
+1         2  tigers        2     7.8
+2         5     NaN        1     3.2
+3         6     NaN        2     9.0
+
+In [161]: pd.merge(data, stories, how='left', on='story_id')                                              
+Out[161]: 
+   subject  story_id  rating   title
+0        1         1     6.7   lions
+1        2         2     7.8  tigers
+2        1         5     3.2     NaN
+3        2         6     9.0     NaN
+```
+
+虽然结果一致，但结果显示两种操作的列名顺序有些不同。
+
+#### 外连接
+
+外连接（outer join）操作也可以看作取并集，它会合并 left 和 right 所有的行。
+
+```python
+In [162]: pd.merge(stories, data, how='outer', on='story_id')                                             
+Out[162]: 
+   story_id   title  subject  rating
+0         1   lions      1.0     6.7
+1         2  tigers      2.0     7.8
+2         3   bears      NaN     NaN
+3         5     NaN      1.0     3.2
+4         6     NaN      2.0     9.0
+```
+
+#### 内连接
+
+内连接（inner join）操作也可以看作取交集，它会合并 left 和 right 共有的行。
+
+```python
+In [163]: pd.merge(stories, data, how='inner', on='story_id')                                             
+Out[163]: 
+   story_id   title  subject  rating
+0         1   lions        1     6.7
+1         2  tigers        2     7.8
+```
+
+上述所说的共有是指用于连接的键的共有值，如 stories 和 data 的 story_id 共有
+的值是 1 和 2。
+
+#### 多键连接
+
+多键连接难度也不大，以列表形式指定 on 参数为两个 DataFrame 共有的列名即可。
+
+```python
+In [168]: data2 = pd.merge(stories, data, how='inner', on='story_id')                                     
+
+In [169]: data                                                                                            
+Out[169]: 
+   subject  story_id  rating
+0        1         1     6.7
+1        2         2     7.8
+2        1         5     3.2
+3        2         6     9.0
+
+In [170]: pd.merge(data2, data, how='inner', on=['story_id', 'subject'])                                  
+Out[170]: 
+   story_id   title  subject  rating_x  rating_y
+0         1   lions        1       6.7       6.7
+1         2  tigers        2       7.8       7.8
+```
+
+如果两个 DataFrame 除了作为键的列之外还有同名列，合并后会被自动
+添加 x 和 y 后缀以示区别。
+
+
+### 13.3.3 级联
+
+除了通过键将 DataFrame 以列的形式连接到一起，还有级联的方式可以合并 DataFrame。
+级联操作使用 concat() 函数实现，它可以将多个 DataFrame 按行（默认）或按列组合。
+
+```python
+In [171]: data = pd.DataFrame({'subject':[1,2,1,2], 'story_id':[1,2,5,6], 'rating':[6.7, 7.8, 3.2, 9.0]})            
+In [172]: data2 = pd.DataFrame({'subject':[1,2], 'story_id':[3, 4], 'rating':[5, 9.7]})                              
+
+In [173]: data                                                                                                       
+Out[173]: 
+   subject  story_id  rating
+0        1         1     6.7
+1        2         2     7.8
+2        1         5     3.2
+3        2         6     9.0
+
+In [174]: data2                                                                                                      
+Out[174]: 
+   subject  story_id  rating
+0        1         3     5.0
+1        2         4     9.7
+```
+
+上述代码生成了两个列名一致的 DataFrame，接下来我们将它们按行组合起来。
+
+```python
+In [175]: pd.concat([data, data2])                                                                                   
+Out[175]: 
+   subject  story_id  rating
+0        1         1     6.7
+1        2         2     7.8
+2        1         5     3.2
+3        2         6     9.0
+0        1         3     5.0
+1        2         4     9.7
+```
+
+怎么样，简单吧？
+
+有时我们可能想要标定行的数据来源，这可以使用键实现。
+
+```python
+In [176]: pd.concat([data, data2], keys=['data', 'data2'])                                                           
+Out[176]: 
+         subject  story_id  rating
+data  0        1         1     6.7
+      1        2         2     7.8
+      2        1         5     3.2
+      3        2         6     9.0
+data2 0        1         3     5.0
+      1        2         4     9.7
+```
+
+仔细观察读者不难发现 index 中的 0 和 1 重复了，指定 ignore_index 选项
+可以变成连续的 index。不过此操作后 keys 的设定将不起作用了。
+
+```python
+In [177]: pd.concat([data, data2], keys=['data', 'data2'], ignore_index=True)                                        
+Out[177]: 
+   subject  story_id  rating
+0        1         1     6.7
+1        2         2     7.8
+2        1         5     3.2
+3        2         6     9.0
+4        1         3     5.0
+5        2         4     9.7
+
+In [178]: pd.concat([data, data2],  ignore_index=True)                                                               
+Out[178]: 
+   subject  story_id  rating
+0        1         1     6.7
+1        2         2     7.8
+2        1         5     3.2
+3        2         6     9.0
+4        1         3     5.0
+5        2         4     9.7
+```
+
+我们再试试按列合并：
+
+```python
+In [180]: pd.concat([data, data2],  axis=1)                                                                          
+Out[180]: 
+   subject  story_id  rating  subject  story_id  rating
+0        1         1     6.7      1.0       3.0     5.0
+1        2         2     7.8      2.0       4.0     9.7
+2        1         5     3.2      NaN       NaN     NaN
+3        2         6     9.0      NaN       NaN     NaN
+```
+
+缺少的行会使用 NaN 自动填充。指定 ignore_index 后，所有列索引将重新生成。
+
+```python
+In [181]: pd.concat([data, data2],  ignore_index=True, axis=1)                                                       
+Out[181]: 
+   0  1    2    3    4    5
+0  1  1  6.7  1.0  3.0  5.0
+1  2  2  7.8  2.0  4.0  9.7
+2  1  5  3.2  NaN  NaN  NaN
+3  2  6  9.0  NaN  NaN  NaN
+```
+
+除了 concat() 函数，append() 方法也可以用于行的合并。
+
+```python
+In [182]: data.append(data2)                                                                                         
+Out[182]: 
+   subject  story_id  rating
+0        1         1     6.7
+1        2         2     7.8
+2        1         5     3.2
+3        2         6     9.0
+0        1         3     5.0
+1        2         4     9.7
+```
+
+不过它的最大用处在于添加新的行，如给 DataFrame 添加 Series 对象。
+
+```python
+In [185]: data.append(pd.Series({'subject':1, 'story_id':10, 'rating':7}, name=6))                                   
+Out[185]: 
+   subject  story_id  rating
+0        1         1     6.7
+1        2         2     7.8
+2        1         5     3.2
+3        2         6     9.0
+6        1        10     7.0
+```
+
+
+## 13.4 Pandas 可视化
+
+Pandas 为 Series 和 DataFrame 对象提供了 Matplotlib 库 plot() 函数的简单包装实现，
+本节进行简单的介绍。
+
+我们先导入示例数据集 mtcars，它是美国 Motor Trend 收集
+的 1973 到 1974 年期间总共 32 辆汽车的 11 个指标，
+包含油耗、设计、性能等方面。
+
+```python
+In [187]: mtcars = pd.read_csv('files/chapter11/mtcars.csv')                      
+In [188]: mtcars.describe()                                                       
+Out[188]: 
+             mpg        cyl        disp  ...         am       gear     carb
+count  32.000000  32.000000   32.000000  ...  32.000000  32.000000  32.0000
+mean   20.090625   6.187500  230.721875  ...   0.406250   3.687500   2.8125
+std     6.026948   1.785922  123.938694  ...   0.498991   0.737804   1.6152
+min    10.400000   4.000000   71.100000  ...   0.000000   3.000000   1.0000
+25%    15.425000   4.000000  120.825000  ...   0.000000   3.000000   2.0000
+50%    19.200000   6.000000  196.300000  ...   0.000000   4.000000   2.0000
+75%    22.800000   8.000000  326.000000  ...   1.000000   4.000000   4.0000
+max    33.900000   8.000000  472.000000  ...   1.000000   5.000000   8.0000
+
+[8 rows x 11 columns]
+
+In [189]: mtcars.shape                                                            
+Out[189]: (32, 11)
+```
+
+mtcars 所有列中 mpg 是每百公里油耗，cyl 是发动机汽缸数。下面我们就使用这两列进行可视化分析。
+
+```python
+In [193]: df = mtcars.loc[:, ['cyl', 'mpg']]                                                                         
+
+In [194]: df.head()                                                                                                  
+Out[194]: 
+   cyl   mpg
+0    6  21.0
+1    6  21.0
+2    4  22.8
+3    6  21.4
+4    8  18.7
+```
+
+```python
+In [196]: %matplotlib                                                                                                
+Using matplotlib backend: agg
+
+In [197]: df.plot()                                                                                                  
+Out[197]: <matplotlib.axes._subplots.AxesSubplot at 0x7f0f6e3ec210>
+```
 
 https://www.yiibai.com/pandas/python_pandas_visualization.html
 
@@ -1543,7 +1534,7 @@ describe_option()
 option_context()
 
 
-## 13.7 章末小结
+## 13.6 章末小结
 
 7总结
 
