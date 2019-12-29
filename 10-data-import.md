@@ -58,7 +58,7 @@ In [2]: !ls
 records.csv  records.tsv  records.txt
 
 In [3]: !pwd
-/c/Shixiang/pybook/files/chapter11
+/c/Shixiang/pybook/files/chapter10
 ```
 
 ### 10.1.2 使用 csv 标准模块
@@ -414,7 +414,7 @@ os.listdir('.')
 In [2]: import os
 In [3]: os.getcwd()  # 获取当前工作目录 
 Out[3]: 'C:\\Shixiang\\pybook'
-In [4]: os.listdir('files/chapter11')  # 列出目录下的文件及子目录
+In [4]: os.listdir('files/chapter10')  # 列出目录下的文件及子目录
 Out[4]: 
 ['data.xlsx',
  'lung.csv',
@@ -432,9 +432,9 @@ Out[6]: 'C:\\Shixiang\\pybook\\files'
 In [7]: pwd
 Out[7]: 'C:\\Shixiang\\pybook\\files'
 
-In [8]: os.chdir('chapter11')  # 将工作目录切换为数据所在目录
+In [8]: os.chdir('chapter10')  # 将工作目录切换为数据所在目录
 In [9]: pwd
-Out[9]: 'C:\\Shixiang\\pybook\\files\\chapter11'
+Out[9]: 'C:\\Shixiang\\pybook\\files\\chapter10'
 ```
 
 上面代码分别演示了使用 os 模块的函数和 IPython 魔术命令进行工作目录的获取和切换，下面开始进行数据的读入。
@@ -628,7 +628,7 @@ In [16]: # 绘图
 
 结果图形如图11-1所示。
 
-![图11-1 HDF5 存储的时间序列数据可视化](images/chapter11/hdf5_time_series.png)
+![图11-1 HDF5 存储的时间序列数据可视化](images/chapter10/hdf5_time_series.png)
 
 上述代码将 HDF5 文件导入为一个 h5py 类实例，该对象有自己一套操作方法，读者仅仅依靠上面这个简单的例子不足以掌握它们，如果读者比较感兴趣，请通过网络资料或其他参考书籍自行学习和练习。
 
@@ -732,7 +732,7 @@ with open('xxx.json') as f:
 现在我们试一试：
 
 ```python
-In [12]: with open('files/chapter11/data.json', 'r', encoding= 
+In [12]: with open('files/chapter10/data.json', 'r', encoding= 
     ...: 'utf-8') as f:
     ...:     data = json.load(f)
     ...: 
@@ -799,7 +799,7 @@ Python 提供了 yaml 模块以进行 YAML 文件的解析，使用方法和函�
 
 ```python
 In [1]: import yaml
-In [2]: with open('files/chapter11/data1.yml', encoding='utf-8') as f:
+In [2]: with open('files/chapter10/data1.yml', encoding='utf-8') as f:
     ...:     data = yaml.safe_load(f)
     ...: 
 In [3]: data
@@ -846,7 +846,7 @@ summary:
 上面我们虚构了一组简单地用户管理数据，用户 user1 和 user1 是个体用户，user3 是群组用户。
 
 ```python
-In [12]: with open('files/chapter11/data2.yml', encoding='utf-8') as f:        
+In [12]: with open('files/chapter10/data2.yml', encoding='utf-8') as f:        
     ...:     data = yaml.safe_load(f)
     ...: 
 
@@ -941,7 +941,7 @@ Encountered an end tag : html
 接下来我们试着用这个解析器解析上面的 HTML 文件。
 
 ```python
-In [2]: with open('files/chapter11/data.html', encoding='utf=8') as f:
+In [2]: with open('files/chapter10/data.html', encoding='utf=8') as f:
    ...:    parser.feed(f.read())
    ...: 
 Encountered some data  :
@@ -989,7 +989,7 @@ Encountered some data  :
 
 ```python
 In [3]: from bs4 import BeautifulSoup
-In [4]: with open('files/chapter11/data.html', encoding='utf=8') as f:
+In [4]: with open('files/chapter10/data.html', encoding='utf=8') as f:
    ...:    html_data = f.read()
 In [5]: parsed_html = BeautifulSoup(html_data)  # 构建数据对象
 In [6]: parsed_html.body.find('h1').text        # 查找 h1 并获取内容

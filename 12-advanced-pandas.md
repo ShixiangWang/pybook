@@ -1474,7 +1474,7 @@ Pandas 为 Series 和 DataFrame 对象提供了 Matplotlib 库 plot() 函数的�
 包含油耗、设计、性能等方面。
 
 ```python
-In [187]: mtcars = pd.read_csv('files/chapter11/mtcars.csv')                      
+In [187]: mtcars = pd.read_csv('files/chapter10/mtcars.csv')                      
 In [188]: mtcars.describe()                                                       
 Out[188]: 
              mpg        cyl        disp  ...         am       gear     carb
