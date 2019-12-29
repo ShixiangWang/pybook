@@ -37,13 +37,13 @@ BMI_3 = w3 / h3 ** 2
 几乎所有的编程语言都支持函数，Python 当然也不例外，读者在前面章节中其实也已经多次见过函数的使用。Python 不但能非常灵活地创建函数，而且本身内置很多可用的函数，开箱即用。
 
 
-### 5.1.2 函数的调用  
+### 5.1.2 函数的调用
 
 Python 内置的函数无需进行导入操作，只需要知道函数的名称和参数，读者就可以直接在代码中调用。例如，abs() 函数可以求取绝对值，它只需要一个输入参数。读者可以输入「help(函数名)」或者「函数名? 」查看函数的文档，以下用 abs() 函数进行演示。
 
 ```python
-In [1]: help(abs)                                                               
-In [2]: abs?                                                                    
+In [1]: help(abs)
+In [2]: abs?
 Signature: abs(x, /)
 Docstring: Return the absolute value of the argument.
 Type:      builtin_function_or_method
@@ -52,16 +52,16 @@ Type:      builtin_function_or_method
 读者将需要进行绝对值处理的数值作为参数输入 abs() 函数即可实现调用。
 
 ```python
-In [3]: abs(-1)                                                                 
+In [3]: abs(-1)
 Out[3]: 1
-In [4]: abs(1)                                                                  
+In [4]: abs(1)
 Out[4]: 1
 ```
 
 读者在进行函数调用时需要注意输入参数的数目和类型，如果数目或类型与函数预期的不一致，Python 会抛出 TypeError 错误，并给出错误信息。
 
 ```python
-In [5]: abs('a')                                                                
+In [5]: abs('a')
 ---------------------------------------------------------------------------
 TypeError                                 Traceback (most recent call last)
 <ipython-input-5-f2001f88707b> in <module>
@@ -69,7 +69,7 @@ TypeError                                 Traceback (most recent call last)
 
 TypeError: bad operand type for abs(): 'str'
 
-In [6]: abs(1, 2)                                                               
+In [6]: abs(1, 2)
 ---------------------------------------------------------------------------
 TypeError                                 Traceback (most recent call last)
 <ipython-input-6-6c188a838f2b> in <module>
@@ -81,15 +81,15 @@ TypeError: abs() takes exactly one argument (2 given)
 有些函数可以接收任意多个数目的参数，如 max()，它可以返回一组数的最大值。
 
 ```python
-In [7]: max(2,1,3,4,5,2,3,10,2,4,5)                                             
+In [7]: max(2,1,3,4,5,2,3,10,2,4,5)
 Out[7]: 10
 ```
 
 本质上，函数名其实是指向一个函数对象的引用（在 Python 里一切都是对象，变量都是对对象的引用，方便我们使用）。所以，读者完全可以把函数名赋值给一个变量，这相当于给函数起了个别名，有时候可以简化使用。
 
 ```python
-In [8]: a = abs                                                                 
-In [9]: a(-10)                                                                  
+In [8]: a = abs
+In [9]: a(-10)
 Out[9]: 10
 ```
 
@@ -104,17 +104,17 @@ Out[9]: 10
 Python使用 def 关键字对函数进行定义：在 def 语句后依次写出函数名、括号、参数与英文冒号，并在随后的代码块中编写函数体，如果想要返回一些结果，则使用 return 语句。下面定义了一个 fib 函数，用于打印到指定参数为止得到的斐波那契数列。
 
 ```python
-In [10]: def fib(n):     
-    ...:      """打印斐波那契数列到n""" 
-    ...:      a, b = 0, 1 
-    ...:      while a < n: 
-    ...:          print(a, end=' ') 
-    ...:          a, b = b, a+b 
-    ...:      print()                                                           
+In [10]: def fib(n):
+    ...:      """打印斐波那契数列到n"""
+    ...:      a, b = 0, 1
+    ...:      while a < n:
+    ...:          print(a, end=' ')
+    ...:          a, b = b, a+b
+    ...:      print()
 
-In [11]: fib(10) # 调用函数，打印                                                                 
-0 1 1 2 3 5 8 
-In [12]: fib(2000)                                                              
+In [11]: fib(10) # 调用函数，打印
+0 1 1 2 3 5 8
+In [12]: fib(2000)
 0 1 1 2 3 5 8 13 21 34 55 89 144 233 377 610 987 1597
 ```
 
@@ -127,30 +127,30 @@ In [12]: fib(2000)
 为了更好地帮助读者理解局部变量的概念，现在对 fib() 函数进行简单的修改。
 
 ```python
- def fib(n):     
-    """打印斐波那契数列到n""" 
+ def fib(n):
+    """打印斐波那契数列到n"""
     print("n是局部变量，它的值是"+str(n)) # 打印函数的局部变量n
-    a, b = 0, 1 
-    while a < n: 
-        print(a, end=' ') 
-        a, b = b, a+b 
-    print()    
+    a, b = 0, 1
+    while a < n:
+        print(a, end=' ')
+        a, b = b, a+b
+    print()
 ```
 
 然后对该函数进行以下调用：
 
 ```python
-In [13]: c = 10 
-    ...: fib(c) 
-    ...:  
-    ...: print(n)                                                               
+In [13]: c = 10
+    ...: fib(c)
+    ...:
+    ...: print(n)
 n是局部变量，它的值是10
-0 1 1 2 3 5 8 
+0 1 1 2 3 5 8
 ---------------------------------------------------------------------------
 NameError                                 Traceback (most recent call last)
 <ipython-input-13-9748ce91e137> in <module>
       2 fib(c)
-      3 
+      3
 ----> 4 print(n)
 
 NameError: name 'n' is not defined
@@ -161,9 +161,9 @@ NameError: name 'n' is not defined
 上面的函数运行最后是将结果打印出来，大多数时候我们更希望将结果存储在变量中，这时需要利用 return 语句。实际上，即使用户没有显式地在函数中使用 return 语句进行结果的返回，Python 也会调用 return 语句返回 None 值，不过 None 值通过会被 Python 解释器抑制，只有使用 print 语句才能显式地观测到它。
 
 ```python
-In [14]: fib(0)                                                                 
+In [14]: fib(0)
 n是局部变量，它的值是0
-In [15]: print(fib(0))                                                          
+In [15]: print(fib(0))
 n是局部变量，它的值是0
 None # 这里是函数最后返回的None值
 ```
@@ -183,19 +183,19 @@ None # 这里是函数最后返回的None值
 现在用实际的代码表征这一过程，并对结果进行测试。
 
 ```python
-In [16]: def factorial(n): 
-    ...:     if n == 1: 
-    ...:         return 1 
-    ...:     else: 
-    ...:         return n * factorial(n-1)                                      
+In [16]: def factorial(n):
+    ...:     if n == 1:
+    ...:         return 1
+    ...:     else:
+    ...:         return n * factorial(n-1)
 
-In [17]: factorial(1)                                                           
+In [17]: factorial(1)
 Out[17]: 1
 
-In [18]: factorial(5)                                                           
+In [18]: factorial(5)
 Out[18]: 120
 
-In [19]: factorial(10)                                                          
+In [19]: factorial(10)
 Out[19]: 3628800
 ```
 
@@ -219,10 +219,10 @@ factorial(5) 的计算过程可以表示如下：
 递归函数的最大问题是效率低，占用了大量的内存和时间，当递归次数过多时容易发生栈溢出。发生栈溢出的原因是，在计算机中函数的调用时通过堆栈（stack）来实现的，每进行一次调用，栈帧就会增加一层，每当函数返回，栈帧就减少一层，然而计算机提供的栈帧不是无限大的，就像我们不可能真正地在上面蒙娜丽莎画像上画出无限个捧着画框的子图，当递归调用次数过多时，就会发生栈溢出。
 
 ```python
-In [20]: factorial(1000)                                                        
+In [20]: factorial(1000)
 Out[20]: 402387260077093773543702433923003985719374864210714632543799910429938512398629020592044208486969404800479988610197196058631666872994808558901323829669944590997424504087073759918823627727188732519779505950995276120874975462497043601418278094646496291056393887437886487337119181045825783647849977012476632889835955735432513185323958463075557409114262417474349347553428646576611667797396668820291207379143853719588249808126867838374559731746136085379534524221586593201928090878297308431392844403281231558611036976801357304216168747609675871348312025478589320767169132448426236131412508780208000261683151027341827977704784635868170164365024153691398281264810213092761244896359928705114964975419909342221566832572080821333186116811553615836546984046708975602900950537616475847728421889679646244945160765353408198901385442487984959953319101723355556602139450399736280750137837615307127761926849034352625200015888535147331611702103968175921510907788019393178114194545257223865541461062892187960223838971476088506276862967146674697562911234082439208160153780889893964518263243671616762179168909779911903754031274622289988005195444414282012187361745992642956581746628302955570299024324153181617210465832036786906117260158783520751516284225540265170483304226143974286933061690897968482590125458327168226458066526769958652682272807075781391858178889652208164348344825993266043367660176999612831860788386150279465955131156552036093988180612138558600301435694527224206344631797460594682573103790084024432438465657245014402821885252470935190620929023136493273497565513958720559654228749774011413346962715422845862377387538230483865688976461927383814900140767310446640259899490222221765904339901886018566526485061799702356193897017860040811889729918311021171229845901641921068884387121855646124960798722908519296819372388642614839657382291123125024186649353143970137428531926649875337218940694281434118520158014123344828015051399694290153483077644569099073152433278288269864602789864321139083506217095002597389863554277196742822248757586765752344220207573630569498825087968928162753848863396909959826280956121450994871701244516461260379029309120889086942028510640182154399457156805941872748998094254742173582401063677404595741785160829230135358081840096996372524230560855903700624271243416909004153690105933983835777939410970027753472000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
 
-In [21]: factorial(100000)                                                      
+In [21]: factorial(100000)
 ---------------------------------------------------------------------------
 RecursionError                            Traceback (most recent call last)
 <ipython-input-21-43ad924d46ef> in <module>
@@ -258,16 +258,16 @@ Python 的函数定义非常简单，但灵活度很大。函数的参数主要�
 创建一个函数用来计算数值 x 的 n 次幂。
 
 ```python
-In [22]: def power(x, n): 
-    ...:     s = 1 
-    ...:     while n > 0: 
-    ...:         n = n - 1 
-    ...:         s = s * x 
-    ...:     return s                                                           
+In [22]: def power(x, n):
+    ...:     s = 1
+    ...:     while n > 0:
+    ...:         n = n - 1
+    ...:         s = s * x
+    ...:     return s
 
-In [23]: power(2, 2)                                                            
+In [23]: power(2, 2)
 Out[23]: 4
-In [24]: power(2, 3)                                                            
+In [24]: power(2, 3)
 Out[24]: 8
 ```
 
@@ -276,15 +276,15 @@ Out[24]: 8
 有意思的是，如果显式地指定参数名，会存在报错的情况，如下所示：
 
 ```python
-In [25]: power(x = 2, 5)                                                        
+In [25]: power(x = 2, 5)
   File "<ipython-input-40-b1e390a5e3ac>", line 1
     power(x = 2, 5)
                 ^
 SyntaxError: positional argument follows keyword argument
 
-In [26]: power(2, n = 5)                                                        
+In [26]: power(2, n = 5)
 Out[26]: 32
-In [27]: power(x = 2, n = 5)                                                    
+In [27]: power(x = 2, n = 5)
 Out[27]: 32
 ```
 
@@ -299,17 +299,17 @@ Out[27]: 32
 例如，下面的 ask_ok() 函数：它向用户发出询问，如果用户同意并输入 y 或 ye 或 yes，函数都会返回 True；如果用户不同意并输入 n 或 no 或 nop 或 nope，函数会返回 False；其他情况会提示用户再次输入。
 
 ```python
-In [28]: def ask_ok(prompt, retries=4, reminder='Please try again!'): 
-    ...:     while True: 
-    ...:         ok = input(prompt) 
-    ...:         if ok in ('y', 'ye', 'yes'): 
-    ...:             return True 
-    ...:         if ok in ('n', 'no', 'nop', 'nope'): 
-    ...:             return False 
-    ...:         retries = retries - 1 
-    ...:         if retries < 0: 
-    ...:             raise ValueError('invalid user response') 
-    ...:         print(reminder) 
+In [28]: def ask_ok(prompt, retries=4, reminder='Please try again!'):
+    ...:     while True:
+    ...:         ok = input(prompt)
+    ...:         if ok in ('y', 'ye', 'yes'):
+    ...:             return True
+    ...:         if ok in ('n', 'no', 'nop', 'nope'):
+    ...:             return False
+    ...:         retries = retries - 1
+    ...:         if retries < 0:
+    ...:             raise ValueError('invalid user response')
+    ...:         print(reminder)
 ```
 
 该函数可以通过几种不同的方式调用：
@@ -317,15 +317,15 @@ In [28]: def ask_ok(prompt, retries=4, reminder='Please try again!'):
 * 仅给出一个必需参数：ask_ok("你真想退出吗？")。
 * 指定一个可选参数：ask_ok("你真想退出吗？", 2)。
 * 或者给出所有的参数：ask_ok("你真想退出吗？", 1, "不好意思，只能是yes或no！")
-  
+
 下面对这几种调用方式进行简单的测试。
 
 ```python
-In [29]: ask_ok("你真想退出吗？")                                               
+In [29]: ask_ok("你真想退出吗？")
 你真想退出吗？y
 Out[29]: True
 
-In [30]: ask_ok("你真想退出吗？", 2)                                            
+In [30]: ask_ok("你真想退出吗？", 2)
 你真想退出吗？fgfg
 Please try again!
 你真想退出吗？fewe
@@ -344,7 +344,7 @@ ValueError                                Traceback (most recent call last)
 
 ValueError: invalid user response
 
-In [31]: ask_ok("你真想退出吗？", 1, "不好意思，只能是yes或no！")               
+In [31]: ask_ok("你真想退出吗？", 1, "不好意思，只能是yes或no！")
 你真想退出吗？npe
 不好意思，只能是yes或no！
 你真想退出吗？yes
@@ -356,13 +356,13 @@ Out[31]: True
 虽然使用关键字参数设定默认值非常有用，但使用不当会出现较大的问题。下面定义了一个简单的函数来说明这个问题。
 
 ```python
-In [32]: def f(a, L=[]): 
-    ...:     L.append(a) 
-    ...:     return L                                                           
+In [32]: def f(a, L=[]):
+    ...:     L.append(a)
+    ...:     return L
 
-In [33]: print(f(1)) 
-    ...: print(f(2)) 
-    ...: print(f(3))                                                            
+In [33]: print(f(1))
+    ...: print(f(2))
+    ...: print(f(3))
 [1]
 [1, 2]
 [1, 2, 3]
@@ -371,15 +371,15 @@ In [33]: print(f(1))
 结果非常奇怪，在第 2 次和第 3 次调用时前面的结果居然还在，可是在函数定义时设定了默认参数为空列表！这是因为 Python 只对函数的默认值计算一次，所以当默认参数是可变对象如列表、字典时，参数会累积变化，看起来它继承了前面调用的输入。为了解决这个问题，我们需要将默认参数设定为不可变对象 None。
 
 ```python
-In [34]: def f(a, L=None): 
-    ...:     if L is None: 
-    ...:         L = [] 
-    ...:     L.append(a) 
-    ...:     return L                                                           
+In [34]: def f(a, L=None):
+    ...:     if L is None:
+    ...:         L = []
+    ...:     L.append(a)
+    ...:     return L
 
-In [35]: print(f(1)) 
-    ...: print(f(2)) 
-    ...: print(f(3))                                                            
+In [35]: print(f(1))
+    ...: print(f(2))
+    ...: print(f(3))
 [1]
 [2]
 [3]
@@ -394,19 +394,19 @@ In [35]: print(f(1))
 现在我们定义一个函数用于计算任意个参数的平方和：
 
 ```python
-In [36]: def calcSquareSum(*numbers): 
-    ...:     sum = 0 
-    ...:     for n in numbers: 
-    ...:         sum = sum + n * n 
-    ...:     return sum                                                         
+In [36]: def calcSquareSum(*numbers):
+    ...:     sum = 0
+    ...:     for n in numbers:
+    ...:         sum = sum + n * n
+    ...:     return sum
 
-In [37]: calcSquareSum(1, 2, 3)                                                          
+In [37]: calcSquareSum(1, 2, 3)
 Out[37]: 14
-In [38]: calcSquareSum()                                                                 
+In [38]: calcSquareSum()
 Out[38]: 0
 
-In [39]: input = [3, 4, 5]                                                      
-In [40]: calcSquareSum(*input)                                                           
+In [39]: input = [3, 4, 5]
+In [40]: calcSquareSum(*input)
 Out[40]: 50
 ```
 
@@ -437,12 +437,12 @@ In [45]: print_params({"a":1, "b":2})  # 我们得到的是元组而不是字典
 
 ```python
 In [46]: def person(name, age, **kw):  # 这里的kw就是关键字参数
-    ...:     print('性别：', name, '年龄', age, '其他', kw)                     
+    ...:     print('性别：', name, '年龄', age, '其他', kw)
 
-In [47]: person("Shixiang", 25)                                                 
+In [47]: person("Shixiang", 25)
 性别： Shixiang 年龄 25 其他 {}
 
-In [48]: person("小丹", 25, city = "上海", job = "数据分析工程师")              
+In [48]: person("小丹", 25, city = "上海", job = "数据分析工程师")
 性别： 小丹 年龄 25 其他 {'city': '上海', 'job': '数据分析工程师'}
 ```
 
@@ -644,21 +644,21 @@ optional arguments:
 ```shell
 $ conda search ipython
 Loading channels: done
-# Name                  Version           Build  Channel             
-ipython                    0.13          py26_0  pkgs/free           
-ipython                    0.13          py27_0  pkgs/free           
-ipython                  0.13.1          py26_0  pkgs/free           
-ipython                  0.13.1          py26_1  pkgs/free           
-ipython                  0.13.1          py27_0  pkgs/free           
-ipython                  0.13.1          py27_1  pkgs/free           
-ipython                  0.13.1          py33_0  pkgs/free           
-ipython                  0.13.1          py33_1  pkgs/free           
-ipython                  0.13.2          py26_0  pkgs/free           
-ipython                  0.13.2          py27_0  pkgs/free           
-ipython                  0.13.2          py33_0  pkgs/free           
-ipython                   1.0.0          py26_0  pkgs/free           
-ipython                   1.0.0          py27_0  pkgs/free           
-ipython                   1.0.0          py33_0  pkgs/free   
+# Name                  Version           Build  Channel
+ipython                    0.13          py26_0  pkgs/free
+ipython                    0.13          py27_0  pkgs/free
+ipython                  0.13.1          py26_0  pkgs/free
+ipython                  0.13.1          py26_1  pkgs/free
+ipython                  0.13.1          py27_0  pkgs/free
+ipython                  0.13.1          py27_1  pkgs/free
+ipython                  0.13.1          py33_0  pkgs/free
+ipython                  0.13.1          py33_1  pkgs/free
+ipython                  0.13.2          py26_0  pkgs/free
+ipython                  0.13.2          py27_0  pkgs/free
+ipython                  0.13.2          py33_0  pkgs/free
+ipython                   1.0.0          py26_0  pkgs/free
+ipython                   1.0.0          py27_0  pkgs/free
+ipython                   1.0.0          py33_0  pkgs/free
 ... 此处省略若干行
 ```
 

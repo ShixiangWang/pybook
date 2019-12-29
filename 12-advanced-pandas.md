@@ -20,11 +20,11 @@ NumPy 数组是 Pandas 数据结构的构成核心，用于存储数据值。我
 ```python
 In [1]: import numpy as np
 In [2]: a = np.arange(9)
-In [3]: a                                                                              
+In [3]: a
 Out[3]: array([0, 1, 2, 3, 4, 5, 6, 7, 8])
-In [4]: b = np.arange(9).reshape((3, 3))   
-In [5]: b                                                                               
-Out[5]: 
+In [4]: b = np.arange(9).reshape((3, 3))
+In [5]: b
+Out[5]:
 array([[0, 1, 2],
        [3, 4, 5],
        [6, 7, 8]])
@@ -44,7 +44,7 @@ Out[7]: RangeIndex(start=0, stop=10, step=1)
 
 ```python
 In [8]: a_series = pd.Series([5, 7, 9])
-In [9]: a_series.index                               
+In [9]: a_series.index
 Out[9]: RangeIndex(start=0, stop=3, step=1)
 ```
 
@@ -54,8 +54,8 @@ Out[9]: RangeIndex(start=0, stop=3, step=1)
 
 ```python
 In [10]: a_series = pd.Series([5, 7, 9], index = ['user1', 'user2', 'user3'])
-In [11]: a_series                                 
-Out[11]: 
+In [11]: a_series
+Out[11]:
 user1    5
 user2    7
 user3    9
@@ -67,8 +67,8 @@ dtype: int64
 
 ```python
 In [12]: a_series = pd.Series([5, 7, 9], index = ['user1', 'user2', 'user3'], name='credit_score')
-In [13]: a_series            
-Out[13]: 
+In [13]: a_series
+Out[13]:
 user1    5
 user2    7
 user3    9
@@ -80,10 +80,10 @@ Name: credit_score, dtype: int64
 以下代码展示了一个典型的数据框，行一般用于表示独立的记录，如这里的 student；列一般表示记录的相关属性，如这里 student 的 score 和 height。
 
 ```python
-In [14]: df = pd.DataFrame([[5, 166], [7, 178], [9, 160]], 
-    ...: index=['student1', 'student2', 'student3'], columns=['score', 'height'])       
-In [15]: df                                              
-Out[15]: 
+In [14]: df = pd.DataFrame([[5, 166], [7, 178], [9, 160]],
+    ...: index=['student1', 'student2', 'student3'], columns=['score', 'height'])
+In [15]: df
+Out[15]:
           score  height
 student1      5     166
 student2      7     178
@@ -117,8 +117,8 @@ student3      9     160
 我们先看第一种办法：
 
 ```python
-In [16]: pd.Series(['a', 'a', 'b', 'c', 'b'], dtype='category')                                             
-Out[16]: 
+In [16]: pd.Series(['a', 'a', 'b', 'c', 'b'], dtype='category')
+Out[16]:
 0    a
 1    a
 2    b
@@ -131,8 +131,8 @@ Categories (3, object): [a, b, c]
 我们对比下不指定该参数值时的结果：
 
 ```python
-In [17]: pd.Series(['a', 'a', 'b', 'c', 'b'])                                                               
-Out[17]: 
+In [17]: pd.Series(['a', 'a', 'b', 'c', 'b'])
+Out[17]:
 0    a
 1    a
 2    b
@@ -147,7 +147,7 @@ dtype: object
 
 ```python
 In [2]: pd.Categorical(['a', 'a', 'b', 'c', 'b'])
-Out[2]: 
+Out[2]:
 [a, a, b, c, b]
 Categories (3, object): [a, b, c]
 ```
@@ -167,13 +167,13 @@ pd.Categorical(
 我们试一试：
 
 ```python
-In [6]: pd.Categorical(['a', 'a', 'b', 'c', 'b'], categories=['a', 'c'])                                    
-Out[6]: 
+In [6]: pd.Categorical(['a', 'a', 'b', 'c', 'b'], categories=['a', 'c'])
+Out[6]:
 [a, a, NaN, c, NaN]
 Categories (2, object): [a, c]
 
-In [7]: pd.Categorical(['a', 'a', 'b', 'c', 'b'], ordered=True)                                             
-Out[7]: 
+In [7]: pd.Categorical(['a', 'a', 'b', 'c', 'b'], ordered=True)
+Out[7]:
 [a, a, b, c, b]
 Categories (3, object): [a < b < c]
 ```
@@ -183,11 +183,11 @@ Categories (3, object): [a < b < c]
 对于分类数据，我们一个常见需求是获取元素的频数或频率，这可以通过 describe() 方法实现。
 
 ```python
-In [9]: cts = pd.Categorical(['a', 'a', 'b', 'c', 'b'], ordered=True)                                            
-In [10]: cts.describe()                                                                                          
-Out[10]: 
+In [9]: cts = pd.Categorical(['a', 'a', 'b', 'c', 'b'], ordered=True)
+In [10]: cts.describe()
+Out[10]:
             counts  freqs
-categories               
+categories
 a                2    0.4
 b                2    0.4
 c                1    0.2
@@ -196,14 +196,14 @@ c                1    0.2
 该对象的类别也是有用的，这可能使用对象的属性值 categories 获取。
 
 ```python
-In [11]: cts.categories                                                                                          
+In [11]: cts.categories
 Out[11]: Index(['a', 'b', 'c'], dtype='object')
 ```
 
 另外，ordered 属性可以给出对象是否经过排序，返回的是一个布尔值。
 
 ```python
-In [12]: cts.ordered                                                                                             
+In [12]: cts.ordered
 Out[12]: True
 ```
 
@@ -212,14 +212,14 @@ Out[12]: True
 上面我们看到分类信息存储在对象的 categories 属性中，我们重写该属性即可重命名类别。
 
 ```python
-In [13]: cts_new = cts.copy()                                                                                    
-In [14]: cts_new.categories = ['aa', 'bb', 'cc']                                                                 
-In [15]: cts                                                                                                     
-Out[15]: 
+In [13]: cts_new = cts.copy()
+In [14]: cts_new.categories = ['aa', 'bb', 'cc']
+In [15]: cts
+Out[15]:
 [a, a, b, c, b]
 Categories (3, object): [a < b < c]
-In [16]: cts_new                                                                                                 
-Out[16]: 
+In [16]: cts_new
+Out[16]:
 [aa, aa, bb, cc, bb]
 Categories (3, object): [aa < bb < cc]
 ```
@@ -229,8 +229,8 @@ Categories (3, object): [aa < bb < cc]
 增加新的类别可以使用 add_categories() 方法实现，新的类别会被添加到最后。
 
 ```python
-In [17]: cts_new.add_categories(['ff'])                                                                          
-Out[17]: 
+In [17]: cts_new.add_categories(['ff'])
+Out[17]:
 [aa, aa, bb, cc, bb]
 Categories (4, object): [aa < bb < cc < ff]
 ```
@@ -238,8 +238,8 @@ Categories (4, object): [aa < bb < cc < ff]
 删除类别后，原有的值会被 NaN 值替代：
 
 ```python
-In [19]: cts_new.remove_categories("bb")                                                                         
-Out[19]: 
+In [19]: cts_new.remove_categories("bb")
+Out[19]:
 [aa, aa, NaN, cc, NaN]
 Categories (2, object): [aa < cc]
 ```
@@ -247,12 +247,13 @@ Categories (2, object): [aa < cc]
 分类对象的比较在对象是有序时比较有用。
 
 ```python
-In [23]: cts                                                                                                     
-Out[23]: 
+In [23]: cts
+Out[23]:
 [a, a, b, c, b]
 Categories (3, object): [a < b < c]
-In [24]: cts2 = pd.Categorical(['b', 'c', 'a', 'a'], ordered=True)                                               
-In [25]: cts > cts2                                                                                              
+
+In [24]: cts2 = pd.Categorical(['b', 'c', 'a', 'a'], ordered=True)
+In [25]: cts > cts2
 ---------------------------------------------------------------------------
 ValueError                                Traceback (most recent call last)
 <ipython-input-25-d954cff14835> in <module>
@@ -260,15 +261,15 @@ ValueError                                Traceback (most recent call last)
 
 ~/miniconda3/lib/python3.7/site-packages/pandas/core/arrays/categorical.py in f(self, other)
     113                 other_codes = other._codes
-    114 
+    114
 --> 115             mask = (self._codes == -1) | (other_codes == -1)
     116             f = getattr(self._codes, op)
     117             ret = f(other_codes)
 
 ValueError: operands could not be broadcast together with shapes (5,) (4,)
 In [26]: cts2 = pd.Categorical(['b', 'c', 'a', 'a', 'a'], ordered=True)
-In [27]: cts > cts2                                                                                              
-Out[27]: array([False, False,  True,  True,  True]) 
+In [27]: cts > cts2
+Out[27]: array([False, False,  True,  True,  True])
 ```
 
 当两个对象都是分类对象时一定要注意长度要一致，并且设定的类别一致。
@@ -276,7 +277,7 @@ Out[27]: array([False, False,  True,  True,  True])
 当其中一个对象是标量时，计算会自动进行广播。
 
 ```python
-In [28]: cts > 'b'                                                                                               
+In [28]: cts > 'b'
 Out[28]: array([False, False, False,  True, False])
 ```
 
@@ -295,8 +296,8 @@ Out[28]: array([False, False, False,  True, False])
 Python 的标准库就提供了对日期和时间的支持，如计算当前的时间戳，我们可以使用下面的代码：
 
 ```python
-In [32]: import time         
-In [33]: time.time()                                                                                             
+In [32]: import time
+In [33]: time.time()
 Out[33]: 1576340722.0232272
 ```
 
@@ -308,7 +309,7 @@ Out[33]: 1576340722.0232272
 将时间戳传递给 localtime() 函数，我们可以获得更为可读的时间记录。
 
 ```python
-In [34]: time.localtime(time.time())                                                                             
+In [34]: time.localtime(time.time())
 Out[34]: time.struct_time(tm_year=2019, tm_mon=12, tm_mday=15, tm_hour=10, tm_min=6, tm_sec=45, tm_wday=6, tm_yda
 y=349, tm_isdst=0)
 ```
@@ -316,7 +317,7 @@ y=349, tm_isdst=0)
 如果想要获得更为简要的时间表示，可以将上述代码传为 asctime() 的参数：
 
 ```python
-In [36]: time.asctime(time.localtime(time.time()))                                                               
+In [36]: time.asctime(time.localtime(time.time()))
 Out[36]: 'Sun Dec 15 10:09:29 2019'
 ```
 
@@ -356,7 +357,7 @@ time 模块提供了 strftime() 函数用于格式化。
 下面举一个简单的例子，以年月日时间的顺序输出当前时间日期，该格式是我们平时最常见的格式。
 
 ```python
-In [37]: time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())                                                    
+In [37]: time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
 Out[37]: '2019-12-15 10:28:23'
 ```
 
@@ -375,13 +376,13 @@ datetime 模块也是 Python 提供的标准库，它在分析中更为常用。
 时间表示一般可以分为本地时间和世界标准时，当然也可以用时间戳，但可读性很差。
 
 ```python
-In [39]: now = datetime.datetime.now()  # 当前本地时间                                                               
-In [40]: now                                                                                                     
+In [39]: now = datetime.datetime.now()  # 当前本地时间
+In [40]: now
 Out[40]: datetime.datetime(2019, 12, 15, 10, 34, 54, 516482)
-In [41]: utc = datetime.datetime.utcnow()  # 当前世界标准时                                                                      
-In [42]: utc                                                                                                     
+In [41]: utc = datetime.datetime.utcnow()  # 当前世界标准时
+In [42]: utc
 Out[42]: datetime.datetime(2019, 12, 15, 2, 35, 18, 609633)
-In [45]: now.timestamp()  # 当前时间戳                                                                                       
+In [45]: now.timestamp()  # 当前时间戳
 Out[45]: 1576377294.516482
 ```
 
@@ -389,7 +390,7 @@ Out[45]: 1576377294.516482
 
 
 ```python
-In [46]: now.strftime("%Y-%m-%d %H:%M:%S")                                                                       
+In [46]: now.strftime("%Y-%m-%d %H:%M:%S")
 Out[46]: '2019-12-15 10:34:54'
 ```
 
@@ -397,11 +398,11 @@ Out[46]: '2019-12-15 10:34:54'
 另外也可以直接通过对应的属性值访问。
 
 ```python
-In [47]: now2 = datetime.datetime.now()                                                                          
-In [48]: now2 - now                                                                                              
+In [47]: now2 = datetime.datetime.now()
+In [48]: now2 - now
 Out[48]: datetime.timedelta(seconds=486, microseconds=231216)
 In [49]: td = now2 - now
-In [52]: td.seconds                                                                                              
+In [52]: td.seconds
 Out[52]: 486
 ```
 
@@ -410,7 +411,7 @@ Out[52]: 486
 下面代码显示了调用 datetime 子模块的 now() 函数得到的是一个 datetime 对象。
 
 ```python
-In [55]: pd.datetime.now()                                                                                       
+In [55]: pd.datetime.now()
 Out[55]: datetime.datetime(2019, 12, 15, 10, 47, 58, 642985)
 ```
 
@@ -422,8 +423,8 @@ Pandas 库在这方面提供了相关的功能特性。
 使用 date_range() 函数可以创建日期序列，默认的频率是天。
 
 ```python
-In [56]: pd.date_range('20190101', periods=7)                                                             
-Out[56]: 
+In [56]: pd.date_range('20190101', periods=7)
+Out[56]:
 DatetimeIndex(['2019-01-01', '2019-01-02', '2019-01-03', '2019-01-04',
                '2019-01-05', '2019-01-06', '2019-01-07'],
               dtype='datetime64[ns]', freq='D')
@@ -432,8 +433,8 @@ DatetimeIndex(['2019-01-01', '2019-01-02', '2019-01-03', '2019-01-04',
 D 是 Day 的缩写。我们可以更改日期的频率，比如说月份。
 
 ```python
-In [58]: pd.date_range('20190101', periods=7, freq='M')                                                   
-Out[58]: 
+In [58]: pd.date_range('20190101', periods=7, freq='M')
+Out[58]:
 DatetimeIndex(['2019-01-31', '2019-02-28', '2019-03-31', '2019-04-30',
                '2019-05-31', '2019-06-30', '2019-07-31'],
               dtype='datetime64[ns]', freq='M')
@@ -443,8 +444,8 @@ DatetimeIndex(['2019-01-31', '2019-02-28', '2019-03-31', '2019-04-30',
 商业分析中常常只使用工作日，这可以使用 bdate_range() 生成序列，它会自动跳过周末。
 
 ```python
-In [59]: pd.bdate_range('20190101', periods=7)                                                            
-Out[59]: 
+In [59]: pd.bdate_range('20190101', periods=7)
+Out[59]:
 DatetimeIndex(['2019-01-01', '2019-01-02', '2019-01-03', '2019-01-04',
                '2019-01-07', '2019-01-08', '2019-01-09'],
               dtype='datetime64[ns]', freq='B')
@@ -462,45 +463,45 @@ Pandas 库提供了 Timedelta 类来表示时间差异，相比于 datetime 模�
 我们可以直接传入具有描述性的英文语句，它会被 Pandas 自动解析。
 
 ```python
-In [60]: pd.Timedelta('1 days 2 hours 3 minutes 4 seconds')                                               
+In [60]: pd.Timedelta('1 days 2 hours 3 minutes 4 seconds')
 Out[60]: Timedelta('1 days 02:03:04')
 ```
 
 我们也可以使用整数值，并指定时间差的单位来生成 Timedelta 对象。
 
 ```python
-In [61]: pd.Timedelta(10, unit='h')                                                                       
+In [61]: pd.Timedelta(10, unit='h')
 Out[61]: Timedelta('0 days 10:00:00')
 ```
 
 我们还可以传入关键字参数表示时间的频率。
 
 ```python
-In [64]: pd.Timedelta(days=10)                                                                            
+In [64]: pd.Timedelta(days=10)
 Out[64]: Timedelta('10 days 00:00:00')
-In [65]: pd.Timedelta(hours=10)                                                                           
+In [65]: pd.Timedelta(hours=10)
 Out[65]: Timedelta('0 days 10:00:00')
-In [66]: pd.Timedelta(minutes=10)                                                                         
+In [66]: pd.Timedelta(minutes=10)
 Out[66]: Timedelta('0 days 00:10:00')
 ```
 
 Timedelta 对象常用于时间的加减运算中，运算支持自动广播，下面是简单的例子。
 
 ```python
-In [67]: pd.date_range('20190101', periods=7)                                                             
-Out[67]: 
+In [67]: pd.date_range('20190101', periods=7)
+Out[67]:
 DatetimeIndex(['2019-01-01', '2019-01-02', '2019-01-03', '2019-01-04',
                '2019-01-05', '2019-01-06', '2019-01-07'],
               dtype='datetime64[ns]', freq='D')
-In [68]: pd.date_range('20190101', periods=7) + pd.Timedelta(hours=10)                                    
-Out[68]: 
+In [68]: pd.date_range('20190101', periods=7) + pd.Timedelta(hours=10)
+Out[68]:
 DatetimeIndex(['2019-01-01 10:00:00', '2019-01-02 10:00:00',
                '2019-01-03 10:00:00', '2019-01-04 10:00:00',
                '2019-01-05 10:00:00', '2019-01-06 10:00:00',
                '2019-01-07 10:00:00'],
               dtype='datetime64[ns]', freq='D')
-In [69]: pd.date_range('20190101', periods=7) - pd.Timedelta(hours=10)                                    
-Out[69]: 
+In [69]: pd.date_range('20190101', periods=7) - pd.Timedelta(hours=10)
+Out[69]:
 DatetimeIndex(['2018-12-31 14:00:00', '2019-01-01 14:00:00',
                '2019-01-02 14:00:00', '2019-01-03 14:00:00',
                '2019-01-04 14:00:00', '2019-01-05 14:00:00',
@@ -520,17 +521,17 @@ Pandas 对象之间的基本迭代的行为取决于数据类型。
 我们先分别生成一个 Series 和 DataFrame 对象。
 
 ```python
-In [74]: s = pd.Series(['a', 'b', 'c'])                                                                   
-In [75]: df = df = {'姓名': ['小明','小王','小张'], '语文':[80,85,90], '数学':[99,88,86]}                 
-In [76]: df = pd.DataFrame(df)                                                                            
-In [77]: s                                                                                                
-Out[77]: 
+In [74]: s = pd.Series(['a', 'b', 'c'])
+In [75]: df = df = {'姓名': ['小明','小王','小张'], '语文':[80,85,90], '数学':[99,88,86]}
+In [76]: df = pd.DataFrame(df)
+In [77]: s
+Out[77]:
 0    a
 1    b
 2    c
 dtype: object
-In [78]: df                                                                                               
-Out[78]: 
+In [78]: df
+Out[78]:
    姓名  语文  数学
 0  小明  80  99
 1  小王  85  88
@@ -540,15 +541,15 @@ Out[78]:
 用 for 循环迭代两个对象看看结果是否如前面所说。
 
 ```python
-In [80]: for i in s: 
-    ...:     print(i) 
-    ...:                                                                                                  
+In [80]: for i in s:
+    ...:     print(i)
+    ...:
 a
 b
 c
-In [81]: for i in df: 
-    ...:     print(i) 
-    ...:                                                                                                  
+In [81]: for i in df:
+    ...:     print(i)
+    ...:
 姓名
 语文
 数学
@@ -559,9 +560,9 @@ In [81]: for i in df:
 当我们需要迭代 Series 对象的索引时可以通过 index 属性访问。
 
 ```python
-In [82]: for i in s.index: 
-    ...:     print(i) 
-    ...:                                                                                                  
+In [82]: for i in s.index:
+    ...:     print(i)
+    ...:
 0
 1
 2
@@ -577,9 +578,9 @@ In [82]: for i in s.index:
 先看看第一个方法：
 
 ```python
-In [84]: for key, value in df.iteritems(): 
-    ...:     print(key, value) 
-    ...:                                                                                                  
+In [84]: for key, value in df.iteritems():
+    ...:     print(key, value)
+    ...:
 姓名 0    小明
 1    小王
 2    小张
@@ -592,9 +593,9 @@ Name: 语文, dtype: int64
 1    88
 2    86
 Name: 数学, dtype: int64
-In [85]: for key, value in df.iteritems(): 
-    ...:     print(type(value)) 
-    ...:                                                                                                  
+In [85]: for key, value in df.iteritems():
+    ...:     print(type(value))
+    ...:
 <class 'pandas.core.series.Series'>
 <class 'pandas.core.series.Series'>
 <class 'pandas.core.series.Series'>
@@ -606,9 +607,9 @@ iteritems() 方法以 DataFrame 的列标签为键，列值为值进行迭代。
 我们再来看第二个方法：
 
 ```python
-In [87]: for key, value in df.iterrows(): 
-    ...:     print(key, value) 
-    ...:                                                                                                  
+In [87]: for key, value in df.iterrows():
+    ...:     print(key, value)
+    ...:
 0 姓名    小明
 语文    80
 数学    99
@@ -621,9 +622,9 @@ Name: 1, dtype: object
 语文    90
 数学    86
 Name: 2, dtype: object
-In [88]: for row, value in df.iterrows(): 
-    ...:     print(type(value)) 
-    ...:                                                                                                  
+In [88]: for row, value in df.iterrows():
+    ...:     print(type(value))
+    ...:
 <class 'pandas.core.series.Series'>
 <class 'pandas.core.series.Series'>
 <class 'pandas.core.series.Series'>
@@ -637,28 +638,28 @@ iterrows() 方法的结果也是 Series 对象，以 DataFrame 的列标签作�
 我们最后看看第三个方法 itertuples()：
 
 ```python
-In [89]: for key, value in df.itertuples(): 
-    ...:     print(key, value) 
-    ...:                                                                                                  
+In [89]: for key, value in df.itertuples():
+    ...:     print(key, value)
+    ...:
 ---------------------------------------------------------------------------
 ValueError                                Traceback (most recent call last)
 <ipython-input-89-6b42ad46ae68> in <module>
 ----> 1 for key, value in df.itertuples():
       2     print(key, value)
-      3 
+      3
 
 ValueError: too many values to unpack (expected 2)
 
-In [90]: for value in df.itertuples(): 
-    ...:     print(value) 
-    ...:                                                                                                  
+In [90]: for value in df.itertuples():
+    ...:     print(value)
+    ...:
 Pandas(Index=0, 姓名='小明', 语文=80, 数学=99)
 Pandas(Index=1, 姓名='小王', 语文=85, 数学=88)
 Pandas(Index=2, 姓名='小张', 语文=90, 数学=86)
 
-In [91]: for value in df.itertuples(): 
-    ...:     print(type(value)) 
-    ...:                                                                                                  
+In [91]: for value in df.itertuples():
+    ...:     print(type(value))
+    ...:
 <class 'pandas.core.frame.Pandas'>
 <class 'pandas.core.frame.Pandas'>
 <class 'pandas.core.frame.Pandas'>
@@ -669,9 +670,9 @@ In [91]: for value in df.itertuples():
 的元组对象。
 
 ```python
-In [92]: for value in df.itertuples(): 
-    ...:     print(tuple(value)) 
-    ...:                                                                                                  
+In [92]: for value in df.itertuples():
+    ...:     print(tuple(value))
+    ...:
 (0, '小明', 80, 99)
 (1, '小王', 85, 88)
 (2, '小张', 90, 86)
@@ -686,22 +687,22 @@ pipe()、apply() 和 applymap()。
 
 > Series 对象也可以使用，不过此处内容聚焦于 DataFrame 对象的操作。
 
-#### pipe() 
+#### pipe()
 
 pipe() 是表格级别的函数应用，我们先定义一个乘法器。
 
 ```python
-In [97]: def timer(e1, e2): 
-    ...:     return(e1*e2) 
-    ...:   
+In [97]: def timer(e1, e2):
+    ...:     return(e1*e2)
+    ...:
 ```
 
 创建用于示例的 DataFrame 对象：
 
 ```python
 In [98]: df1 = pd.DataFrame(6*np.random.randn(6, 3), columns=['col1', 'col2', 'col3'])
-In [99]: df1                                                                                              
-Out[99]: 
+In [99]: df1
+Out[99]:
         col1      col2       col3
 0  -2.327459  4.391074   8.796776
 1   3.736191  2.711543 -11.112365
@@ -714,8 +715,8 @@ Out[99]:
 使用 pipe() 调用该上述定义的乘法器，对 df1 乘以 10。
 
 ```python
-In [100]: df1.pipe(timer, 10)                                                                             
-Out[100]: 
+In [100]: df1.pipe(timer, 10)
+Out[100]:
          col1       col2        col3
 0  -23.274593  43.910736   87.967759
 1   37.361914  27.115432 -111.123654
@@ -729,8 +730,8 @@ Out[100]:
 pipe() 第二个参数也可以是相同大小的 DataFrame。
 
 ```python
-In [103]: df1.pipe(timer, pd.DataFrame(6*np.random.randn(6, 3), columns=['col1', 'col2', 'col3']))        
-Out[103]: 
+In [103]: df1.pipe(timer, pd.DataFrame(6*np.random.randn(6, 3), columns=['col1', 'col2', 'col3']))
+Out[103]:
         col1        col2       col3
 0   5.756520  -26.905602  21.285264
 1  20.548535  -10.953445 -99.671865
@@ -744,8 +745,8 @@ pipe() 函数的实用性并不强，由于广播机制的存在，我们完全�
 使用运算符达到相同的目的。
 
 ```python
-In [104]: df1 * 10                                                                                        
-Out[104]: 
+In [104]: df1 * 10
+Out[104]:
          col1       col2        col3
 0  -23.274593  43.910736   87.967759
 1   37.361914  27.115432 -111.123654
@@ -753,8 +754,8 @@ Out[104]:
 3   40.606458  91.780725   13.551700
 4  101.710534 -34.174668    4.478325
 5  -73.633838  -1.767825  -63.912430
-In [105]: df1 * df1                                                                                       
-Out[105]: 
+In [105]: df1 * df1
+Out[105]:
          col1       col2        col3
 0    5.417067  19.281527   77.383267
 1   13.959126   7.352467  123.484665
@@ -772,8 +773,8 @@ apply() 是 3 个方法中最常用最实用的，可以对列或行进行函数
 还是使用上面的数据和函数，目的也一样，对每列乘以 10。
 
 ```python
-In [114]: df1.apply(timer, axis=0, e2=10)                                                                 
-Out[114]: 
+In [114]: df1.apply(timer, axis=0, e2=10)
+Out[114]:
          col1       col2        col3
 0  -23.274593  43.910736   87.967759
 1   37.361914  27.115432 -111.123654
@@ -791,8 +792,8 @@ Out[114]:
 例如，我们只操作第 3 列或第 3 行。
 
 ```python
-In [123]: df1.iloc[:,2].apply(timer, e2=10)                                                               
-Out[123]: 
+In [123]: df1.iloc[:,2].apply(timer, e2=10)
+Out[123]:
 0     87.967759
 1   -111.123654
 2     -6.922007
@@ -801,8 +802,8 @@ Out[123]:
 5    -63.912430
 Name: col3, dtype: float64
 
-In [124]: df1.iloc[2,].apply(timer, e2=10)                                                                
-Out[124]: 
+In [124]: df1.iloc[2,].apply(timer, e2=10)
+Out[124]:
 col1   -56.869085
 col2    -2.469423
 col3    -6.922007
@@ -816,8 +817,8 @@ applymap() 进行的是元素级别的应用，它也完全可以做到上述 pi
 这里我们直接调用匿名函数，更加方便快捷。
 
 ```python
-In [125]: df1.applymap(lambda x: 10 * x)                                                                  
-Out[125]: 
+In [125]: df1.applymap(lambda x: 10 * x)
+Out[125]:
          col1       col2        col3
 0  -23.274593  43.910736   87.967759
 1   37.361914  27.115432 -111.123654
@@ -832,8 +833,8 @@ Out[125]:
 例如，我们对 df1 中小于 0 的平方，大于 0 的加 10。
 
 ```python
-In [126]: df1.applymap(lambda x: x ** 2 if x < 0 else x + 10)                                             
-Out[126]: 
+In [126]: df1.applymap(lambda x: x ** 2 if x < 0 else x + 10)
+Out[126]:
         col1       col2        col3
 0   5.417067  14.391074   18.796776
 1  13.736191  12.711543  123.484665
@@ -854,9 +855,9 @@ Pandas 库为文本数据提供了字符属性，可以方便地利用 Python �
 我们先构建一个样例数据。
 
 ```python
-In [127]: sample_data = pd.Series(['Mike', 'Shixiang', np.nan, '012345', 'HAPPY', 'hurry'])               
-In [128]: sample_data                                                                                     
-Out[128]: 
+In [127]: sample_data = pd.Series(['Mike', 'Shixiang', np.nan, '012345', 'HAPPY', 'hurry'])
+In [128]: sample_data
+Out[128]:
 0        Mike
 1    Shixiang
 2         NaN
@@ -873,8 +874,8 @@ dtype: object
 lower() 方法将所有字母变为小写。
 
 ```python
-In [129]: sample_data.str.lower()                                                                         
-Out[129]: 
+In [129]: sample_data.str.lower()
+Out[129]:
 0        mike
 1    shixiang
 2         NaN
@@ -889,8 +890,8 @@ dtype: object
 upper() 方法的作用与 lower() 相反。
 
 ```python
-In [130]: sample_data.str.upper()                                                                         
-Out[130]: 
+In [130]: sample_data.str.upper()
+Out[130]:
 0        MIKE
 1    SHIXIANG
 2         NaN
@@ -905,8 +906,8 @@ dtype: object
 len() 方法获取字符长度。
 
 ```python
-In [131]: sample_data.str.len()                                                                           
-Out[131]: 
+In [131]: sample_data.str.len()
+Out[131]:
 0    4.0
 1    8.0
 2    NaN
@@ -921,8 +922,8 @@ dtype: float64
 replace() 方法替换字符串。
 
 ```python
-In [132]: sample_data.str.replace('H', 'YY')                                                              
-Out[132]: 
+In [132]: sample_data.str.replace('H', 'YY')
+Out[132]:
 0        Mike
 1    Shixiang
 2         NaN
@@ -937,8 +938,8 @@ dtype: object
 count() 方法对指定字符进行计数。
 
 ```python
-In [133]: sample_data.str.count('a')                                                                      
-Out[133]: 
+In [133]: sample_data.str.count('a')
+Out[133]:
 0    0.0
 1    1.0
 2    NaN
@@ -953,8 +954,8 @@ dtype: float64
 swapcase() 方法转换字母大小写。
 
 ```python
-In [134]: sample_data.str.swapcase()                                                                      
-Out[134]: 
+In [134]: sample_data.str.swapcase()
+Out[134]:
 0        mIKE
 1    sHIXIANG
 2         NaN
@@ -1004,18 +1005,18 @@ Pandas 提供了 groupby() 方法完成上面的需求。
 df = pd.DataFrame({'Animal': ['Falcon', 'Falcon',
                                'Parrot', 'Parrot'],
                    'Max Speed': [380., 370., 24., 26.]})
-In [136]: df                                                                                                
-Out[136]: 
+In [136]: df
+Out[136]:
    Animal  Max Speed
 0  Falcon      380.0
 1  Falcon      370.0
 2  Parrot       24.0
 3  Parrot       26.0
 
-In [137]: df.groupby(['Animal']).mean()                                                                     
-Out[137]: 
+In [137]: df.groupby(['Animal']).mean()
+Out[137]:
         Max Speed
-Animal           
+Animal
 Falcon      375.0
 Parrot       25.0
 ```
@@ -1042,17 +1043,17 @@ Parrot       25.0
 
 ```python
 In [138]: df = pd.DataFrame(np.random.randn(4, 4), index = ['user1', 'user2', 'user3', 'user4'], columns=['c
-     ...: ol1', 'col2', 'col3', 'col4'])                                                                    
-In [139]: df                                                                                                
-Out[139]: 
+     ...: ol1', 'col2', 'col3', 'col4'])
+In [139]: df
+Out[139]:
            col1      col2      col3      col4
 user1  0.368869  1.021476 -0.771651 -1.908077
 user2  0.023887  0.799769 -0.230265 -0.800586
 user3 -0.139025 -0.032772  1.078525 -1.453405
 user4 -1.042709  1.022162 -0.686548 -1.497647
 In [141]: df = df.reindex(['user0', 'user1', 'user2', 'user3', 'user4', 'user5'])
-In [142]: df                                                                                                
-Out[142]: 
+In [142]: df
+Out[142]:
            col1      col2      col3      col4
 user0       NaN       NaN       NaN       NaN
 user1  0.368869  1.021476 -0.771651 -1.908077
@@ -1069,8 +1070,8 @@ Pandas 库提供了 isnull() 和 notnull() 函数对缺失值进行检测。
 我们既可以检测整个 DataFrame，也可以值关注某一列。
 
 ```python
-In [143]: df.isnull()                                                                                       
-Out[143]: 
+In [143]: df.isnull()
+Out[143]:
         col1   col2   col3   col4
 user0   True   True   True   True
 user1  False  False  False  False
@@ -1079,8 +1080,8 @@ user3  False  False  False  False
 user4  False  False  False  False
 user5   True   True   True   True
 
-In [144]: df.col1.isnull()                                                                                  
-Out[144]: 
+In [144]: df.col1.isnull()
+Out[144]:
 user0     True
 user1    False
 user2    False
@@ -1096,18 +1097,18 @@ Name: col1, dtype: bool
 结果返回缺失值。注意在求和数据时，缺失值会被当做 0 处理。
 
 ```python
-In [145]: df.sum()                                                                                          
-Out[145]: 
+In [145]: df.sum()
+Out[145]:
 col1   -0.788979
 col2    2.810636
 col3   -0.609939
 col4   -5.659715
 dtype: float64
 
-In [146]: pd.Series([np.nan, np.nan]).sum()                                                                 
+In [146]: pd.Series([np.nan, np.nan]).sum()
 Out[146]: 0.0
 
-In [147]: pd.Series([np.nan, np.nan]).mean()                                                                
+In [147]: pd.Series([np.nan, np.nan]).mean()
 Out[147]: nan
 ```
 
@@ -1119,8 +1120,8 @@ Pandas 库提供了诸多方法用于清除缺失值。其中，fillna() 函数�
 最常见的策略是用一个标量填充缺失值，如果没有特别的需求，一般可以设为 0。
 
 ```python
-In [148]: df.fillna(0)                                                                                      
-Out[148]: 
+In [148]: df.fillna(0)
+Out[148]:
            col1      col2      col3      col4
 user0  0.000000  0.000000  0.000000  0.000000
 user1  0.368869  1.021476 -0.771651 -1.908077
@@ -1133,8 +1134,8 @@ user5  0.000000  0.000000  0.000000  0.000000
 还可以设定缺失值根据前后的数据进行填充，分为向前和向后两种。
 
 ```python
-In [150]: df.fillna(method='pad')   # 向前填充                                                                   
-Out[150]: 
+In [150]: df.fillna(method='pad')   # 向前填充
+Out[150]:
            col1      col2      col3      col4
 user0       NaN       NaN       NaN       NaN
 user1  0.368869  1.021476 -0.771651 -1.908077
@@ -1143,8 +1144,8 @@ user3 -0.139025 -0.032772  1.078525 -1.453405
 user4 -1.042709  1.022162 -0.686548 -1.497647
 user5 -1.042709  1.022162 -0.686548 -1.497647
 
-In [151]: df.fillna(method='backfill')  # 向后填充                                                               
-Out[151]: 
+In [151]: df.fillna(method='backfill')  # 向后填充
+Out[151]:
            col1      col2      col3      col4
 user0  0.368869  1.021476 -0.771651 -1.908077
 user1  0.368869  1.021476 -0.771651 -1.908077
@@ -1159,8 +1160,8 @@ user5       NaN       NaN       NaN       NaN
 使用 dropna() 方法可以直接去掉含缺失值的行或列，默认是行。
 
 ```python
-In [152]: df.dropna()                                                                                       
-Out[152]: 
+In [152]: df.dropna()
+Out[152]:
            col1      col2      col3      col4
 user1  0.368869  1.021476 -0.771651 -1.908077
 user2  0.023887  0.799769 -0.230265 -0.800586
@@ -1171,8 +1172,8 @@ user4 -1.042709  1.022162 -0.686548 -1.497647
 如果按列去除，df 就没有可以用的数据了。
 
 ```python
-In [153]: df.dropna(axis=1)                                                                                 
-Out[153]: 
+In [153]: df.dropna(axis=1)
+Out[153]:
 Empty DataFrame
 Columns: []
 Index: [user0, user1, user2, user3, user4, user5]
@@ -1211,19 +1212,19 @@ pd.merge(
 一个 DataFrame 存储故事所属的 subject 和故事评分。
 
 ```python
-In [155]: stories = pd.DataFrame({'story_id':[1,2,3], 'title':['lions', 'tigers', 'bears']})              
+In [155]: stories = pd.DataFrame({'story_id':[1,2,3], 'title':['lions', 'tigers', 'bears']})
 
-In [156]: data = pd.DataFrame({'subject':[1,2,1,2], 'story_id':[1,2,5,6], 'rating':[6.7, 7.8, 3.2, 9.0]}) 
+In [156]: data = pd.DataFrame({'subject':[1,2,1,2], 'story_id':[1,2,5,6], 'rating':[6.7, 7.8, 3.2, 9.0]})
 
-In [157]: stories                                                                                         
-Out[157]: 
+In [157]: stories
+Out[157]:
    story_id   title
 0         1   lions
 1         2  tigers
 2         3   bears
 
-In [158]: data                                                                                            
-Out[158]: 
+In [158]: data
+Out[158]:
    subject  story_id  rating
 0        1         1     6.7
 1        2         2     7.8
@@ -1241,8 +1242,8 @@ Out[158]:
 连接的方式由 how 参数控制，用于连接的列名由 on 参数指定。
 
 ```python
-In [159]: pd.merge(stories, data, how='left', on='story_id')                                              
-Out[159]: 
+In [159]: pd.merge(stories, data, how='left', on='story_id')
+Out[159]:
    story_id   title  subject  rating
 0         1   lions      1.0     6.7
 1         2  tigers      2.0     7.8
@@ -1258,16 +1259,16 @@ Out[159]:
 其实这与对调输入的两个 DataFrame 的左连接结果一致。
 
 ```python
-In [160]: pd.merge(stories, data, how='right', on='story_id')                                             
-Out[160]: 
+In [160]: pd.merge(stories, data, how='right', on='story_id')
+Out[160]:
    story_id   title  subject  rating
 0         1   lions        1     6.7
 1         2  tigers        2     7.8
 2         5     NaN        1     3.2
 3         6     NaN        2     9.0
 
-In [161]: pd.merge(data, stories, how='left', on='story_id')                                              
-Out[161]: 
+In [161]: pd.merge(data, stories, how='left', on='story_id')
+Out[161]:
    subject  story_id  rating   title
 0        1         1     6.7   lions
 1        2         2     7.8  tigers
@@ -1282,8 +1283,8 @@ Out[161]:
 外连接（outer join）操作也可以看作取并集，它会合并 left 和 right 所有的行。
 
 ```python
-In [162]: pd.merge(stories, data, how='outer', on='story_id')                                             
-Out[162]: 
+In [162]: pd.merge(stories, data, how='outer', on='story_id')
+Out[162]:
    story_id   title  subject  rating
 0         1   lions      1.0     6.7
 1         2  tigers      2.0     7.8
@@ -1297,8 +1298,8 @@ Out[162]:
 内连接（inner join）操作也可以看作取交集，它会合并 left 和 right 共有的行。
 
 ```python
-In [163]: pd.merge(stories, data, how='inner', on='story_id')                                             
-Out[163]: 
+In [163]: pd.merge(stories, data, how='inner', on='story_id')
+Out[163]:
    story_id   title  subject  rating
 0         1   lions        1     6.7
 1         2  tigers        2     7.8
@@ -1312,18 +1313,18 @@ Out[163]:
 多键连接难度也不大，以列表形式指定 on 参数为两个 DataFrame 共有的列名即可。
 
 ```python
-In [168]: data2 = pd.merge(stories, data, how='inner', on='story_id')                                     
+In [168]: data2 = pd.merge(stories, data, how='inner', on='story_id')
 
-In [169]: data                                                                                            
-Out[169]: 
+In [169]: data
+Out[169]:
    subject  story_id  rating
 0        1         1     6.7
 1        2         2     7.8
 2        1         5     3.2
 3        2         6     9.0
 
-In [170]: pd.merge(data2, data, how='inner', on=['story_id', 'subject'])                                  
-Out[170]: 
+In [170]: pd.merge(data2, data, how='inner', on=['story_id', 'subject'])
+Out[170]:
    story_id   title  subject  rating_x  rating_y
 0         1   lions        1       6.7       6.7
 1         2  tigers        2       7.8       7.8
@@ -1339,19 +1340,19 @@ Out[170]:
 级联操作使用 concat() 函数实现，它可以将多个 DataFrame 按行（默认）或按列组合。
 
 ```python
-In [171]: data = pd.DataFrame({'subject':[1,2,1,2], 'story_id':[1,2,5,6], 'rating':[6.7, 7.8, 3.2, 9.0]})            
-In [172]: data2 = pd.DataFrame({'subject':[1,2], 'story_id':[3, 4], 'rating':[5, 9.7]})                              
+In [171]: data = pd.DataFrame({'subject':[1,2,1,2], 'story_id':[1,2,5,6], 'rating':[6.7, 7.8, 3.2, 9.0]})
+In [172]: data2 = pd.DataFrame({'subject':[1,2], 'story_id':[3, 4], 'rating':[5, 9.7]})
 
-In [173]: data                                                                                                       
-Out[173]: 
+In [173]: data
+Out[173]:
    subject  story_id  rating
 0        1         1     6.7
 1        2         2     7.8
 2        1         5     3.2
 3        2         6     9.0
 
-In [174]: data2                                                                                                      
-Out[174]: 
+In [174]: data2
+Out[174]:
    subject  story_id  rating
 0        1         3     5.0
 1        2         4     9.7
@@ -1360,8 +1361,8 @@ Out[174]:
 上述代码生成了两个列名一致的 DataFrame，接下来我们将它们按行组合起来。
 
 ```python
-In [175]: pd.concat([data, data2])                                                                                   
-Out[175]: 
+In [175]: pd.concat([data, data2])
+Out[175]:
    subject  story_id  rating
 0        1         1     6.7
 1        2         2     7.8
@@ -1376,8 +1377,8 @@ Out[175]:
 有时我们可能想要标定行的数据来源，这可以使用键实现。
 
 ```python
-In [176]: pd.concat([data, data2], keys=['data', 'data2'])                                                           
-Out[176]: 
+In [176]: pd.concat([data, data2], keys=['data', 'data2'])
+Out[176]:
          subject  story_id  rating
 data  0        1         1     6.7
       1        2         2     7.8
@@ -1391,8 +1392,8 @@ data2 0        1         3     5.0
 可以变成连续的 index。不过此操作后 keys 的设定将不起作用了。
 
 ```python
-In [177]: pd.concat([data, data2], keys=['data', 'data2'], ignore_index=True)                                        
-Out[177]: 
+In [177]: pd.concat([data, data2], keys=['data', 'data2'], ignore_index=True)
+Out[177]:
    subject  story_id  rating
 0        1         1     6.7
 1        2         2     7.8
@@ -1401,8 +1402,8 @@ Out[177]:
 4        1         3     5.0
 5        2         4     9.7
 
-In [178]: pd.concat([data, data2],  ignore_index=True)                                                               
-Out[178]: 
+In [178]: pd.concat([data, data2],  ignore_index=True)
+Out[178]:
    subject  story_id  rating
 0        1         1     6.7
 1        2         2     7.8
@@ -1415,8 +1416,8 @@ Out[178]:
 我们再试试按列合并：
 
 ```python
-In [180]: pd.concat([data, data2],  axis=1)                                                                          
-Out[180]: 
+In [180]: pd.concat([data, data2],  axis=1)
+Out[180]:
    subject  story_id  rating  subject  story_id  rating
 0        1         1     6.7      1.0       3.0     5.0
 1        2         2     7.8      2.0       4.0     9.7
@@ -1427,8 +1428,8 @@ Out[180]:
 缺少的行会使用 NaN 自动填充。指定 ignore_index 后，所有列索引将重新生成。
 
 ```python
-In [181]: pd.concat([data, data2],  ignore_index=True, axis=1)                                                       
-Out[181]: 
+In [181]: pd.concat([data, data2],  ignore_index=True, axis=1)
+Out[181]:
    0  1    2    3    4    5
 0  1  1  6.7  1.0  3.0  5.0
 1  2  2  7.8  2.0  4.0  9.7
@@ -1439,8 +1440,8 @@ Out[181]:
 除了 concat() 函数，append() 方法也可以用于行的合并。
 
 ```python
-In [182]: data.append(data2)                                                                                         
-Out[182]: 
+In [182]: data.append(data2)
+Out[182]:
    subject  story_id  rating
 0        1         1     6.7
 1        2         2     7.8
@@ -1453,8 +1454,8 @@ Out[182]:
 不过它的最大用处在于添加新的行，如给 DataFrame 添加 Series 对象。
 
 ```python
-In [185]: data.append(pd.Series({'subject':1, 'story_id':10, 'rating':7}, name=6))                                   
-Out[185]: 
+In [185]: data.append(pd.Series({'subject':1, 'story_id':10, 'rating':7}, name=6))
+Out[185]:
    subject  story_id  rating
 0        1         1     6.7
 1        2         2     7.8
@@ -1474,9 +1475,9 @@ Pandas 为 Series 和 DataFrame 对象提供了 Matplotlib 库 plot() 函数的�
 包含油耗、设计、性能等方面。
 
 ```python
-In [187]: mtcars = pd.read_csv('files/chapter10/mtcars.csv')                      
-In [188]: mtcars.describe()                                                       
-Out[188]: 
+In [187]: mtcars = pd.read_csv('files/chapter10/mtcars.csv')
+In [188]: mtcars.describe()
+Out[188]:
              mpg        cyl        disp  ...         am       gear     carb
 count  32.000000  32.000000   32.000000  ...  32.000000  32.000000  32.0000
 mean   20.090625   6.187500  230.721875  ...   0.406250   3.687500   2.8125
@@ -1489,17 +1490,16 @@ max    33.900000   8.000000  472.000000  ...   1.000000   5.000000   8.0000
 
 [8 rows x 11 columns]
 
-In [189]: mtcars.shape                                                            
+In [189]: mtcars.shape
 Out[189]: (32, 11)
 ```
 
 mtcars 所有列中 mpg 是每百公里油耗，cyl 是发动机汽缸数。下面我们就使用这两列进行可视化分析。
 
 ```python
-In [193]: df = mtcars.loc[:, ['cyl', 'mpg']]                                                                         
-
-In [194]: df.head()                                                                                                  
-Out[194]: 
+In [193]: df = mtcars.loc[:, ['cyl', 'mpg']]
+In [194]: df.head()
+Out[194]:
    cyl   mpg
 0    6  21.0
 1    6  21.0
@@ -1509,10 +1509,10 @@ Out[194]:
 ```
 
 ```python
-In [196]: %matplotlib                                                                                                
+In [196]: %matplotlib
 Using matplotlib backend: agg
 
-In [197]: df.plot()                                                                                                  
+In [197]: df.plot()
 Out[197]: <matplotlib.axes._subplots.AxesSubplot at 0x7f0f6e3ec210>
 ```
 

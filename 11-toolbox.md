@@ -3,7 +3,7 @@
 **本章内容提要**:
 
 - 辅助函数与工具
-- 作用域与求值计算 
+- 作用域与求值计算
 - 异常捕获
 - 函数式编程
 - 生成器与装饰器
@@ -49,16 +49,16 @@ y = temp
 assert 会检查一个表达式，如果返回逻辑值 False，就会生成断言错误。assert 也可以带第二个参数用来详细地描述错误。
 
 ```python
-In [1]: a = 10                                                       
-In [2]: assert a > 10                                                
+In [1]: a = 10
+In [2]: assert a > 10
 ---------------------------------------------------------------------
 AssertionError                      Traceback (most recent call last)
 <ipython-input-2-92ef20669630> in <module>
 ----> 1 assert a > 10
 
-AssertionError: 
+AssertionError:
 
-In [3]: assert a > 10, 'a 不大于 10'                                 
+In [3]: assert a > 10, 'a 不大于 10'
 ---------------------------------------------------------------------
 AssertionError                      Traceback (most recent call last)
 <ipython-input-3-d19bab11044a> in <module>
@@ -79,9 +79,9 @@ In [4]: print(", ".join(["spam", "eggs", "ham"]))  # 字符串拼接
 spam, eggs, ham
 In [5]: print("Hello ME".replace("ME", "wrold"))   # 字符串替换
 Hello wrold
-In [6]: print("This is a sentence.".startswith("This"))  # 判断字符串是否以 This 起始           
+In [6]: print("This is a sentence.".startswith("This"))  # 判断字符串是否以 This 起始
 True
-In [7]: print("This is a sentence.".endswith("sentence."))  # 判断字符串是否以 sentence. 结束         
+In [7]: print("This is a sentence.".endswith("sentence."))  # 判断字符串是否以 sentence. 结束
 True
 In [8]: print("This is a sentence.".upper())  # 字母全部转换为大写
 THIS IS A SENTENCE.
@@ -98,14 +98,14 @@ In [10]: print("spam, eggs, ham".split())  # 字符串拆分
 我们已经知道，在函数内部命名的变量不会影响函数外部的变量，也就是说，每个变量都有自己作用的范围。这不仅仅适用于函数，也适用于其他 Python 对象。
 
 ```python
-In [11]: x = 1                                                       
-In [12]: scope = vars()                                              
-In [13]: scope['x']                                                  
+In [11]: x = 1
+In [12]: scope = vars()
+In [13]: scope['x']
 Out[13]: 1
-In [14]: scope['x'] += 2                                             
-In [15]: scope['x']                                                  
+In [14]: scope['x'] += 2
+In [15]: scope['x']
 Out[15]: 3
-In [16]: type(scope)                                                 
+In [16]: type(scope)
 Out[16]: dict
 ```
 
@@ -115,16 +115,16 @@ Out[16]: dict
 
 ```python
 In [26]: a = 10
-In [27]: def masking(): 
-    ...:     a = 1 
-    ...:     print(a) 
-    ...:     los = locals() 
-    ...:     glo = globals() 
-    ...:     print(los['a']) 
-    ...:     print(glo['a']) 
-    ...:                                                             
+In [27]: def masking():
+    ...:     a = 1
+    ...:     print(a)
+    ...:     los = locals()
+    ...:     glo = globals()
+    ...:     print(los['a'])
+    ...:     print(glo['a'])
+    ...:
 
-In [28]: masking()                                                   
+In [28]: masking()
 1
 1
 10
@@ -133,14 +133,14 @@ In [28]: masking()
 如果想要将局部变量 x 声明为全局变量，使用代码 global x。
 
 ```python
-In [36]: a = 10                                                      
-In [37]: def change_global(): 
-    ...:     global a 
-    ...:     a = 5 
-    ...:                                                             
+In [36]: a = 10
+In [37]: def change_global():
+    ...:     global a
+    ...:     a = 5
+    ...:
 
-In [38]: change_global()                                             
-In [39]: a                                                           
+In [38]: change_global()
+In [39]: a
 Out[39]: 5
 ```
 
@@ -149,16 +149,16 @@ Out[39]: 5
 有时候，我们想要从字符串中创建 Python 代码，这可以用于动态编程。exec() 和 eval() 函数提供了这方面的支持。
 
 ```python
-In [40]: exec("print('Hello world')")                                
+In [40]: exec("print('Hello world')")
 Hello world
 ```
 
 它可能会干扰命名空间（作用域）。
 
 ```python
-In [41]: from math import sqrt                                       
-In [42]: exec('sqrt = 1')                                            
-In [43]: sqrt(4)                                                     
+In [41]: from math import sqrt
+In [42]: exec('sqrt = 1')
+In [43]: sqrt(4)
 ---------------------------------------------------------------------
 TypeError                           Traceback (most recent call last)
 <ipython-input-43-317e033d29d5> in <module>
@@ -172,17 +172,17 @@ TypeError: 'int' object is not callable
 我们可以指定命名空间来避免上述问题。
 
 ```python
-In [44]: scope = {}                                                  
-In [45]: exec('sqrt = 1', scope)                                     
-In [46]: scope['sqrt'] 
-    ...: 1                                                           
+In [44]: scope = {}
+In [45]: exec('sqrt = 1', scope)
+In [46]: scope['sqrt']
+    ...: 1
 Out[46]: 1
 ```
 
 exec() 函数会执行一系列 Python 语句，而 eval() 函数计算以字符串形式书写的表达式，并返回结果值。
 
 ```python
-In [47]: eval('sqrt = 1')                                            
+In [47]: eval('sqrt = 1')
 Traceback (most recent call last):
 
   File "/home/shixiang/miniconda3/lib/python3.7/site-packages/IPython/core/interactiveshell.py", line 3326, in run_code
@@ -196,19 +196,19 @@ Traceback (most recent call last):
          ^
 SyntaxError: invalid syntax
 
-In [48]: eval('sqrt + 3')                                            
+In [48]: eval('sqrt + 3')
 Out[48]: 4
 ```
 
 eval() 函数也可以使用命名空间。
 
 ```python
-In [48]: eval('sqrt + 3')                                            
+In [48]: eval('sqrt + 3')
 Out[48]: 4
-In [49]: scope = {}                                                  
-In [50]: scope['x'] = 3                                              
-In [51]: scope['y'] = 5                                              
-In [52]: eval('x * y', scope)                                        
+In [49]: scope = {}
+In [50]: scope['x'] = 3
+In [51]: scope['y'] = 5
+In [52]: eval('x * y', scope)
 Out[52]: 15
 ```
 
@@ -370,39 +370,39 @@ print(double(4))
 map() 函数将序列中的元素全部传递给一个函数，并返回一个可迭代对象。
 
 ```python
-In [54]: def double(x): 
-    ...:     return x * 2 
-    ...:  
-    ...: data = [11, 22, 33, 44] 
-    ...: res = map(double, data) 
-    ...: print(list(res)) 
-    ...:                                                             
+In [54]: def double(x):
+    ...:     return x * 2
+    ...:
+    ...: data = [11, 22, 33, 44]
+    ...: res = map(double, data)
+    ...: print(list(res))
+    ...:
 [22, 44, 66, 88]
 ```
 
 这里可以直接使用匿名函数：
 
 ```python
-In [55]: print(list(map(lambda x: x* 2, data)))                      
+In [55]: print(list(map(lambda x: x* 2, data)))
 [22, 44, 66, 88]
 ```
 
 filter() 基于一个返回布尔值的函数对元素进行过滤
 
 ```python
-In [56]: list(filter(lambda x: x % 2 == 0, data))                    
+In [56]: list(filter(lambda x: x % 2 == 0, data))
 Out[56]: [22, 44]
 ```
 
 reduce() 可以进行聚合。
 
 ```python
-In [3]: from functools import reduce                       
-In [4]: def add(x, y): 
-   ...:     return x+y 
-   ...:                                                    
+In [3]: from functools import reduce
+In [4]: def add(x, y):
+   ...:     return x+y
+   ...:
 
-In [5]: reduce(add, [1,2,3,4,5])                           
+In [5]: reduce(add, [1,2,3,4,5])
 Out[5]: 15
 ```
 
@@ -419,11 +419,11 @@ itertools 是 Python 的一个标准库，提供了许多用于函数式编程�
 下面以 count() 作为简单示例：
 
 ```python
-In [22]: for i in count(11): 
-    ...:     print(i) 
-    ...:     if i > 20: 
-    ...:         break 
-    ...:                                                                  
+In [22]: for i in count(11):
+    ...:     print(i)
+    ...:     if i > 20:
+    ...:         break
+    ...:
 11
 12
 13
@@ -442,12 +442,12 @@ In [22]: for i in count(11):
 itertools 库中也有一些类似 map() 和 filter() 的函数，如 takewhile() 函数可以从可迭代对象中根据预测函数提取元素，chain() 函数可以将多个可迭代对象串联为一个，accumulate() 函数可以对可迭代对象求和。下面代码仅作简单的示例。
 
 ```python
-In [23]: from itertools import chain, takewhile, accumulate 
-In [24]: list(chain(list(range(1,5)), list(range(6,10))))                 
+In [23]: from itertools import chain, takewhile, accumulate
+In [24]: list(chain(list(range(1,5)), list(range(6,10))))
 Out[24]: [1, 2, 3, 4, 6, 7, 8, 9]
-In [25]: nms = list(accumulate(range(20)))                                
-In [26]: nms                                                              
-Out[26]: 
+In [25]: nms = list(accumulate(range(20)))
+In [26]: nms
+Out[26]:
 [0,
  1,
  3,
@@ -468,7 +468,7 @@ Out[26]:
  153,
  171,
  190]
-In [27]: print(list(takewhile(lambda x: x <= 10, nms)))                   
+In [27]: print(list(takewhile(lambda x: x <= 10, nms)))
 [0, 1, 3, 6, 10]
 ```
 
@@ -481,14 +481,14 @@ In [27]: print(list(takewhile(lambda x: x <= 10, nms)))
 创建生成器的方式比较特别，需要使用函数和一个新的关键字 yield。下面我们看一个生成 1-9 序列的例子。
 
 ```python
-In [1]: def range2(i): 
-   ...:     while i > 0: 
-   ...:         yield i 
-   ...:         i -= 1 
-   ...:                                                                   
-In [2]: for x in range2(9): 
-   ...:     print(x) 
-   ...:                                                                   
+In [1]: def range2(i):
+   ...:     while i > 0:
+   ...:         yield i
+   ...:         i -= 1
+   ...:
+In [2]: for x in range2(9):
+   ...:     print(x)
+   ...:
 9
 8
 7
@@ -498,38 +498,38 @@ In [2]: for x in range2(9):
 3
 2
 1
-In [3]: range2(9)                                                         
+In [3]: range2(9)
 Out[3]: <generator object range2 at 0x7fde103f1f50>
-In [4]: range(1, 10)                                                      
+In [4]: range(1, 10)
 Out[4]: range(1, 10)
 ```
 
 从 for 循环中的使用来看，跟列表和元组完全没有差别，但 range2() 的结果跟我们学习过的 range() 是相似的，它们返回的是对象而非实际的序列。我们可以直接使用 list() 显式地将生成器转换为列表。
 
 ```python
-In [5]: list(range(1, 10))                                                
+In [5]: list(range(1, 10))
 Out[5]: [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
-In [6]: list(range2(9))                                                   
+In [6]: list(range2(9))
 Out[6]: [9, 8, 7, 6, 5, 4, 3, 2, 1]
 ```
 
 这里读者可能会有点困惑，生成器和列表到底有什么区别呢？这里的关键在于理解生成器的一个特性：它是惰性求值的。我们再来观察下 range2() 函数：
 
 ```python
-def range2(i): 
-    while i > 0: 
-        yield i 
-        i -= 1 
+def range2(i):
+    while i > 0:
+        yield i
+        i -= 1
 ```
 
 相比于直接返回要生成的序列，这里我们定义了计算下一个值的规则，即 i -= 1，在调用该生成器后，计算机不会立马执行所有的计算，而是存储该规则，等待我们需要时再执行，这一点我们可以利用 next() 函数进行验证。
 
 ```python
-In [7]: a = range2(10)     
-In [8]: next(a)                                                           
+In [7]: a = range2(10)
+In [8]: next(a)
 Out[8]: 10
-In [9]: next(a)                                                          
+In [9]: next(a)
 Out[9]: 9
 ```
 
@@ -556,7 +556,7 @@ with open('xxx.csv') as file:
 
     # 打印文件的第一行
     print(next(gen_file))
-``` 
+```
 
 Pandas 库的 read_csv() 函数更方便，使用 chunksize 选项，会生成 reader 生成器。
 
@@ -573,24 +573,24 @@ print(next(df_reader))
 我们创建一个函数 hello() 代表实际的工作函数，创建装饰器 add_text() 用来完成对 hello() 的额外修饰。
 
 ```python
-In [16]: def add_text(func): 
-    ...:     def wrap(): 
-    ...:         print("== This is head of function ==") 
-    ...:         func() 
-    ...:         print("== This is the end of function ==") 
-    ...:     return wrap 
-    ...:  
-    ...: def hello(): 
-    ...:     print("Hello world!") 
-    ...:                                                                  
+In [16]: def add_text(func):
+    ...:     def wrap():
+    ...:         print("== This is head of function ==")
+    ...:         func()
+    ...:         print("== This is the end of function ==")
+    ...:     return wrap
+    ...:
+    ...: def hello():
+    ...:     print("Hello world!")
+    ...:
 ```
 
 下面看看我们增加对 hello() 的修饰会让它有什么不同。
 
 ```python
-In [17]: hello = add_text(hello)                                      
+In [17]: hello = add_text(hello)
 
-In [18]: hello()                                                      
+In [18]: hello()
 == This is head of function ==
 Hello world!
 == This is the end of function ==
@@ -601,19 +601,19 @@ Hello world!
 为了简化装饰器的分配，Python 允许在原函数定义前使用符号 @ 指派装饰器，从而简化了代码的编写。
 
 ```python
-In [19]: def add_text(func): 
-    ...:     def wrap(): 
-    ...:         print("== This is head of function ==") 
-    ...:         func() 
-    ...:         print("== This is the end of function ==") 
-    ...:     return wrap 
-    ...:  
-    ...: @add_text 
-    ...: def hello(): 
-    ...:     print("Hello world!") 
-    ...:                                                                  
+In [19]: def add_text(func):
+    ...:     def wrap():
+    ...:         print("== This is head of function ==")
+    ...:         func()
+    ...:         print("== This is the end of function ==")
+    ...:     return wrap
+    ...:
+    ...: @add_text
+    ...: def hello():
+    ...:     print("Hello world!")
+    ...:
 
-In [20]: hello()                                                          
+In [20]: hello()
 == This is head of function ==
 Hello world!
 == This is the end of function ==
@@ -632,45 +632,45 @@ Hello world!
 Python 提供了一个标准库 re 用于操作正则表达式。在我们定义好正则表达式后，函数 re.match() 可以用来查看是否它匹配一个字符串的起始。如果匹配成功，则返回一个匹配对象；如果匹配失败，返回 None。为了避免混淆，我们这里都使用原生字符串 r'string' 创建正则表达式。
 
 ```python
-In [1]: import re                                                         
-In [2]: pattern = r'spam'                                                 
-In [3]: if re.match(pattern, 'spamxxx'): 
-   ...:     print('匹配成功') 
-   ...: else: 
-   ...:     print('匹配失败') 
-   ...:                                                                   
+In [1]: import re
+In [2]: pattern = r'spam'
+In [3]: if re.match(pattern, 'spamxxx'):
+   ...:     print('匹配成功')
+   ...: else:
+   ...:     print('匹配失败')
+   ...:
 匹配成功
-In [5]: print(re.match(pattern, 'xspamxx'))                               
+In [5]: print(re.match(pattern, 'xspamxx'))
 None
 ```
 
 另外有函数 re.search() 用于在字符串任意之处寻找匹配的模式，re.findall() 寻找匹配一个模式的所有子串。
 
 ```python
-In [6]: print(re.search(pattern, 'xspamxx'))                              
+In [6]: print(re.search(pattern, 'xspamxx'))
 <re.Match object; span=(1, 5), match='spam'>
-In [7]: print(re.findall(pattern, 'xspamxxspamspam'))                     
+In [7]: print(re.findall(pattern, 'xspamxxspamspam'))
 ['spam', 'spam', 'spam']
 ```
 
 我们可以看到上面 re.search() 返回的结果是一个 Match 对象，有几个常用的方法可以获取匹配的信息。
 
 ```python
-In [8]: match = re.search(pattern, 'xspamxx')                             
-In [9]: match.group()                                                     
+In [8]: match = re.search(pattern, 'xspamxx')
+In [9]: match.group()
 Out[9]: 'spam'
-In [10]: match.start()                                                    
+In [10]: match.start()
 Out[10]: 1
-In [11]: match.end()                                                      
+In [11]: match.end()
 Out[11]: 5
-In [12]: match.span()                                                     
+In [12]: match.span()
 Out[12]: (1, 5)
 ```
 
 re 模块最常用的函数之一可能就是 sub() 了，它可以基于正则表达式实现字符串部分内容的替换。
 
 ```python
-In [13]: re.sub?                                                          
+In [13]: re.sub?
 Signature: re.sub(pattern, repl, string, count=0, flags=0)
 Docstring:
 Return the string obtained by replacing the leftmost
@@ -686,10 +686,10 @@ Type:      function
 当不修改 count 时，默认会替换字符串中所有匹配的模式。
 
 ```python
-In [14]: to_sub = 'apple orange apple'                                    
-In [16]: re.sub(r'apple', 'juice', to_sub)                                
+In [14]: to_sub = 'apple orange apple'
+In [16]: re.sub(r'apple', 'juice', to_sub)
 Out[16]: 'juice orange juice'
-In [17]: re.sub(r'apple', 'juice', to_sub, count=1)                       
+In [17]: re.sub(r'apple', 'juice', to_sub, count=1)
 Out[17]: 'juice orange apple'
 ```
 
@@ -714,29 +714,29 @@ Out[17]: 'juice orange apple'
 锚定符用于定义正则表达式的起始和结尾。
 
 ```python
-In [22]: print(re.search(r'^apple', ' apple'))  # 限定必须以 a 起始                          
+In [22]: print(re.search(r'^apple', ' apple'))  # 限定必须以 a 起始
 None
-In [23]: print(re.search(r'apple$', 'apple '))  # 限定必须以 e 结束                              
+In [23]: print(re.search(r'apple$', 'apple '))  # 限定必须以 e 结束
 None
-In [24]: print(re.search(r'apple', ' apple'))                               
+In [24]: print(re.search(r'apple', ' apple'))
 <re.Match object; span=(1, 6), match='apple'>
-In [25]: print(re.search(r'apple', 'apple '))                               
+In [25]: print(re.search(r'apple', 'apple '))
 <re.Match object; span=(0, 5), match='apple'>
 ```
 
 数目符和可选符用于占位、筛选和模糊匹配。
 
 ```python
-In [26]: print(re.search(r'[a-z]', 'happy new year'))                       
+In [26]: print(re.search(r'[a-z]', 'happy new year'))
 <re.Match object; span=(0, 1), match='h'>
-In [27]: print(re.search(r'[a-z]', 'HAPPY NEW YEAR'))                       
+In [27]: print(re.search(r'[a-z]', 'HAPPY NEW YEAR'))
 None
-In [28]: print(re.search(r'[A-Z]', 'HAPPY NEW YEAR'))                       
+In [28]: print(re.search(r'[A-Z]', 'HAPPY NEW YEAR'))
 <re.Match object; span=(0, 1), match='H'>
-In [29]: print(re.search(r'[A-Za-z]', 'HAPPY new YEar'))                    
+In [29]: print(re.search(r'[A-Za-z]', 'HAPPY new YEar'))
 <re.Match object; span=(0, 1), match='H'>
 
-In [30]: print(re.search(r'[A-Z]', 'happy new year'))                       
+In [30]: print(re.search(r'[A-Z]', 'happy new year'))
 None
 ```
 
@@ -755,15 +755,15 @@ r'^TEL: [0-9]{11}$'
 下面测试看看：
 
 ```python
-In [31]: print(re.match(r'^TEL: [0-9]{11}$', 'TEL: 12345678912'))           
+In [31]: print(re.match(r'^TEL: [0-9]{11}$', 'TEL: 12345678912'))
 <re.Match object; span=(0, 16), match='TEL: 12345678912'>
-In [32]: print(re.match(r'^TEL: [0-9]{11}$', 'TEL: 1234567891'))            
+In [32]: print(re.match(r'^TEL: [0-9]{11}$', 'TEL: 1234567891'))
 None
-In [33]: print(re.match(r'^TEL: [0-9]{11}$', 'TEL: 12345678912 '))          
+In [33]: print(re.match(r'^TEL: [0-9]{11}$', 'TEL: 12345678912 '))
 None
-In [34]: print(re.match(r'^TEL: [0-9]{11}$', 'EL: 12345678912'))            
+In [34]: print(re.match(r'^TEL: [0-9]{11}$', 'EL: 12345678912'))
 None
-In [35]: print(re.match(r'^TEL: [0-9]{11}$', 'TEL:12345678912'))            
+In [35]: print(re.match(r'^TEL: [0-9]{11}$', 'TEL:12345678912'))
 None
 ```
 

@@ -32,8 +32,8 @@
 在 IPython Shell 或 Jupyter Notebook 中输入 %lsmagic 即可查看所有的魔术命令。
 
 ```python
-In [4]: %lsmagic                                                  
-Out[4]: 
+In [4]: %lsmagic
+Out[4]:
 Available line magics:
 %alias  %alias_magic  %autoawait  %autocall  %autoindent  %automagic  %bookmark  %cat  %cd  %clear  %colors  %conda  %config  %cp  %cpaste  %debug  %dhist  %dirs  %doctest_mode  %ed  %edit  %env  %gui  %hist  %history  %killbgscripts  %ldir  %less  %lf  %lk  %ll  %load  %load_ext  %loadpy  %logoff  %logon  %logstart  %logstate  %logstop  %ls  %lsmagic  %lx  %macro  %magic  %m
 an  %matplotlib  %mkdir  %more  %mv  %notebook  %page  %paste  %pastebin  %pdb  %pdef  %pdoc  %pfile  %pinfo  %pinfo2  %pip  %popd  %pprint  %precision  %prun  %psearch  %psource  %pushd  %
@@ -50,7 +50,7 @@ Automagic is ON, % prefix IS NOT needed for line magics.
 一般而言，魔术命令的作用可以通过名字进行猜测。如果我们不确定，可以在后面跟一个问号查看对应的文档。
 
 ```python
-In [5]: %ls?                                                
+In [5]: %ls?
 Repr: <alias ls for 'ls -F --color'>
 ```
 
@@ -59,7 +59,7 @@ Repr: <alias ls for 'ls -F --color'>
 运行 %ls 命令，发现当前目录下没有任何文件或目录。
 
 ```python
-In [6]: %ls 
+In [6]: %ls
 
 ```
 
@@ -67,41 +67,41 @@ In [6]: %ls
 
 ```python
 In [7]: %mkdir new
-In [8]: %ls                                                       
+In [8]: %ls
 new/
 ```
 
 使用 %pwd 查看我们工作目录在操作系统中的位置。
 
 ```python
-In [9]: %pwd                                                   
+In [9]: %pwd
 Out[9]: '/home/shixiang/Proj/pybook/test_ipython_shell'
 ```
 
 使用 %cd 切换到另一个目录，如上面新建的 new 目录。
 
 ```python
-In [10]: %cd new                                          
+In [10]: %cd new
 /home/shixiang/Proj/pybook/test_ipython_shell/new
-In [11]: %pwd                                               
+In [11]: %pwd
 Out[11]: '/home/shixiang/Proj/pybook/test_ipython_shell/new'
 ```
 
 %timeit 是一个非常有用的魔术命令，它可以计算 Python 代码的执行时间。
 
 ```python
-In [12]: %timeit Result = [i ** 2 for i in range(100)]                                          
+In [12]: %timeit Result = [i ** 2 for i in range(100)]
 47.6 µs ± 386 ns per loop (mean ± std. dev. of 7 runs, 10000 loops each)
 ```
 
 该命令会自动多次执行命令（10000 次）以获得稳定的结果，当使用多行输入时我们需要对命令多加一个百分号。
 
 ```python
-In [13]: %%timeit 
-    ...: Result = [] 
-    ...: for i in range(100): 
-    ...:     Result.append(i * i) 
-    ...:                                                                                                                                                                                     
+In [13]: %%timeit
+    ...: Result = []
+    ...: for i in range(100):
+    ...:     Result.append(i * i)
+    ...:
 16.7 µs ± 178 ns per loop (mean ± std. dev. of 7 runs, 100000 loops each)
 ```
 
@@ -116,21 +116,21 @@ In [13]: %%timeit
 我们假设学生有名字、年龄、身高和成绩 4 个属性，使用 Python 创建一个 Student 类如下：
 
 ```python
-In [1]: class Student:  
-   ...:     def __init__(self, name, age, height, score): 
-   ...:         self.name = name 
-   ...:         self.age = age 
-   ...:         self.height = height 
-   ...:         self.score = score 
+In [1]: class Student:
+   ...:     def __init__(self, name, age, height, score):
+   ...:         self.name = name
+   ...:         self.age = age
+   ...:         self.height = height
+   ...:         self.score = score
 ```
 
 有了类以后，我们可以创建不同的学生实例，如小周、小张、小李等等。
 
 类中定义的函数称为方法，每个类都需要一个 \_\_init\_\_() 函数用于初始化。类的方法第一个参数永远是 self，指向其本身。
-后续的参数就是用户可以实际输入的参数，我们按照格式就可以创建一个对象。 
+后续的参数就是用户可以实际输入的参数，我们按照格式就可以创建一个对象。
 
 ```python
-In [2]: Student('小周', 20, 180, 98)                                                    
+In [2]: Student('小周', 20, 180, 98)
 Out[2]: <__main__.Student at 0x7fe95c4eeb50>
 ```
 
@@ -140,11 +140,11 @@ Out[2]: <__main__.Student at 0x7fe95c4eeb50>
 
 ```python
 In [3]: zhou = Student('小周', 20, 180, 98)
-In [4]: zhou.score                                                
+In [4]: zhou.score
 Out[4]: 98
-In [5]: zhou.height                                                    
+In [5]: zhou.height
 Out[5]: 180
-In [6]: zhou.age                                                     
+In [6]: zhou.age
 Out[6]: 20
 ```
 
@@ -154,15 +154,15 @@ Out[6]: 20
 我们先为 Student 类加上计算差值的方法：
 
 ```python
-In [7]: class Student:  
-   ...:     def __init__(self, name, age, height, score): 
-   ...:         self.name = name 
-   ...:         self.age = age 
-   ...:         self.height = height 
-   ...:         self.score = score 
-   ...:     def diff(self, average_score): 
-   ...:         print(self.score - average_score) 
-   ...:     
+In [7]: class Student:
+   ...:     def __init__(self, name, age, height, score):
+   ...:         self.name = name
+   ...:         self.age = age
+   ...:         self.height = height
+   ...:         self.score = score
+   ...:     def diff(self, average_score):
+   ...:         print(self.score - average_score)
+   ...:
 ```
 
 重新创建对象 zhou：
@@ -174,7 +174,7 @@ zhou = Student('小周', 20, 180, 98)
 计算差值：
 
 ```python
-In [9]: zhou.diff(70)                                                    
+In [9]: zhou.diff(70)
 28
 ```
 
@@ -189,26 +189,26 @@ In [9]: zhou.diff(70)
 实现代码如下：
 
 ```python
-In [15]: class Student2(Student): 
-    ...:     def __init__(self, name, age, height, score, class_name, teacher_name): 
-    ...:         Student.__init__(self, name, age, height, score) 
-    ...:         self.class_name = class_name 
-    ...:         self.teacher_name = teacher_name 
-    ...:                     
+In [15]: class Student2(Student):
+    ...:     def __init__(self, name, age, height, score, class_name, teacher_name):
+    ...:         Student.__init__(self, name, age, height, score)
+    ...:         self.class_name = class_name
+    ...:         self.teacher_name = teacher_name
+    ...:
 ```
 
 注意，在新的类初始化方法中，我们需要调用 Student 类的初始化。接着我们重新创建一个新的对象 zhou。
 
 ```python
-In [16]: zhou = Student2('小周', 20, 180, 98, "Class A", "Mr. Zhang")    
+In [16]: zhou = Student2('小周', 20, 180, 98, "Class A", "Mr. Zhang")
 ```
 
 我们依然可以使用 Student 类的属性和方法。
 
 ```python
-In [17]: zhou.name                                                        
+In [17]: zhou.name
 Out[17]: '小周'
-In [18]: zhou.diff(70)                                                    
+In [18]: zhou.diff(70)
 28
 ```
 

@@ -416,7 +416,7 @@ lc_time = t2 - t1
 improvement = (fl_time - lc_time) / fl_time * 100
 
 # 对结果对齐并设定保留的小数点位数
-print("For循环运行时间:           {:.4f}".format(fl_time)) 
+print("For循环运行时间:           {:.4f}".format(fl_time))
 print("列表推导式运行时间:         {:.4f}".format(lc_time))
 print("提升时间:                 {:.2f}%".format(improvement))
 
@@ -600,9 +600,9 @@ while True:
     break
   elif guess > NUMBER:
     print("太大了...请重新猜！")
-  else: 
+  else:
     print("太小了...请重新猜！")
-  
+
 ```
 
 本书作者操作的游戏过程如下：
@@ -667,11 +667,11 @@ continue 语句可以让当前循环跳过余下的步骤，直接进入下一�
 当然读者可以使用列表存储这几个数，然后进行循环遍历计算数的阶乘。实现的代码如下：
 
 ```python
-In [1]: number_list = [1, 2, 4, 5, 7, 8, 10]                             
-In [2]: import math                                                       
+In [1]: number_list = [1, 2, 4, 5, 7, 8, 10]
+In [2]: import math
 
-In [3]: for i in number_list: 
-   ...:     print(math.factorial(i))                                            
+In [3]: for i in number_list:
+   ...:     print(math.factorial(i))
 1
 2
 24
@@ -690,14 +690,14 @@ In [3]: for i in number_list:
 上面解法的笨拙之处在于读者需要手动输入列表，实际上它们是有规律的！要计算的 number_list 是一个连续整数除去 3 的倍数的一个列表，如果我们能够通过循环自动创建该列表，那么就不用手动输入列表了，前面的问题就解决了。
 
 ```python
-In [4]: number_list = [] 
-   ...: for i in range(1, 1001): 
-   ...:     if i % 3 == 0: 
+In [4]: number_list = []
+   ...: for i in range(1, 1001):
+   ...:     if i % 3 == 0:
    ...:         continue
-   ...:     else: 
-   ...:         number_list.append(i) 
-   ...:          
-   ...: len(number_list)                                                        
+   ...:     else:
+   ...:         number_list.append(i)
+   ...:
+   ...: len(number_list)
 Out[4]: 667
 ```
 
@@ -726,12 +726,12 @@ break 语句与 continue 语句不同，一旦循环运行到 break 会跳出循
 #### break 语句在 while 循环中的应用
 
 ```python
-In [5]: a = 1 
-   ...: while True: 
-   ...:     print(a) 
-   ...:     a += 1 
-   ...:     if a == 10: 
-   ...:         break                                                           
+In [5]: a = 1
+   ...: while True:
+   ...:     print(a)
+   ...:     a += 1
+   ...:     if a == 10:
+   ...:         break
 1
 2
 3
@@ -748,10 +748,10 @@ In [5]: a = 1
 #### break 语句在 for 循环中的应用
 
 ```python
-In [6]: for i in range(5,10): 
-   ...:     print(i) 
-   ...:     if i > 7: 
-   ...:         break                                                           
+In [6]: for i in range(5,10):
+   ...:     print(i)
+   ...:     if i > 7:
+   ...:         break
 5
 6
 7
@@ -763,13 +763,13 @@ In [6]: for i in range(5,10):
 #### break 语句在嵌套循环中的应用
 
 ```python
-In [7]: a = 10 
-   ...: while a <= 12: 
-   ...:     a += 1 
-   ...:     for i in range(1,7): 
-   ...:         print(i) 
-   ...:         if i == 5: 
-   ...:             break                                                       
+In [7]: a = 10
+   ...: while a <= 12:
+   ...:     a += 1
+   ...:     for i in range(1,7):
+   ...:         print(i)
+   ...:         if i == 5:
+   ...:             break
 1
 2
 3
@@ -833,14 +833,14 @@ Python 提供了 open() 函数用于打开一个文本文件，并返回文件�
 在 IPython 中，使用 %pwd 命令即可快速获取当前 Python 的工作目录。本书作者当前的工作目录如下：
 
 ```python
-In [8]: %pwd                                                                    
+In [8]: %pwd
 Out[8]: '/Users/wsx'
 ```
 
 如果创建的文件在工作目录下，在 IPython 中使用 %ls 命令可以查看当前目录下的文件或文件夹。
 
 ```python
-In [8]: %ls                                                                     
+In [8]: %ls
 Applications/    Library/         Public/          work_script.pbs*
 Desktop/         Movies/          go/
 Documents/       Music/           test.txt
@@ -850,13 +850,13 @@ Downloads/       Pictures/        tmp/
 下面使用 open() 函数读取 test.txt 文件。
 
 ```python
-In [9]: f = open('test.txt', 'r')  
+In [9]: f = open('test.txt', 'r')
 ```
 
 这样就成功地打开了一个文件。如果文件不存在，Python 就会抛出一个 IOError 的错误，并且给出错误码和详细的信息告知用户文件不存在。
 
 ```python
-In [10]: f1 = open('test1.txt', 'r')                                            
+In [10]: f1 = open('test1.txt', 'r')
 ---------------------------------------------------------------------------
 FileNotFoundError                         Traceback (most recent call last)
 <ipython-input-10-ef17b5d7a1d3> in <module>
@@ -868,14 +868,14 @@ FileNotFoundError: [Errno 2] No such file or directory: 'test1.txt'
 当文件打开成功后，接下来用户可以调用 read() 方法一次读取文件的全部内容，Python 会将其表示为一个 str 对象。
 
 ```python
-In [11]: f.read()                                                               
+In [11]: f.read()
 Out[11]: '这是文本的第一行\n这是文本的第二行\n这是文本的第三行\n这是文本的最后一行\n'
 ```
 
 文件对象会占用操作系统的资源，并且操作系统同一时间能打开的文件数量也是有限的，因此文件使用完毕后必须关闭，Python 用户读取文件的最后一步是调用 close() 方法关闭文件。
 
 ```python
-In [12]: f.close() 
+In [12]: f.close()
 ```
 
 注意，文件读写可能产生 IO Error，一旦发生这种情况，后面使用 f.close() 关闭文件就不起作用了。为了保证无论发生什么情况都能正确关闭文件，读者可以使用 try...finally 语句块来实现文件的正确关闭。例如，读者可以使用下面代码来确保读取上面的 test.txt 异常时能够关闭文件。
@@ -903,8 +903,8 @@ with open('test.txt', 'r') as f:
 下面代码使用 readlines() 方法将文件内容读取为列表，然后使用 for 循环进行处理。
 
 ```python
-In [13]: for line in f.readlines(): 
-    ...:     print(line.strip())  # 把末尾的'\n'删掉                            
+In [13]: for line in f.readlines():
+    ...:     print(line.strip())  # 把末尾的'\n'删掉
 这是文本的第一行
 这是文本的第二行
 这是文本的第三行
@@ -914,8 +914,8 @@ In [13]: for line in f.readlines():
 前面介绍的是读取文本文件，并且是 UTF-8 编码的文本文件。如果要读取二进制文件，如图片、视频等等，只需要将读取模式设置为 'rb' 即可。
 
 ```python
-In [14]: f = open('/Users/wsx/Pictures/cover.png', 'rb') 
-In [15]: f.read()  # 下面输出的结果太多，因此省略                                                               
+In [14]: f = open('/Users/wsx/Pictures/cover.png', 'rb')
+In [15]: f.read()  # 下面输出的结果太多，因此省略
 Out[15]: b'\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00 ...
 ```
 
@@ -925,7 +925,7 @@ Out[15]: b'\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00 ...
 
 ```python
 In [16]: f = open('/Users/wsx/Documents/gbk.txt', 'r', encoding='UTF-8')
-In [17]: f.read()                                                               
+In [17]: f.read()
 ---------------------------------------------------------------------------
 UnicodeDecodeError                        Traceback (most recent call last)
 <ipython-input-17-571e9fb02258> in <module>
@@ -940,7 +940,7 @@ UnicodeDecodeError                        Traceback (most recent call last)
 
 UnicodeDecodeError: 'utf-8' codec can't decode byte 0xd5 in position 0: invalid continuation byte
 In [18]: f = open('/Users/wsx/Documents/gbk.txt', 'r', encoding='gbk')
-In [19]: f.read()                                                               
+In [19]: f.read()
 Out[19]: '这是GBK编码的文本，如果你不正确解码就看不到正确内容喔~'
 ```
 
@@ -951,28 +951,28 @@ Out[19]: '这是GBK编码的文本，如果你不正确解码就看不到正确�
 下面演示对前面的 test.txt 写入两行文字，然后再读取进来查看是否成功写入。
 
 ```python
-In [20]: f = open('test.txt', 'w')                                              
-In [21]: f.write('我给文本加一行\n')                                            
+In [20]: f = open('test.txt', 'w')
+In [21]: f.write('我给文本加一行\n')
 Out[21]: 8
-In [22]: f.write('我再加一行，这是最后一行')                                    
+In [22]: f.write('我再加一行，这是最后一行')
 Out[22]: 12
-In [23]: f.close()  
+In [23]: f.close()
 ```
 
 读者可以反复调用 write() 方法来将内容写入文件，不过需要注意在最后一定要使用 f.close() 关闭文件，否则将存在丢失数据的可能。这是因为当使用 Python 将内容写入文件时，操作系统不会立即将数据写入磁盘，而是暂时将文本放到内存中缓存，当计算资源空闲时才进行写入，只有调用 close() 方法后，操作系统才会保证把没有写入的数据全部写入磁盘文件。因此，在进行文本写入时使用 with 语句也还是最为保险的方式。
 
 ```python
 with open('test.txt', 'w') as f:
-  f.write('我给文本加一行\n') 
+  f.write('我给文本加一行\n')
   f.write('我再加一行，这是最后一行')
 ```
 
 现在文件已经已经写入了，这时候通过 open() 将内容读取进来查看。
 
 ```python
-In [24]: with open('test.txt', 'r') as f: 
-    ...:     for line in f.readlines(): 
-    ...:         print(line.strip())                                            
+In [24]: with open('test.txt', 'r') as f:
+    ...:     for line in f.readlines():
+    ...:         print(line.strip())
 我给文本加一行
 我再加一行，这是最后一行
 ```

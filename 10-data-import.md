@@ -210,7 +210,7 @@ Out[16]: [['姓名', '年龄', '班级'], ['周某某', '9', '3班'], ['王某�
 ```python
 In [17]: import pandas as pd
 In [18]: pd.read_csv('records.csv')
-Out[18]: 
+Out[18]:
     姓名  年龄  班级
 0  周某某   9  3班
 1  王某某  10  6班
@@ -256,7 +256,7 @@ def read_csv2(file_path, sep=',', method='default'):
 ```python
 In [21]: read_csv2('records.tsv', sep='\t', method='csv')
 Using csv module...
-Out[21]: 
+Out[21]:
     姓名  年龄  班级
 0  周某某   9  3班
 1  王某某  10  6班
@@ -278,7 +278,7 @@ In [4]: rds2 = pd.read_csv('records.csv')
 In [5]: rds1
 Out[5]: [['姓名', '年龄', '班级'], ['周某某', '9', '3班'], ['王某某', '10', '6班']]
 In [6]: rds2
-Out[6]: 
+Out[6]:
     姓名  年龄  班级
 0  周某某   9  3班
 1  王某某  10  6班
@@ -289,7 +289,7 @@ Out[6]:
 ```python
 In [13]: for row in rds1:
     ...:     print(','.join(row))
-    ...: 
+    ...:
 姓名,年龄,班级
 周某某,9,3班
 王某某,10,6班
@@ -304,7 +304,7 @@ print(value, ..., sep=' ', end='\n', file=sys.stdout, flush=False)
 
 Prints the values to a stream, or to sys.stdout by default.
 Optional keyword arguments:
-file:  a file-like object (stream); defaults to the current sys.stdout.    
+file:  a file-like object (stream); defaults to the current sys.stdout.
 sep:   string inserted between values, default a space.
 end:   string appended after the last value, default a newline.
 flush: whether to forcibly flush the stream.
@@ -412,10 +412,10 @@ os.listdir('.')
 
 ```python
 In [2]: import os
-In [3]: os.getcwd()  # 获取当前工作目录 
+In [3]: os.getcwd()  # 获取当前工作目录
 Out[3]: 'C:\\Shixiang\\pybook'
 In [4]: os.listdir('files/chapter10')  # 列出目录下的文件及子目录
-Out[4]: 
+Out[4]:
 ['data.xlsx',
  'lung.csv',
  'mtcars.csv',
@@ -453,7 +453,7 @@ In [14]: print(xl.sheet_names)
 ```python
 In [15]: mtcars = xl.parse('mtcars')
 In [16]: mtcars.head()  # 只查看头几行
-Out[16]: 
+Out[16]:
     mpg  cyl   disp   hp  drat     wt   qsec  vs  am  gear  carb
 0  21.0    6  160.0  110  3.90  2.620  16.46   0   1     4     4
 1  21.0    6  160.0  110  3.90  2.875  17.02   0   1     4     4
@@ -463,13 +463,13 @@ Out[16]:
 
 In [17]: lung = xl.parse('lung')
 In [18]: lung.head()
-Out[18]: 
-   inst  time  status  age  ...  ph.karno  pat.karno  meal.cal  wt.loss    
-0   3.0   306       2   74  ...      90.0      100.0    1175.0      NaN    
-1   3.0   455       2   68  ...      90.0       90.0    1225.0     15.0    
-2   3.0  1010       1   56  ...      90.0       90.0       NaN     15.0    
-3   5.0   210       2   57  ...      90.0       60.0    1150.0     11.0    
-4   1.0   883       2   60  ...     100.0       90.0       NaN      0.0    
+Out[18]:
+   inst  time  status  age  ...  ph.karno  pat.karno  meal.cal  wt.loss
+0   3.0   306       2   74  ...      90.0      100.0    1175.0      NaN
+1   3.0   455       2   68  ...      90.0       90.0    1225.0     15.0
+2   3.0  1010       1   56  ...      90.0       90.0       NaN     15.0
+3   5.0   210       2   57  ...      90.0       60.0    1150.0     11.0
+4   1.0   883       2   60  ...     100.0       90.0       NaN      0.0
 
 [5 rows x 10 columns]
 ```
@@ -490,21 +490,21 @@ In [21]: lung.to_excel('~/测试导出.xlsx')
 In [22]: lung.to_excel?
 Signature:
 lung.to_excel(
-    excel_writer,       
+    excel_writer,
     sheet_name='Sheet1',
     na_rep='',
-    float_format=None,  
-    columns=None,       
-    header=True,        
+    float_format=None,
+    columns=None,
+    header=True,
     index=True,
-    index_label=None, 
-    startrow=0,       
-    startcol=0,       
-    engine=None,      
-    merge_cells=True, 
-    encoding=None,    
-    inf_rep='inf',    
-    verbose=True,     
+    index_label=None,
+    startrow=0,
+    startcol=0,
+    engine=None,
+    merge_cells=True,
+    encoding=None,
+    inf_rep='inf',
+    verbose=True,
     freeze_panes=None,
 )
 Docstring:
@@ -547,7 +547,7 @@ In [3]: with open('data.pkl', 'wb') as f:
 ```python
 In [4]: with open('data.pkl', 'rb') as file:
    ...:     data_restore = pickle.load(file)
-   ...: 
+   ...:
 
 In [5]: print(data_restore)
 {'a': [1, 2, 3], 'b': ['yes', 'no']}
@@ -609,14 +609,14 @@ In [12]: group = data['strain']  # 获取 HDF5 的 group
 In [13]: # 检查 group 的键
 In [13]: for key in group.keys():
     ...:     print(key)
-    ...: 
+    ...:
 Strain
 In [14]: # 获取数据集的值
 In [14]: strain = data['strain']['Strain'].value
 In [15]: # 设定采样数
     ...: s
     ...: num_samples = 10000
-    ...: 
+    ...:
     ...: # 设定时间向量
     ...: time = np.arange(0, 1, 1/num_samples)
 In [16]: # 绘图
@@ -688,10 +688,10 @@ JSON 的语法规则如下：
 
 ```python
 In [1]: import json
-In [2]: json_data = '{ "名字": "Mike Wang" , "个人主页":"www.x 
+In [2]: json_data = '{ "名字": "Mike Wang" , "个人主页":"www.x
    ...: xx.com" }'
 In [3]: json.loads(json_data)  # 解析 json 数据为字典
-Out[3]: {'名字': 'Mike Wang', '个人主页': 'www.xxx.com'}       
+Out[3]: {'名字': 'Mike Wang', '个人主页': 'www.xxx.com'}
 In [4]: data = json.loads(json_data)
 In [5]: json.dumps(data)  # 将字典解析为 json 数据
 Out[5]: '{"\\u540d\\u5b57": "Mike Wang", "\\u4e2a\\u4eba\\u4e3b\\u9875": "www.xxx.com"}'
@@ -732,13 +732,13 @@ with open('xxx.json') as f:
 现在我们试一试：
 
 ```python
-In [12]: with open('files/chapter10/data.json', 'r', encoding= 
+In [12]: with open('files/chapter10/data.json', 'r', encoding=
     ...: 'utf-8') as f:
     ...:     data = json.load(f)
-    ...: 
+    ...:
 In [13]: data
-Out[13]: 
-{'sites': [{'名字': 'Mike Wang', '个人主页': 'www.xxx.com'},   
+Out[13]:
+{'sites': [{'名字': 'Mike Wang', '个人主页': 'www.xxx.com'},
   {'名字': 'Mike Zhang', '个人主页': 'www.xx1.com'},
   {'名字': 'Mike Li', '个人主页': 'www.xx2.com'}]}
 ```
@@ -801,16 +801,16 @@ Python 提供了 yaml 模块以进行 YAML 文件的解析，使用方法和函�
 In [1]: import yaml
 In [2]: with open('files/chapter10/data1.yml', encoding='utf-8') as f:
     ...:     data = yaml.safe_load(f)
-    ...: 
+    ...:
 In [3]: data
-Out[3]: 
+Out[3]:
 {'字符串': 'name',
  '特殊': 'name\n',
  '数值': 3.14,
  '布尔值': True,
  '空值': None,
  '空值2': None,
- '时间值': datetime.datetime(2019, 11, 11, 17, 33, 22, 550000),        
+ '时间值': datetime.datetime(2019, 11, 11, 17, 33, 22, 550000),
  '日期值': datetime.date(2019, 11, 11)}
 ```
 
@@ -846,12 +846,12 @@ summary:
 上面我们虚构了一组简单地用户管理数据，用户 user1 和 user1 是个体用户，user3 是群组用户。
 
 ```python
-In [12]: with open('files/chapter10/data2.yml', encoding='utf-8') as f:        
+In [12]: with open('files/chapter10/data2.yml', encoding='utf-8') as f:
     ...:     data = yaml.safe_load(f)
-    ...: 
+    ...:
 
 In [13]: data
-Out[13]: 
+Out[13]:
 {'user1': {'type': 'user', 'name': 'a', 'password': 123},
  'user2': {'type': 'user', 'name': 'b', 'password': 456},
  'user3': {'type': 'group',
@@ -910,17 +910,17 @@ Python 标准模块 html.parser 提供一个简单的 HTML 解析器，这个模
 
 ```python
 In [1]: from html.parser import HTMLParser
-   ...: 
+   ...:
    ...: class MyHTMLParser(HTMLParser):
    ...:     def handle_starttag(self, tag, attrs):
    ...:         print("Encountered a start tag:", tag)
-   ...: 
+   ...:
    ...:     def handle_endtag(self, tag):
    ...:         print("Encountered an end tag :", tag)
-   ...: 
+   ...:
    ...:     def handle_data(self, data):
    ...:         print("Encountered some data  :", data)
-   ...: 
+   ...:
    ...: parser = MyHTMLParser()
    ...: parser.feed('<html><head><title>Test</title></head>'
    ...:             '<body><h1>Parse me!</h1></body></html>')
@@ -943,7 +943,7 @@ Encountered an end tag : html
 ```python
 In [2]: with open('files/chapter10/data.html', encoding='utf=8') as f:
    ...:    parser.feed(f.read())
-   ...: 
+   ...:
 Encountered some data  :
 
 Encountered a start tag: html
@@ -1021,50 +1021,50 @@ J.Martin 给数据库下了一个比较完整的定义：
 
 ```python
 # 导入模块
-import sqlite3 
-# 连接数据库 
-connection = sqlite3.connect("data.db") 
+import sqlite3
+# 连接数据库
+connection = sqlite3.connect("data.db")
 # 创建游标
-crsr = connection.cursor() 
+crsr = connection.cursor()
 # 对数据库使用 SQL 语句创建表格
-sql_command = """CREATE TABLE emp (  
-staff_number INTEGER PRIMARY KEY,  
-fname VARCHAR(20),  
-lname VARCHAR(30),  
-gender CHAR(1),  
+sql_command = """CREATE TABLE emp (
+staff_number INTEGER PRIMARY KEY,
+fname VARCHAR(20),
+lname VARCHAR(30),
+gender CHAR(1),
 joining DATE);"""
 # 执行 SQL 语句
-crsr.execute(sql_command) 
+crsr.execute(sql_command)
 # 使用 SQL 语句在表格中插入数据
 sql_command = """INSERT INTO emp VALUES (23, "Rishabh", "Bansal", "M", "2014-03-28");"""
-crsr.execute(sql_command) 
+crsr.execute(sql_command)
 # 再次插入数据
 sql_command = """INSERT INTO emp VALUES (1, "Bill", "Gates", "M", "1980-10-28");"""
-crsr.execute(sql_command) 
+crsr.execute(sql_command)
 # 提交修改到数据库（如果不执行该操作，上面的修改将不会保存）
-connection.commit() 
+connection.commit()
 # 关闭数据库连接
-connection.close() 
+connection.close()
 ```
 
 现在我们已经创建数据并存储在数据库中，当我们需要使用这些数据时，就可以连接数据库并获取数据，下面展示了数据获取的流程。
 
 ```python
 # 导入模块
-import sqlite3 
+import sqlite3
 # 连接 data 数据库
-connection = sqlite3.connect("data.db") 
+connection = sqlite3.connect("data.db")
 # 创建游标
-crsr = connection.cursor() 
+crsr = connection.cursor()
 # 从表格 emp 中查询数据
-crsr.execute("SELECT * FROM emp")  
+crsr.execute("SELECT * FROM emp")
 # 将数据存储到 ans 变量
-ans= crsr.fetchall()  
+ans= crsr.fetchall()
 # 循环打印数据
-for i in ans: 
-    print(i) 
+for i in ans:
+    print(i)
 # 关闭数据库连接
-connection.close() 
+connection.close()
 ```
 
 不难看出，操作数据库有一个通用的模式：

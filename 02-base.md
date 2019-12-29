@@ -20,10 +20,10 @@
 读者可以在命令行中输入「python」命令打开标准的交互 Python 解释器。如果读者使用 Windows 操作系统，点击开始－>运行－>键入「cmd」即可进行命令环境。如果读者使用 macOS 或 Linux 系统，请直接打开终端。输入「python」后读者会看到类似下面的输出（此处以 macOS 系统为例）：
 
 ```
-Python 3.7.0 (default, Jun 28 2018, 07:39:16) 
+Python 3.7.0 (default, Jun 28 2018, 07:39:16)
 [Clang 4.0.1 (tags/RELEASE_401/final)] :: Anaconda, Inc. on darwin
 Type "help", "copyright", "credits" or "license" for more information.
->>> 
+>>>
 ```
 
 上面输出中前几行显示了 Python 的版本信息、使用的是 C 语言编译器 Clang（Python 语言本身的底层实现标准是C语言）以及该 Python 由 Anaconda 公司发布。
@@ -37,11 +37,11 @@ Type "help", "copyright", "credits" or "license" for more information.
 读者如果更喜欢文本式样的终端界面进行 Python 命令的操作，可以在命令行中输入 ipython 进入 IPython 解释器（也称为 IPython Shell），如下所示：
 
 ```
-Python 3.7.0 (default, Jun 28 2018, 07:39:16) 
+Python 3.7.0 (default, Jun 28 2018, 07:39:16)
 Type 'copyright', 'credits' or 'license' for more information
 IPython 6.5.0 -- An enhanced Interactive Python. Type '?' for help.
 
-In [1]: 
+In [1]:
 ```
 
 初学者会立刻发现 Python 标准解释器与 IPython 解释器形式上的一个重要区别是 IPython 使用代码执行的次序作为命令提示符。「In [1]:」表示等待用户输入第一条语句，输出结果一般会以类似「Out [1]」的方式标记，也可能没有（后面的学习中读者会看到）。IPython 有非常多比 Python 标准解释器更强大的功能与特性，像自动补全，输出优化，魔术命令等，这些都等待读者发掘和体验。

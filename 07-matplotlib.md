@@ -43,7 +43,7 @@ Matplotlib 最佳的使用方法依赖于用户如何使用它，通常有 3 种
 假设下面是代码文件 plot.py 的内容：
 
 ```python
-# -*- coding: utf-8 -*- 
+# -*- coding: utf-8 -*-
 
 # 导入模块/包
 import matplotlib.pyplot as plt
@@ -121,34 +121,34 @@ plt.plot(x, np.cos(x), '--')  # 绘制虚线
 例如，我们创建上面正弦余弦曲线图，然后用 png 格式保存，并进行检查。
 
 ```python
-In [1]: %matplotlib 
-   ...: import matplotlib.pyplot as plt                                     
+In [1]: %matplotlib
+   ...: import matplotlib.pyplot as plt
 Using matplotlib backend: Qt5Agg
 
-In [2]: import numpy as np 
-   ...: x = np.linspace(0, 10, 100) 
-   ...:  
-   ...: fig = plt.figure()  # 生成一个空白图形并将其赋给 fig 对象 
-   ...: plt.plot(x, np.sin(x), '-')   # 绘制实线 
-   ...: plt.plot(x, np.cos(x), '--')  # 绘制虚线                            
+In [2]: import numpy as np
+   ...: x = np.linspace(0, 10, 100)
+   ...:
+   ...: fig = plt.figure()  # 生成一个空白图形并将其赋给 fig 对象
+   ...: plt.plot(x, np.sin(x), '-')   # 绘制实线
+   ...: plt.plot(x, np.cos(x), '--')  # 绘制虚线
 Out[2]: [<matplotlib.lines.Line2D at 0x7f90d0955f98>]
 
-In [3]: # 保存图形 
-   ...: fig.savefig("first.png") 
-   ...:  
-   ...: # 调用系统命令 ls 检查 
-   ...: !ls -l first.png                                                    
+In [3]: # 保存图形
+   ...: fig.savefig("first.png")
+   ...:
+   ...: # 调用系统命令 ls 检查
+   ...: !ls -l first.png
 -rw-r--r-- 1 wsx wsx 37468 8月  17 10:26 first.png
 ```
 
 pdf 是常见的矢量图形格式，现在我们使用一样的函数，仅改动一下保存的文件拓展名。
 
 ```python
-In [4]: # 保存 pdf 矢量图 
-   ...: fig.savefig("first.pdf") 
-   ...:  
-   ...: # 调用系统命令 ls 检查 
-   ...: !ls -l first.pdf                                                    
+In [4]: # 保存 pdf 矢量图
+   ...: fig.savefig("first.pdf")
+   ...:
+   ...: # 调用系统命令 ls 检查
+   ...: !ls -l first.pdf
 -rw-r--r-- 1 wsx wsx 8555 8月  17 10:26 first.pdf
 ```
 
@@ -157,8 +157,8 @@ In [4]: # 保存 pdf 矢量图
 下面代码结果列出 Matplotlib 支持的所有图形格式：
 
 ```python
-In [5]: fig.canvas.get_supported_filetypes()                                
-Out[5]: 
+In [5]: fig.canvas.get_supported_filetypes()
+Out[5]:
 {'ps': 'Postscript',
  'eps': 'Encapsulated Postscript',
  'pdf': 'Portable Document Format',
@@ -187,17 +187,17 @@ MATLAB 操作方式非常地简便，而面向对象的方式则功能强大。�
 MATLAB 样式接口由 plt 模块提供，plt 包含一系列绘图命令（函数），名称与 MATLAB 基本一致。下面展示了如何利用 plt 快速绘制包含两个子图的图形：
 
 ```python
-In [6]: # 创建一个图形 
-   ...: plt.figure() 
-   ...:  
-   ...: # 创建两个子图面板 
-   ...: # 创建第1个子图 
-   ...: plt.subplot(2, 1, 1)  
-   ...: plt.plot(x, np.cos(x))  # 绘制图形 
-   ...:  
-   ...: # 创建第2个子图 
-   ...: plt.subplot(2, 1, 2) 
-   ...: plt.plot(x, np.sin(x))  # 绘制图形                                  
+In [6]: # 创建一个图形
+   ...: plt.figure()
+   ...:
+   ...: # 创建两个子图面板
+   ...: # 创建第1个子图
+   ...: plt.subplot(2, 1, 1)
+   ...: plt.plot(x, np.cos(x))  # 绘制图形
+   ...:
+   ...: # 创建第2个子图
+   ...: plt.subplot(2, 1, 2)
+   ...: plt.plot(x, np.sin(x))  # 绘制图形
 Out[6]: [<matplotlib.lines.Line2D at 0x7f90d2fbfbe0>]
 ```
 
@@ -218,12 +218,12 @@ Out[6]: [<matplotlib.lines.Line2D at 0x7f90d2fbfbe0>]
 现在，我们用面对对象接口实现刚才的图形。
 
 ```python
-In [7]: # 首先创建一个图形网格 
-   ...: fig, ax = plt.subplots(2) 
-   ...:  
-   ...: # 在坐标轴对象上调用 plot() 方法 
-   ...: ax[0].plot(x, np.cos(x)) 
-   ...: ax[1].plot(x, np.sin(x))                                            
+In [7]: # 首先创建一个图形网格
+   ...: fig, ax = plt.subplots(2)
+   ...:
+   ...: # 在坐标轴对象上调用 plot() 方法
+   ...: ax[0].plot(x, np.cos(x))
+   ...: ax[1].plot(x, np.sin(x))
 Out[7]: [<matplotlib.lines.Line2D at 0x7f90d2d9a160>]
 ```
 
@@ -246,17 +246,17 @@ pyplot 模块提供的 plot() 函数可以轻松地绘制线图，该函数需�
 下面代码结果显示无论是使用 Python 内置的函数 range() 或者使用 numpy 模块提供的 arange() 函数生成序列 1 到 10，绘制的图形完全一致，如图7-4、图7-5。可见我们使用 Matplotlib 绘图的重点是准备数据，它会自动帮我们处理好不同的数据类型。
 
 ```python
-In [8]: import numpy as np 
-   ...: import matplotlib.pyplot as plt 
-   ...:  
-   ...: plt.plot(range(1, 11))                                              
+In [8]: import numpy as np
+   ...: import matplotlib.pyplot as plt
+   ...:
+   ...: plt.plot(range(1, 11))
 Out[8]: [<matplotlib.lines.Line2D at 0x7f90d2d20c50>]
 ```
 
 ![图7-4 简单线图，使用 range() 生成 x 轴数据](assets/1566009715829.png)
 
 ```python
-In [9]: plt.plot(np.arange(1,11))                                           
+In [9]: plt.plot(np.arange(1,11))
 Out[9]: [<matplotlib.lines.Line2D at 0x7f90d2b2d160>]
 ```
 
@@ -265,12 +265,12 @@ Out[9]: [<matplotlib.lines.Line2D at 0x7f90d2b2d160>]
 我们再来看看面向对象接口的使用。
 
 ```python
-In [10]: fig = plt.figure() 
+In [10]: fig = plt.figure()
     ...: ax  = plt.axes()
 
-In [11]: type(fig)                                                          
+In [11]: type(fig)
 Out[11]: matplotlib.figure.Figure
-In [12]: type(ax)                                                           
+In [12]: type(ax)
 Out[12]: matplotlib.axes._subplots.AxesSubplot
 ```
 
@@ -285,11 +285,11 @@ Out[12]: matplotlib.axes._subplots.AxesSubplot
 在上一节中，我们使用了 linspace() 函数但没有进行解释，该函数可以创建一个等长的数据序列。例如，linspace(0, 5, 20) 就会将 0 到 5 分割为 20 份。
 
 ```python
-In [13]: fig = plt.figure() 
-    ...: ax = plt.axes() 
-    ...:  
-    ...: x = np.linspace(0, 5, 20) 
-    ...: ax.plot(x, np.cos(x))                                              
+In [13]: fig = plt.figure()
+    ...: ax = plt.axes()
+    ...:
+    ...: x = np.linspace(0, 5, 20)
+    ...: ax.plot(x, np.cos(x))
 Out[13]: [<matplotlib.lines.Line2D at 0x7f90d2fa3fd0>]
 ```
 
@@ -298,8 +298,8 @@ Out[13]: [<matplotlib.lines.Line2D at 0x7f90d2fa3fd0>]
 当我们需要在一个图中绘制多条曲线时，最简单的办法就是多次调用 plot() 函数。
 
 ```python
-In [14]: plt.plot(x, np.sin(x)) 
-    ...: plt.plot(x, np.cos(x))                                             
+In [14]: plt.plot(x, np.sin(x))
+    ...: plt.plot(x, np.cos(x))
 Out[14]: [<matplotlib.lines.Line2D at 0x7f90d2a58eb8>]
 ```
 
@@ -310,14 +310,14 @@ Out[14]: [<matplotlib.lines.Line2D at 0x7f90d2a58eb8>]
 color 参数接收一个代表任何颜色的字符串，支持多种不同类型的颜色编码，如名字、颜色代码、十六进制、RGB 等。
 
 ```python
-In [16]: plt.plot(x, 2*x,   color = "red")           # 按名字指定颜色    
+In [16]: plt.plot(x, 2*x,   color = "red")           # 按名字指定颜色
     ...: plt.plot(x, 2*x+1, color = "g")             # 短颜色编码（rgbcmyk）
-    ...:  
-    ...: plt.plot(x, 2*x+2, color = "0.6")           # 灰度，范围在0-1之间 
-    ...: plt.plot(x, 2*x+3, color = "#FFEE22")       # 十六进制编码 
-    ...: plt.plot(x, 2*x+4, color = (0.8, 0.7, 0.1)) # RGB元组，值从0到1 
+    ...:
+    ...: plt.plot(x, 2*x+2, color = "0.6")           # 灰度，范围在0-1之间
+    ...: plt.plot(x, 2*x+3, color = "#FFEE22")       # 十六进制编码
+    ...: plt.plot(x, 2*x+4, color = (0.8, 0.7, 0.1)) # RGB元组，值从0到1
     ...: plt.plot(x, 2*x+5, color = "chartreuse")    # 支持所有的HTML颜色名
-    ...: 字                                                                 
+    ...: 字
 Out[16]: [<matplotlib.lines.Line2D at 0x7f90b3832630>]
 ```
 
@@ -326,10 +326,10 @@ Out[16]: [<matplotlib.lines.Line2D at 0x7f90b3832630>]
 通过设定 linestype 参数，我们可以展示非常丰富的线条类型，包括虚线、实现、点划线。
 
 ```python
-In [17]: plt.plot(x, 2*x,   linestyle = 'solid')   # 实线 
-    ...: plt.plot(x, 2*x+1, linestyle = 'dashed')  # 虚线 
-    ...: plt.plot(x, 2*x+2, linestyle = 'dashdot') # 点划线 
-    ...: plt.plot(x, 2*x+3, linestyle = 'dotted')  # 小圆点                 
+In [17]: plt.plot(x, 2*x,   linestyle = 'solid')   # 实线
+    ...: plt.plot(x, 2*x+1, linestyle = 'dashed')  # 虚线
+    ...: plt.plot(x, 2*x+2, linestyle = 'dashdot') # 点划线
+    ...: plt.plot(x, 2*x+3, linestyle = 'dotted')  # 小圆点
 Out[17]: [<matplotlib.lines.Line2D at 0x7f903f3b1cf8>]
 ```
 
@@ -338,18 +338,18 @@ Out[17]: [<matplotlib.lines.Line2D at 0x7f903f3b1cf8>]
 为了简便，读者也可以使用相应的字符代码。
 
 ```python
-In [18]: plt.plot(x, 2*x,   linestyle = '-')   # 实线 
-    ...: plt.plot(x, 2*x+1, linestyle = '--')  # 虚线 
-    ...: plt.plot(x, 2*x+2, linestyle = '-.')  # 点划线 
-    ...: plt.plot(x, 2*x+3, linestyle = ':')   # 小圆点                     
+In [18]: plt.plot(x, 2*x,   linestyle = '-')   # 实线
+    ...: plt.plot(x, 2*x+1, linestyle = '--')  # 虚线
+    ...: plt.plot(x, 2*x+2, linestyle = '-.')  # 点划线
+    ...: plt.plot(x, 2*x+3, linestyle = ':')   # 小圆点
 Out[18]: [<matplotlib.lines.Line2D at 0x7f903f396fd0>]
 ```
 
 线条类型和颜色往往组合使用，为了简便，我们可以提供一个同时包含线条类型代码和颜色代码的字符串，作为非关键字参数传入 plot() 函数。
 
 ```python
-In [19]: plt.plot(x, 2*x,   '--c')   # 青色的虚线 
-    ...: plt.plot(x, 2*x+2, '-.k')   # 黑色的点划线                         
+In [19]: plt.plot(x, 2*x,   '--c')   # 青色的虚线
+    ...: plt.plot(x, 2*x+2, '-.k')   # 黑色的点划线
 Out[19]: [<matplotlib.lines.Line2D at 0x7f903f3779b0>]
 ```
 
@@ -379,11 +379,11 @@ plot(x, y, linestyle,
 虽然 plot() 函数提供了图例标签信息，但需要配合 legend() 函数才能显示。
 
 ```python
-In [20]: x = np.linspace(0, 20, 100) 
-    ...: plt.plot(x, 2*x,   '--c', label = 'dashed cyan') 
-    ...: plt.plot(x, 2*x+6, '-.k', label = 'dashdot black') 
-    ...:  
-    ...: plt.legend()                                                       
+In [20]: x = np.linspace(0, 20, 100)
+    ...: plt.plot(x, 2*x,   '--c', label = 'dashed cyan')
+    ...: plt.plot(x, 2*x+6, '-.k', label = 'dashdot black')
+    ...:
+    ...: plt.legend()
 Out[20]: <matplotlib.legend.Legend at 0x7f903de46c18>
 ```
 
@@ -394,14 +394,14 @@ plot() 函数其他几个选项主要用于自定义线条和描述数据点。�
 下面的代码示例将 plot() 函数涉及的常见选项都进行自定义设定。
 
 ```python
-In [21]: x = range(0, 20) 
-    ...: y = np.cos(x) 
-    ...:  
-    ...: plt.plot(x, y, linestyle = '-.', 
-    ...:      linewidth = 2, color = 'blue', marker = 'o', 
-    ...:      markersize = 12, markeredgecolor = 'red', 
-    ...:      label = 'Example Plot', alpha = 0.8) 
-    ...: plt.legend()                                                       
+In [21]: x = range(0, 20)
+    ...: y = np.cos(x)
+    ...:
+    ...: plt.plot(x, y, linestyle = '-.',
+    ...:      linewidth = 2, color = 'blue', marker = 'o',
+    ...:      markersize = 12, markeredgecolor = 'red',
+    ...:      label = 'Example Plot', alpha = 0.8)
+    ...: plt.legend()
 Out[21]: <matplotlib.legend.Legend at 0x7f903de12d68>
 ```
 
@@ -412,19 +412,19 @@ Out[21]: <matplotlib.legend.Legend at 0x7f903de12d68>
 图形的作用除了显示数据的变化趋势或模式，还常用于比较。下面代码新增了一条红色的曲线，两者的差异一目了然。
 
 ```python
-In [22]: x = range(0, 20) 
-    ...: y = np.cos(x) 
-    ...: y2 = np.sin(x) - 0.5 
-    ...:  
-    ...: plt.plot(x, y, linestyle = '-.', 
-    ...:      linewidth = 2, color = 'blue', marker = 'o', 
-    ...:      markersize = 12, markeredgecolor = 'red', 
-    ...:      label = 'Blue line', alpha = 0.8) 
-    ...: plt.plot(x, y2, linestyle = '--', 
-    ...:      linewidth = 2, color = 'red', marker = 'x', 
-    ...:      markersize = 6, markeredgecolor = 'red', 
-    ...:      label = 'Red line') 
-    ...: plt.legend()                                                       
+In [22]: x = range(0, 20)
+    ...: y = np.cos(x)
+    ...: y2 = np.sin(x) - 0.5
+    ...:
+    ...: plt.plot(x, y, linestyle = '-.',
+    ...:      linewidth = 2, color = 'blue', marker = 'o',
+    ...:      markersize = 12, markeredgecolor = 'red',
+    ...:      label = 'Blue line', alpha = 0.8)
+    ...: plt.plot(x, y2, linestyle = '--',
+    ...:      linewidth = 2, color = 'red', marker = 'x',
+    ...:      markersize = 6, markeredgecolor = 'red',
+    ...:      label = 'Red line')
+    ...: plt.legend()
 Out[22]: <matplotlib.legend.Legend at 0x7f903e7b7c18>
 ```
 
@@ -437,11 +437,11 @@ Out[22]: <matplotlib.legend.Legend at 0x7f903e7b7c18>
 为方便演示，下面代码绘制一条简单的余弦曲线，并添加轴标签和标题。
 
 ```python
-In [23]: x = np.linspace(0, 200, 100) 
-    ...: plt.plot(x, np.cos(x)) 
-    ...: plt.xlabel('Time (s)') 
-    ...: plt.ylabel('Cos(x)') 
-    ...: plt.title('A simple cosine curve')                                 
+In [23]: x = np.linspace(0, 200, 100)
+    ...: plt.plot(x, np.cos(x))
+    ...: plt.xlabel('Time (s)')
+    ...: plt.ylabel('Cos(x)')
+    ...: plt.title('A simple cosine curve')
 Out[23]: Text(0.5,1,'A simple cosine curve')
 ```
 
@@ -452,9 +452,9 @@ Out[23]: Text(0.5,1,'A simple cosine curve')
 现在我们将 x 轴范围限定在 50 到 150，y轴范围限定在 -0.5 到 0.5。
 
 ```python
-In [24]: plt.plot(x, np.cos(x)) 
-    ...: plt.xlim(50, 150) 
-    ...: plt.ylim(-0.5, 0.5)                                                
+In [24]: plt.plot(x, np.cos(x))
+    ...: plt.xlim(50, 150)
+    ...: plt.ylim(-0.5, 0.5)
 Out[24]: (-0.5, 0.5)
 ```
 
@@ -463,10 +463,10 @@ Out[24]: (-0.5, 0.5)
 如果我们将上面设定的参数值反过来，我们就实现了坐标轴的反转。
 
 ```python
-In [25]: plt.plot(x, np.cos(x)) 
-    ...: plt.xlim(150, 50) 
-    ...: plt.ylim(0.5, -0.5)                                                
-Out[25]: (0.5, -0.5) 
+In [25]: plt.plot(x, np.cos(x))
+    ...: plt.xlim(150, 50)
+    ...: plt.ylim(0.5, -0.5)
+Out[25]: (0.5, -0.5)
 ```
 
 ![图7-17 坐标轴反转](assets/1566011545524.png)
@@ -474,11 +474,11 @@ Out[25]: (0.5, -0.5)
 除了使用 xlim() 和 ylim() 函数分别设置 x 轴和 y 轴的范围，Matplotlib 还提供了函数 axis() 对它们同时进行设定，该函数需要一个形如 [xmin, xmax, ymin, ymax] 的列表作为参数。
 
 ```python
-In [26]: plt.plot(x, np.cos(x)) 
-    ...: plt.axis([25, 150, -1, 0]) 
-    ...: plt.xlabel('Time (s)') 
-    ...: plt.ylabel('Cos(x)') 
-    ...: plt.title('A cosine curve with limited x and y')                   
+In [26]: plt.plot(x, np.cos(x))
+    ...: plt.axis([25, 150, -1, 0])
+    ...: plt.xlabel('Time (s)')
+    ...: plt.ylabel('Cos(x)')
+    ...: plt.title('A cosine curve with limited x and y')
 Out[26]: Text(0.5,1,'A cosine curve with limited x and y')
 ```
 
@@ -496,32 +496,32 @@ axis() 函数常见支持的选项有：
 下面通过一些图来认识这些选项的实际效果，其他 axis() 支持的选项请通过 plt.axis? 访问函数文档。
 
 ```python
-In [27]: plt.plot(x, np.cos(x)) 
-    ...: plt.axis('off')                                                    
+In [27]: plt.plot(x, np.cos(x))
+    ...: plt.axis('off')
 Out[27]: (-10.0, 210.0, -1.0999621189366728, 1.0999981961398415)
 ```
 
 ![图7-19 去掉轴](assets/1566011764310.png)
 
 ```python
-In [28]: plt.plot(x, np.cos(x)) 
-    ...: plt.axis('square')                                                 
+In [28]: plt.plot(x, np.cos(x))
+    ...: plt.axis('square')
 Out[28]: (-10.0, 210.0, -1.0999621189366728, 218.90003788106333)
 ```
 
 ![图7-20 使 x 轴 y 轴坐标一致](assets/1566011842818.png)
 
 ```python
-In [29]: plt.plot(x, np.cos(x)) 
-    ...: plt.axis('equal')                                                  
+In [29]: plt.plot(x, np.cos(x))
+    ...: plt.axis('equal')
 Out[29]: (-10.0, 210.0, -1.0999621189366728, 1.0999981961398415)
 ```
 
 ![图7-21 与屏幕一致的纵横比](assets/1566011901725.png)
 
 ```python
-In [30]: plt.plot(x, np.cos(x)) 
-    ...: plt.axis('tight')                                                  
+In [30]: plt.plot(x, np.cos(x))
+    ...: plt.axis('tight')
 Out[30]: (-10.0, 210.0, -1.0999621189366728, 1.0999981961398415)
 ```
 
@@ -538,11 +538,11 @@ Out[30]: (-10.0, 210.0, -1.0999621189366728, 1.0999981961398415)
 我们先通过两个简单的点图来了解两种方式使用上的不同。plot() 函数默认绘制的是线图，为了显示点图，我们需要传入非关键字参数 "o" 表示点，而 scatter() 函数不需要这样的设定。
 
 ```python
-In [31]: import numpy as np 
-    ...: import matplotlib.pyplot as plt 
-    ...:  
-    ...: x = range(1, 11) 
-    ...: plt.plot(x, x, "o", color = "red") # 设定为红色的点                
+In [31]: import numpy as np
+    ...: import matplotlib.pyplot as plt
+    ...:
+    ...: x = range(1, 11)
+    ...: plt.plot(x, x, "o", color = "red") # 设定为红色的点
 Out[31]: [<matplotlib.lines.Line2D at 0x7f903a168048>]
 ```
 
@@ -551,8 +551,8 @@ Out[31]: [<matplotlib.lines.Line2D at 0x7f903a168048>]
 scatter() 函数使用关键字参数 marker 可以设定点的类型，默认是用 "o" 表示的小圆点。
 
 ```python
-In [32]: x = range(1, 11) 
-    ...: plt.scatter(x, x)                                                  
+In [32]: x = range(1, 11)
+    ...: plt.scatter(x, x)
 Out[32]: <matplotlib.collections.PathCollection at 0x7f903f04c668>
 In [33]: plt.scatter(x, x, marker = 'o')  # 与上面代码输出图形一致
 ```
@@ -562,19 +562,19 @@ In [33]: plt.scatter(x, x, marker = 'o')  # 与上面代码输出图形一致
 Python 支持很多种点类型，如圆点、方块、三角形。为了方便展示点的符号与对应的类型，下面生成一堆随机的数据点并调用 for 循环根据不同的点类型绘制图形，并用图例直观展示符号与点类型的对应关系。
 
 ```python
-In [34]: # 创建一个隔离的随机数生成器 
-    ...: rng = np.random.RandomState(123456) 
-    ...:  
-    ...: # 循环绘制点图 
+In [34]: # 创建一个隔离的随机数生成器
+    ...: rng = np.random.RandomState(123456)
+    ...:
+    ...: # 循环绘制点图
     ...: for marker in ['o', '.', ',', 'x', '+', 'v', '^', '<', '>', 's', 'd
-    ...: ']: 
+    ...: ']:
     ...:     plt.scatter(list(rng.rand(5)), list(rng.rand(5)), marker = mark
-    ...: er, 
-    ...:                label="marker='{0}'".format(marker)) 
-    ...:  
-    ...: # 显示图例 
-    ...: plt.legend(numpoints=1) 
-    ...: plt.xlim(0, 2)  # 避免图例与点重叠                                 
+    ...: er,
+    ...:                label="marker='{0}'".format(marker))
+    ...:
+    ...: # 显示图例
+    ...: plt.legend(numpoints=1)
+    ...: plt.xlim(0, 2)  # 避免图例与点重叠
 Out[34]: (0, 2)
 ```
 
@@ -583,17 +583,17 @@ Out[34]: (0, 2)
 如果数据点太多，点和点会重叠到一起，这样图形可能会不美观并且会阻碍读者对于数据量的判断（如图7-26）。比较好的解决办法是为点设置一定的透明度（如图7-27）。
 
 ```python
-In [35]: rng = np.random.RandomState(12) 
-    ...: x = rng.randn(200) 
-    ...: y = rng.randn(200) 
-    ...:  
-    ...: _ = plt.scatter(x, y) 
+In [35]: rng = np.random.RandomState(12)
+    ...: x = rng.randn(200)
+    ...: y = rng.randn(200)
+    ...:
+    ...: _ = plt.scatter(x, y)
 ```
 
 ![图7-26 未设置透明度之前](assets/1566012512679.png)
 
 ```python
-In [36]: plt.scatter(x, y, alpha=0.5)  # 为数据点设置透明度                 
+In [36]: plt.scatter(x, y, alpha=0.5)  # 为数据点设置透明度
 Out[36]: <matplotlib.collections.PathCollection at 0x7f903ec65b00>
 ```
 
@@ -602,10 +602,10 @@ Out[36]: <matplotlib.collections.PathCollection at 0x7f903ec65b00>
 另外，点的大小和颜色常常用来表示有价值的信息，它们分别可以通过关键字参数 s 和 c 进行设置。
 
 ```python
-In [37]: colors = rng.rand(200) 
-    ...: sizes = 1000 * rng.rand(200) 
-    ...:  
-    ...: plt.scatter(x, y, c=colors, s=sizes, alpha=0.3)                    
+In [37]: colors = rng.rand(200)
+    ...: sizes = 1000 * rng.rand(200)
+    ...:
+    ...: plt.scatter(x, y, c=colors, s=sizes, alpha=0.3)
 Out[37]: <matplotlib.collections.PathCollection at 0x7f903e90cb70>
 ```
 
@@ -614,8 +614,8 @@ Out[37]: <matplotlib.collections.PathCollection at 0x7f903e90cb70>
 我们还可以将颜色条加上，以显示颜色代表的数值信息。
 
 ```python
-In [38]: plt.scatter(x, y, c=colors, s=sizes, alpha=0.3) 
-    ...: plt.colorbar()                                                     
+In [38]: plt.scatter(x, y, c=colors, s=sizes, alpha=0.3)
+    ...: plt.colorbar()
 Out[38]: <matplotlib.colorbar.Colorbar at 0x7f903e89a438>
 ```
 
@@ -632,33 +632,33 @@ Out[38]: <matplotlib.colorbar.Colorbar at 0x7f903e89a438>
 下面我们会在图中标注一些中文信息，而 Matplotlib 本身对中文的支持并不是很优化，在绘图之前，请使用下面代码进行设置。
 
 ```python
-In [39]: import numpy as np 
-    ...: import matplotlib.pyplot as plt 
-    ...:  
-    ...: plt.rcParams['font.sans-serif']=['SimHei']  # 用来正常显示中文标签 
-    ...: plt.rcParams['axes.unicode_minus']=False    # 用来正常显示负号     
+In [39]: import numpy as np
+    ...: import matplotlib.pyplot as plt
+    ...:
+    ...: plt.rcParams['font.sans-serif']=['SimHei']  # 用来正常显示中文标签
+    ...: plt.rcParams['axes.unicode_minus']=False    # 用来正常显示负号
 ```
 
 接下来我们生成数据并绘制条形图。
 
 ```python
-In [40]: member = [u'小红', u'小王', u'小李', u'小张'] 
-    ...: sales  = [400, 300, 250, 375] 
-    ...:  
-    ...: # 绘图 
-    ...: plt.bar(range(4), sales, align = 'center',color='steelblue', alpha 
-    ...: = 0.7) 
-    ...: # 添加y轴标签 
-    ...: plt.ylabel(u'年度销售额（万）') 
-    ...: # 添加标题 
-    ...: plt.title(u'员工年度销售额对比') 
-    ...: # 添加刻度标签 
-    ...: plt.xticks(range(4), member) 
-    ...: # 设置Y轴的刻度范围 
-    ...: plt.ylim([200,500]) 
-    ...:  
-    ...: # 在没有条形图上方添加数值标签 
-    ...: for x,y in enumerate(sales): 
+In [40]: member = [u'小红', u'小王', u'小李', u'小张']
+    ...: sales  = [400, 300, 250, 375]
+    ...:
+    ...: # 绘图
+    ...: plt.bar(range(4), sales, align = 'center',color='steelblue', alpha
+    ...: = 0.7)
+    ...: # 添加y轴标签
+    ...: plt.ylabel(u'年度销售额（万）')
+    ...: # 添加标题
+    ...: plt.title(u'员工年度销售额对比')
+    ...: # 添加刻度标签
+    ...: plt.xticks(range(4), member)
+    ...: # 设置Y轴的刻度范围
+    ...: plt.ylim([200,500])
+    ...:
+    ...: # 在没有条形图上方添加数值标签
+    ...: for x,y in enumerate(sales):
     ...:     plt.text(x,y+10,'%s' %round(y,1),ha='center')
 ```
 
@@ -675,21 +675,21 @@ In [40]: member = [u'小红', u'小王', u'小李', u'小张']
 如果想要将上面的垂直条形图改变为水平条形图，我们只需要将 bar() 函数调整为 barh() 函数，并将相应的标签进行调整即可。
 
 ```python
-In [41]: # 绘图 
+In [41]: # 绘图
     ...: plt.barh(range(4), sales, align = 'center',color='steelblue', alpha
-    ...:  = 0.7) 
-    ...: # 添加y轴标签 
-    ...: plt.xlabel(u'年度销售额（万）') 
-    ...: # 添加标题 
-    ...: plt.title(u'员工年度销售额对比') 
-    ...: # 添加刻度标签 
-    ...: plt.yticks(range(4), member) 
-    ...: # 设置X轴的刻度范围 
-    ...: plt.xlim([200,500]) 
-    ...:  
-    ...: # 在没有条形图右方添加数值标签 
-    ...: for x,y in enumerate(sales): 
-    ...:     plt.text(y+10,x,'%s' %y,va='center') 
+    ...:  = 0.7)
+    ...: # 添加y轴标签
+    ...: plt.xlabel(u'年度销售额（万）')
+    ...: # 添加标题
+    ...: plt.title(u'员工年度销售额对比')
+    ...: # 添加刻度标签
+    ...: plt.yticks(range(4), member)
+    ...: # 设置X轴的刻度范围
+    ...: plt.xlim([200,500])
+    ...:
+    ...: # 在没有条形图右方添加数值标签
+    ...: for x,y in enumerate(sales):
+    ...:     plt.text(y+10,x,'%s' %y,va='center')
 ```
 
 ![图7-31 水平条形图示例](assets/1566013434471.png)
@@ -701,31 +701,31 @@ In [41]: # 绘图
 很多时候需要展示的数据并不像上面一样简单。例如，我们拓展一下问题的复杂度：现在需要使用水平条形图展示每位员工前 3 个月的销售额。此时，我们需要将每位员工的销售额按月分组，然后分别绘制条形图进行展示，代码实现如下：
 
 ```python
-In [42]: member = [u'小红', u'小王', u'小李', u'小张'] 
-    ...: sales_jan  = [30, 42, 25, 35]  # 一月份的销售额 
-    ...: sales_feb  = [60, 55, 10, 27]  # 二月份的销售额 
-    ...: sales_mar  = [40, 20, 5, 70]   # 三月份的销售额 
-    ...:  
-    ...: bar_width = 0.2  # 设置分组条形的宽度 
-    ...:  
-    ...: # 绘图 
-    ...: plt.bar(range(4), sales_jan, label = u'一月',  
-    ...:         color = 'steelblue', alpha = 0.7, width = bar_width) 
-    ...: # 也可以使用numpy模块的arange()函数构造横坐标 
-    ...: plt.bar(np.arange(4) + bar_width, sales_feb, label = u"二月", 
-    ...:         color = 'indianred', alpha = 0.7, width = bar_width) 
-    ...: plt.bar(np.arange(4) + bar_width*2, sales_mar, label = u"三月", 
-    ...:         color = 'green', alpha = 0.7, width = bar_width) 
-    ...:  
-    ...: # 添加y轴标签 
-    ...: plt.ylabel('月度销售额（万）') 
-    ...: # 添加标题 
-    ...: plt.title('员工第一季度月度销售额对比') 
-    ...: # 添加刻度标签 
-    ...: plt.xticks(np.arange(4)+bar_width, member) 
-    ...: # 添加图例 
-    ...: plt.legend() 
-    ...: plt.xlim(-0.5, 4.5)                                                
+In [42]: member = [u'小红', u'小王', u'小李', u'小张']
+    ...: sales_jan  = [30, 42, 25, 35]  # 一月份的销售额
+    ...: sales_feb  = [60, 55, 10, 27]  # 二月份的销售额
+    ...: sales_mar  = [40, 20, 5, 70]   # 三月份的销售额
+    ...:
+    ...: bar_width = 0.2  # 设置分组条形的宽度
+    ...:
+    ...: # 绘图
+    ...: plt.bar(range(4), sales_jan, label = u'一月',
+    ...:         color = 'steelblue', alpha = 0.7, width = bar_width)
+    ...: # 也可以使用numpy模块的arange()函数构造横坐标
+    ...: plt.bar(np.arange(4) + bar_width, sales_feb, label = u"二月",
+    ...:         color = 'indianred', alpha = 0.7, width = bar_width)
+    ...: plt.bar(np.arange(4) + bar_width*2, sales_mar, label = u"三月",
+    ...:         color = 'green', alpha = 0.7, width = bar_width)
+    ...:
+    ...: # 添加y轴标签
+    ...: plt.ylabel('月度销售额（万）')
+    ...: # 添加标题
+    ...: plt.title('员工第一季度月度销售额对比')
+    ...: # 添加刻度标签
+    ...: plt.xticks(np.arange(4)+bar_width, member)
+    ...: # 添加图例
+    ...: plt.legend()
+    ...: plt.xlim(-0.5, 4.5)
 Out[42]: (-0.5, 4.5)
 ```
 
@@ -740,26 +740,26 @@ Out[42]: (-0.5, 4.5)
 下面使用同样的数据，我们将其展示为堆叠条形图。
 
 ```python
-In [43]: # 绘图 
-    ...: plt.bar(np.arange(4), sales_jan, label = u'一月',  
-    ...:         color = 'steelblue', alpha = 0.7) 
-    ...: # 也可以使用numpy模块的arange()函数构造横坐标 
+In [43]: # 绘图
+    ...: plt.bar(np.arange(4), sales_jan, label = u'一月',
+    ...:         color = 'steelblue', alpha = 0.7)
+    ...: # 也可以使用numpy模块的arange()函数构造横坐标
     ...: plt.bar(np.arange(4), sales_feb, bottom = sales_jan, label = u"二月
-    ...: ", 
-    ...:         color = 'indianred', alpha = 0.7) 
+    ...: ",
+    ...:         color = 'indianred', alpha = 0.7)
     ...: plt.bar(np.arange(4), sales_mar, bottom = np.array(sales_jan) + np.
-    ...: array(sales_feb), label = u"三月", 
-    ...:         color = 'green', alpha = 0.7) 
-    ...:  
-    ...: # 添加y轴标签 
-    ...: plt.ylabel('月度销售额（万）') 
-    ...: # 添加标题 
-    ...: plt.title('员工第一季度月度销售额对比') 
-    ...: # 添加刻度标签 
-    ...: plt.xticks(np.arange(4), member) 
-    ...: # 添加图例 
-    ...: plt.legend() 
-    ...: plt.xlim(-0.5, 4.5)                                                
+    ...: array(sales_feb), label = u"三月",
+    ...:         color = 'green', alpha = 0.7)
+    ...:
+    ...: # 添加y轴标签
+    ...: plt.ylabel('月度销售额（万）')
+    ...: # 添加标题
+    ...: plt.title('员工第一季度月度销售额对比')
+    ...: # 添加刻度标签
+    ...: plt.xticks(np.arange(4), member)
+    ...: # 添加图例
+    ...: plt.legend()
+    ...: plt.xlim(-0.5, 4.5)
 Out[43]: (-0.5, 4.5)
 ```
 
@@ -776,13 +776,13 @@ Out[43]: (-0.5, 4.5)
 下面我们通过 NumPy 模块提供的随机数据生成函数产生符合正态分布的随机数据，并以它为样例绘制直方图。
 
 ```python
-In [44]: import numpy as np 
-    ...: import matplotlib.pyplot as plt 
-    ...:  
-    ...: randn_data = np.random.randn(1000) 
-    ...:  
-    ...: plt.hist(randn_data)                                               
-Out[44]: 
+In [44]: import numpy as np
+    ...: import matplotlib.pyplot as plt
+    ...:
+    ...: randn_data = np.random.randn(1000)
+    ...:
+    ...: plt.hist(randn_data)
+Out[44]:
 (array([  5.,  20.,  57., 130., 206., 215., 207., 106.,  44.,  10.]),
  array([-3.18406638, -2.57808999, -1.97211359, -1.3661372 , -0.76016081,
         -0.15418442,  0.45179198,  1.05776837,  1.66374476,  2.26972115,
@@ -795,10 +795,10 @@ Out[44]:
 hist() 函数也有非常多的选项用于调整图形。
 
 ```python
-plt.hist(x, bins=10, range=None, normed=False, 
-        weights=None, cumulative=False, bottom=None, 
-        histtype='bar', align='mid', orientation='vertical', 
-        rwidth=None, log=False, color=None, 
+plt.hist(x, bins=10, range=None, normed=False,
+        weights=None, cumulative=False, bottom=None,
+        histtype='bar', align='mid', orientation='vertical',
+        rwidth=None, log=False, color=None,
         label=None, stacked=False)
 ```
 
@@ -821,8 +821,8 @@ plt.hist(x, bins=10, range=None, normed=False,
 现在我们更改几个最常用的选项看看。
 
 ```python
-In [45]: _ = plt.hist(randn_data, bins=30, density=True, 
-    ...:          histtype='step', color='steelblue')  
+In [45]: _ = plt.hist(randn_data, bins=30, density=True,
+    ...:          histtype='step', color='steelblue')
 ```
 
 ![图7-35 更改直方图的几个常用选项](assets/1566029142554.png)
@@ -830,19 +830,19 @@ In [45]: _ = plt.hist(randn_data, bins=30, density=True,
 如果要比较多个数据的分布，使用选项 histtype='stepfilled' 和设置一定的透明度会很好用。
 
 ```python
-In [45]: _ = plt.hist(randn_data, bins=30, density=True, 
-    ...:          histtype='step', color='steelblue')                       
+In [45]: _ = plt.hist(randn_data, bins=30, density=True,
+    ...:          histtype='step', color='steelblue')
 
-In [46]: x1 = np.random.normal(0, 0.4, 1000) 
-    ...: x2 = np.random.normal(-3, 1, 1000) 
-    ...: x3 = np.random.normal(2, 2, 1000) 
-    ...:  
+In [46]: x1 = np.random.normal(0, 0.4, 1000)
+    ...: x2 = np.random.normal(-3, 1, 1000)
+    ...: x3 = np.random.normal(2, 2, 1000)
+    ...:
     ...: kwargs = dict(histtype='stepfilled', alpha=0.5, density=True, bins=
-    ...: 50) 
-    ...:  
-    ...: _ = plt.hist(x1, **kwargs) 
-    ...: _ = plt.hist(x2, **kwargs) 
-    ...: _ = plt.hist(x3, **kwargs) 
+    ...: 50)
+    ...:
+    ...: _ = plt.hist(x1, **kwargs)
+    ...: _ = plt.hist(x2, **kwargs)
+    ...: _ = plt.hist(x3, **kwargs)
 ```
 
 ![图7-36 使用直方图比较 3 个数据分布](assets/1566029266277.png)
@@ -852,8 +852,8 @@ In [46]: x1 = np.random.normal(0, 0.4, 1000)
 下面我们从 randn_data 中提取设置 10 个条形时的各自的频数。
 
 ```python
-In [47]: counts, bin_edges = np.histogram(randn_data, bins=10) 
-    ...: print(counts)                                                      
+In [47]: counts, bin_edges = np.histogram(randn_data, bins=10)
+    ...: print(counts)
 [  5  20  57 130 206 215 207 106  44  10]
 ```
 
@@ -861,8 +861,8 @@ In [47]: counts, bin_edges = np.histogram(randn_data, bins=10)
 
 ```python
 In [48]: density, bin_edges = np.histogram(randn_data, bins=10, density=True
-    ...: ) 
-    ...: print(density)                                                     
+    ...: )
+    ...: print(density)
 [0.00825115 0.03300459 0.09406307 0.21452981 0.33994724 0.3547993
  0.34159747 0.17492431 0.07261009 0.01650229]
 
@@ -873,15 +873,15 @@ In [48]: density, bin_edges = np.histogram(randn_data, bins=10, density=True
 同样地，我们使用随机数据生成函数生成二维的随机数据用于绘图演示。
 
 ```python
-In [49]: # 创建二维随机数据 
-    ...: mean = [0, 0]  # 均值 
-    ...: cov = [[1, 1], [1, 2]]  # 协方差矩阵 
-    ...: x, y = np.random.multivariate_normal(mean, cov, 10000).T   
-    ...:  
-    ...: # 绘制图形 
-    ...: plt.hist2d(x, y, bins=30, cmap='Reds') 
-    ...: cb = plt.colorbar() 
-    ...: cb.set_label(u'计数')  
+In [49]: # 创建二维随机数据
+    ...: mean = [0, 0]  # 均值
+    ...: cov = [[1, 1], [1, 2]]  # 协方差矩阵
+    ...: x, y = np.random.multivariate_normal(mean, cov, 10000).T
+    ...:
+    ...: # 绘制图形
+    ...: plt.hist2d(x, y, bins=30, cmap='Reds')
+    ...: cb = plt.colorbar()
+    ...: cb.set_label(u'计数')
 ```
 
 ![图7-37 二维直方图](assets/1566029521952.png)
@@ -891,8 +891,8 @@ In [49]: # 创建二维随机数据
 饼图也是常见且为人喜爱的一种图形，它可以表示离散变量各水平的占比情况。Matplotlib 提供了 pie() 函数用于饼图的绘制，下面我们看一个简单的例子：
 
 ```python
-In [50]: import matplotlib.pyplot as plt 
-    ...: _ = plt.pie(range(5))   
+In [50]: import matplotlib.pyplot as plt
+    ...: _ = plt.pie(range(5))
 ```
 
 ![图7-38 饼图](assets/1566029603380.png)
@@ -900,10 +900,10 @@ In [50]: import matplotlib.pyplot as plt
 接着我们看一下 pie() 提供的一些详细选项：
 
 ```
-plt.pie(x, explode=None, labels=None, colors=None, 
-        autopct=None, pctdistance=0.6, shadow=False, 
-        labeldistance=1.1, startangle=None, 
-        radius=None, counterclock=True, wedgeprops=None, 
+plt.pie(x, explode=None, labels=None, colors=None,
+        autopct=None, pctdistance=0.6, shadow=False,
+        labeldistance=1.1, startangle=None,
+        radius=None, counterclock=True, wedgeprops=None,
         textprops=None, center=(0, 0), frame=False)
 ```
 
@@ -928,32 +928,32 @@ plt.pie(x, explode=None, labels=None, colors=None,
 假设某劳务公司现在统计了职工的学历占比情况，现在想要使用饼图展现出来，并突出硕士学位的群体。我们通过这个需求的实现学习一些常用选项的用法。
 
 ```python
-In [51]: # 构造数据 
-    ...: edu = [0.26,0.35,0.32,0.09,0.08] 
-    ...: labels = [u'中专',u'大专',u'本科',u'硕士',u'其他'] 
-    ...:  
-    ...: explode = [0,0,0,0.1,0]  # 突出硕士群体 
+In [51]: # 构造数据
+    ...: edu = [0.26,0.35,0.32,0.09,0.08]
+    ...: labels = [u'中专',u'大专',u'本科',u'硕士',u'其他']
+    ...:
+    ...: explode = [0,0,0,0.1,0]  # 突出硕士群体
     ...: colors=['#9999ff','#ff9999','#7777aa','#2442aa','#dd5555'] # 自定义
-    ...: 颜色 
-    ...:  
-    ...: # 绘制饼图 
-    ...: _ = plt.pie(x = edu,  
-    ...:         explode=explode, 
-    ...:         labels=labels,         # 添加教育水平标签 
-    ...:         colors=colors,         # 设置饼图的自定义填充色 
+    ...: 颜色
+    ...:
+    ...: # 绘制饼图
+    ...: _ = plt.pie(x = edu,
+    ...:         explode=explode,
+    ...:         labels=labels,         # 添加教育水平标签
+    ...:         colors=colors,         # 设置饼图的自定义填充色
     ...:         autopct='%.1f%%',      # 设置百分比的格式，这里保留一位小数
-    ...:  
-    ...:         pctdistance=0.8,       # 设置百分比标签与圆心的距离 
-    ...:         labeldistance = 1.2,   # 设置教育水平标签与圆心的距离 
-    ...:         startangle = 180,      # 设置饼图的初始角度 
-    ...:         radius = 1.5,          # 设置饼图的半径 
-    ...:         counterclock = False,  # 是否逆时针，这里设置为顺时针方向 
+    ...:
+    ...:         pctdistance=0.8,       # 设置百分比标签与圆心的距离
+    ...:         labeldistance = 1.2,   # 设置教育水平标签与圆心的距离
+    ...:         startangle = 180,      # 设置饼图的初始角度
+    ...:         radius = 1.5,          # 设置饼图的半径
+    ...:         counterclock = False,  # 是否逆时针，这里设置为顺时针方向
     ...:         wedgeprops = {'linewidth': 1.5, 'edgecolor':'green'},  # 设
-    ...: 置饼图内外边界的属性值 
+    ...: 置饼图内外边界的属性值
     ...:         textprops = {'fontsize':12, 'color':'k'},  # 设置文本标签的
-    ...: 属性值 
-    ...:         center = (2,2),  # 设置饼图的原点 
-    ...:         frame = 0 )  # 是否显示饼图的图框，这里设置显示   
+    ...: 属性值
+    ...:         center = (2,2),  # 设置饼图的原点
+    ...:         frame = 0 )  # 是否显示饼图的图框，这里设置显示
 ```
 
 ![图7-39 职工学历分布](assets/1566030049989.png)
@@ -965,9 +965,9 @@ In [51]: # 构造数据
 Matplotlib 提供了 boxplot() 函数绘制箱线图，下面看一个简单的例子。
 
 ```python
-In [53]: import matplotlib.pyplot as plt 
-    ...:  
-    ...: _ = plt.boxplot(range(10))  # 10个数，0-9   
+In [53]: import matplotlib.pyplot as plt
+    ...:
+    ...: _ = plt.boxplot(range(10))  # 10个数，0-9
 ```
 
 ![图7-40 箱线图简单示例](assets/1566030181185.png)
@@ -975,12 +975,12 @@ In [53]: import matplotlib.pyplot as plt
 箱线图虽然看起来简单，但包含的数据信息非常丰富。橙色的线条表示中位数，中间条形的上下边界分别对应上四分位数（75% 的数据都小于该值）与下四位分数（25% 的数据小于该值），从条形延伸出两条线段，两条线段的终点表示数据的最大值和最小值。
 
 ```python
-In [54]: print(np.median(np.arange(10)))  # 中位数 
-    ...:  
+In [54]: print(np.median(np.arange(10)))  # 中位数
+    ...:
     ...: print(np.quantile(np.arange(10), 0.25))  # 下4分位数，也叫第1分位数
-    ...:  
+    ...:
     ...: print(np.quantile(np.arange(10), 0.75))  # 上4分位数，也叫第3分位数
-    ...:                                                                    
+    ...:
 4.5
 2.25
 6.75
@@ -989,12 +989,12 @@ In [54]: print(np.median(np.arange(10)))  # 中位数
 boxplot() 函数同样提供了丰富的自定义选项。
 
 ```python
-plt.boxplot(x, notch=None, sym=None, vert=None, 
-             whis=None, positions=None, widths=None, 
-             patch_artist=None, meanline=None, showmeans=None, 
-             showcaps=None, showbox=None, showfliers=None, 
-             boxprops=None, labels=None, flierprops=None, 
-             medianprops=None, meanprops=None, 
+plt.boxplot(x, notch=None, sym=None, vert=None,
+             whis=None, positions=None, widths=None,
+             patch_artist=None, meanline=None, showmeans=None,
+             showcaps=None, showbox=None, showfliers=None,
+             boxprops=None, labels=None, flierprops=None,
+             medianprops=None, meanprops=None,
              capprops=None, whiskerprops=None)
 ```
 
@@ -1007,7 +1007,7 @@ plt.boxplot(x, notch=None, sym=None, vert=None,
 - widths - 指定箱线图宽度，默认为 0.5
 - patch_artist - 是否填充箱体的颜色
 - meanline - 是否用线的形式表示均值，默认用点来表示
-- showmeans - 是否显示均值，默认不显示 
+- showmeans - 是否显示均值，默认不显示
 - showcaps - 是否显示箱线图顶端和末端的两条线，默认显示
 - showbox - 是否显示箱线图的箱体，默认显示
 - showfliers - 是否显示异常值，默认显示
@@ -1022,11 +1022,11 @@ plt.boxplot(x, notch=None, sym=None, vert=None,
 箱线图通常在进行多组数据比较时使用。下面代码展示了 3 组简单数据的箱线图，添加凹口、均值点、颜色以及每组的标签。设定这几个选项已经适用于绝大多数情况。
 
 ```python
-In [55]: _ = plt.boxplot([range(10), range(20), range(30)],  
-    ...:                 patch_artist=True, 
-    ...:                 boxprops={'color':'red'},  
-    ...:                 notch=True, showmeans=True,  
-    ...:                 labels=["label1", "label2", "label3"]) 
+In [55]: _ = plt.boxplot([range(10), range(20), range(30)],
+    ...:                 patch_artist=True,
+    ...:                 boxprops={'color':'red'},
+    ...:                 notch=True, showmeans=True,
+    ...:                 labels=["label1", "label2", "label3"])
 ```
 
 ![图7-41 使用箱线图进行比较](assets/1566030359191.png)
@@ -1044,12 +1044,12 @@ In [55]: _ = plt.boxplot([range(10), range(20), range(30)],
 Matplotlib 的 subplot() 函数提供了一种简单的方式在网格中绘制子图。下面的代码创建了 4 个子图，分割为 2 行 2 列。子图的索引从 1 开始，从左上到右下依次增加，该信息也标注在了每个子图的中心。
 
 ```python
-In [56]: import matplotlib.pyplot as plt 
-    ...:  
-    ...: for i in range(1, 5): 
-    ...:     plt.subplot(2, 2, i)  # 2行2列，子图索引i 
-    ...:     plt.text(0.5, 0.5, str((2, 2, i)), 
-    ...:              fontsize=18, ha='center') 
+In [56]: import matplotlib.pyplot as plt
+    ...:
+    ...: for i in range(1, 5):
+    ...:     plt.subplot(2, 2, i)  # 2行2列，子图索引i
+    ...:     plt.text(0.5, 0.5, str((2, 2, i)),
+    ...:              fontsize=18, ha='center')
 ```
 
 ![图7-42 网格子图](assets/1566030513027.png)
@@ -1058,12 +1058,12 @@ In [56]: import matplotlib.pyplot as plt
 
 ```python
 In [57]: plt.subplots_adjust(hspace=0.4, wspace=0.4)  # 调整子图之间的高与宽
-    ...: 间隔 
-    ...:  
-    ...: for i in range(1, 5): 
-    ...:     plt.subplot(2, 2, i)  # 2行2列，子图索引i 
-    ...:     plt.text(0.5, 0.5, str((2, 2, i)), 
-    ...:              fontsize=18, ha='center') 
+    ...: 间隔
+    ...:
+    ...: for i in range(1, 5):
+    ...:     plt.subplot(2, 2, i)  # 2行2列，子图索引i
+    ...:     plt.text(0.5, 0.5, str((2, 2, i)),
+    ...:              fontsize=18, ha='center')
 ```
 
 ![图7-43 调整子图间距](assets/1566030610383.png)
@@ -1079,9 +1079,9 @@ Matplotlib 提供了 axes() 函数生成一个标准的坐标轴对象，该函�
 下面代码在图形的左上方添加了一个子图。
 
 ```python
-In [58]: ax1 = plt.axes()  # 标准坐标轴 
-    ...: # 子图距离左侧0.2，下方0.65，宽度0.2，高度0.2 
-    ...: ax2 = plt.axes([0.2, 0.65, 0.2, 0.2]) 
+In [58]: ax1 = plt.axes()  # 标准坐标轴
+    ...: # 子图距离左侧0.2，下方0.65，宽度0.2，高度0.2
+    ...: ax2 = plt.axes([0.2, 0.65, 0.2, 0.2])
 ```
 
 ![图7-44 手动绘制子图](assets/1566030719209.png)
@@ -1091,17 +1091,17 @@ In [58]: ax1 = plt.axes()  # 标准坐标轴
 理解了手动绘制的原理之后，我们可以绘制同享 x 轴的多图。
 
 ```python
-In [59]: x = np.linspace(0, 10)  # 创建x轴数据  
-    ...:  
-    ...: fig = plt.figure()      # 创建图形对象 
-    ...:  
-    ...: ax1 = plt.axes([0.1, 0.5, 0.8, 0.4], 
-    ...:         xticklabels=[], ylim=(-1.2, 1.2)) 
-    ...: plt.plot(np.sin(x))     # 绘制子图1 
-    ...:  
-    ...: ax2 = plt.axes([0.1, 0.1, 0.8, 0.4], 
-    ...:                    ylim=(-1.2, 1.2)) 
-    ...: plt.plot(np.cos(x))     # 绘制子图2                                
+In [59]: x = np.linspace(0, 10)  # 创建x轴数据
+    ...:
+    ...: fig = plt.figure()      # 创建图形对象
+    ...:
+    ...: ax1 = plt.axes([0.1, 0.5, 0.8, 0.4],
+    ...:         xticklabels=[], ylim=(-1.2, 1.2))
+    ...: plt.plot(np.sin(x))     # 绘制子图1
+    ...:
+    ...: ax2 = plt.axes([0.1, 0.1, 0.8, 0.4],
+    ...:                    ylim=(-1.2, 1.2))
+    ...: plt.plot(np.cos(x))     # 绘制子图2
 Out[59]: [<matplotlib.lines.Line2D at 0x7f903a48fda0>]
 ```
 
@@ -1116,17 +1116,17 @@ Out[59]: [<matplotlib.lines.Line2D at 0x7f903a48fda0>]
 例如，下面代码可以确保生成的图形使用经典的 Matplotlib 风格：
 
 ```python
-In [60]: plt.style.use('classic') 
+In [60]: plt.style.use('classic')
 ```
 
 我们绘制简单的图形看一看显示效果。
 
 ```python
-In [61]: rng = np.random.RandomState(12) 
-    ...: x = rng.randn(200) 
-    ...: y = rng.randn(200) 
-    ...:  
-    ...: _ = plt.scatter(x, y) 
+In [61]: rng = np.random.RandomState(12)
+    ...: x = rng.randn(200)
+    ...: y = rng.randn(200)
+    ...:
+    ...: _ = plt.scatter(x, y)
 ```
 
 ![图7-46 设置经典风格](assets/1566031061659.png)
@@ -1134,9 +1134,9 @@ In [61]: rng = np.random.RandomState(12)
 下面代码可以更换为 seaborn 库 white 风格。
 
 ```python
-In [62]: plt.style.use('seaborn-white') 
-    ...:  
-    ...: _ = plt.scatter(x, y)      
+In [62]: plt.style.use('seaborn-white')
+    ...:
+    ...: _ = plt.scatter(x, y)
 ```
 
 ![图7-47 使用 seaborn 库 white 风格](assets/1566031144809.png)
@@ -1144,9 +1144,9 @@ In [62]: plt.style.use('seaborn-white')
 下面代码可以更换为流行 R 包 ggplot2 风格。
 
 ```python
-In [63]: plt.style.use('ggplot') 
-    ...:  
-    ...: _ = plt.scatter(x, y) 
+In [63]: plt.style.use('ggplot')
+    ...:
+    ...: _ = plt.scatter(x, y)
 ```
 
 ![图7-48 使用 ggplot 风格](assets/1566031232055.png)
@@ -1154,12 +1154,12 @@ In [63]: plt.style.use('ggplot')
 下面代码列出所有支持的风格。
 
 ```python
-In [64]: print(plt.style.available)                                         
+In [64]: print(plt.style.available)
 ['seaborn-dark', 'seaborn-ticks', 'classic', 'seaborn-white',
  'fast', 'seaborn-whitegrid', 'tableau-colorblind10', 'seaborn',
- 'seaborn-deep', 'Solarize_Light2', 'seaborn-colorblind', 
- 'seaborn-darkgrid', 'dark_background', 'seaborn-bright', 
- 'ggplot', 'seaborn-talk', 'seaborn-notebook', 'grayscale', 
+ 'seaborn-deep', 'Solarize_Light2', 'seaborn-colorblind',
+ 'seaborn-darkgrid', 'dark_background', 'seaborn-bright',
+ 'ggplot', 'seaborn-talk', 'seaborn-notebook', 'grayscale',
  'fivethirtyeight', 'bmh', 'seaborn-dark-palette', 'seaborn-pastel',
  '_classic_test', 'seaborn-poster', 'seaborn-muted', 'seaborn-paper']
 ```
@@ -1185,14 +1185,14 @@ plt.title()  -> ax.set_title()
 面向对象的方式读者可以使用 set() 方法一次性对所有样式进行设定。下面画一个简单的正弦图说明：
 
 ```python
-In [65]: plt.style.use('grayscale') 
-    ...: x = np.linspace(0, 10)  
-    ...:  
-    ...: ax = plt.axes() 
-    ...: ax.plot(x, np.sin(x)) 
-    ...: _ = ax.set(xlim=(0,10), ylim=(-2,2), 
-    ...:       xlabel='x', ylabel='sin(x)', 
-    ...:       title='A Simple Plot')  
+In [65]: plt.style.use('grayscale')
+    ...: x = np.linspace(0, 10)
+    ...:
+    ...: ax = plt.axes()
+    ...: ax.plot(x, np.sin(x))
+    ...: _ = ax.set(xlim=(0,10), ylim=(-2,2),
+    ...:       xlabel='x', ylabel='sin(x)',
+    ...:       title='A Simple Plot')
 ```
 
 ![图7-49 使用 set() 方法设置图形](assets/1566031500991.png)

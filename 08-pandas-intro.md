@@ -50,7 +50,7 @@ In [5]: np.arange(3)
 Out[5]: array([0, 1, 2])
 
 In [6]: pd.Series(range(3))
-Out[6]: 
+Out[6]:
 0    0
 1    1
 2    2
@@ -63,7 +63,7 @@ dtype: int64
 
 ```python
 In [7]: scores = pd.Series([80, 90, 97])
-    
+
 In [8]: scores.index
 Out[8]: RangeIndex(start=0, stop=3, step=1)
 In [9]: scores.values
@@ -79,13 +79,13 @@ scores.values 的结果证实了 Series 对象的数据值的确是一个一维�
 ```python
 In [10]: scores = pd.Series([80, 90, 97], index=[u'语文',u'数学',u'外语'])
 In [11]: scores
-Out[11]: 
+Out[11]:
 语文    80
 数学    90
 外语    97
 dtype: int64
 
-In [12]: scores.index                                                          
+In [12]: scores.index
 Out[12]: Index(['语文', '数学', '外语'], dtype='object')
 In [13]: scores.values
 Out[13]: array([80, 90, 97])
@@ -98,9 +98,9 @@ Out[13]: array([80, 90, 97])
 ```python
 In [14]: scores2 = scores  # 创建一个新拷贝
 In [15]: scores2.index = ['Chinese', 'Math', 'English']
-In [16]: scores2.values[0] = 95                                                           
-In [17]: scores2                  
-Out[17]: 
+In [16]: scores2.values[0] = 95
+In [17]: scores2
+Out[17]:
 Chinese    95
 Math       90
 English    97
@@ -110,8 +110,8 @@ dtype: int64
 注意，上述将 scores 赋值为 scores2 后，修改 scores2 也会造成 scores 的修改。如果不想要它们相互影响，应当使用 copy() 方法生成 scores2。
 
 ```python
-In [19]: scores    
-Out[19]: 
+In [19]: scores
+Out[19]:
 Chinese    95
 Math       90
 English    97
@@ -121,12 +121,12 @@ dtype: int64
 与字典操作相似，Series 对象可以通过索引获取对象的值，索引可以是单个的值或是列表。
 
 ```python
-In [21]: scores[['Math', 'Chinese']]        
-Out[21]: 
+In [21]: scores[['Math', 'Chinese']]
+Out[21]:
 Math       90
 Chinese    95
 dtype: int64
-In [22]: scores['Math']     
+In [22]: scores['Math']
 Out[22]: 90
 ```
 
@@ -135,10 +135,10 @@ Out[22]: 90
 Series 结构上与字典非常相似，除了上述从列表创建 Series，也可以直接通过字典创建。
 
 ```python
-In [23]: score_dict = {u'语文':95, u'数学':90, u'外语':97}                          
+In [23]: score_dict = {u'语文':95, u'数学':90, u'外语':97}
 In [24]: scores3 = pd.Series(score_dict)
-In [25]: scores3                                                                    
-Out[25]: 
+In [25]: scores3
+Out[25]:
 语文    95
 数学    90
 外语    97
@@ -148,9 +148,9 @@ dtype: int64
 一些针对字典的操作也可以用于 Series 中，如判断「外语」是否存在。
 
 ```python
-In [26]: u'外语' in scores3                                                         
+In [26]: u'外语' in scores3
 Out[26]: True
-In [27]: u'物理' in scores3                                                         
+In [27]: u'物理' in scores3
 Out[27]: False
 ```
 
@@ -159,8 +159,8 @@ Out[27]: False
 ```python
 In [29]: scores3.name = 'xx中学期中成绩'
 In [30]: scores3.index.name = '学科'
-In [31]: scores3                                                                    
-Out[31]: 
+In [31]: scores3
+Out[31]:
 学科
 语文    95
 数学    90
@@ -176,11 +176,11 @@ Series 对象只能有效地表示一维的数据，而数据分析工作常常�
 
 ```python
 In [32]: df = {'姓名': ['小明','小王','小张'], '语文':[80,85,90], '数学':[99,88,86] }
-In [33]: df                                                                         
+In [33]: df
 Out[33]: {'姓名': ['小明', '小王', '小张'], '语文': [80, 85, 90], '数学': [99, 88, 86]}
 In [34]: df = pd.DataFrame(df)
-In [35]: df                                                                         
-Out[35]: 
+In [35]: df
+Out[35]:
    姓名  语文  数学
 0  小明  80  99
 1  小王  85  88
@@ -191,8 +191,8 @@ Out[35]:
 
 ```python
 In [36]: df2 = pd.DataFrame(df, columns=['数学', '语文', '姓名'])
-In [37]: df2                                                                        
-Out[37]: 
+In [37]: df2
+Out[37]:
    数学  语文  姓名
 0  99  80  小明
 1  88  85  小王
@@ -203,8 +203,8 @@ Out[37]:
 
 ```python
 In [38]: df3 = pd.DataFrame(df, columns=['数学', '语文','外语', '姓名'])
-In [39]: df3                                                                        
-Out[39]: 
+In [39]: df3
+Out[39]:
    数学  语文  外语  姓名
 0  99  80 NaN  小明
 1  88  85 NaN  小王
@@ -215,11 +215,11 @@ Out[39]:
 
 ```python
 In [43]: df = {'姓名': ['小明','小王','小张'], '语文':[80,85,90], '数学':[99,88,86]}
-    ...:                                                                            
+    ...:
 In [44]: df3 = pd.DataFrame(df, columns=['数学', '语文'], index=['小明','小王','小张
     ...: '])
-In [45]: df3                                                                        
-Out[45]: 
+In [45]: df3
+Out[45]:
     数学  语文
 小明  99  80
 小王  88  85
@@ -229,14 +229,14 @@ Out[45]:
 通过标签获取 DataFrame 数据需要通过名称或 loc 属性进行，前者访问行，后者访问列。
 
 ```python
-In [51]: df3['数学']                                                                
-Out[51]: 
+In [51]: df3['数学']
+Out[51]:
 小明    99
 小王    88
 小张    86
 Name: 数学, dtype: int64
-In [54]: df3.loc['小王']                                                            
-Out[54]: 
+In [54]: df3.loc['小王']
+Out[54]:
 数学    88
 语文    85
 Name: 小王, dtype: int64
@@ -247,8 +247,8 @@ Name: 小王, dtype: int64
 创建 DataFrame 还可以使用嵌套字典，字典外层的键会作为列标签，而内层的键会作为行标签。
 
 ```python
-In [55]: df = {'语文':{'小明':80,'小王':85,'小张':90}, '数学':{'小明':99,'小王':88,'小张':86}} In [56]: pd.DataFrame(df)                                                           
-Out[56]: 
+In [55]: df = {'语文':{'小明':80,'小王':85,'小张':90}, '数学':{'小明':99,'小王':88,'小张':86}} In [56]: pd.DataFrame(df)
+Out[56]:
     语文  数学
 小张  90  86
 小明  80  99
@@ -258,12 +258,12 @@ Out[56]:
 DataFrame 的 index 和 columns 属性可以设置 name 属性。
 
 ```python
-In [58]: df3.index.name = '姓名'                                                    
-In [59]: df3.columns.name = '学科'                                                  
-In [60]: df3                                                                        
-Out[60]: 
+In [58]: df3.index.name = '姓名'
+In [59]: df3.columns.name = '学科'
+In [60]: df3
+Out[60]:
 学科  数学  语文
-姓名        
+姓名
 小明  99  80
 小王  88  85
 小张  86  90
@@ -272,8 +272,8 @@ Out[60]:
 DataFrame 的 values属性会返回 DataFrame 存储的数据，数据类型是二维的 ndarrary。
 
 ```python
-In [61]: df3.values                                                                 
-Out[61]: 
+In [61]: df3.values
+Out[61]:
 array([[99, 80],
        [88, 85],
        [86, 90]])
@@ -288,9 +288,9 @@ array([[99, 80],
 在前面的内容中本书引入的数据都非常简单，我们直接打印输出就可以观察变量存储的数据。然而数据过长时，可能就不适用计算机显示器的显示屏，影响阅读和理解。在实际的操作中，我们仅需要观察少量的数据而不用打印所有的数据就可以了解数据的结构，Pandas 引入了 head() 和 tail() 方法显示 Series 或 DataFrame 对象的头部和尾部数据，默认是 5 个（行）。
 
 ```python
-In [62]: s1 = pd.Series(np.random.rand(1000))                                       
-In [63]: s1.head()                                                                  
-Out[63]: 
+In [62]: s1 = pd.Series(np.random.rand(1000))
+In [63]: s1.head()
+Out[63]:
 0    0.797903
 1    0.458301
 2    0.800034
@@ -298,9 +298,9 @@ Out[63]:
 4    0.999968
 dtype: float64
 
-In [64]: d1 = pd.DataFrame({'a':np.random.rand(1000), 'b':np.random.rand(1000)})    
-In [65]: d1.head()                                                                  
-Out[65]: 
+In [64]: d1 = pd.DataFrame({'a':np.random.rand(1000), 'b':np.random.rand(1000)})
+In [65]: d1.head()
+Out[65]:
           a         b
 0  0.298372  0.612369
 1  0.952201  0.606749
@@ -308,8 +308,8 @@ Out[65]:
 3  0.297048  0.939676
 4  0.364875  0.360786
 
-In [66]: s1.tail()                                                                  
-Out[66]: 
+In [66]: s1.tail()
+Out[66]:
 995    0.047546
 996    0.752907
 997    0.479628
@@ -317,8 +317,8 @@ Out[66]:
 999    0.960005
 dtype: float64
 
-In [67]: d1.tail()                                                                  
-Out[67]: 
+In [67]: d1.tail()
+Out[67]:
             a         b
 995  0.571106  0.175381
 996  0.789444  0.520254
@@ -330,8 +330,8 @@ Out[67]:
 在方法中传入正整数作为参数即可修改显示的数目。
 
 ```python
-In [68]: d1.head(10)                                                                
-Out[68]: 
+In [68]: d1.head(10)
+Out[68]:
           a         b
 0  0.298372  0.612369
 1  0.952201  0.606749
@@ -350,8 +350,8 @@ Out[68]:
 DataFrame 的 T 属性可以获取转置结果。
 
 ```python
-In [69]: d1.T                                                                       
-Out[69]: 
+In [69]: d1.T
+Out[69]:
         0         1         2      ...          997       998       999
 a  0.298372  0.952201  0.608556    ...     0.298536  0.739158  0.850966
 b  0.612369  0.606749  0.381032    ...     0.305487  0.594261  0.328761
@@ -364,9 +364,9 @@ b  0.612369  0.606749  0.381032    ...     0.305487  0.594261  0.328761
 重索引是 Pandas 库一个重要的操作，它用于创建符合指定索引顺序的新对象。
 
 ```python
-In [73]: s2 = pd.Series(np.random.rand(5), index=['b', 'a', 'd', 'c', 'e'])         
-In [74]: s2                                                                         
-Out[74]: 
+In [73]: s2 = pd.Series(np.random.rand(5), index=['b', 'a', 'd', 'c', 'e'])
+In [74]: s2
+Out[74]:
 b    0.630239
 a    0.173525
 d    0.787798
@@ -374,10 +374,10 @@ c    0.176230
 e    0.712007
 dtype: float64
 
-In [75]: s3 = s2.reindex(['a', 'b', 'c', 'd', 'e', 'f'])                            
+In [75]: s3 = s2.reindex(['a', 'b', 'c', 'd', 'e', 'f'])
 
-In [76]: s3                                                                         
-Out[76]: 
+In [76]: s3
+Out[76]:
 a    0.173525
 b    0.630239
 c    0.176230
@@ -391,8 +391,8 @@ dtype: float64
 如果设置的索引值不存在，就引入了缺失值 NaN。缺失值和非缺失值可以通过 is.null() 方法和 notnull() 方法进行判断。
 
 ```python
-In [77]: s3.isnull()                                                                
-Out[77]: 
+In [77]: s3.isnull()
+Out[77]:
 a    False
 b    False
 c    False
@@ -400,8 +400,8 @@ d    False
 e    False
 f     True
 dtype: bool
-In [78]: s3.notnull()                                                               
-Out[78]: 
+In [78]: s3.notnull()
+Out[78]:
 a     True
 b     True
 c     True
@@ -415,14 +415,14 @@ dtype: bool
 
 ```python
 In [89]: s4 = pd.Series(np.random.randint(2, 10, 3), index = [0,2,4])
-In [90]: s4                                                                         
-Out[90]: 
+In [90]: s4
+Out[90]:
 0    6
 2    2
 4    2
 dtype: int64
-In [91]: s4.reindex(np.arange(8), method='ffill')                                   
-Out[91]: 
+In [91]: s4.reindex(np.arange(8), method='ffill')
+Out[91]:
 0    6
 1    6
 2    2
@@ -438,32 +438,32 @@ dtype: int64
 
 
 ```python
-In [92]: d2 = pd.DataFrame(np.random.randint(2,20,9).reshape((3,3)), index=['c', 'b', 'e'], columns=['Test1', 'Test2', 'Test3'])                               
-In [93]: d2                                                                         
-Out[93]: 
+In [92]: d2 = pd.DataFrame(np.random.randint(2,20,9).reshape((3,3)), index=['c', 'b', 'e'], columns=['Test1', 'Test2', 'Test3'])
+In [93]: d2
+Out[93]:
    Test1  Test2  Test3
 c      4     19     12
 b     11      2      4
 e      3     19     12
 
 In [94]: d3 = d2.reindex(['a', 'b', 'c', 'd'])
-In [95]: d3                                                                         
-Out[95]: 
+In [95]: d3
+Out[95]:
    Test1  Test2  Test3
 a    NaN    NaN    NaN
 b   11.0    2.0    4.0
 c    4.0   19.0   12.0
 d    NaN    NaN    NaN
 
-In [96]: d2.reindex(['a', 'b', 'c', 'd', 'e'], columns=[])                          
-Out[96]: 
+In [96]: d2.reindex(['a', 'b', 'c', 'd', 'e'], columns=[])
+Out[96]:
 Empty DataFrame
 Columns: []
 Index: [a, b, c, d, e]
 
 In [97]: d2.reindex(['a', 'b', 'c', 'd', 'e'], columns=['Test2', 'Test4', 'Test1', '
-    ...: Test3'])                                                                   
-Out[97]: 
+    ...: Test3'])
+Out[97]:
    Test2  Test4  Test1  Test3
 a    NaN    NaN    NaN    NaN
 b    2.0    NaN   11.0    4.0
@@ -475,8 +475,8 @@ e   19.0    NaN    3.0   12.0
 也可以只使用 columns 关键字参数重索引列。
 
 ```python
-In [98]: d2.reindex(columns=['Test3', 'Test1', 'Test4', 'Test2'])                   
-Out[98]: 
+In [98]: d2.reindex(columns=['Test3', 'Test1', 'Test4', 'Test2'])
+Out[98]:
    Test3  Test1  Test4  Test2
 c     12      4    NaN     19
 b      4     11    NaN      2
@@ -489,16 +489,16 @@ e     12      3    NaN     19
 如果想要删除数据的列，可以使用 del 关键字。
 
 ```python
-In [99]: d2                                                                         
-Out[99]: 
+In [99]: d2
+Out[99]:
    Test1  Test2  Test3
 c      4     19     12
 b     11      2      4
 e      3     19     12
 
 In [100]: del d2['Test3']
-In [101]: d2                                                                        
-Out[101]: 
+In [101]: d2
+Out[101]:
    Test1  Test2
 c      4     19
 b     11      2
@@ -508,14 +508,14 @@ e      3     19
 该操作对于行并不适用。Pandas提供了 drop() 方法用于数据项删除场景，读者只需要提供一个索引数组或列表。
 
 ```python
-In [102]: d2.drop('b')                                                              
-Out[102]: 
+In [102]: d2.drop('b')
+Out[102]:
    Test1  Test2
 c      4     19
 e      3     19
 
-In [103]: d2.drop(['b','c'])                                                        
-Out[103]: 
+In [103]: d2.drop(['b','c'])
+Out[103]:
    Test1  Test2
 e      3     19
 ```
@@ -523,8 +523,8 @@ e      3     19
 默认执行的删除操作对象是行，如果需要删除列，设定 axis='columns'。
 
 ```python
-In [104]: d2.drop('Test2', axis='columns')                                          
-Out[104]: 
+In [104]: d2.drop('Test2', axis='columns')
+Out[104]:
    Test1
 c      4
 b     11
@@ -538,25 +538,25 @@ e      3
 将列表或数组赋值给某个列时，其长度必须跟 DataFrame 的长度相匹配。如果赋值的是一个 Series，就会精确匹配 DataFrame 的索引，所有的空位都将被填上缺失值：
 
 ```python
-In [108]: d2['New_column'] = pd.Series([1])                                         
-In [109]: d2                                                                        
-Out[109]: 
+In [108]: d2['New_column'] = pd.Series([1])
+In [109]: d2
+Out[109]:
    Test1  Test2  New_column
 c      4     19         NaN
 b     11      2         NaN
 e      3     19         NaN
 
 In [111]: d2['New_column'] = pd.Series([1, 2, 3])
-In [112]: d2                                                                        
-Out[112]: 
+In [112]: d2
+Out[112]:
    Test1  Test2  New_column
 c      4     19         NaN
 b     11      2         NaN
 e      3     19         NaN
 
 In [113]: d2['New_column'] = pd.Series([1, 2, 3], index=['c','b','e'])
-In [114]: d2                                                                        
-Out[114]: 
+In [114]: d2
+Out[114]:
    Test1  Test2  New_column
 c      4     19           1
 b     11      2           2
@@ -574,8 +574,8 @@ Pandas 库支持丰富的索引标签，更适用于实际复杂数据的选择�
 对于 Series 对象，提取单个数据使用下标（从 0 开始）或标签值，提取多个数据可以使用列表或者切片。
 
 ```python
-In [119]: s2                                                                        
-Out[119]: 
+In [119]: s2
+Out[119]:
 b    0.630239
 a    0.173525
 d    0.787798
@@ -583,18 +583,18 @@ c    0.176230
 e    0.712007
 dtype: float64
 
-In [120]: s2[1]                                                                     
+In [120]: s2[1]
 Out[120]: 0.17352490256429942
-In [121]: s2['a']                                                                   
+In [121]: s2['a']
 Out[121]: 0.17352490256429942
-In [122]: s2[['a','b','c']]                                                         
-Out[122]: 
+In [122]: s2[['a','b','c']]
+Out[122]:
 a    0.173525
 b    0.630239
 c    0.176230
 dtype: float64
-In [123]: s2['b':'d']                                                               
-Out[123]: 
+In [123]: s2['b':'d']
+Out[123]:
 b    0.630239
 a    0.173525
 d    0.787798
@@ -604,9 +604,9 @@ dtype: float64
 在索引的时候进行赋值，就会修改相应的数据。
 
 ```python
-In [124]: s2['b':'d'] = [1, 2, 3]                                                   
-In [125]: s2                                                                        
-Out[125]: 
+In [124]: s2['b':'d'] = [1, 2, 3]
+In [125]: s2
+Out[125]:
 b    1.000000
 a    2.000000
 d    3.000000
@@ -618,14 +618,14 @@ dtype: float64
 针对 DataFrame 对象标签索引是获取一个或多个列，而数值切片是提取行，如果只输入数值则会报错，读者需要额外注意。
 
 ```python
-In [126]: d2['Test1']                                                               
-Out[126]: 
+In [126]: d2['Test1']
+Out[126]:
 c     4
 b    11
 e     3
 Name: Test1, dtype: int64
 
-In [127]: d2[0]                                                                     
+In [127]: d2[0]
 ---------------------------------------------------------------------------
 KeyError                                  Traceback (most recent call last)
 ~/anaconda3/lib/python3.7/site-packages/pandas/core/indexes/base.py in get_loc(self, key, method, tolerance)
@@ -649,18 +649,18 @@ KeyError                                  Traceback (most recent call last)
 
 KeyError: 0
 
-In [128]: d2[:0]                                                                    
-Out[128]: 
+In [128]: d2[:0]
+Out[128]:
 Empty DataFrame
 Columns: [Test1, Test2, New_column]
 Index: []
 
-In [129]: d2[:1]                                                                    
-Out[129]: 
+In [129]: d2[:1]
+Out[129]:
    Test1  Test2  New_column
 c      4     19           1
-In [130]: d2[:2]                                                                    
-Out[130]: 
+In [130]: d2[:2]
+Out[130]:
    Test1  Test2  New_column
 c      4     19           1
 b     11      2           2
@@ -673,8 +673,8 @@ b     11      2           2
 Pandas 对象一大特点是可以通过逻辑比较操作快速筛选所需数据，与 ndarray 类似。下面代码演示了通过逻辑操作选择 Series 对象小于 1 子集的例子：
 
 ```
-In [131]: s2                                                                        
-Out[131]: 
+In [131]: s2
+Out[131]:
 b    1.000000
 a    2.000000
 d    3.000000
@@ -682,8 +682,8 @@ c    0.176230
 e    0.712007
 dtype: float64
 
-In [132]: s2 < 1                                                                    
-Out[132]: 
+In [132]: s2 < 1
+Out[132]:
 b    False
 a    False
 d    False
@@ -691,8 +691,8 @@ c     True
 e     True
 dtype: bool
 
-In [133]: s2[s2 < 1]                                                                
-Out[133]: 
+In [133]: s2[s2 < 1]
+Out[133]:
 c    0.176230
 e    0.712007
 dtype: float64
@@ -702,15 +702,15 @@ dtype: float64
 类似地，我们也可以将该操作应用于 DataFrame 对象，它进行的是行筛选。
 
 ```python
-In [134]: d2                                                                        
-Out[134]: 
+In [134]: d2
+Out[134]:
    Test1  Test2  New_column
 c      4     19           1
 b     11      2           2
 e      3     19           3
 
-In [135]: d2[d2['Test2'] > 10]                                                      
-Out[135]: 
+In [135]: d2[d2['Test2'] > 10]
+Out[135]:
    Test1  Test2  New_column
 c      4     19           1
 e      3     19           3
@@ -722,8 +722,8 @@ e      3     19           3
 
 ```python
 In [136]: d2[d2['Test2'] > 10] = 10
-In [137]: d2                                                                        
-Out[137]: 
+In [137]: d2
+Out[137]:
    Test1  Test2  New_column
 c     10     10          10
 b     11      2           2
@@ -737,8 +737,8 @@ e     10     10          10
 先看一个示例，使用字符标签选取 d2 对象第 2 行的第 2 和第 3 列。
 
 ```python
-In [138]: d2.loc['b', ['Test2', 'New_column']]                                      
-Out[138]: 
+In [138]: d2.loc['b', ['Test2', 'New_column']]
+Out[138]:
 Test2         2
 New_column    2
 Name: b, dtype: int64
@@ -747,8 +747,8 @@ Name: b, dtype: int64
 这与下面代码的是等价的：
 
 ```python
-In [139]: d2.iloc[1, [1,2]]                                                         
-Out[139]: 
+In [139]: d2.iloc[1, [1,2]]
+Out[139]:
 Test2         2
 New_column    2
 Name: b, dtype: int64
@@ -757,8 +757,8 @@ Name: b, dtype: int64
 我们可以在方括号内自由地使用切片。
 
 ```python
-In [140]: d2.iloc[:1, 1:]                                                           
-Out[140]: 
+In [140]: d2.iloc[:1, 1:]
+Out[140]:
    Test2  New_column
 c     10          10
 ```
@@ -768,22 +768,22 @@ c     10          10
 下面的输出显示了每一步的结果：
 
 ```python
-In [143]: d2                                                                        
-Out[143]: 
+In [143]: d2
+Out[143]:
    Test1  Test2  New_column
 c     10     10          10
 b     11      2           2
 e     10     10          10
 
-In [144]: d2.iloc[1, ]                                                              
-Out[144]: 
+In [144]: d2.iloc[1, ]
+Out[144]:
 Test1         11
 Test2          2
 New_column     2
 Name: b, dtype: int64
 
-In [145]: d2.iloc[1, ][d2.iloc[1,] > 10]                                            
-Out[145]: 
+In [145]: d2.iloc[1, ][d2.iloc[1,] > 10]
+Out[145]:
 Test1    11
 Name: b, dtype: int64
 ```
@@ -819,22 +819,22 @@ Pandas 对象可以进行算术运算，如果存在不同的标签，相同的�
 In [11]: s1 = pd.Series(range(5), index = ['c', 'a', 'b', 'e', 'f'])
 In [12]: s2 = pd.Series([2.1, 1.1,  3.2, -4], index = ['a', 'd', 'b', 'c'])
 In [13]: s1
-Out[13]: 
+Out[13]:
 c    0
 a    1
 b    2
 e    3
 f    4
 dtype: int64
-In [14]: s2     
-Out[14]: 
+In [14]: s2
+Out[14]:
 a    2.1
 d    1.1
 b    3.2
 c   -4.0
 dtype: float64
-In [15]: s1 + s2    
-Out[15]: 
+In [15]: s1 + s2
+Out[15]:
 a    3.1
 b    5.2
 c   -4.0
@@ -852,20 +852,20 @@ DataFrame 是一张二维表，所以算术运算造成的对齐现象会同时�
 In [16]: df1 = pd.DataFrame(np.arange(12.).reshape((3,4)), columns=['a', 'b', 'c', 'd'], index=['a', 'b', 'c'])
 In [17]: df2 = pd.DataFrame(np.arange(16.).reshape((4,4)), columns=['a', 'e', 'c', 'd'], index=['b', 'a', 'd', 'c'])
 In [18]: df1
-Out[18]: 
+Out[18]:
      a    b     c     d
 a  0.0  1.0   2.0   3.0
 b  4.0  5.0   6.0   7.0
 c  8.0  9.0  10.0  11.0
 In [19]: df2
-Out[19]: 
+Out[19]:
       a     e     c     d
 b   0.0   1.0   2.0   3.0
 a   4.0   5.0   6.0   7.0
 d   8.0   9.0  10.0  11.0
 c  12.0  13.0  14.0  15.0
 In [20]: df1 + df2
-Out[20]: 
+Out[20]:
       a   b     c     d   e
 a   4.0 NaN   8.0  10.0 NaN
 b   4.0 NaN   8.0  10.0 NaN
@@ -876,8 +876,8 @@ d   NaN NaN   NaN   NaN NaN
 如果想要使用值进行填充，可以通过方法 add() 实现，给选项 fill_value 传入参数值。
 
 ```python
-In [21]: df1.add(df2, fill_value=2)        
-Out[21]: 
+In [21]: df1.add(df2, fill_value=2)
+Out[21]:
       a     b     c     d     e
 a   4.0   3.0   8.0  10.0   7.0
 b   4.0   7.0   8.0  10.0   3.0
@@ -894,20 +894,20 @@ Pandas 本身就是基于 NumPy 库构建的，前面我们也了解到 DataFram
 例如，求取绝对值。
 
 ```python
-In [22]: np.abs(df1)               
-Out[22]: 
+In [22]: np.abs(df1)
+Out[22]:
      a    b     c     d
 a  0.0  1.0   2.0   3.0
 b  4.0  5.0   6.0   7.0
 c  8.0  9.0  10.0  11.0
 In [23]: -np.abs(df1)
-Out[23]: 
+Out[23]:
      a    b     c     d
 a -0.0 -1.0  -2.0  -3.0
 b -4.0 -5.0  -6.0  -7.0
 c -8.0 -9.0 -10.0 -11.0
 In [24]: np.abs(-np.abs(df1))
-Out[24]: 
+Out[24]:
      a    b     c     d
 a  0.0  1.0   2.0   3.0
 b  4.0  5.0   6.0   7.0
@@ -917,8 +917,8 @@ c  8.0  9.0  10.0  11.0
 不过函数应用最精彩的操作来自于 apply() 函数，它可以传入一个函数作为参数对 Pandas 对象的行或列进行运算，如求取 df1 对象的列和。
 
 ```python
-In [25]: df1.apply(sum)          
-Out[25]: 
+In [25]: df1.apply(sum)
+Out[25]:
 a    12.0
 b    15.0
 c    18.0
@@ -929,8 +929,8 @@ dtype: float64
 当然有时候为了避免函数命名的麻烦，也可以引入一个匿名函数。下面的操作实现求取每列的残差值。
 
 ```python
-In [26]: df1.apply(lambda x: x - x.mean())                
-Out[26]: 
+In [26]: df1.apply(lambda x: x - x.mean())
+Out[26]:
      a    b    c    d
 a -4.0 -4.0 -4.0 -4.0
 b  0.0  0.0  0.0  0.0
@@ -940,8 +940,8 @@ c  4.0  4.0  4.0  4.0
 默认是以行为计算轴，即对每列应用函数，如果想要以列为计算轴进行操作，设定选项 axis='columns' 即可。
 
 ```python
-In [27]: df1.apply(lambda x: x - x.mean(), axis='columns')                
-Out[27]: 
+In [27]: df1.apply(lambda x: x - x.mean(), axis='columns')
+Out[27]:
      a    b    c    d
 a -1.5 -0.5  0.5  1.5
 b -1.5 -0.5  0.5  1.5
@@ -957,16 +957,16 @@ c -1.5 -0.5  0.5  1.5
 
 ```python
 In [29]: s1 = pd.Series([2, 1, 3, 5, 4], index=['b', 'a', 'd', 'c', 'f'])
-In [30]: s1.sort_index()           
-Out[30]: 
+In [30]: s1.sort_index()
+Out[30]:
 a    1
 b    2
 c    5
 d    3
 f    4
 dtype: int64
-In [31]: s1.sort_values()     
-Out[31]: 
+In [31]: s1.sort_values()
+Out[31]:
 a    1
 b    2
 d    3
@@ -978,8 +978,8 @@ dtype: int64
 默认是升序排列，设定 ascending=False 可以改为降序。
 
 ```python
-In [32]: s1.sort_values(ascending=False)                
-Out[32]: 
+In [32]: s1.sort_values(ascending=False)
+Out[32]:
 c    5
 f    4
 d    3
@@ -994,36 +994,36 @@ DataFrame 对象有 2 个维度，默认是按照行进行排序，如果想要�
 
 ```python
 In [34]: df = pd.DataFrame({u'月份':[2, 1, 4, 3], u'日期':[29, 16, 14, 22], u'销量': [150, 44, 300, 68]})
-In [35]: df   
-Out[35]: 
+In [35]: df
+Out[35]:
   月份 日期 销量
 0   2  29  150
 1   1  16   44
 2   4  14  300
 3   3  22   68
-In [36]: df.sort_values(by='月份')  
-Out[36]: 
+In [36]: df.sort_values(by='月份')
+Out[36]:
   月份 日期 销量
 1   1  16   44
 0   2  29  150
 3   3  22   68
 2   4  14  300
-In [37]: df.sort_values(by='日期')            
-Out[37]: 
+In [37]: df.sort_values(by='日期')
+Out[37]:
   月份 日期 销量
 2   4  14  300
 1   1  16   44
 3   3  22   68
 0   2  29  150
-In [38]: df.sort_values(by=['月份', '日期'])               
-Out[38]: 
+In [38]: df.sort_values(by=['月份', '日期'])
+Out[38]:
   月份 日期  销量
 1   1  16   44
 0   2  29  150
 3   3  22   68
 2   4  14  300
-In [39]: df.sort_values(by='销量')             
-Out[39]: 
+In [39]: df.sort_values(by='销量')
+Out[39]:
   月份 日期  销量
 1   1  16   44
 3   3  22   68
@@ -1036,20 +1036,20 @@ Out[39]:
 Pandas 对象本身存在一组常用的统计值计算方法，主要用于汇总，如计算总和，分位数等。
 
 ```python
-In [40]: df.sum()           
-Out[40]: 
+In [40]: df.sum()
+Out[40]:
 月份     10
 日期     81
 销量    562
 dtype: int64
-In [41]: df.quantile()           
-Out[41]: 
+In [41]: df.quantile()
+Out[41]:
 月份      2.5
 日期     19.0
 销量    109.0
 Name: 0.5, dtype: float64
 In [42]: df.quantile([0.1, 0.9])
-Out[42]: 
+Out[42]:
      月份  日期    销量
 0.1  1.3  14.6   51.2
 0.9  3.7  26.9  255.0
@@ -1058,8 +1058,8 @@ Out[42]:
 也有方法计算累计值，如累计和：
 
 ```python
-In [43]: df.cumsum()              
-Out[43]: 
+In [43]: df.cumsum()
+Out[43]:
   月份 日期 销量
 0   2  29  150
 1   3  45  194
@@ -1070,8 +1070,8 @@ Out[43]:
 不过，我们常用 describe() 方法观测多个统计值，从数值的角度理解数据的大致分布情况。
 
 ```python
-In [44]: df.describe()             
-Out[44]: 
+In [44]: df.describe()
+Out[44]:
          月份         日期         销量
 count  4.000000   4.000000    4.00000
 mean   2.500000  20.250000  140.50000

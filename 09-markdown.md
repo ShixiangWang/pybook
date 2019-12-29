@@ -161,7 +161,7 @@ def test():
 
 ```
 $$
-\mathbf{V}_1 \times \mathbf{V}_2 =  \begin{vmatrix} 
+\mathbf{V}_1 \times \mathbf{V}_2 =  \begin{vmatrix}
 \mathbf{i} & \mathbf{j} & \mathbf{k} \\
 \frac{\partial X}{\partial u} &  \frac{\partial Y}{\partial u} & 0 \\
 \frac{\partial X}{\partial v} &  \frac{\partial Y}{\partial v} & 0 \\
@@ -414,7 +414,7 @@ from scipy.io import wavfile
 ```python
 rate_h, hstrain= wavfile.read(r"H1_Strain.wav","rb")
 rate_l, lstrain= wavfile.read(r"L1_Strain.wav","rb")
-reftime, ref_H1 = np.genfromtxt('wf_template.txt').transpose() 
+reftime, ref_H1 = np.genfromtxt('wf_template.txt').transpose()
 
 # 这里我们使用频率的倒数来确定波的周期
 htime_interval = 1/rate_h
