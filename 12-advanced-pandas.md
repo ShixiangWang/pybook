@@ -1509,15 +1509,144 @@ Out[194]:
 ```
 
 ```python
-In [196]: %matplotlib
-Using matplotlib backend: agg
-
-In [197]: df.plot()
-Out[197]: <matplotlib.axes._subplots.AxesSubplot at 0x7f0f6e3ec210>
+In [195]: %matplotlib inline  
+In [196]: df.plot() 
 ```
 
-https://www.yiibai.com/pandas/python_pandas_visualization.html
+![image-20191230003925736](12-advanced-pandas.assets/image-20191230003925736.png)
 
+默认情况下，plot() 方法使用线图形式进行绘制。如果想要绘制其他的图形类型，我们可以使用关键字参数 kind 进行指定。
+
+- bar - 条形图
+- barh - 横条形图
+- hist - 直方图
+- box - 箱线图
+- area - 面积图
+- scatter 散点图
+
+### 12.4.1 条形图
+
+条形图利用条形的高度来表示数值，此处我们有 32 辆汽车的数据，所以会有 32 组条形。
+
+```python
+df.plot(kind='bar')
+```
+
+![image-20191230004055880](12-advanced-pandas.assets/image-20191230004055880.png)
+
+使用 barh 来调换 x 和 y 轴。
+
+```python
+df.plot(kind='barh')
+```
+
+![image-20191230004143103](12-advanced-pandas.assets/image-20191230004143103.png)
+
+我们可能想将图形堆叠起来，可以指定 stacked 为 True。
+
+```python
+df.plot(kind='bar', stacked=True)
+```
+
+![image-20191230004245577](12-advanced-pandas.assets/image-20191230004245577.png)
+
+图中 x 轴显示的是数值，没有特别的含义，我们给数据加上标签，让它显示出来。
+
+```python
+df2 = df.copy()
+df2.index = ['car '+str(i) for i in np.arange(32) + 1]
+df2.plot(kind='bar', stacked=True)
+```
+
+### 12.4.2 直方图
+
+直方图可以比较直观展示数据分布，是初步了解数据的最好方式之一。
+
+```python
+df.plot(kind='hist')
+```
+
+![image-20191230004347306](12-advanced-pandas.assets/image-20191230004347306.png)
+
+通过指定 bins 选项，我们可以修改 bin 的宽度。
+
+```python
+df.plot(kind='hist', bins=20)
+```
+
+![image-20191230004432888](12-advanced-pandas.assets/image-20191230004432888.png)
+
+上面将两个变量的分布绘制在了一个图中，我们还可以直接调用 hist() 方法为每一个变量单独绘制直方图。
+
+```python
+df.hist(bins=20)
+```
+
+![image-20191230004515958](12-advanced-pandas.assets/image-20191230004515958.png)
+
+### 12.4.3 箱线图
+
+上面的直方图显示了气缸数是 3 个离散值 4、6、8。我们可能更加想要比较不同组别之间油耗的差异，这种情况下箱线图是很好的展示方式。
+
+不过 plot() 方法绘制箱线图时默认是为每列单独绘制，无法进行分组。
+
+```python
+df.plot(kind='box')
+```
+
+![image-20191230004552654](12-advanced-pandas.assets/image-20191230004552654.png)
+
+为了将油耗按照气缸数分组后绘制箱线图，可以直接使用 boxplot() 方法，它支持更多的绘图参数。例如，通过 by 参数指定进行分组的列名。
+
+```python
+# 为了优化显示效果，我们进行了 3 项自定义：
+# 去掉网格线
+# 旋转 x 轴标签
+# 增大字体
+df.boxplot(by='cyl', grid=False, rot=45, fontsize=15)
+```
+
+![image-20191230004636247](12-advanced-pandas.assets/image-20191230004636247.png)
+
+### 12.4.4 面积图
+
+面积图的效果有点类似堆叠条形图，前者更适用于连续变量，后者更适用于离散变量。
+
+```python
+df.plot(kind='area')
+```
+
+![image-20191230004751906](12-advanced-pandas.assets/image-20191230004751906.png)
+
+### 12.4.5 散点图
+
+散点图可以更加直观地观测单个数据点的情况。这里变量 cyl 是离散值，所以下面绘制的图形可能看起来有点奇怪。不过，有时候这种表现形式可能带来意想不到的效果。
+
+```python
+df.plot(kind='scatter', x='cyl', y='mpg')
+```
+
+![image-20191230004830637](12-advanced-pandas.assets/image-20191230004830637.png)
+
+### 12.4.6 饼图
+
+饼图可以显示数据的占比情况，一般是使用一列的数据，即一个 Series 对象。下面代码提取了 cyl 变量并进行了可视化。
+
+```python
+df.cyl.plot(kind='pie')
+```
+
+![image-20191230004907721](12-advanced-pandas.assets/image-20191230004907721.png)
+
+当需要可视化多列，即一个 DataFrame 对象时，我们需要指定 subplots 为 True。
+
+下面代码提取了 df 前 5 行的数据用于可视化。
+
+```python
+df.head(5).plot(kind='pie', subplots=True)
+```
+
+![image-20191230004953542](12-advanced-pandas.assets/image-20191230004953542.png)
 
 ## 12.5 章末小结
 
