@@ -1509,8 +1509,8 @@ Out[194]:
 ```
 
 ```python
-In [195]: %matplotlib inline  
-In [196]: df.plot() 
+In [195]: %matplotlib inline
+In [196]: df.plot()
 ```
 
 ![image-20191230003925736](12-advanced-pandas.assets/image-20191230003925736.png)
