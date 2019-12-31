@@ -31,13 +31,13 @@
 
 在成为数据分析和人工智能等领域的头号选手之前，Python 早就因其大量的 Web 框架、丰富的标准库以及众多的扩展库等特点成为网络建站、系统管理、信息安全等领域的热门方案。例如，有名的豆瓣网站就是基于 Python 开发，Linux 所有的发行版都默认安装了 Python。
 
-近年来，Python 的科学计算库（如结构化数据操作库 Pandas、机器学习库 scikit-learn）不断进行改良，使得利用 Python 来进行数据分析成了优选方案。Python 还有一个「胶水语言」的外号，这来源于它能够非常轻松地集成 C、C++ 等底层代码，进行计算优化。与 SAS 和 R 等分析建模领域特定编程语言相比，Python 可以同时用于项目原型的构建和生产（前者则主要用于项目原型的构建），从而避免了使用多个语言的麻烦。加上Python 本身多年来不断提升的强大编程能力，用户只需要使用 Python 就可以完成以数据为中心的建模、分析与应用。
+近年来，Python 的科学计算库（如结构化数据操作库 Pandas、机器学习库 scikit-learn）不断进行改良，使得利用 Python 来进行数据分析成了优选方案。Python 还有一个胶水语言的外号，这来源于它能够非常轻松地集成 C、C++ 等底层代码，进行计算优化。与 SAS 和 R 等分析建模领域特定编程语言相比，Python 可以同时用于项目原型的构建和生产（前者则主要用于项目原型的构建），从而避免了使用多个语言的麻烦。加上Python 本身多年来不断提升的强大编程能力，用户只需要使用 Python 就可以完成以数据为中心的建模、分析与应用。
 
 可以说，Python 在数据分析领域的迅猛发展与其本身非常成熟且广泛应用是分不开的，Python 开源、简明易用的特点也让开发者和使用者自觉倾注精力共同维护社区环境，构建了整个 Python 计算分析领域的良好生态系统。
 
 ## 1.3 科学计算核心库简介
 
-Python 拥有着众多的软件包/库，本书难以全部涉及，这里仅介绍几个构成 Python 科学计算生态系统的核心「成员」。
+Python 拥有着众多的软件包/库，本书难以全部涉及，这里仅介绍几个构成 Python 科学计算生态系统的核心成员。
 
 * NumPy：NumPy 是 Numerical Python 的简称。NumPy 是 Python 科学计算最基础的库，基本上涉及数据分析的软件包都基于它构建。
 * Pandas：Pandas 的名字来源于 Python 数据分析（Python data analysis）和面板数据（Panel data）的结合。该库提供了多个数据存储对象，其中的 DataFrame 对象可以表征数据分析常见的二维表格。除此之外，它还提供了非常多便捷处理结构化数据的函数。
@@ -73,7 +73,7 @@ Python 存在 Python2（现在一般指 Python2.7）和 Python3（现在一般�
 
 ### 1.4.2 本地机器环境下相关软件的安装
 
-读者如果想要在本地部署学习环境，那么可以选择安装两款软件。第一款软件是上文已经提到的 Anaconda，其为必需软件；第二款软件为 nteract（<https://nteract.io/>），见图1-3，为可选软件。与 Anaconda 默认提供的 Jupyter Notebook 不同，nteract 像我们常用的文字编辑器一样，界面非常简洁酷爽，可以非常方便地编辑 Jupyter Notebook 文件（文件扩展名为「.ipynb」）。本书作者推荐读者使用 nteract，本书后续的代码和文档展示都会使用到它，虽然 nteract 目前只有 alpha 版本（测试版），功能还在不断完善中，但是这不会影响读者使用它学习 Python。其实，由于 Jupyter Notebook 与 nteract 运行 Python 都是基于 IPython 内核 ipykernel，除了界面、显示效果和一些细微之处，两者在使用上并没有太多的不同，因此读者不用担心是选择使用默认 Jupyter Notebook 还是 nteract 进行 Python 学习的问题。
+读者如果想要在本地部署学习环境，那么可以选择安装两款软件。第一款软件是上文已经提到的 Anaconda，其为必需软件；第二款软件为 nteract（<https://nteract.io/>），见图1-3，为可选软件。与 Anaconda 默认提供的 Jupyter Notebook 不同，nteract 像我们常用的文字编辑器一样，界面非常简洁酷爽，可以非常方便地编辑 Jupyter Notebook 文件（文件扩展名为 .ipynb ）。本书作者推荐读者使用 nteract，本书后续的代码和文档展示都会使用到它，虽然 nteract 目前只有 alpha 版本（测试版），功能还在不断完善中，但是这不会影响读者使用它学习 Python。其实，由于 Jupyter Notebook 与 nteract 运行 Python 都是基于 IPython 内核 ipykernel，除了界面、显示效果和一些细微之处，两者在使用上并没有太多的不同，因此读者不用担心是选择使用默认 Jupyter Notebook 还是 nteract 进行 Python 学习的问题。
 
 ![图1-3 nteract官网页面](images/chapter1/nteract_web.png)
 
@@ -81,11 +81,11 @@ Python 存在 Python2（现在一般指 Python2.7）和 Python3（现在一般�
 
 读者需要到Anaconda官网下载地址（<https://www.anaconda.com/download/>）下载对应操作系统的 Python3 版本 Anaconda。
 
-在搜索引擎键入关键字「Anaconda」也可以轻松地找到 Anaconda 官网地址，如图1-4所示。
+在搜索引擎键入关键字 Anaconda 也可以轻松地找到 Anaconda 官网地址，如图1-4所示。
 
 ![图1-4 nteract官网页面](images/chapter1/download_anaconda_0.png)
 
-Anaconda 下载页面会根据读者使用的操作系统（Windows、Linux、macOS）自动推荐相应的安装包，如图1-5所示，读者根据自己的操作系统位数（目前市面上的计算机以 64 位为主）点击左侧「Download」下方的下载链接进行下载。
+Anaconda 下载页面会根据读者使用的操作系统（Windows、Linux、macOS）自动推荐相应的安装包，如图1-5所示，读者根据自己的操作系统位数（目前市面上的计算机以 64 位为主）点击左侧 Download 下方的下载链接进行下载。
 
 ![图1-5 nteract官网页面](images/chapter1/download_anaconda_win.png)
 
@@ -97,15 +97,15 @@ Windows 与 macOS 系统中 Anaconda 安装都是图形化的，与普通办公�
 
 下面以 Windows 系统下的安装为例进行详细说明。
 
-首先双击下载的 Anaconda 安装器，点击「Next」，如图1-6所示。
+首先双击下载的 Anaconda 安装器，点击 Next ，如图1-6所示。
 
-![图1-6 点击「Next」](images/chapter1/install_anaconda_win_1.png)
+![图1-6 点击 Next ](images/chapter1/install_anaconda_win_1.png)
 
-程序会弹出许可协议界面，点击「I Agree」，如图1-7所示。
+程序会弹出许可协议界面，点击 I Agree ，如图1-7所示。
 
-![图1-7 点击「I Agree」](images/chapter1/install_anaconda_win_2.png)
+![图1-7 点击 I Agree ](images/chapter1/install_anaconda_win_2.png)
 
-接下来程序要求选择安装类型：读者是为计算机的每一位用户（第二项）还是仅仅当前用户（第一项）安装 Anaconda。如果读者不确定，选择默认选项，点击「Next」即可，如图1-8所示。
+接下来程序要求选择安装类型：读者是为计算机的每一位用户（第二项）还是仅仅当前用户（第一项）安装 Anaconda。如果读者不确定，选择默认选项，点击 Next 即可，如图1-8所示。
 
 ![图1-8 选择合适的安装类型](images/chapter1/install_anaconda_win_3.png)
 
@@ -117,19 +117,19 @@ Windows 与 macOS 系统中 Anaconda 安装都是图形化的，与普通办公�
 
 ![图1-10 选择合适的安装位置](images/chapter1/install_anaconda_win_5.png)
 
-点击「Install」进行安装。由于安装的东西很多，整个安装过程耗时较长，一般需要半小时左右，请读者耐心等待。
+点击 Install 进行安装。由于安装的东西很多，整个安装过程耗时较长，一般需要半小时左右，请读者耐心等待。
 
 ![图1-11 安装进度](images/chapter1/install_anaconda_win_6.png)
 
-安装进度条完成后点击「Next」。
+安装进度条完成后点击 Next 。
 
 ![图1-12 安装进度条完成](images/chapter1/install_anaconda_win_7.png)
 
-Anaconda 推荐安装 VS Code 代码编辑器，该软件可装可不装，读者自行选择。如果不安装，点击「Skip」跳过即可，如图1-13所示。
+Anaconda 推荐安装 VS Code 代码编辑器，该软件可装可不装，读者自行选择。如果不安装，点击 Skip 跳过即可，如图1-13所示。
 
 ![图1-13 跳过安装 Visual Studio Code](images/chapter1/install_anaconda_win_8.png)
 
-最后点击「Finish」完成安装过程。
+最后点击 Finish 完成安装过程。
 
 ##### Anaconda 的 Linux 版本的安装
 
@@ -150,9 +150,9 @@ chmod u+x Anaconda3-2018.12-Linux-x86_64.sh
 bash Anaconda3-2018.12-Linux-x86_64.sh
 ```
 
-接着按照提示按回车键或「Yes」。注意最后安装程序提示是否将 Anaconda 添加到环境变量时一定要键入「Yes」同意。
+接着按照提示按回车键或 Yes 。注意最后安装程序提示是否将 Anaconda 添加到环境变量时一定要键入 Yes 同意。
 
-最后测试下 Anaconda 是否已经安装成功。新建一个终端，键入下面命令将会打开 Jupyter Notebook（在 Windows 操作系统中，使用<Windows+R>组合键，然后输入「cmd」）。
+最后测试下 Anaconda 是否已经安装成功。新建一个终端，键入下面命令将会打开 Jupyter Notebook（在 Windows 操作系统中，使用<Windows+R>组合键，然后输入 cmd ）。
 
 ```shell
 jupyter notebook
@@ -174,7 +174,7 @@ jupyter notebook
 
 ![图1-15 nteract 界面](images/chapter1/use_nteract_0.png)
 
-单击菜单栏中的「Runtime」，如果出现 Python 字样，那么说明 nteract 可以正常使用，同时左下方也会出现「python3」标记。如果没有出现上述内容，那么读者需要检查是否已经成功安装 Anaconda 并将其添加到环境变量。
+单击菜单栏中的 Runtime ，如果出现 Python 字样，那么说明 nteract 可以正常使用，同时左下方也会出现 python3 标记。如果没有出现上述内容，那么读者需要检查是否已经成功安装 Anaconda 并将其添加到环境变量。
 
 到此为止，读者已经成功地搭建 Python 的学习环境，迈出了学习 Python 数据分析的第一步。从下一章开始，我们将正式进入 Python 基本语法与操作的学习。
 
