@@ -1,0 +1,213 @@
+
+File 01-introduction.md
+
+![图1-1 Jupyter官方提供的Python在线Notebook页面](images/chapter1/Online_jupyter.png)
+![图1-2 微软Jupyter数据科学学习平台](images/chapter1/Online_jupyter_Miscrosoft.png)
+![图1-3 nteract官网页面](images/chapter1/nteract_web.png)
+![图1-4 nteract官网页面](images/chapter1/download_anaconda_0.png)
+![图1-5 nteract官网页面](images/chapter1/download_anaconda_win.png)
+![图1-6 点击 Next ](images/chapter1/install_anaconda_win_1.png)
+![图1-7 点击 I Agree ](images/chapter1/install_anaconda_win_2.png)
+![图1-8 选择合适的安装类型](images/chapter1/install_anaconda_win_3.png)
+![图1-9 选择合适的安装位置](images/chapter1/install_anaconda_win_4.png)
+![图1-10 选择合适的安装位置](images/chapter1/install_anaconda_win_5.png)
+![图1-11 安装进度](images/chapter1/install_anaconda_win_6.png)
+![图1-12 安装进度条完成](images/chapter1/install_anaconda_win_7.png)
+![图1-13 跳过安装 Visual Studio Code](images/chapter1/install_anaconda_win_8.png)
+![图1-14 本地浏览器 Jupyter Notebook 主页](images/chapter1/nb_home.png)
+![图1-15 nteract 界面](images/chapter1/use_nteract_0.png)
+==========
+
+File 02-base.md
+
+![图2-1 入门示例：向屏幕输出文字](images/chapter2/nteract_hello_world.png)
+![图2-2 错误的示例](images/chapter2/nteract_hello_world_wrong.png)
+![图2-3 单元格](images/chapter2/nteract_cell.png)
+![图2-4 保存为 Jupyter 笔记本](images/chapter2/nteract_save.jpg)
+![图2-5 Python中的四则运算](images/chapter2/nteract_sg_calc.png)
+![图2-6 整除与求余](images/chapter2/nteract_sg_calc2.png)
+![图2-7 作者的BMI指数](images/chapter2/nteract_My_bmi.png)
+==========
+
+File 03-data-structure.md
+
+==========
+
+File 04-control-flow.md
+
+==========
+
+File 05-function-and-module.md
+
+![图5-1 递归可视化：捧着画框的蒙娜丽莎 (图片来自网络)](images/chapter5/mnlisha.png)
+==========
+
+File 06-numpy.md
+
+==========
+
+File 07-matplotlib.md
+
+![图7-1 使用脚本绘制图形结果](assets/1565968443953.png)
+![图7-2 使用 Notebook 绘制图形结果](assets/1566008307111.png)
+![图7-3 使用 MATLAB 样式绘图](assets/1566009197372.png)
+![图7-4 简单线图，使用 range() 生成 x 轴数据](assets/1566009715829.png)
+![图7-5 简单线图，使用 np.arange() 生成 x 轴数据](assets/1566009847601.png)
+![图7-6 首先生成空白坐标轴](assets/1566010077143.png)
+![图7-7 使用面向对象接口绘图](assets/1566010369211.png)
+![图7-8 一图多曲线](assets/1566010491532.png)
+![图7-9 线图颜色的使用](assets/1566010624845.png)
+![图7-10 线图线条类型的使用](assets/1566010719188.png)
+![图7-11 线图线条类型与颜色组合](assets/1566010869416.png)
+![图7-12 图例的使用](assets/1566011014665.png)
+![图7-13 线图自定义](assets/1566011155999.png)
+![图7-14 线图用于趋势对比](assets/1566011228901.png)
+![图7-15 添加坐标轴标签与标题](assets/1566011365121.png)
+![图7-16 可视化特定区域](assets/1566011464100.png)
+![图7-17 坐标轴反转](assets/1566011545524.png)
+![图7-18 可视化特定区域(二)](assets/1566011646740.png)
+![图7-19 去掉轴](assets/1566011764310.png)
+![图7-20 使 x 轴 y 轴坐标一致](assets/1566011842818.png)
+![图7-21 与屏幕一致的纵横比](assets/1566011901725.png)
+![图7-22 默认选项](assets/1566012009692.png)
+![图7-23 使用 plot() 函数绘制点图](assets/1566012156747.png)
+![图7-24 使用 scatter() 函数绘制点图](assets/1566012247119.png)
+![图7-25 点与符号](assets/1566012427766.png)
+![图7-26 未设置透明度之前](assets/1566012512679.png)
+![图7-27 设置透明度之后](assets/1566012584741.png)
+![图7-28 设置点的大小和颜色](assets/1566012743480.png)
+![图7-29 加上颜色条](assets/1566012814718.png)
+![图7-30 垂直条形图示例](assets/1566013182248.png)
+![图7-31 水平条形图示例](assets/1566013434471.png)
+![图7-32 分组条形图示例](assets/1566013535017.png)
+![图7-33 堆叠条形图示例](assets/1566013707092.png)
+![图7-34 直方图](assets/1566029014148.png)
+![图7-35 更改直方图的几个常用选项](assets/1566029142554.png)
+![图7-36 使用直方图比较 3 个数据分布](assets/1566029266277.png)
+![图7-37 二维直方图](assets/1566029521952.png)
+![图7-38 饼图](assets/1566029603380.png)
+![图7-39 职工学历分布](assets/1566030049989.png)
+![图7-40 箱线图简单示例](assets/1566030181185.png)
+![图7-41 使用箱线图进行比较](assets/1566030359191.png)
+![图7-42 网格子图](assets/1566030513027.png)
+![图7-43 调整子图间距](assets/1566030610383.png)
+![图7-44 手动绘制子图](assets/1566030719209.png)
+![图7-45 同享一个 x 轴](assets/1566030891387.png)
+![图7-46 设置经典风格](assets/1566031061659.png)
+![图7-47 使用 seaborn 库 white 风格](assets/1566031144809.png)
+![图7-48 使用 ggplot 风格](assets/1566031232055.png)
+![图7-49 使用 set() 方法设置图形](assets/1566031500991.png)
+==========
+
+File 08-pandas-intro.md
+
+==========
+
+File 09-markdown.md
+
+![图9-1 标题预览](assets/1565877938229.png)
+![图9-2 列表预览](assets/1565878138608.png)
+![图9-3 任务列表预览](assets/1565878216261.png)
+![图9-4 代码块预览](assets/1565878297820.png)
+![图9-5 公式预览](assets/1565878448091.png)
+![图9-6 表格预览](assets/1565878505816.png)
+![图9-7 表格对齐预览](assets/1565878560237.png)
+![图9-8 脚注预览](assets/1565878612454.png)
+![图9-9 行内链接预览](assets/1565878849732.png)
+![图9-10 参考链接预览](assets/1565878886705.png)
+![图9-11 URL 预览](assets/1565878937914.png)
+![图9-12 图片预览(图片来自网络)](assets/1565878990096.png)
+![图9-13 nteract 显示的代码块](assets/1565881098150.png)
+![图9-14 nteract 显示的文本块](assets/1565881258155.png)
+![图9-15 Notebook 书写简单示例](assets/1565883426201.png)
+![图9-16 Notebook 示例(一)](assets/1565965546720.png)
+![图9-17 Notebook 示例(二)](assets/1565965576073.png)
+==========
+
+File 10-data-import.md
+
+![图10-1 HDF5 存储的时间序列数据可视化](images/chapter10/hdf5_time_series.png)
+==========
+
+File 11-toolbox.md
+
+==========
+
+File 12-advanced-pandas.md
+
+![图12-1 Numpy 数组与 Pandas 数据结构对比（图片来自网络）](images/chapter12/numpy_pandas_comparison.png)
+![图12-2 使用 plot 方法自动生成线图](12-advanced-pandas.assets/image-20191230003925736.png)
+![图12-3 条形图](12-advanced-pandas.assets/image-20191230004055880.png)
+![图12-4 水平条形图](12-advanced-pandas.assets/image-20191230004143103.png)
+![图12-5 堆叠条形图](12-advanced-pandas.assets/image-20191230004245577.png)
+![图12-6 直方图](12-advanced-pandas.assets/image-20191230004347306.png)
+![图12-7 直方图，设置条形数量](12-advanced-pandas.assets/image-20191230004432888.png)
+![图12-8 分组直方图](12-advanced-pandas.assets/image-20191230004515958.png)
+![图12-9 箱线图](12-advanced-pandas.assets/image-20191230004552654.png)
+![图12-10 分组箱线图](12-advanced-pandas.assets/image-20191230004636247.png)
+![图12-11 面积图](12-advanced-pandas.assets/image-20191230004751906.png)
+![图12-12 散点图](12-advanced-pandas.assets/image-20191230004830637.png)
+![图12-13 饼图](12-advanced-pandas.assets/image-20191230004907721.png)
+![图12-14 饼图（2）](12-advanced-pandas.assets/image-20191230004953542.png)
+==========
+
+File 13-advanced-vis.md
+
+![图13-1 mtcars 数据集变量成对相关图](13-advanced-vis.assets/image-20191230215115722.png)
+![图13-2 mtcars 数据集相关图选择性展示](13-advanced-vis.assets/sns-col3-7.png)
+![图13-3 wt 与 mpg 成对相关图](13-advanced-vis.assets/image-20191230215554306.png)
+![图13-4 按 cyl 分组成对相关图](13-advanced-vis.assets/sns-add-cyl.png)
+![图13-5 风格调整](13-advanced-vis.assets/image-20191230215943127.png)
+![图13-6 子集图](13-advanced-vis.assets/image-20191230220723864.png)
+![图13-7 子集图（2）](13-advanced-vis.assets/image-20191230221009007.png)
+![图13-8 回归图](13-advanced-vis.assets/image-20191230221207470.png)
+![图13-9 核密度图](13-advanced-vis.assets/image-20191230221500314.png)
+![图13-10 条形图](13-advanced-vis.assets/image-20191230221600624.png)
+![图13-11 分组条形图](13-advanced-vis.assets/image-20191230221709623.png)
+![图13-12 计数图](13-advanced-vis.assets/image-20191230221756287.png)
+![图13-13 点图](13-advanced-vis.assets/image-20191230222028538.png)
+![图13-14 箱线图](13-advanced-vis.assets/image-20191230222135759.png)
+![图13-15 小提琴图](13-advanced-vis.assets/image-20191231001708117.png)
+![图13-16 双变量分布图展示核密度](13-advanced-vis.assets/image-20191230222321813.png)
+![图13-17 双变量分布图展示分布和线性回归](13-advanced-vis.assets/image-20191230222426218.png)
+![图13-18 plotnine 示例](13-advanced-vis.assets/image-20191230222708685.png)
+![图13-19 ggplot 点图](13-advanced-vis.assets/image-20191230223148915.png)
+![图13-20 ggplot 画布](13-advanced-vis.assets/image-20191230223250156.png)
+![图13-21 ggplot 点图实现](13-advanced-vis.assets/image-20191230223419554.png)
+![图13-22 ggplot 线图](13-advanced-vis.assets/image-20191230223457527.png)
+![图13-23 ggplot 线性回归](13-advanced-vis.assets/image-20191230223557348.png)
+![图13-24 ggplot 点图加线性回归](13-advanced-vis.assets/image-20191230223710925.png)
+![图13-25 ggplot 修改图形参数](13-advanced-vis.assets/image-20191230223842550.png)
+![图13-26 ggplot 修改引导元素](13-advanced-vis.assets/image-20191230224044284.png)
+![图13-27 ggplot 分面图](13-advanced-vis.assets/image-20191230224254356.png)
+![图13-28 ggplot 错误分面图](13-advanced-vis.assets/image-20191230224358512.png)
+![图13-29 ggplot 组合实例](13-advanced-vis.assets/image-20191230224528932.png)
+![图13-30 Bokeh 散点图](13-advanced-vis.assets/image-20191230225221554.png)
+![图13-31 Bokeh 线图](13-advanced-vis.assets/image-20191230225458923.png)
+![图13-32 Bokeh 组合图](13-advanced-vis.assets/image-20191230225647464.png)
+![图13-33 Bokeh 水平排列](13-advanced-vis.assets/image-20191230230129141.png)
+![图13-34 Bokeh 垂直排列](13-advanced-vis.assets/image-20191230230214815.png)
+![图13-35 Bokeh 网格排列](13-advanced-vis.assets/image-20191230230300868.png)
+==========
+
+File 14-stats.md
+
+![图14-1 汽车数据集变量 wt 分布图](14-stats.assets/image-20191230232350998.png)
+![图14-2 汽车数据集变量 cyl 分布图](14-stats.assets/image-20191230232550894.png)
+![图14-3 标准正态分布](14-stats.assets/image-20191230233657424.png)
+![图14-4 二项分布](14-stats.assets/image-20191230234020193.png)
+![图14-5 二项分布（2）](14-stats.assets/image-20191230234149623.png)
+![图14-6 伯努利分布](14-stats.assets/image-20191230234242528.png)
+![图14-7 指数分布](14-stats.assets/image-20191231003035336.png)
+![图14-8 泊松分布](14-stats.assets/image-20191231003204811.png)
+![图14-9 标准正态分布经验法则图示（图片来自网络）](14-stats.assets/1000.jpg)
+![图14-10 两样本数据分布直方图](14-stats.assets/image-20191230234822443.png)
+==========
+
+File 15-append.md
+
+==========
+
+File 16-end.md
+
+==========
