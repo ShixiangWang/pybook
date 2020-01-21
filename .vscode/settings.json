@@ -1,3 +1,4 @@
 {
-    "terminal.integrated.fontSize": 11
+    "terminal.integrated.fontSize": 11,
+    "python.pythonPath": "D:\\Tool\\miniconda\\python.exe"
 }
