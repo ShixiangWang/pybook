@@ -1,0 +1,669 @@
+import pandas as pd
+from pandas import Series, DataFrame
+In [1]: import pandas as pd
+In [2]: import numpy as np
+
+In [4]: {'0':0, '1':1, '2': 2}
+# Out[4]: {'0': 0, '1': 1, '2': 2}
+
+In [5]: np.arange(3)
+# Out[5]: array([0, 1, 2])
+
+In [6]: pd.Series(range(3))
+# Out[6]:
+0    0
+1    1
+2    2
+dtype: int64
+In [7]: scores = pd.Series([80, 90, 97])
+
+In [8]: scores.index
+# Out[8]: RangeIndex(start=0, stop=3, step=1)
+In [9]: scores.values
+# Out[9]: array([80, 90, 97])
+In [10]: scores = pd.Series([80, 90, 97], index=[u'语文',u'数学',u'外语'])
+In [11]: scores
+# Out[11]:
+语文    80
+数学    90
+外语    97
+dtype: int64
+
+In [12]: scores.index
+# Out[12]: Index(['语文', '数学', '外语'], dtype='object')
+In [13]: scores.values
+# Out[13]: array([80, 90, 97])
+In [14]: scores2 = scores  # 创建一个新拷贝
+In [15]: scores2.index = ['Chinese', 'Math', 'English']
+In [16]: scores2.values[0] = 95
+In [17]: scores2
+# Out[17]:
+Chinese    95
+Math       90
+English    97
+dtype: int64
+In [19]: scores
+# Out[19]:
+Chinese    95
+Math       90
+English    97
+dtype: int64
+In [21]: scores[['Math', 'Chinese']]
+# Out[21]:
+Math       90
+Chinese    95
+dtype: int64
+In [22]: scores['Math']
+# Out[22]: 90
+In [23]: score_dict = {u'语文':95, u'数学':90, u'外语':97}
+In [24]: scores3 = pd.Series(score_dict)
+In [25]: scores3
+# Out[25]:
+语文    95
+数学    90
+外语    97
+dtype: int64
+In [26]: u'外语' in scores3
+# Out[26]: True
+In [27]: u'物理' in scores3
+# Out[27]: False
+In [29]: scores3.name = 'xx中学期中成绩'
+In [30]: scores3.index.name = '学科'
+In [31]: scores3
+# Out[31]:
+学科
+语文    95
+数学    90
+外语    97
+Name: xx中学期中成绩, dtype: int64
+In [32]: df = {'姓名': ['小明','小王','小张'], '语文':[80,85,90], '数学':[99,88,86] }
+In [33]: df
+# Out[33]: {'姓名': ['小明', '小王', '小张'], '语文': [80, 85, 90], '数学': [99, 88, 86]}
+In [34]: df = pd.DataFrame(df)
+In [35]: df
+# Out[35]:
+   姓名  语文  数学
+0  小明  80  99
+1  小王  85  88
+2  小张  90  86
+In [36]: df2 = pd.DataFrame(df, columns=['数学', '语文', '姓名'])
+In [37]: df2
+# Out[37]:
+   数学  语文  姓名
+0  99  80  小明
+1  88  85  小王
+2  86  90  小张
+In [38]: df3 = pd.DataFrame(df, columns=['数学', '语文','外语', '姓名'])
+In [39]: df3
+# Out[39]:
+   数学  语文  外语  姓名
+0  99  80 NaN  小明
+1  88  85 NaN  小王
+2  86  90 NaN  小张
+In [43]: df = {'姓名': ['小明','小王','小张'], '语文':[80,85,90], '数学':[99,88,86]}
+    ...:
+In [44]: df3 = pd.DataFrame(df, columns=['数学', '语文'], index=['小明','小王','小张
+    ...: '])
+In [45]: df3
+# Out[45]:
+    数学  语文
+小明  99  80
+小王  88  85
+小张  86  90
+In [51]: df3['数学']
+# Out[51]:
+小明    99
+小王    88
+小张    86
+Name: 数学, dtype: int64
+In [54]: df3.loc['小王']
+# Out[54]:
+数学    88
+语文    85
+Name: 小王, dtype: int64
+In [55]: df = {'语文':{'小明':80,'小王':85,'小张':90}, '数学':{'小明':99,'小王':88,'小张':86}} In [56]: pd.DataFrame(df)
+# Out[56]:
+    语文  数学
+小张  90  86
+小明  80  99
+小王  85  88
+In [58]: df3.index.name = '姓名'
+In [59]: df3.columns.name = '学科'
+In [60]: df3
+# Out[60]:
+学科  数学  语文
+姓名
+小明  99  80
+小王  88  85
+小张  86  90
+In [61]: df3.values
+# Out[61]:
+array([[99, 80],
+       [88, 85],
+       [86, 90]])
+In [62]: s1 = pd.Series(np.random.rand(1000))
+In [63]: s1.head()
+# Out[63]:
+0    0.797903
+1    0.458301
+2    0.800034
+3    0.078226
+4    0.999968
+dtype: float64
+
+In [64]: d1 = pd.DataFrame({'a':np.random.rand(1000), 'b':np.random.rand(1000)})
+In [65]: d1.head()
+# Out[65]:
+          a         b
+0  0.298372  0.612369
+1  0.952201  0.606749
+2  0.608556  0.381032
+3  0.297048  0.939676
+4  0.364875  0.360786
+
+In [66]: s1.tail()
+# Out[66]:
+995    0.047546
+996    0.752907
+997    0.479628
+998    0.007178
+999    0.960005
+dtype: float64
+
+In [67]: d1.tail()
+# Out[67]:
+            a         b
+995  0.571106  0.175381
+996  0.789444  0.520254
+997  0.298536  0.305487
+998  0.739158  0.594261
+999  0.850966  0.328761
+In [68]: d1.head(10)
+# Out[68]:
+          a         b
+0  0.298372  0.612369
+1  0.952201  0.606749
+2  0.608556  0.381032
+3  0.297048  0.939676
+4  0.364875  0.360786
+5  0.013640  0.267650
+6  0.854873  0.251575
+7  0.349147  0.065307
+8  0.816777  0.932590
+9  0.612475  0.385550
+In [69]: d1.T
+# Out[69]:
+        0         1         2      ...          997       998       999
+a  0.298372  0.952201  0.608556    ...     0.298536  0.739158  0.850966
+b  0.612369  0.606749  0.381032    ...     0.305487  0.594261  0.328761
+
+[2 rows x 1000 columns]
+In [73]: s2 = pd.Series(np.random.rand(5), index=['b', 'a', 'd', 'c', 'e'])
+In [74]: s2
+# Out[74]:
+b    0.630239
+a    0.173525
+d    0.787798
+c    0.176230
+e    0.712007
+dtype: float64
+
+In [75]: s3 = s2.reindex(['a', 'b', 'c', 'd', 'e', 'f'])
+
+In [76]: s3
+# Out[76]:
+a    0.173525
+b    0.630239
+c    0.176230
+d    0.787798
+e    0.712007
+f         NaN
+dtype: float64
+
+In [77]: s3.isnull()
+# Out[77]:
+a    False
+b    False
+c    False
+d    False
+e    False
+f     True
+dtype: bool
+In [78]: s3.notnull()
+# Out[78]:
+a     True
+b     True
+c     True
+d     True
+e     True
+f    False
+dtype: bool
+In [89]: s4 = pd.Series(np.random.randint(2, 10, 3), index = [0,2,4])
+In [90]: s4
+# Out[90]:
+0    6
+2    2
+4    2
+dtype: int64
+In [91]: s4.reindex(np.arange(8), method='ffill')
+# Out[91]:
+0    6
+1    6
+2    2
+3    2
+4    2
+5    2
+6    2
+7    2
+dtype: int64
+In [92]: d2 = pd.DataFrame(np.random.randint(2,20,9).reshape((3,3)), index=['c', 'b', 'e'], columns=['Test1', 'Test2', 'Test3'])
+In [93]: d2
+# Out[93]:
+   Test1  Test2  Test3
+c      4     19     12
+b     11      2      4
+e      3     19     12
+
+In [94]: d3 = d2.reindex(['a', 'b', 'c', 'd'])
+In [95]: d3
+# Out[95]:
+   Test1  Test2  Test3
+a    NaN    NaN    NaN
+b   11.0    2.0    4.0
+c    4.0   19.0   12.0
+d    NaN    NaN    NaN
+
+In [96]: d2.reindex(['a', 'b', 'c', 'd', 'e'], columns=[])
+# Out[96]:
+Empty DataFrame
+Columns: []
+Index: [a, b, c, d, e]
+
+In [97]: d2.reindex(['a', 'b', 'c', 'd', 'e'], columns=['Test2', 'Test4', 'Test1', '
+    ...: Test3'])
+# Out[97]:
+   Test2  Test4  Test1  Test3
+a    NaN    NaN    NaN    NaN
+b    2.0    NaN   11.0    4.0
+c   19.0    NaN    4.0   12.0
+d    NaN    NaN    NaN    NaN
+e   19.0    NaN    3.0   12.0
+In [98]: d2.reindex(columns=['Test3', 'Test1', 'Test4', 'Test2'])
+# Out[98]:
+   Test3  Test1  Test4  Test2
+c     12      4    NaN     19
+b      4     11    NaN      2
+e     12      3    NaN     19
+In [99]: d2
+# Out[99]:
+   Test1  Test2  Test3
+c      4     19     12
+b     11      2      4
+e      3     19     12
+
+In [100]: del d2['Test3']
+In [101]: d2
+# Out[101]:
+   Test1  Test2
+c      4     19
+b     11      2
+e      3     19
+In [102]: d2.drop('b')
+# Out[102]:
+   Test1  Test2
+c      4     19
+e      3     19
+
+In [103]: d2.drop(['b','c'])
+# Out[103]:
+   Test1  Test2
+e      3     19
+In [104]: d2.drop('Test2', axis='columns')
+# Out[104]:
+   Test1
+c      4
+b     11
+e      3
+In [108]: d2['New_column'] = pd.Series([1])
+In [109]: d2
+# Out[109]:
+   Test1  Test2  New_column
+c      4     19         NaN
+b     11      2         NaN
+e      3     19         NaN
+
+In [111]: d2['New_column'] = pd.Series([1, 2, 3])
+In [112]: d2
+# Out[112]:
+   Test1  Test2  New_column
+c      4     19         NaN
+b     11      2         NaN
+e      3     19         NaN
+
+In [113]: d2['New_column'] = pd.Series([1, 2, 3], index=['c','b','e'])
+In [114]: d2
+# Out[114]:
+   Test1  Test2  New_column
+c      4     19           1
+b     11      2           2
+e      3     19           3
+In [119]: s2
+# Out[119]:
+b    0.630239
+a    0.173525
+d    0.787798
+c    0.176230
+e    0.712007
+dtype: float64
+
+In [120]: s2[1]
+# Out[120]: 0.17352490256429942
+In [121]: s2['a']
+# Out[121]: 0.17352490256429942
+In [122]: s2[['a','b','c']]
+# Out[122]:
+a    0.173525
+b    0.630239
+c    0.176230
+dtype: float64
+In [123]: s2['b':'d']
+# Out[123]:
+b    0.630239
+a    0.173525
+d    0.787798
+dtype: float64
+In [124]: s2['b':'d'] = [1, 2, 3]
+In [125]: s2
+# Out[125]:
+b    1.000000
+a    2.000000
+d    3.000000
+c    0.176230
+e    0.712007
+dtype: float64
+In [126]: d2['Test1']
+# Out[126]:
+c     4
+b    11
+e     3
+Name: Test1, dtype: int64
+
+In [127]: d2[0]
+---------------------------------------------------------------------------
+KeyError                                  Traceback (most recent call last)
+~/anaconda3/lib/python3.7/site-packages/pandas/core/indexes/base.py in get_loc(self, key, method, tolerance)
+   3077             try:
+-> 3078                 return self._engine.get_loc(key)
+   3079             except KeyError:
+
+...
+
+KeyError: 0
+
+During handling of the above exception, another exception occurred:
+
+KeyError                                  Traceback (most recent call last)
+<ipython-input-127-f827a0df080c> in <module>
+----> 1 d2[0]
+
+~/anaconda3/lib/python3.7/site-packages/pandas/core/frame.py in __getitem__(self, key)
+   2686             return self._getitem_multilevel(key)
+...
+
+KeyError: 0
+
+In [128]: d2[:0]
+# Out[128]:
+Empty DataFrame
+Columns: [Test1, Test2, New_column]
+Index: []
+
+In [129]: d2[:1]
+# Out[129]:
+   Test1  Test2  New_column
+c      4     19           1
+In [130]: d2[:2]
+# Out[130]:
+   Test1  Test2  New_column
+c      4     19           1
+b     11      2           2
+
+In [134]: d2
+# Out[134]:
+   Test1  Test2  New_column
+c      4     19           1
+b     11      2           2
+e      3     19           3
+
+In [135]: d2[d2['Test2'] > 10]
+# Out[135]:
+   Test1  Test2  New_column
+c      4     19           1
+e      3     19           3
+In [136]: d2[d2['Test2'] > 10] = 10
+In [137]: d2
+# Out[137]:
+   Test1  Test2  New_column
+c     10     10          10
+b     11      2           2
+e     10     10          10
+In [138]: d2.loc['b', ['Test2', 'New_column']]
+# Out[138]:
+Test2         2
+New_column    2
+Name: b, dtype: int64
+In [139]: d2.iloc[1, [1,2]]
+# Out[139]:
+Test2         2
+New_column    2
+Name: b, dtype: int64
+In [140]: d2.iloc[:1, 1:]
+# Out[140]:
+   Test2  New_column
+c     10          10
+In [143]: d2
+# Out[143]:
+   Test1  Test2  New_column
+c     10     10          10
+b     11      2           2
+e     10     10          10
+
+In [144]: d2.iloc[1, ]
+# Out[144]:
+Test1         11
+Test2          2
+New_column     2
+Name: b, dtype: int64
+
+In [145]: d2.iloc[1, ][d2.iloc[1,] > 10]
+# Out[145]:
+Test1    11
+Name: b, dtype: int64
+In [11]: s1 = pd.Series(range(5), index = ['c', 'a', 'b', 'e', 'f'])
+In [12]: s2 = pd.Series([2.1, 1.1,  3.2, -4], index = ['a', 'd', 'b', 'c'])
+In [13]: s1
+# Out[13]:
+c    0
+a    1
+b    2
+e    3
+f    4
+dtype: int64
+In [14]: s2
+# Out[14]:
+a    2.1
+d    1.1
+b    3.2
+c   -4.0
+dtype: float64
+In [15]: s1 + s2
+# Out[15]:
+a    3.1
+b    5.2
+c   -4.0
+d    NaN
+e    NaN
+f    NaN
+dtype: float64
+In [16]: df1 = pd.DataFrame(np.arange(12.).reshape((3,4)), columns=['a', 'b', 'c', 'd'], index=['a', 'b', 'c'])
+In [17]: df2 = pd.DataFrame(np.arange(16.).reshape((4,4)), columns=['a', 'e', 'c', 'd'], index=['b', 'a', 'd', 'c'])
+In [18]: df1
+# Out[18]:
+     a    b     c     d
+a  0.0  1.0   2.0   3.0
+b  4.0  5.0   6.0   7.0
+c  8.0  9.0  10.0  11.0
+In [19]: df2
+# Out[19]:
+      a     e     c     d
+b   0.0   1.0   2.0   3.0
+a   4.0   5.0   6.0   7.0
+d   8.0   9.0  10.0  11.0
+c  12.0  13.0  14.0  15.0
+In [20]: df1 + df2
+# Out[20]:
+      a   b     c     d   e
+a   4.0 NaN   8.0  10.0 NaN
+b   4.0 NaN   8.0  10.0 NaN
+c  20.0 NaN  24.0  26.0 NaN
+d   NaN NaN   NaN   NaN NaN
+In [21]: df1.add(df2, fill_value=2)
+# Out[21]:
+      a     b     c     d     e
+a   4.0   3.0   8.0  10.0   7.0
+b   4.0   7.0   8.0  10.0   3.0
+c  20.0  11.0  24.0  26.0  15.0
+d  10.0   NaN  12.0  13.0  11.0
+In [22]: np.abs(df1)
+# Out[22]:
+     a    b     c     d
+a  0.0  1.0   2.0   3.0
+b  4.0  5.0   6.0   7.0
+c  8.0  9.0  10.0  11.0
+In [23]: -np.abs(df1)
+# Out[23]:
+     a    b     c     d
+a -0.0 -1.0  -2.0  -3.0
+b -4.0 -5.0  -6.0  -7.0
+c -8.0 -9.0 -10.0 -11.0
+In [24]: np.abs(-np.abs(df1))
+# Out[24]:
+     a    b     c     d
+a  0.0  1.0   2.0   3.0
+b  4.0  5.0   6.0   7.0
+c  8.0  9.0  10.0  11.0
+In [25]: df1.apply(sum)
+# Out[25]:
+a    12.0
+b    15.0
+c    18.0
+d    21.0
+dtype: float64
+In [26]: df1.apply(lambda x: x - x.mean())
+# Out[26]:
+     a    b    c    d
+a -4.0 -4.0 -4.0 -4.0
+b  0.0  0.0  0.0  0.0
+c  4.0  4.0  4.0  4.0
+In [27]: df1.apply(lambda x: x - x.mean(), axis='columns')
+# Out[27]:
+     a    b    c    d
+a -1.5 -0.5  0.5  1.5
+b -1.5 -0.5  0.5  1.5
+c -1.5 -0.5  0.5  1.5
+In [29]: s1 = pd.Series([2, 1, 3, 5, 4], index=['b', 'a', 'd', 'c', 'f'])
+In [30]: s1.sort_index()
+# Out[30]:
+a    1
+b    2
+c    5
+d    3
+f    4
+dtype: int64
+In [31]: s1.sort_values()
+# Out[31]:
+a    1
+b    2
+d    3
+f    4
+c    5
+dtype: int64
+In [32]: s1.sort_values(ascending=False)
+# Out[32]:
+c    5
+f    4
+d    3
+b    2
+a    1
+dtype: int64
+In [34]: df = pd.DataFrame({u'月份':[2, 1, 4, 3], u'日期':[29, 16, 14, 22], u'销量': [150, 44, 300, 68]})
+In [35]: df
+# Out[35]:
+  月份 日期 销量
+0   2  29  150
+1   1  16   44
+2   4  14  300
+3   3  22   68
+In [36]: df.sort_values(by='月份')
+# Out[36]:
+  月份 日期 销量
+1   1  16   44
+0   2  29  150
+3   3  22   68
+2   4  14  300
+In [37]: df.sort_values(by='日期')
+# Out[37]:
+  月份 日期 销量
+2   4  14  300
+1   1  16   44
+3   3  22   68
+0   2  29  150
+In [38]: df.sort_values(by=['月份', '日期'])
+# Out[38]:
+  月份 日期  销量
+1   1  16   44
+0   2  29  150
+3   3  22   68
+2   4  14  300
+In [39]: df.sort_values(by='销量')
+# Out[39]:
+  月份 日期  销量
+1   1  16   44
+3   3  22   68
+0   2  29  150
+2   4  14  300
+In [40]: df.sum()
+# Out[40]:
+月份     10
+日期     81
+销量    562
+dtype: int64
+In [41]: df.quantile()
+# Out[41]:
+月份      2.5
+日期     19.0
+销量    109.0
+Name: 0.5, dtype: float64
+In [42]: df.quantile([0.1, 0.9])
+# Out[42]:
+     月份  日期    销量
+0.1  1.3  14.6   51.2
+0.9  3.7  26.9  255.0
+In [43]: df.cumsum()
+# Out[43]:
+  月份 日期 销量
+0   2  29  150
+1   3  45  194
+2   7  59  494
+3  10  81  562
+In [44]: df.describe()
+# Out[44]:
+         月份         日期         销量
+count  4.000000   4.000000    4.00000
+mean   2.500000  20.250000  140.50000
+std    1.290994   6.751543  115.61286
+min    1.000000  14.000000   44.00000
+25%    1.750000  15.500000   62.00000
+50%    2.500000  19.000000  109.00000
+75%    3.250000  23.750000  187.50000
+max    4.000000  29.000000  300.00000

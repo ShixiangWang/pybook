@@ -1,0 +1,572 @@
+```python
+In [1]: vowels = ['a', 'e', 'i', 'o', 'u']
+In [2]: vowels
+Out[2]: ['a', 'e', 'i', 'o', 'u']
+```
+```python
+In [3]: array_init = []
+In [4]: array_init
+Out[4]: []
+```
+```python
+In [5]: vowels[2]
+Out[5]: 'i'
+```
+```
+a e i o u
+0 1 2 3 4
+```
+```python
+In [7]: rectangle = ['长方形1', 20, [4, 5], '长方形2', 16, [4, 4]]
+In [8]: rectangle
+Out[8]: ['长方形1', 20, [4, 5], '长方形2', 16, [4, 4]]
+```
+```python
+In [9]: len(rectangle)
+Out[9]: 6
+```
+```python
+In [10]: rectangle[6]
+---------------------------------------------------------------------------
+IndexError                                Traceback (most recent call last)
+<ipython-input-10-6e16763c0048> in <module>()
+----> 1 rectangle[6]
+
+IndexError: list index out of range
+```
+```python
+In [17]: aseq = "atggctaggc"
+In [18]: list(aseq)
+Out[18]: ['a', 't', 'g', 'g', 'c', 't', 'a', 'g', 'g', 'c']
+```
+```python
+In [11]: odd_numbers = [1, 3, 5, 7, 8]
+```
+```python
+In [12]: odd_numbers = [1, 3, 5, 7, 9]
+```
+```python
+In [13]: odd_numbers = [1, 3, 5, 7, 8]
+In [14]: odd_numbers[4] = 9
+In [15]: odd_numbers
+Out[15]: [1, 3, 5, 7, 9]
+```
+```python
+In [16]: odd_numbers[-1]
+Out[16]: 9
+```
+```
+ a   e   i   o   u
+-5  -4  -3  -2  -1
+```
+```python
+print(odd_numbers[0])
+print(odd_numbers[1])
+print(odd_numbers[2])
+print(odd_numbers[3])
+print(odd_numbers[4])
+```
+```python
+In [24]: for i in odd_numbers:
+             print(i)
+
+1
+3
+5
+7
+9
+```
+```python
+In [26]: nested_list = ['记录', 3, ['小明', '小红', '小蓝'], [2.30, 2.41, 2.33]]
+```
+```python
+In [27]: for i in nested_list:
+    ...:     print(i)
+    ...:
+记录
+3
+['小明', '小红', '小蓝']
+[2.3, 2.41, 2.33]
+```
+```
+In [28]: a = [1, 2, 3]
+In [29]: b = [4, 5, 6]
+In [30]: a + b
+Out[30]: [1, 2, 3, 4, 5, 6]
+```
+```
+In [31]: b = [4, 5, '6']
+In [32]: a + b
+Out[32]: [1, 2, 3, 4, 5, '6']
+```
+```python
+In [33]: a * 5
+Out[33]: [1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3]
+```
+```python
+In [34]: letters7 = ['a', 'b', 'c', 'd', 'e', 'f', 'g']
+```
+```python
+In [37]: you_want = letters7[0:4]
+In [38]: you_want
+Out[38]: ['a', 'b', 'c', 'd']
+```
+```python
+In [39]: letters7[0:4:1]
+Out[39]: ['a', 'b', 'c', 'd']
+```
+```python
+In [40]: letters7[:4]
+Out[40]: ['a', 'b', 'c', 'd']
+```
+```python
+In [41]: letters7[:7]
+Out[41]: ['a', 'b', 'c', 'd', 'e', 'f', 'g']
+In [42]: letters7[4:]
+Out[42]: ['e', 'f', 'g']
+```
+```python
+In [43]: letters7[-1]
+Out[43]: 'g'
+In [44]: letters7[-1:]
+Out[44]: ['g']
+```
+```python
+In [45]: letters7[::1]
+Out[45]: ['a', 'b', 'c', 'd', 'e', 'f', 'g']
+In [46]: letters7[::2]
+Out[46]: ['a', 'c', 'e', 'g']
+```
+```python
+In [47]: letters7[::-1]
+Out[47]: ['g', 'f', 'e', 'd', 'c', 'b', 'a']
+In [48]: letters7[::-2]
+Out[48]: ['g', 'e', 'c', 'a']
+```
+```python
+In [49]: letters7[0:2] = ['h', 'i']
+In [50]: letters7
+Out[50]: ['h', 'i', 'c', 'd', 'e', 'f', 'g']
+```
+```python
+In [51]: letters7[0:2] = ['a']
+In [52]: letters7
+Out[52]: ['a', 'c', 'd', 'e', 'f', 'g']
+In [53]: letters7[0:1] = ['a', 'b']
+In [54]: letters7
+Out[54]: ['a', 'b', 'c', 'd', 'e', 'f', 'g']
+```
+```python
+In [55]: letters7[0:2] = 'h'
+In [56]: letters7
+Out[56]: ['h', 'c', 'd', 'e', 'f', 'g']
+```
+  ```python
+  In [59]: example_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+  In [60]: example_list.append(11)
+  In [61]: example_list
+  Out[61]: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+
+  ```
+  ```python
+  In [62]: example_list.insert(2, 12)
+  In [63]: example_list
+  Out[63]: [1, 2, 12, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+  ```
+  ```python
+  In [64]: example_list.extend([13,14])
+  In [65]: example_list
+  Out[65]: [1, 2, 12, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14]
+  ```
+  ```python
+  In [67]: example_list.pop()
+  Out[67]: 14
+  In [68]: example_list.pop(2)
+  Out[68]: 12
+  ```
+  ```python
+  In [69]: example_list.remove(13)
+  In [70]: example_list
+  Out[70]: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
+  ```
+  ```python
+  In [71]: del example_list[10]
+  In [72]: example_list
+  Out[72]: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+  ```
+```python
+In [73]: example_list.clear()
+In [74]: example_list
+Out[74]: []
+```
+```python
+In [78]: a = [3, 1, 2, 5, 4, 6]
+In [79]: a.sort()
+In [80]: a
+Out[80]: [1, 2, 3, 4, 5, 6]
+```
+```python
+In [81]: nums = [-1, 34, 0.2, -4, 309]
+In [82]: nums_desc = sorted(nums, reverse=True)
+In [83]: nums
+Out[83]: [-1, 34, 0.2, -4, 309]
+In [84]: nums_desc
+Out[84]: [309, 34, 0.2, -1, -4]
+```
+```python
+In [90]: nums
+Out[90]: [1, 2, 2, 2, 3, 3, 4, 5]
+In [91]: nums.reverse()
+In [92]: nums
+Out[92]: [5, 4, 3, 3, 2, 2, 2, 1]
+```
+```python
+In [85]: min(nums)
+Out[85]: -4
+In [86]: max(nums)
+Out[86]: 309
+```
+```python
+In [87]: nums = [1, 2, 2, 2, 3, 3, 4, 5]
+In [88]: nums.count(2)
+Out[88]: 3
+In [89]: nums.count(3)
+Out[89]: 2
+```
+```python
+In [93]: sum(nums)
+Out[93]: 22
+```
+```python
+In [76]: 4 in example_list
+Out[76]: False
+In [77]: 3 in example_list
+Out[77]: True
+```
+```python
+In [94]: conditions = [True, False, True]
+In [95]: all(conditions)
+Out[95]: False
+In [96]: any(conditions)
+Out[96]: True
+```
+```python
+In [97]: a = [1, 2, 3, 4]
+
+In [98]: a == [1, 2, 3, 5]
+Out[98]: False
+In [99]: a == [1, 3, 2, 4]
+Out[99]: False
+In [100]: a == [1, 2, 3, 4]
+Out[100]: True
+```
+```python
+In [101]: s = 'interactive Python'
+In [102]: t = list(s)
+In [103]: t
+Out[103]:
+['i',
+ 'n',
+ 't',
+ 'e',
+ 'r',
+ 'a',
+ 'c',
+ 't',
+ 'i',
+ 'v',
+ 'e',
+ ' ',
+ 'P',
+ 'y',
+ 't',
+ 'h',
+ 'o',
+ 'n']
+```
+```python
+In [104]: s.split()
+Out[104]: ['interactive', 'Python']
+```
+```python
+In [105]: s = 'interactive-Python'
+In [107]: s.split('-')
+Out[107]: ['interactive', 'Python']
+```
+```python
+In [108]: t = ['我','是', '谁', '？']
+In [109]: ''.join(t)
+Out[109]: '我是谁？'
+```
+```python
+In [4]: a = 'banana'
+In [5]: b = 'banana'
+```
+```python
+In [6]: a is b
+Out[6]: True
+```
+```python
+In [10]: id(a)
+Out[10]: 1691582590008
+In [11]: id(b)
+Out[11]: 1691582590008
+```
+```python
+In [12]: a = "orange"
+In [13]: b
+Out[13]: 'banana'
+```
+```python
+In [14]: a = [1, 2, 3]
+In [15]: b = [1, 2, 3]
+
+In [16]: a is b
+Out[16]: False
+
+In [17]: id(a)
+Out[17]: 1691581888264
+In [18]: id(b)
+Out[18]: 1691582794120
+```
+```python
+In [19]: b = a
+
+In [20]: a is b
+Out[20]: True
+
+In [21]: id(b)
+Out[21]: 1691581888264
+```
+```python
+In [22]: e = a
+
+In [23]: e
+Out[23]: [1, 2, 3]
+In [24]: a
+Out[24]: [1, 2, 3]
+
+In [25]: a[1] = 4
+In [26]: e
+Out[26]: [1, 4, 3]
+```
+```python
+In [1]: a_tuple = (1, 2, 3)
+In [2]: a_list = [1, 2, 3]
+```
+```python
+In [6]: another_tuple = 1,2,3
+In [7]: type(another_tuple)
+Out[7]: tuple
+```
+```python
+In [8]: 1
+Out[8]: 1
+
+In [9]: (1)
+Out[9]: 1
+
+In [10]: 1,
+Out[10]: (1,)
+
+In [11]: (1,)
+Out[11]: (1,)
+```
+```python
+In [14]: tuple("Python")
+Out[14]: ('P', 'y', 't', 'h', 'o', 'n')
+In [15]: tuple(["I", "am", ["learning", "Python"]])
+Out[15]: ('I', 'am', ['learning', 'Python'])
+```
+```python
+In [16]: ('a',) + ('b',)
+Out[16]: ('a', 'b')
+
+In [17]: ('a',) * 3
+Out[17]: ('a', 'a', 'a')
+```
+```python
+In [18]: pythonName = tuple("Python")
+In [19]: pythonName
+Out[19]: ('P', 'y', 't', 'h', 'o', 'n')
+
+In [20]: pythonName[0]
+Out[20]: 'P'
+In [21]: pythonName[0:3]
+Out[21]: ('P', 'y', 't')
+In [22]: pythonName[3:]
+Out[22]: ('h', 'o', 'n')
+```
+```python
+In [23]: pythonName[0] = 'p'
+---------------------------------------------------------------------------
+TypeError                                 Traceback (most recent call last)
+<ipython-input-23-19ded1757eee> in <module>()
+----> 1 pythonName[0] = 'p'
+
+TypeError: 'tuple' object does not support item assignment
+```
+```python
+In [24]: newName = ('p',) + pythonName[1:]
+In [25]: newName
+Out[25]: ('p', 'y', 't', 'h', 'o', 'n')
+```
+```
+# a 和 b 是已经创建的变量，t 是一个临时变量
+t = a
+a = b
+b = t
+```
+```
+a, b = b, a
+```
+```python
+In [5]: weight = {'小红':65, '小明':45, '我':75}
+```
+```python
+In [6]: weight
+Out[6]: {'小明': 45, '小红': 65, '我': 75}
+```
+```python
+In [7]: weight['小明']
+Out[7]: 45
+```
+```python
+In [8]: weight.keys()
+Out[8]: dict_keys(['小红', '小明', '我'])
+In [9]: weight.values()
+Out[9]: dict_values([65, 45, 75])
+```
+```python
+In [10]: int_dict = {}
+In [11]: int_dict
+Out[11]: {}
+```
+```python
+In [13]: rgb = [('red', 'ff0000'), ('green', '00ff00'), ('blue', '0000ff')]
+
+In [14]: dict(rgb)
+Out[14]: {'blue': '0000ff', 'green': '00ff00', 'red': 'ff0000'}
+```
+```python
+In [15]: dict(red='ff0000',green='00ff00', blue='0000ff')
+Out[15]: {'blue': '0000ff', 'green': '00ff00', 'red': 'ff0000'}
+```
+```python
+In [16]: rgb = {}
+
+In [17]: rgb['red'] = 'ff0000'
+In [18]: rgb['green'] = '00ff00'
+In [19]: rgb['blue'] = '0000ff'
+
+In [20]: rgb
+Out[20]: {'blue': '0000ff', 'green': '00ff00', 'red': 'ff0000'}
+```
+```python
+In [21]: len(rgb)
+Out[21]: 3
+```
+```python
+In [22]: rgb.pop()
+---------------------------------------------------------------------------
+TypeError                                 Traceback (most recent call last)
+<ipython-input-22-1654217e28c5> in <module>()
+----> 1 rgb.pop()
+
+TypeError: pop expected at least 1 arguments, got 0
+
+In [23]: rgb.pop('blue')
+Out[23]: '0000ff'
+In [24]: rgb
+Out[24]: {'green': '00ff00', 'red': 'ff0000'}
+```
+```python
+In [25]: del rgb
+In [26]: rgb
+---------------------------------------------------------------------------
+NameError                                 Traceback (most recent call last)
+<ipython-input-26-d412e57c3c38> in <module>()
+----> 1 rgb
+
+NameError: name 'rgb' is not defined
+```
+```python
+In [28]: rgb.get('red', '键不存在')
+Out[28]: 'ff0000'
+In [29]: rgb.get('yellow', '键不存在')
+Out[29]: '键不存在'
+```
+```python
+In [32]: from collections import OrderedDict
+
+In [33]: OrderedDict(rgb)
+Out[33]: OrderedDict([('red', 'ff0000'), ('green', '00ff00'), ('blue', '0000ff')])
+
+In [35]: order_dict = OrderedDict()
+In [36]: order_dict['a'] = 1
+In [37]: order_dict['b'] = 2
+In [38]: order_dict['c'] = 3
+In [39]: order_dict
+Out[39]: OrderedDict([('a', 1), ('b', 2), ('c', 3)])
+```
+```python
+In [40]: a_set = {1, 2, 3, 4, 5, 5, 4}
+In [41]: a_set
+Out[41]: {1, 2, 3, 4, 5}
+```
+```python
+In [42]: a_set = {}
+In [43]: a_set.add(1)
+---------------------------------------------------------------------------
+AttributeError                            Traceback (most recent call last)
+<ipython-input-43-2a4eeb394ac5> in <module>()
+----> 1 a_set.add(1)
+
+AttributeError: 'dict' object has no attribute 'add'
+```
+```python
+In [44]: a_set = set()
+In [45]: a_set.add(1)
+In [46]: a_set
+Out[46]: {1}
+```
+```python
+In [47]: a_set = set([1, 2, 3, 4, 5])
+In [48]: b_set = set([4, 5, 6, 7, 8])
+In [49]: a_set
+Out[49]: {1, 2, 3, 4, 5}
+In [50]: b_set
+Out[50]: {4, 5, 6, 7, 8}
+
+In [51]: a_set.union(b_set)
+Out[51]: {1, 2, 3, 4, 5, 6, 7, 8}
+```
+```python
+In [52]: a_set.intersection(b_set)
+Out[52]: {4, 5}
+```
+```python
+In [53]: a_set.difference(b_set)
+Out[53]: {1, 2, 3}
+```
+```python
+In [1]: fs = frozenset(['a', 'b'])
+In [2]: fs
+Out[2]: frozenset({'a', 'b'})
+
+In [3]: fs.remove('a')
+---------------------------------------------------------------------------
+AttributeError                            Traceback (most recent call last)
+<ipython-input-3-b55f44b7e2c9> in <module>()
+----> 1 fs.remove('a')
+
+AttributeError: 'frozenset' object has no attribute 'remove'
+
+In [4]: fs.add('c')
+---------------------------------------------------------------------------
+AttributeError                            Traceback (most recent call last)
+<ipython-input-4-34531eab3bc0> in <module>()
+----> 1 fs.add('c')
+
+AttributeError: 'frozenset' object has no attribute 'add'
+```
