@@ -1,0 +1,24 @@
+site_name: 交互的 Python
+docs_dir: "."
+site_dir: "site"
+theme:
+  name: material
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.expand
+    - navigation.indexes
+    - navigation.top
+repo_url: https://github.com/ShixiangWang/pybook
+edit_uri: https://github.com/ShixiangWang/pybook/edit/master/
+site_author: Shixiang Wang
+copyright: Copyright © 2020 ShixiangWang
+nav:
+    - Home: index.md
+markdown_extensions:
+    - smarty
+    - toc:
+        permalink: True
+        separator: "-"
+        toc_depth: 4
