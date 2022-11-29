@@ -1,0 +1,498 @@
+In [1]: records = []
+
+In [2]: with open("records.csv", "r", encoding='utf-8') as f:
+   ...:     for line in f.readlines():
+   ...:         records.append(line.strip().split(','))
+   ...:
+
+In [3]: records
+# Out[3]: [['姓名', '年龄', '班级'], ['周某某', '9', '3班'], ['王某某', '10', '6班
+']]
+In [2]: !ls
+records.csv  records.tsv  records.txt
+
+In [3]: !pwd
+/c/Shixiang/pybook/files/chapter10
+In [4]: import csv
+In [5]: with open("records.csv", "r", encoding='utf-8') as f:
+   ...:     csv_reader = csv.reader(f)
+   ...:     for row in csv_reader:
+   ...:         print(','.join(row))
+   ...:
+姓名,年龄,班级
+周某某,9,3班
+王某某,10,6班
+In [6]: import pandas as pd
+
+In [7]: records = pd.read_csv('records.csv')
+
+In [8]: records
+# Out[8]:
+    姓名  年龄  班级
+0  周某某   9  3班
+1  王某某  10  6班
+
+In [9]: records.columns
+# Out[9]: Index(['姓名', '年龄', '班级'], dtype='object')
+
+In [10]: records.index
+# Out[10]: RangeIndex(start=0, stop=2, step=1)
+def read_csv(file_path, sep=',', method='default'):
+    """导入 CSV 及其变体文本"""
+    res = []
+    with open(file_path, "r", encoding='utf-8') as f:
+        # 这里我们直接指定了 encoding 为 utf-8
+        # 实际上为了处理更广泛的编码类型，
+        # 读者可以将其改写为函数的一个参数
+        # 其他选项也可以这样做
+        if method == "default":
+            for line in f.readlines():
+                res.append(line.strip().split(sep))
+        elif method == "csv":
+            print("Using csv module...")
+            import csv
+            csv_reader = csv.reader(f, delimiter=sep)
+            for row in csv_reader:
+                res.append(row)
+        else:
+            raise ValueError('不支持的导入方法！')
+    return res
+In [11]: read_csv('records.csv')
+# Out[11]: [['姓名', '年龄', '班级'], ['周某某', '9', '3班'], ['王某某', '10', '6班']]
+
+In [12]: read_csv('records.tsv', sep='\t')
+# Out[12]: [['姓名', '年龄', '班级'], ['周某某', '9', '3班'], ['王某某', '10', '6班']]
+
+In [13]: read_csv('records.txt', sep=' ')
+# Out[13]: [['姓名', '年龄', '班级'], ['周某某', '9', '3班'], ['王某某', '10', '6班']]
+In [14]: read_csv('records.csv', method='csv')
+Using csv module...
+# Out[14]: [['姓名', '年龄', '班级'], ['周某某', '9', '3班'], ['王某某', '10', '6班']]
+
+In [15]: read_csv('records.tsv', sep='\t', method='csv')
+Using csv module...
+# Out[15]: [['姓名', '年龄', '班级'], ['周某某', '9', '3班'], ['王某某', '10', '6班']]
+
+In [16]: read_csv('records.txt', sep=' ', method='csv')
+Using csv module...
+# Out[16]: [['姓名', '年龄', '班级'], ['周某某', '9', '3班'], ['王某某', '10', '6班']]
+In [17]: import pandas as pd
+In [18]: pd.read_csv('records.csv')
+# Out[18]:
+    姓名  年龄  班级
+0  周某某   9  3班
+1  王某某  10  6班
+In [19]: pd.read_csv('records.tsv', sep='\t')
+# Out[19]:
+    姓名  年龄  班级
+0  周某某   9  3班
+1  王某某  10  6班
+
+In [20]: pd.read_csv('records.txt', sep=' ')
+# Out[20]:
+    姓名  年龄  班级
+0  周某某   9  3班
+1  王某某  10  6班
+def read_csv2(file_path, sep=',', method='default'):
+    """导入 CSV 及其变体文本"""
+    res = []
+    with open(file_path, "r", encoding='utf-8') as f:
+        if method == "default":
+            for line in f.readlines():
+                res.append(line.strip().split(sep))
+        elif method == "csv":
+            print("Using csv module...")
+            import csv
+            csv_reader = csv.reader(f, delimiter=sep)
+            for row in csv_reader:
+                res.append(row)
+        else:
+            raise ValueError('不支持的导入方法！')
+    import pandas as pd
+    # 将结果转换为 DataFrame
+    res = pd.DataFrame(res[1:], columns=res[0])
+    return res
+In [21]: read_csv2('records.tsv', sep='\t', method='csv')
+Using csv module...
+# Out[21]:
+    姓名  年龄  班级
+0  周某某   9  3班
+1  王某某  10  6班
+In [3]: rds1 = read_csv('records.csv')
+In [4]: rds2 = pd.read_csv('records.csv')
+In [5]: rds1
+# Out[5]: [['姓名', '年龄', '班级'], ['周某某', '9', '3班'], ['王某某', '10', '6班']]
+In [6]: rds2
+# Out[6]:
+    姓名  年龄  班级
+0  周某某   9  3班
+1  王某某  10  6班
+In [13]: for row in rds1:
+    ...:     print(','.join(row))
+    ...:
+姓名,年龄,班级
+周某某,9,3班
+王某某,10,6班
+In [12]: print?
+Docstring:
+print(value, ..., sep=' ', end='\n', file=sys.stdout, flush=False)
+
+Prints the values to a stream, or to sys.stdout by default.
+Optional keyword arguments:
+file:  a file-like object (stream); defaults to the current sys.stdout.
+sep:   string inserted between values, default a space.
+end:   string appended after the last value, default a newline.
+flush: whether to forcibly flush the stream.
+Type:      builtin_function_or_method
+In [16]: with open('test1.csv', 'w', encoding='utf-8') as f:
+    ...:     for row in rds1:
+    ...:         print(','.join(row), file=f)
+In [17]: !cat test1.csv
+姓名,年龄,班级
+周某某,9,3班
+王某某,10,6班
+In [18]: rds2.to_csv('test2.csv')
+
+In [19]: !cat test2.csv
+,姓名,年龄,班级
+0,周某某,9,3班
+1,王某某,10,6班
+# 绝对路径
+C:/data/records.csv
+# 相对路径
+data/records.csv
+# 导入 os
+import os
+
+# 获取当前工作目录，cwd 为 current working directory 首字母缩写
+cwd = os.getcwd()
+cwd
+# 或者使用魔术命令 pwd
+pwd
+
+# 更改工作目录
+os.chdir("/path/to/your/data-folder")
+# 或者使用魔术命令 cd
+cd /path/to/your/data-folder
+
+# 列出当前目录的所有文件和子目录
+os.listdir('.')
+In [2]: import os
+In [3]: os.getcwd()  # 获取当前工作目录
+# Out[3]: 'C:\\Shixiang\\pybook'
+In [4]: os.listdir('files/chapter10')  # 列出目录下的文件及子目录
+# Out[4]:
+['data.xlsx',
+ 'lung.csv',
+ 'mtcars.csv',
+ 'records.csv',
+ 'records.tsv',
+ 'records.txt',
+ 'test1.csv',
+ 'test2.csv']
+
+In [5]: cd files  # 切换工作目录
+C:\Shixiang\pybook\files
+In [6]: os.getcwd()  # 获取当前工作目录
+# Out[6]: 'C:\\Shixiang\\pybook\\files'
+In [7]: pwd
+# Out[7]: 'C:\\Shixiang\\pybook\\files'
+
+In [8]: os.chdir('chapter10')  # 将工作目录切换为数据所在目录
+In [9]: pwd
+# Out[9]: 'C:\\Shixiang\\pybook\\files\\chapter10'
+In [10]: import pandas as pd
+In [11]: file = 'data.xlsx'
+In [12]: xl = pd.ExcelFile(file)
+In [13]: # 打印表格名字
+In [14]: print(xl.sheet_names)
+['mtcars', 'lung']
+In [15]: mtcars = xl.parse('mtcars')
+In [16]: mtcars.head()  # 只查看头几行
+# Out[16]:
+    mpg  cyl   disp   hp  drat     wt   qsec  vs  am  gear  carb
+0  21.0    6  160.0  110  3.90  2.620  16.46   0   1     4     4
+1  21.0    6  160.0  110  3.90  2.875  17.02   0   1     4     4
+2  22.8    4  108.0   93  3.85  2.320  18.61   1   1     4     1
+3  21.4    6  258.0  110  3.08  3.215  19.44   1   0     3     1
+4  18.7    8  360.0  175  3.15  3.440  17.02   0   0     3     2
+
+In [17]: lung = xl.parse('lung')
+In [18]: lung.head()
+# Out[18]:
+   inst  time  status  age  ...  ph.karno  pat.karno  meal.cal  wt.loss
+0   3.0   306       2   74  ...      90.0      100.0    1175.0      NaN
+1   3.0   455       2   68  ...      90.0       90.0    1225.0     15.0
+2   3.0  1010       1   56  ...      90.0       90.0       NaN     15.0
+3   5.0   210       2   57  ...      90.0       60.0    1150.0     11.0
+4   1.0   883       2   60  ...     100.0       90.0       NaN      0.0
+
+[5 rows x 10 columns]
+In [21]: lung.to_excel('~/测试导出.xlsx')
+In [22]: lung.to_excel?
+Signature:
+lung.to_excel(
+    excel_writer,
+    sheet_name='Sheet1',
+    na_rep='',
+    float_format=None,
+    columns=None,
+    header=True,
+    index=True,
+    index_label=None,
+    startrow=0,
+    startcol=0,
+    engine=None,
+    merge_cells=True,
+    encoding=None,
+    inf_rep='inf',
+    verbose=True,
+    freeze_panes=None,
+)
+Docstring:
+Write object to an Excel sheet.
+...
+In [23]: lung.to_excel('~/测试导出.xlsx', sheet_name='lung')
+In [1]: import pickle
+In [2]: data = {'a':[1,2,3], 'b':['yes','no']}
+In [3]: with open('data.pkl', 'wb') as f:
+   ...:     pickle.dump(data, f)
+In [4]: with open('data.pkl', 'rb') as file:
+   ...:     data_restore = pickle.load(file)
+   ...:
+
+In [5]: print(data_restore)
+{'a': [1, 2, 3], 'b': ['yes', 'no']}
+import pandas as pd
+from sas7bdat import SAS7BDAT
+
+# 此处 xxxx 应修改为实际文件名
+with SAS7BDAT('xxxx.sas7bdat') as file:
+    df_sas = file.to_data_frame()
+import pandas as pd
+# 此处 xxxx 应修改为实际文件名
+data = pd.read_stata('xxxx.dta')
+In [6]: import h5py
+In [7]: import numpy as np
+In [8]: import matplotlib.pyplot as plt
+In [9]: filename = 'data.hdf5'
+In [10]: data = h5py.File(filename, 'r')  # 读入 data.hdf5
+In [11]: print(type(data))  # 查看对象类型
+<class 'h5py._hl.files.File'>
+In [12]: group = data['strain']  # 获取 HDF5 的 group
+In [13]: # 检查 group 的键
+In [13]: for key in group.keys():
+    ...:     print(key)
+    ...:
+Strain
+In [14]: # 获取数据集的值
+In [14]: strain = data['strain']['Strain'].value
+In [15]: # 设定采样数
+    ...: s
+    ...: num_samples = 10000
+    ...:
+    ...: # 设定时间向量
+    ...: time = np.arange(0, 1, 1/num_samples)
+In [16]: # 绘图
+    ...: plt.plot(time, strain[:num_samples])
+    ...: plt.xlabel('GPS Time (s)')
+    ...: plt.ylabel('strain')
+    ...: plt.show()
+import scipy.io
+filename = 'xxx.mat'
+# 读入 mat 文件
+mat = scipy.io.loadmat(filename)
+print(type(mat))
+# mat['x'] 中的 x 是
+# MATLAB 文件中的变量 x，
+# mat['x'] 是 变量 x 的值
+print(type(mat['x']))
+print(mat['x'])
+In [1]: import json
+In [2]: json_data = '{ "名字": "Mike Wang" , "个人主页":"www.x
+   ...: xx.com" }'
+In [3]: json.loads(json_data)  # 解析 json 数据为字典
+# Out[3]: {'名字': 'Mike Wang', '个人主页': 'www.xxx.com'}
+In [4]: data = json.loads(json_data)
+In [5]: json.dumps(data)  # 将字典解析为 json 数据
+# Out[5]: '{"\\u540d\\u5b57": "Mike Wang", "\\u4e2a\\u4eba\\u4e3b\\u9875": "www.xxx.com"}'
+In [7]: json.dumps([1, 2, 3])
+# Out[7]: '[1, 2, 3]'
+In [8]: json.dumps(True)
+# Out[8]: 'true'
+In [9]: json.dumps(None)
+# Out[9]: 'null'
+In [10]: json.dumps(('a', 'b', 'c'))
+# Out[10]: '["a", "b", "c"]'
+with open('xxx.json') as f:
+  data = json.load(f)
+In [12]: with open('files/chapter10/data.json', 'r', encoding=
+    ...: 'utf-8') as f:
+    ...:     data = json.load(f)
+    ...:
+In [13]: data
+# Out[13]:
+{'sites': [{'名字': 'Mike Wang', '个人主页': 'www.xxx.com'},
+  {'名字': 'Mike Zhang', '个人主页': 'www.xx1.com'},
+  {'名字': 'Mike Li', '个人主页': 'www.xx2.com'}]}
+In [1]: import yaml
+In [2]: with open('files/chapter10/data1.yml', encoding='utf-8') as f:
+    ...:     data = yaml.safe_load(f)
+    ...:
+In [3]: data
+# Out[3]:
+{'字符串': 'name',
+ '特殊': 'name\n',
+ '数值': 3.14,
+ '布尔值': True,
+ '空值': None,
+ '空值2': None,
+ '时间值': datetime.datetime(2019, 11, 11, 17, 33, 22, 550000),
+ '日期值': datetime.date(2019, 11, 11)}
+user1:
+  type: user
+  name: a
+  password: 123
+user2:
+  type: user
+  name: b
+  password: 456
+user3:
+  type: group
+  name:
+    - aa
+    - bb
+    - cc
+  password:
+    - 123
+    - 456
+    - null
+summary:
+  - user1
+  - user2
+  - user3
+In [12]: with open('files/chapter10/data2.yml', encoding='utf-8') as f:
+    ...:     data = yaml.safe_load(f)
+    ...:
+
+In [13]: data
+# Out[13]:
+{'user1': {'type': 'user', 'name': 'a', 'password': 123},
+ 'user2': {'type': 'user', 'name': 'b', 'password': 456},
+ 'user3': {'type': 'group',
+  'name': ['aa', 'bb', 'cc'],
+  'password': [123, 456, None]},
+ 'summary': ['user1', 'user2', 'user3']}
+In [1]: from html.parser import HTMLParser
+   ...:
+   ...: class MyHTMLParser(HTMLParser):
+   ...:     def handle_starttag(self, tag, attrs):
+   ...:         print("Encountered a start tag:", tag)
+   ...:
+   ...:     def handle_endtag(self, tag):
+   ...:         print("Encountered an end tag :", tag)
+   ...:
+   ...:     def handle_data(self, data):
+   ...:         print("Encountered some data  :", data)
+   ...:
+   ...: parser = MyHTMLParser()
+   ...: parser.feed('<html><head><title>Test</title></head>'
+   ...:             '<body><h1>Parse me!</h1></body></html>')
+Encountered a start tag: html
+Encountered a start tag: head
+Encountered a start tag: title
+Encountered some data  : Test
+Encountered an end tag : title
+Encountered an end tag : head
+Encountered a start tag: body
+Encountered a start tag: h1
+Encountered some data  : Parse me!
+Encountered an end tag : h1
+Encountered an end tag : body
+Encountered an end tag : html
+In [2]: with open('files/chapter10/data.html', encoding='utf=8') as f:
+   ...:    parser.feed(f.read())
+   ...:
+Encountered some data  :
+
+Encountered a start tag: html
+Encountered some data  :
+
+Encountered a start tag: head
+Encountered some data  :
+
+Encountered a start tag: meta
+Encountered some data  :
+
+Encountered a start tag: title
+Encountered some data  : 一个网页
+Encountered an end tag : title
+Encountered some data  :
+
+Encountered an end tag : head
+Encountered some data  :
+
+Encountered a start tag: body
+Encountered some data  :
+
+Encountered a start tag: h1
+Encountered some data  : 第一个标题
+Encountered an end tag : h1
+Encountered some data  :
+
+Encountered a start tag: p
+Encountered some data  : 第一个段落。
+Encountered an end tag : p
+Encountered some data  :
+
+Encountered an end tag : body
+Encountered some data  :
+
+Encountered an end tag : html
+Encountered some data  :
+In [3]: from bs4 import BeautifulSoup
+In [4]: with open('files/chapter10/data.html', encoding='utf=8') as f:
+   ...:    html_data = f.read()
+In [5]: parsed_html = BeautifulSoup(html_data)  # 构建数据对象
+In [6]: parsed_html.body.find('h1').text        # 查找 h1 并获取内容
+# Out[6]: '第一个标题'
+# 导入模块
+import sqlite3
+# 连接数据库
+connection = sqlite3.connect("data.db")
+# 创建游标
+crsr = connection.cursor()
+# 对数据库使用 SQL 语句创建表格
+sql_command = """CREATE TABLE emp (
+staff_number INTEGER PRIMARY KEY,
+fname VARCHAR(20),
+lname VARCHAR(30),
+gender CHAR(1),
+joining DATE);"""
+# 执行 SQL 语句
+crsr.execute(sql_command)
+# 使用 SQL 语句在表格中插入数据
+sql_command = """INSERT INTO emp VALUES (23, "Rishabh", "Bansal", "M", "2014-03-28");"""
+crsr.execute(sql_command)
+# 再次插入数据
+sql_command = """INSERT INTO emp VALUES (1, "Bill", "Gates", "M", "1980-10-28");"""
+crsr.execute(sql_command)
+# 提交修改到数据库（如果不执行该操作，上面的修改将不会保存）
+connection.commit()
+# 关闭数据库连接
+connection.close()
+# 导入模块
+import sqlite3
+# 连接 data 数据库
+connection = sqlite3.connect("data.db")
+# 创建游标
+crsr = connection.cursor()
+# 从表格 emp 中查询数据
+crsr.execute("SELECT * FROM emp")
+# 将数据存储到 ans 变量
+ans= crsr.fetchall()
+# 循环打印数据
+for i in ans:
+    print(i)
+# 关闭数据库连接
+connection.close()

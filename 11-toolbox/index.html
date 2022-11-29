@@ -1,0 +1,1791 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Shixiang Wang">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-8.4.1">
+    
+    
+      
+        <title>第 11 章 数据分析工具箱 - 交互的Python：数据分析入门</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.69437709.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.cbb835fc.min.css">
+        
+      
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#11" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="交互的Python：数据分析入门" class="md-header__button md-logo" aria-label="交互的Python：数据分析入门" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            交互的Python：数据分析入门
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              第 11 章 数据分析工具箱
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/ShixiangWang/pybook" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href=".." class="md-tabs__link">
+      阅读说明
+    </a>
+  </li>
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../%E5%A4%A7%E7%BA%B2/" class="md-tabs__link md-tabs__link--active">
+        正文
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../author-and-recommendation/%E4%BA%A4%E4%BA%92%E7%9A%84Python%20-%20%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE.png" class="md-tabs__link">
+      思维导图
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../to-readers/" class="md-tabs__link">
+      对读者说的话
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../author/" class="md-tabs__link">
+      作者简介
+    </a>
+  </li>
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="交互的Python：数据分析入门" class="md-nav__button md-logo" aria-label="交互的Python：数据分析入门" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    交互的Python：数据分析入门
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/ShixiangWang/pybook" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        阅读说明
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          正文
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="正文" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          正文
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%A4%A7%E7%BA%B2/" class="md-nav__link">
+        大纲
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../0-%E5%89%8D%E8%A8%80/" class="md-nav__link">
+        前言
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../00-%E5%86%85%E5%AE%B9%E6%8F%90%E8%A6%81/" class="md-nav__link">
+        内容提要
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-introduction/" class="md-nav__link">
+        第 1 章 Python 介绍及学习前的准备
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-base/" class="md-nav__link">
+        第 2 章 Python 入门示例及基础知识
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-data-structure/" class="md-nav__link">
+        第 3 章 基本数据结构
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-control-flow/" class="md-nav__link">
+        第 4 章 控制流与文件操作
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-function-and-module/" class="md-nav__link">
+        第 5 章 函数与模块
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-numpy/" class="md-nav__link">
+        第 6 章 NumPy
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-matplotlib/" class="md-nav__link">
+        第 7 章 Matplotlib
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-pandas-intro/" class="md-nav__link">
+        第 8 章 Pandas 入门
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-markdown/" class="md-nav__link">
+        第 9 章 Markdown 基础
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-data-import/" class="md-nav__link">
+        第 10 章 数据导入
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          第 11 章 数据分析工具箱
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        第 11 章 数据分析工具箱
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#111" class="md-nav__link">
+    11.1 辅助函数与工具
+  </a>
+  
+    <nav class="md-nav" aria-label="11.1 辅助函数与工具">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1111" class="md-nav__link">
+    11.1.1 序列解包
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1112" class="md-nav__link">
+    11.1.2 断言
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1113" class="md-nav__link">
+    11.1.3 常用字符串方法
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#112" class="md-nav__link">
+    11.2 作用域与求值计算
+  </a>
+  
+    <nav class="md-nav" aria-label="11.2 作用域与求值计算">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1121" class="md-nav__link">
+    11.2.1 作用域
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1122-exec-eval" class="md-nav__link">
+    11.2.2 使用 exec() 和 eval() 执行计算
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#113" class="md-nav__link">
+    11.3 异常的捕获和处理
+  </a>
+  
+    <nav class="md-nav" aria-label="11.3 异常的捕获和处理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1131" class="md-nav__link">
+    11.3.1 捕获异常
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1132" class="md-nav__link">
+    11.3.2 产生异常
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#114" class="md-nav__link">
+    11.4 函数式编程
+  </a>
+  
+    <nav class="md-nav" aria-label="11.4 函数式编程">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1141" class="md-nav__link">
+    11.4.1 高阶函数
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1142" class="md-nav__link">
+    11.4.2 常用高阶函数
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1143-itertools" class="md-nav__link">
+    11.4.3 itertools 模块
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#115" class="md-nav__link">
+    11.5 生成器与装饰器
+  </a>
+  
+    <nav class="md-nav" aria-label="11.5 生成器与装饰器">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1151" class="md-nav__link">
+    11.5.1 生成器
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1152" class="md-nav__link">
+    11.5.2 利用生成器读入大型数据集
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1153" class="md-nav__link">
+    11.5.3 装饰器
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#116" class="md-nav__link">
+    11.6 正则表达式
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#117" class="md-nav__link">
+    11.7 章末小结
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-advanced-pandas/" class="md-nav__link">
+        第 12 章 Pandas 进阶
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-advanced-vis/" class="md-nav__link">
+        第 13 章 数据可视化进阶
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14-stats/" class="md-nav__link">
+        第 14 章 统计分析
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15-append/" class="md-nav__link">
+        第 15 章 未言及的内容
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16-end/" class="md-nav__link">
+        结语：接下来学什么
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../author-and-recommendation/%E4%BA%A4%E4%BA%92%E7%9A%84Python%20-%20%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE.png" class="md-nav__link">
+        思维导图
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../to-readers/" class="md-nav__link">
+        对读者说的话
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../author/" class="md-nav__link">
+        作者简介
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#111" class="md-nav__link">
+    11.1 辅助函数与工具
+  </a>
+  
+    <nav class="md-nav" aria-label="11.1 辅助函数与工具">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1111" class="md-nav__link">
+    11.1.1 序列解包
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1112" class="md-nav__link">
+    11.1.2 断言
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1113" class="md-nav__link">
+    11.1.3 常用字符串方法
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#112" class="md-nav__link">
+    11.2 作用域与求值计算
+  </a>
+  
+    <nav class="md-nav" aria-label="11.2 作用域与求值计算">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1121" class="md-nav__link">
+    11.2.1 作用域
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1122-exec-eval" class="md-nav__link">
+    11.2.2 使用 exec() 和 eval() 执行计算
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#113" class="md-nav__link">
+    11.3 异常的捕获和处理
+  </a>
+  
+    <nav class="md-nav" aria-label="11.3 异常的捕获和处理">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1131" class="md-nav__link">
+    11.3.1 捕获异常
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1132" class="md-nav__link">
+    11.3.2 产生异常
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#114" class="md-nav__link">
+    11.4 函数式编程
+  </a>
+  
+    <nav class="md-nav" aria-label="11.4 函数式编程">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1141" class="md-nav__link">
+    11.4.1 高阶函数
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1142" class="md-nav__link">
+    11.4.2 常用高阶函数
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1143-itertools" class="md-nav__link">
+    11.4.3 itertools 模块
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#115" class="md-nav__link">
+    11.5 生成器与装饰器
+  </a>
+  
+    <nav class="md-nav" aria-label="11.5 生成器与装饰器">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1151" class="md-nav__link">
+    11.5.1 生成器
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1152" class="md-nav__link">
+    11.5.2 利用生成器读入大型数据集
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1153" class="md-nav__link">
+    11.5.3 装饰器
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#116" class="md-nav__link">
+    11.6 正则表达式
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#117" class="md-nav__link">
+    11.7 章末小结
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+  <a href="https://github.com/ShixiangWang/pybook/edit/master/11-toolbox.md" title="Edit this page" class="md-content__button md-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+  </a>
+
+
+
+<h1 id="11">第 11 章 数据分析工具箱<a class="headerlink" href="#11" title="Permanent link">&para;</a></h1>
+<p><strong>本章内容提要</strong>:</p>
+<ul>
+<li>辅助函数与工具</li>
+<li>作用域与求值计算</li>
+<li>异常捕获</li>
+<li>函数式编程</li>
+<li>生成器与装饰器</li>
+<li>正则表达式</li>
+</ul>
+<p>本章的涉及的内容非常广泛，相对本书其他章节而言较为驳杂，主旨是介绍数据分析可能会利用上的工具函数和方法，也包含 Python 高级编程相关的理论知识。</p>
+<h2 id="111">11.1 辅助函数与工具<a class="headerlink" href="#111" title="Permanent link">&para;</a></h2>
+<h3 id="1111">11.1.1 序列解包<a class="headerlink" href="#1111" title="Permanent link">&para;</a></h3>
+<p>在 Python 中，多个赋值操作可以同时进行，这可以通过元组实现：</p>
+<pre><code class="language-python">x, y, z = 1, 2, 3
+print(x, y, z)
+</code></pre>
+<p>利用该方法可以交换多个变量：</p>
+<pre><code class="language-python">x, y = y, x
+</code></pre>
+<p>这精简了下面代码：</p>
+<pre><code class="language-python">temp = x
+x = y
+y = temp
+</code></pre>
+<p>这种特性叫做序列解包，将多个值的序列解开，然后放到左侧的变量序列中。当函数或者方法返回元组（或其他可迭代对象）时，这个操作尤为有用。</p>
+<pre><code class="language-python">def func():
+    a = 1
+    b = 2
+    c = 3
+    return a, b, c
+
+# 序列解包操作：
+# 将函数结果直接赋值到多个变量中
+# 按顺序一一对应
+# d &lt;- a
+# e &lt;- b
+# f &lt;- c
+d, e, f = func()
+</code></pre>
+<p>上述序列解包操作简化了下面的代码：</p>
+<pre><code class="language-python"># 获取一个元组结果
+tup_res = func()
+# 分别赋值
+d = tup_res[0]
+e = tup_res[1]
+f = tup_res[2]
+</code></pre>
+<p>注意，等号两侧元素数量要一致，否则会报错。</p>
+<h3 id="1112">11.1.2 断言<a class="headerlink" href="#1112" title="Permanent link">&para;</a></h3>
+<p>与其让程序在晚些时候崩溃，不如在错误条件出现时直接让它崩溃，这样可以尽早锁定程序中的错误，节省时间和调试成本。这种情况下，assert 语句可以派上用场。</p>
+<p>assert 会检查一个表达式，如果返回逻辑值 False，就会生成断言错误。assert 也可以带第二个参数用来详细地描述错误。</p>
+<pre><code class="language-python">In [1]: a = 10
+In [2]: assert a &gt; 10
+---------------------------------------------------------------------
+AssertionError                      Traceback (most recent call last)
+&lt;ipython-input-2-92ef20669630&gt; in &lt;module&gt;
+----&gt; 1 assert a &gt; 10
+
+AssertionError:
+
+In [3]: assert a &gt; 10, 'a 不大于 10'
+---------------------------------------------------------------------
+AssertionError                      Traceback (most recent call last)
+&lt;ipython-input-3-d19bab11044a&gt; in &lt;module&gt;
+----&gt; 1 assert a &gt; 10, 'a 不大于 10'
+
+AssertionError: a 不大于 10
+</code></pre>
+<p>程序员经常将断言放到函数的开始部分用于检查输入是否合法，以及在函数调用后使用以检查输出是否合法。</p>
+<h3 id="1113">11.1.3 常用字符串方法<a class="headerlink" href="#1113" title="Permanent link">&para;</a></h3>
+<p>本小节主要通过代码示例简要介绍常用的字符串方法，其中一些函数在前面章节中有过介绍和使用。</p>
+<pre><code class="language-python">In [4]: print(&quot;, &quot;.join([&quot;spam&quot;, &quot;eggs&quot;, &quot;ham&quot;]))  # 字符串拼接
+spam, eggs, ham
+In [5]: print(&quot;Hello ME&quot;.replace(&quot;ME&quot;, &quot;wrold&quot;))   # 字符串替换
+Hello wrold
+In [6]: print(&quot;This is a sentence.&quot;.startswith(&quot;This&quot;))  # 判断字符串是否以 This 起始
+True
+In [7]: print(&quot;This is a sentence.&quot;.endswith(&quot;sentence.&quot;))  # 判断字符串是否以 sentence. 结束
+True
+In [8]: print(&quot;This is a sentence.&quot;.upper())  # 字母全部转换为大写
+THIS IS A SENTENCE.
+In [9]: print(&quot;THIS IS A SENTENCE.&quot;.lower())  # 字母全部转换为小写
+this is a sentence.
+In [10]: print(&quot;spam, eggs, ham&quot;.split())  # 字符串拆分
+['spam,', 'eggs,', 'ham']
+</code></pre>
+<h2 id="112">11.2 作用域与求值计算<a class="headerlink" href="#112" title="Permanent link">&para;</a></h2>
+<h3 id="1121">11.2.1 作用域<a class="headerlink" href="#1121" title="Permanent link">&para;</a></h3>
+<p>我们已经知道，在函数内部命名的变量不会影响函数外部的变量，也就是说，每个变量都有自己作用的范围。这不仅仅适用于函数，也适用于其他 Python 对象。</p>
+<pre><code class="language-python">In [11]: x = 1
+In [12]: scope = vars()
+In [13]: scope['x']
+Out[13]: 1
+In [14]: scope['x'] += 2
+In [15]: scope['x']
+Out[15]: 3
+In [16]: type(scope)
+Out[16]: dict
+</code></pre>
+<p>上述代码在执行 x = 1 赋值语句后，符号 x 引用到值 1。这就像字典一样，键引用值。当然，变量和所对应的值用的是一个不可见的字典，实际上这已经很接近真实情况，内建的 vars() 函数可以返回这个字典。这个字典就叫做命名空间或作用域。除了全局作用域外，每个函数调用都会创建一个新的作用域。</p>
+<p>由于同名变量的存在产生了屏蔽问题：当局部变量名和全局变量名同名时，前者会屏蔽后者。这种情况下如果想要使用全局变量，可以使用 globals() 函数。globals 函数返回全局变量字典，而 locals() 返回局部变量的字典。</p>
+<pre><code class="language-python">In [26]: a = 10
+In [27]: def masking():
+    ...:     a = 1
+    ...:     print(a)
+    ...:     los = locals()
+    ...:     glo = globals()
+    ...:     print(los['a'])
+    ...:     print(glo['a'])
+    ...:
+
+In [28]: masking()
+1
+1
+10
+</code></pre>
+<p>如果想要将局部变量 x 声明为全局变量，使用代码 global x。</p>
+<pre><code class="language-python">In [36]: a = 10
+In [37]: def change_global():
+    ...:     global a
+    ...:     a = 5
+    ...:
+
+In [38]: change_global()
+In [39]: a
+Out[39]: 5
+</code></pre>
+<h3 id="1122-exec-eval">11.2.2 使用 exec() 和 eval() 执行计算<a class="headerlink" href="#1122-exec-eval" title="Permanent link">&para;</a></h3>
+<p>有时候，我们想要从字符串中创建 Python 代码，这可以用于动态编程。exec() 和 eval() 函数提供了这方面的支持。</p>
+<pre><code class="language-python">In [40]: exec(&quot;print('Hello world')&quot;)
+Hello world
+</code></pre>
+<p>它可能会干扰命名空间（作用域）。</p>
+<pre><code class="language-python">In [41]: from math import sqrt
+In [42]: exec('sqrt = 1')
+In [43]: sqrt(4)
+---------------------------------------------------------------------
+TypeError                           Traceback (most recent call last)
+&lt;ipython-input-43-317e033d29d5&gt; in &lt;module&gt;
+----&gt; 1 sqrt(4)
+
+TypeError: 'int' object is not callable
+</code></pre>
+<p>上述代码报错的原因在于我们在全局空间中创建了一个变量 sqrt 并赋值 1，它屏蔽了先前从 math 模块中导入的 sqrt 函数。</p>
+<p>我们可以指定命名空间来避免上述问题。</p>
+<pre><code class="language-python">In [44]: scope = {}
+In [45]: exec('sqrt = 1', scope)
+In [46]: scope['sqrt']
+    ...: 1
+Out[46]: 1
+</code></pre>
+<p>exec() 函数会执行一系列 Python 语句，而 eval() 函数计算以字符串形式书写的表达式，并返回结果值。</p>
+<pre><code class="language-python">In [47]: eval('sqrt = 1')
+Traceback (most recent call last):
+
+  File &quot;/home/shixiang/miniconda3/lib/python3.7/site-packages/IPython/core/interactiveshell.py&quot;, line 3326, in run_code
+    exec(code_obj, self.user_global_ns, self.user_ns)
+
+  File &quot;&lt;ipython-input-47-e7321eeaf096&gt;&quot;, line 1, in &lt;module&gt;
+    eval('sqrt = 1')
+
+  File &quot;&lt;string&gt;&quot;, line 1
+    sqrt = 1
+         ^
+SyntaxError: invalid syntax
+
+In [48]: eval('sqrt + 3')
+Out[48]: 4
+</code></pre>
+<p>eval() 函数也可以使用命名空间。</p>
+<pre><code class="language-python">In [48]: eval('sqrt + 3')
+Out[48]: 4
+In [49]: scope = {}
+In [50]: scope['x'] = 3
+In [51]: scope['y'] = 5
+In [52]: eval('x * y', scope)
+Out[52]: 15
+</code></pre>
+<h2 id="113">11.3 异常的捕获和处理<a class="headerlink" href="#113" title="Permanent link">&para;</a></h2>
+<h3 id="1131">11.3.1 捕获异常<a class="headerlink" href="#1131" title="Permanent link">&para;</a></h3>
+<p>在第 4 章中我们其实已经学习过如何捕获异常，即使用 try&hellip;finally 读/写文件，确保无论发生什么都要对文件进行关闭操作。这里本书会更加详细地介绍异常、异常捕获和处理的方法。</p>
+<p>异常是由于不同的原因产生的出乎意料的结果，有以下几个常见类型：</p>
+<ul>
+<li>ImportError - 导入失败</li>
+<li>IndexError - 索引超出序列范围</li>
+<li>NameError - 使用了未知的变量</li>
+<li>SyntaxError - 代码不能被正确解析</li>
+<li>TypeError - 函数参数输入了错误的数据类型</li>
+<li>ValueError - 函数调用正常，但返回值有问题</li>
+</ul>
+<p>当 Python 程序抛出这些异常后，我们很容易就能够通过异常类型理解其原因，困难之处在于如何锁定异常发生的位置以及对异常进行处理。而对于小型程序和常见的数据分析任务，锁定异常的发生地点也通常比较容易，一般通过逐行输入代码运行即可找到。我们下面聚焦于异常的处理。</p>
+<p>处理异常的基本语句是 try/except，我们将可能产生异常的代码放入 try 语句块中，而将处理语句放入 except 语句块中。如果运行代码时真的产生异常，Python 会停止执行错误代码块，而跳转到执行 except 语句块。</p>
+<p>下面看一个简单的例子：</p>
+<pre><code class="language-python">try:
+    num1 = 7
+    num2 = 0
+    print(num1 / num2)
+    print(&quot;完成计算！&quot;)
+except ZeroDivisionError:
+    print(&quot;因为除以 0 导致错误！&quot;)
+</code></pre>
+<p>try 语句块中可以有多条不同的 except 语句用于处理不同的异常情况。另外，多种异常也可以通过括号放入到单个 except 语句中：</p>
+<pre><code class="language-python">try:
+    var = 10
+    print(var + &quot;hello&quot;)
+    print(var / 2)
+except ZeroDivisionError:
+    print(&quot;除数为0！&quot;)
+except (ValueError, TypeError):
+    print(&quot;错误发生了！&quot;)
+</code></pre>
+<p>如果一条 except 语句没有指明任何的异常类型，那么所有的错误都将被捕获。请读者尽量少用这样的操作，因为会捕获到意想不到的错误并导致程序处理失败。</p>
+<pre><code class="language-python">try:
+    wd = &quot;hello world&quot;
+    print(wd / 0)
+except:
+    print(&quot;发生了一个错误&quot;)
+</code></pre>
+<p>我们可以使用 finally 语句保证无论发生什么错误，都会运行一些代码，如正确关闭文件。finally 语句放置在 try/except 语句之后，无论前面执行了 try 语句块的代码还是执行了 except 语句的代码，finally 语句总是会被运行。</p>
+<pre><code class="language-python">try:
+    print(&quot;Hello World!&quot;)
+    print(1 / 0)
+except: ZeroDivisionError:
+    print(&quot;不能被0整除！&quot;)
+finally:
+    print(&quot;无论上面干啥，我都会运行！&quot;)
+</code></pre>
+<h3 id="1132">11.3.2 产生异常<a class="headerlink" href="#1132" title="Permanent link">&para;</a></h3>
+<p>通过使用 raise 语句，我们可以生成异常信息。</p>
+<pre><code class="language-python">print(1)
+raise ValueError
+print(2)
+</code></pre>
+<p>异常都可以带描述性的参数：</p>
+<pre><code class="language-python">name = '123'
+raise NameError(&quot;Invalid name!&quot;)
+</code></pre>
+<p>在 except 语句块中，不带参数的 raise 语句可以用来重新生成已经发生的异常。</p>
+<pre><code class="language-python">try:
+    5 / 0
+except:
+    print(&quot;发生了一个异常&quot;)
+    raise
+</code></pre>
+<h2 id="114">11.4 函数式编程<a class="headerlink" href="#114" title="Permanent link">&para;</a></h2>
+<p>函数式编程是一种以函数为基础的编程方式，函数的使用方法和其他对象基本一样，可以分配给变量，作为参数传递以及从其他函数返回。尽管 Python 不倚重函数，但也可以进行函数式程序设计。</p>
+<h3 id="1141">11.4.1 高阶函数<a class="headerlink" href="#1141" title="Permanent link">&para;</a></h3>
+<p>函数式编程的一个关键部分是高阶函数。高阶函数以函数作为参数，或者以函数作为返回结果。</p>
+<pre><code class="language-python">def do_twice(func, args):
+    return fun(func(args))
+
+def add_two(x):
+    return x + 2
+
+print(do_twice(add_two, 1))
+</code></pre>
+<pre><code class="language-python">def multiplier(factor):
+    def multiplyByFactor(number):
+        return number*factor
+    return multiplyByFactor
+</code></pre>
+<p>函数式编程需要使用纯函数。纯函数没有副作用并且返回值只依赖于它的参数。</p>
+<pre><code class="language-python"># Pure function
+def pure_func(x, y):
+    return x + y * x
+
+# Impure function
+# 这个函数改变了 a_list 的状态
+# 所以不是纯函数
+a_list = []
+def impure_func(args):
+    a_list.append(args)
+</code></pre>
+<p>使用纯函数有一些优点，也有一些缺点。</p>
+<ul>
+<li>更容易推断和测试</li>
+<li>更高效</li>
+<li>更容易并行</li>
+</ul>
+<p>不过有时候比较难写，另外一些情况需要函数的副作用而纯函数无法提供该特性。</p>
+<p>lambda 表达式可以创建匿名函数，这在第 8 章有简单使用过。lambda 函数可以赋给变量，并且可以向正常函数一样使用。不过这种情况使用 def 定义函数更好。</p>
+<pre><code class="language-python">double = lambda x: x * 2
+print(double(4))
+</code></pre>
+<h3 id="1142">11.4.2 常用高阶函数<a class="headerlink" href="#1142" title="Permanent link">&para;</a></h3>
+<p>内置函数 map()、filter() 以及 reduce() 都是非常实用的用于操作可迭代对象（如列表、元组）的高阶函数。</p>
+<p>map() 函数将序列中的元素全部传递给一个函数，并返回一个可迭代对象。</p>
+<pre><code class="language-python">In [54]: def double(x):
+    ...:     return x * 2
+    ...:
+    ...: data = [11, 22, 33, 44]
+    ...: res = map(double, data)
+    ...: print(list(res))
+    ...:
+[22, 44, 66, 88]
+</code></pre>
+<p>这里可以直接使用匿名函数：</p>
+<pre><code class="language-python">In [55]: print(list(map(lambda x: x* 2, data)))
+[22, 44, 66, 88]
+</code></pre>
+<p>filter() 基于一个返回布尔值的函数对元素进行过滤</p>
+<pre><code class="language-python">In [56]: list(filter(lambda x: x % 2 == 0, data))
+Out[56]: [22, 44]
+</code></pre>
+<p>reduce() 可以进行聚合。</p>
+<pre><code class="language-python">In [3]: from functools import reduce
+In [4]: def add(x, y):
+   ...:     return x+y
+   ...:
+
+In [5]: reduce(add, [1,2,3,4,5])
+Out[5]: 15
+</code></pre>
+<h3 id="1143-itertools">11.4.3 itertools 模块<a class="headerlink" href="#1143-itertools" title="Permanent link">&para;</a></h3>
+<p>itertools 是 Python 的一个标准库，提供了许多用于函数式编程的函数。</p>
+<p>其中一类函数用于生成无限迭代器，包括 count()、cycle() 和 repeat()。</p>
+<ul>
+<li>count() 函数从一个数开始计数到无限</li>
+<li>cycle() 函数无限迭代一个可迭代对象（如列表或字符串）</li>
+<li>repeat() 函数重复一个序列有限或无限次</li>
+</ul>
+<p>下面以 count() 作为简单示例：</p>
+<pre><code class="language-python">In [22]: for i in count(11):
+    ...:     print(i)
+    ...:     if i &gt; 20:
+    ...:         break
+    ...:
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+</code></pre>
+<p>上面代码输出了序列 11-21，因为是无限迭代器，所以需要通过 break 辅助跳出循环。</p>
+<p>itertools 库中也有一些类似 map() 和 filter() 的函数，如 takewhile() 函数可以从可迭代对象中根据预测函数提取元素，chain() 函数可以将多个可迭代对象串联为一个，accumulate() 函数可以对可迭代对象求和。下面代码仅作简单的示例。</p>
+<pre><code class="language-python">In [23]: from itertools import chain, takewhile, accumulate
+In [24]: list(chain(list(range(1,5)), list(range(6,10))))
+Out[24]: [1, 2, 3, 4, 6, 7, 8, 9]
+In [25]: nms = list(accumulate(range(20)))
+In [26]: nms
+Out[26]:
+[0,
+ 1,
+ 3,
+ 6,
+ 10,
+ 15,
+ 21,
+ 28,
+ 36,
+ 45,
+ 55,
+ 66,
+ 78,
+ 91,
+ 105,
+ 120,
+ 136,
+ 153,
+ 171,
+ 190]
+In [27]: print(list(takewhile(lambda x: x &lt;= 10, nms)))
+[0, 1, 3, 6, 10]
+</code></pre>
+<h2 id="115">11.5 生成器与装饰器<a class="headerlink" href="#115" title="Permanent link">&para;</a></h2>
+<h3 id="1151">11.5.1 生成器<a class="headerlink" href="#1151" title="Permanent link">&para;</a></h3>
+<p>生成器是一类像列表、元组的可迭代对象。生成器不像列表支持索引，但是同样可以使用 for 循环进行迭代（可迭代对象都可以使用 for 循环迭代，这是迭代器的一个特性）。</p>
+<p>创建生成器的方式比较特别，需要使用函数和一个新的关键字 yield。下面我们看一个生成 1-9 序列的例子。</p>
+<pre><code class="language-python">In [1]: def range2(i):
+   ...:     while i &gt; 0:
+   ...:         yield i
+   ...:         i -= 1
+   ...:
+In [2]: for x in range2(9):
+   ...:     print(x)
+   ...:
+9
+8
+7
+6
+5
+4
+3
+2
+1
+In [3]: range2(9)
+Out[3]: &lt;generator object range2 at 0x7fde103f1f50&gt;
+In [4]: range(1, 10)
+Out[4]: range(1, 10)
+</code></pre>
+<p>从 for 循环中的使用来看，跟列表和元组完全没有差别，但 range2() 的结果跟我们学习过的 range() 是相似的，它们返回的是对象而非实际的序列。我们可以直接使用 list() 显式地将生成器转换为列表。</p>
+<pre><code class="language-python">In [5]: list(range(1, 10))
+Out[5]: [1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+In [6]: list(range2(9))
+Out[6]: [9, 8, 7, 6, 5, 4, 3, 2, 1]
+</code></pre>
+<p>这里读者可能会有点困惑，生成器和列表到底有什么区别呢？这里的关键在于理解生成器的一个特性：它是惰性求值的。我们再来观察下 range2() 函数：</p>
+<pre><code class="language-python">def range2(i):
+    while i &gt; 0:
+        yield i
+        i -= 1
+</code></pre>
+<p>相比于直接返回要生成的序列，这里我们定义了计算下一个值的规则，即 i -= 1，在调用该生成器后，计算机不会立马执行所有的计算，而是存储该规则，等待我们需要时再执行，这一点我们可以利用 next() 函数进行验证。</p>
+<pre><code class="language-python">In [7]: a = range2(10)
+In [8]: next(a)
+Out[8]: 10
+In [9]: next(a)
+Out[9]: 9
+</code></pre>
+<p>这种按需计算的方式显著地提升了计算的性能，一方面生成器降低了内存的使用（文件不需要一次性读入），另一方面我们不必等待所有的序列生成后才能开始使用。读者可能没有发现，文件的读取使用的就是生成器，open() 函数读入的对象需要逐行存储或计算，并非一次性存储到内存中。</p>
+<h3 id="1152">11.5.2 利用生成器读入大型数据集<a class="headerlink" href="#1152" title="Permanent link">&para;</a></h3>
+<p>Python open() 函数本身就返回迭代器，所以我们可以非常容易地创建生成器以读入大的数据集。下面的代码可以用于参考模板：</p>
+<pre><code class="language-python">def read_large_file(file_object):
+    &quot;&quot;&quot;A generator function to read a large file lazily.&quot;&quot;&quot;
+
+    # 循环直到文件尾部
+    while True:
+        data = file_object.readline()
+        if not data:
+            break
+        # 生成数据行
+        yield data
+
+with open('xxx.csv') as file:
+    gen_file = read_large_file(file)
+
+    # 打印文件的第一行
+    print(next(gen_file))
+</code></pre>
+<p>Pandas 库的 read_csv() 函数更方便，使用 chunksize 选项，会生成 reader 生成器。</p>
+<pre><code class="language-python">import pandas as pd
+df_reader = pd.read_csv('xxx.csv', chunksize=10)
+print(next(df_reader))
+</code></pre>
+<h3 id="1153">11.5.3 装饰器<a class="headerlink" href="#1153" title="Permanent link">&para;</a></h3>
+<p>装饰器是一种可以修饰（改）其他函数的函数，这在不更改原函数的情况下拓展原函数的特性非常好用。例如，我们想要在一个函数调用运行前后添加信息输出。</p>
+<p>我们创建一个函数 hello() 代表实际的工作函数，创建装饰器 add_text() 用来完成对 hello() 的额外修饰。</p>
+<pre><code class="language-python">In [16]: def add_text(func):
+    ...:     def wrap():
+    ...:         print(&quot;== This is head of function ==&quot;)
+    ...:         func()
+    ...:         print(&quot;== This is the end of function ==&quot;)
+    ...:     return wrap
+    ...:
+    ...: def hello():
+    ...:     print(&quot;Hello world!&quot;)
+    ...:
+</code></pre>
+<p>下面看看我们增加对 hello() 的修饰会让它有什么不同。</p>
+<pre><code class="language-python">In [17]: hello = add_text(hello)
+
+In [18]: hello()
+== This is head of function ==
+Hello world!
+== This is the end of function ==
+</code></pre>
+<p>我们在 add_text() 中添加的信息成功在运行时输出了。现在我们关注装饰器的创建，从逻辑上理解它的结构：它以一个函数作为输入，并在内部定义一个嵌套函数作为返回值。这样，当实际上一个函数被作为参数传入时，该函数被重塑为一个新的函数 wrap() 并被作为结果返回，完成了一个新的函数构建，但从外观来看，我们感觉到原函数被“修饰”了。</p>
+<p>为了简化装饰器的分配，Python 允许在原函数定义前使用符号 @ 指派装饰器，从而简化了代码的编写。</p>
+<pre><code class="language-python">In [19]: def add_text(func):
+    ...:     def wrap():
+    ...:         print(&quot;== This is head of function ==&quot;)
+    ...:         func()
+    ...:         print(&quot;== This is the end of function ==&quot;)
+    ...:     return wrap
+    ...:
+    ...: @add_text
+    ...: def hello():
+    ...:     print(&quot;Hello world!&quot;)
+    ...:
+
+In [20]: hello()
+== This is head of function ==
+Hello world!
+== This is the end of function ==
+</code></pre>
+<h2 id="116">11.6 正则表达式<a class="headerlink" href="#116" title="Permanent link">&para;</a></h2>
+<p>正则表达式是一种操作字符串的强大工具。它是一种领域专属语言（domain specific language, DSL），意思是它以一种库的形式呈现在各类现代编程语言中，而不仅仅 Python 中。这与结构化查询语句 SQL 是类似的。</p>
+<p>正则表达式通常有两大用处：</p>
+<ul>
+<li>验证字符串匹配莫种模式，如验证邮箱格式、电话号码</li>
+<li>对字符串执行替换，如将美式英语转换为英式英语</li>
+</ul>
+<p>Python 提供了一个标准库 re 用于操作正则表达式。在我们定义好正则表达式后，函数 re.match() 可以用来查看是否它匹配一个字符串的起始。如果匹配成功，则返回一个匹配对象；如果匹配失败，返回 None。为了避免混淆，我们这里都使用原生字符串 r&rsquo;string&rsquo; 创建正则表达式。</p>
+<pre><code class="language-python">In [1]: import re
+In [2]: pattern = r'spam'
+In [3]: if re.match(pattern, 'spamxxx'):
+   ...:     print('匹配成功')
+   ...: else:
+   ...:     print('匹配失败')
+   ...:
+匹配成功
+In [5]: print(re.match(pattern, 'xspamxx'))
+None
+</code></pre>
+<p>另外有函数 re.search() 用于在字符串任意之处寻找匹配的模式，re.findall() 寻找匹配一个模式的所有子串。</p>
+<pre><code class="language-python">In [6]: print(re.search(pattern, 'xspamxx'))
+&lt;re.Match object; span=(1, 5), match='spam'&gt;
+In [7]: print(re.findall(pattern, 'xspamxxspamspam'))
+['spam', 'spam', 'spam']
+</code></pre>
+<p>我们可以看到上面 re.search() 返回的结果是一个 Match 对象，有几个常用的方法可以获取匹配的信息。</p>
+<pre><code class="language-python">In [8]: match = re.search(pattern, 'xspamxx')
+In [9]: match.group()
+Out[9]: 'spam'
+In [10]: match.start()
+Out[10]: 1
+In [11]: match.end()
+Out[11]: 5
+In [12]: match.span()
+Out[12]: (1, 5)
+</code></pre>
+<p>re 模块最常用的函数之一可能就是 sub() 了，它可以基于正则表达式实现字符串部分内容的替换。</p>
+<pre><code class="language-python">In [13]: re.sub?
+Signature: re.sub(pattern, repl, string, count=0, flags=0)
+Docstring:
+Return the string obtained by replacing the leftmost
+non-overlapping occurrences of the pattern in string by the
+replacement repl.  repl can be either a string or a callable;
+if a string, backslash escapes in it are processed.  If it is
+a callable, it's passed the Match object and must return
+a replacement string to be used.
+File:      ~/miniconda3/lib/python3.7/re.py
+Type:      function
+</code></pre>
+<p>当不修改 count 时，默认会替换字符串中所有匹配的模式。</p>
+<pre><code class="language-python">In [14]: to_sub = 'apple orange apple'
+In [16]: re.sub(r'apple', 'juice', to_sub)
+Out[16]: 'juice orange juice'
+In [17]: re.sub(r'apple', 'juice', to_sub, count=1)
+Out[17]: 'juice orange apple'
+</code></pre>
+<p>元字符是一类特殊的字符，它们在正则表达式中有特别的含义和用处，是正则表达式的核心，常见常用的主要有下面一些：</p>
+<ul>
+<li>锚定符<ul>
+<li>^ —— 用于锚定行首</li>
+<li>$ —— 用于锚定行尾</li>
+</ul>
+</li>
+<li>数目符<ul>
+<li>. —— 任意一个字符</li>
+<li>? —— 0 个或 1 个</li>
+<li>+ —— 一个或以上</li>
+<li>* —— 任意个（包括 0 个）</li>
+<li>{m, n} —— 至少 m 个，至多 n 个</li>
+</ul>
+</li>
+<li>可选符<ul>
+<li>[abc] —— a b c 三个中任意一个</li>
+<li>[^abc] —— 不能是 a b c 中任意一个（即排除 a b c）</li>
+<li>[a-z] —— 所有小写字母</li>
+<li>[A-Z] —— 所有大写字母</li>
+<li>[0-9] —— 所有数字</li>
+</ul>
+</li>
+</ul>
+<p>锚定符用于定义正则表达式的起始和结尾。</p>
+<pre><code class="language-python">In [22]: print(re.search(r'^apple', ' apple'))  # 限定必须以 a 起始
+None
+In [23]: print(re.search(r'apple$', 'apple '))  # 限定必须以 e 结束
+None
+In [24]: print(re.search(r'apple', ' apple'))
+&lt;re.Match object; span=(1, 6), match='apple'&gt;
+In [25]: print(re.search(r'apple', 'apple '))
+&lt;re.Match object; span=(0, 5), match='apple'&gt;
+</code></pre>
+<p>数目符和可选符用于占位、筛选和模糊匹配。</p>
+<pre><code class="language-python">In [26]: print(re.search(r'[a-z]', 'happy new year'))
+&lt;re.Match object; span=(0, 1), match='h'&gt;
+In [27]: print(re.search(r'[a-z]', 'HAPPY NEW YEAR'))
+None
+In [28]: print(re.search(r'[A-Z]', 'HAPPY NEW YEAR'))
+&lt;re.Match object; span=(0, 1), match='H'&gt;
+In [29]: print(re.search(r'[A-Za-z]', 'HAPPY new YEar'))
+&lt;re.Match object; span=(0, 1), match='H'&gt;
+
+In [30]: print(re.search(r'[A-Z]', 'happy new year'))
+None
+</code></pre>
+<p>假设我们需要匹配 11 位的手机号码，格式如下：</p>
+<pre><code>TEL: 12345678912
+</code></pre>
+<p>正则表达式可以写为</p>
+<pre><code class="language-python">r'^TEL: [0-9]{11}$'
+</code></pre>
+<p>下面测试看看：</p>
+<pre><code class="language-python">In [31]: print(re.match(r'^TEL: [0-9]{11}$', 'TEL: 12345678912'))
+&lt;re.Match object; span=(0, 16), match='TEL: 12345678912'&gt;
+In [32]: print(re.match(r'^TEL: [0-9]{11}$', 'TEL: 1234567891'))
+None
+In [33]: print(re.match(r'^TEL: [0-9]{11}$', 'TEL: 12345678912 '))
+None
+In [34]: print(re.match(r'^TEL: [0-9]{11}$', 'EL: 12345678912'))
+None
+In [35]: print(re.match(r'^TEL: [0-9]{11}$', 'TEL:12345678912'))
+None
+</code></pre>
+<p>第一次当我们输入正确格式的数据时，返回了匹配。后面所有的字符串都有所不同，因此都不能匹配。不知道读者是否感受到了正则表达式的强大，如果工作中有遇到可以用正则表达式解决的问题，赶紧用起来吧。</p>
+<h2 id="117">11.7 章末小结<a class="headerlink" href="#117" title="Permanent link">&para;</a></h2>
+<p>本章的涉及的内容非常广泛，相对本书其他章节而言较为驳杂，主旨是介绍数据分析可能会利用上的工具函数和方法，也包含 Python 高级编程相关的理论知识。</p>
+
+
+
+
+              
+            </article>
+            
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="../10-data-import/" class="md-footer__link md-footer__link--prev" aria-label="Previous: 第 10 章 数据导入" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              第 10 章 数据导入
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../12-advanced-pandas/" class="md-footer__link md-footer__link--next" aria-label="Next: 第 12 章 Pandas 进阶" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              第 12 章 Pandas 进阶
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright © 2020 ShixiangWang
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.expand", "navigation.indexes", "navigation.top"], "search": "../assets/javascripts/workers/search.ecf98df9.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.9c69f0bc.min.js"></script>
+      
+    
+  </body>
+</html>

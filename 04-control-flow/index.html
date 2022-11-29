@@ -1,0 +1,1926 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Shixiang Wang">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-8.4.1">
+    
+    
+      
+        <title>第 4 章 控制流与文件操作 - 交互的Python：数据分析入门</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.69437709.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.cbb835fc.min.css">
+        
+      
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#4" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="交互的Python：数据分析入门" class="md-header__button md-logo" aria-label="交互的Python：数据分析入门" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            交互的Python：数据分析入门
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              第 4 章 控制流与文件操作
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/ShixiangWang/pybook" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href=".." class="md-tabs__link">
+      阅读说明
+    </a>
+  </li>
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../%E5%A4%A7%E7%BA%B2/" class="md-tabs__link md-tabs__link--active">
+        正文
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../author-and-recommendation/%E4%BA%A4%E4%BA%92%E7%9A%84Python%20-%20%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE.png" class="md-tabs__link">
+      思维导图
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../to-readers/" class="md-tabs__link">
+      对读者说的话
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../author/" class="md-tabs__link">
+      作者简介
+    </a>
+  </li>
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="交互的Python：数据分析入门" class="md-nav__button md-logo" aria-label="交互的Python：数据分析入门" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    交互的Python：数据分析入门
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/ShixiangWang/pybook" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        阅读说明
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          正文
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="正文" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          正文
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%A4%A7%E7%BA%B2/" class="md-nav__link">
+        大纲
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../0-%E5%89%8D%E8%A8%80/" class="md-nav__link">
+        前言
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../00-%E5%86%85%E5%AE%B9%E6%8F%90%E8%A6%81/" class="md-nav__link">
+        内容提要
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-introduction/" class="md-nav__link">
+        第 1 章 Python 介绍及学习前的准备
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-base/" class="md-nav__link">
+        第 2 章 Python 入门示例及基础知识
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-data-structure/" class="md-nav__link">
+        第 3 章 基本数据结构
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          第 4 章 控制流与文件操作
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        第 4 章 控制流与文件操作
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#41-if-else" class="md-nav__link">
+    4.1 条件结构 if-else
+  </a>
+  
+    <nav class="md-nav" aria-label="4.1 条件结构 if-else">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#411-if-else" class="md-nav__link">
+    4.1.1 简单 if-else 结构
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#412" class="md-nav__link">
+    4.1.2 嵌套条件结构
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#413-if-else" class="md-nav__link">
+    4.1.3 单行 if-else
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#414" class="md-nav__link">
+    4.1.4 使用逻辑操作符
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#42-for" class="md-nav__link">
+    4.2 for 语句
+  </a>
+  
+    <nav class="md-nav" aria-label="4.2 for 语句">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#421-for" class="md-nav__link">
+    4.2.1 for 语句块
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#422-else" class="md-nav__link">
+    4.2.2 else 语句块
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#423" class="md-nav__link">
+    4.2.3 索引迭代
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#423_1" class="md-nav__link">
+    4.2.3 多列表迭代
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#424" class="md-nav__link">
+    4.2.4 列表推导式
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#425" class="md-nav__link">
+    4.2.5 条件列表推导式
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#426" class="md-nav__link">
+    4.2.6 字典迭代
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#43-while" class="md-nav__link">
+    4.3 while 语句
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#44-continuebreak-pass" class="md-nav__link">
+    4.4 continue、break 与 pass
+  </a>
+  
+    <nav class="md-nav" aria-label="4.4 continue、break 与 pass">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#441-continue" class="md-nav__link">
+    4.4.1 continue
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#442-break" class="md-nav__link">
+    4.4.2 break
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#443-pass" class="md-nav__link">
+    4.4.3 pass
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#45" class="md-nav__link">
+    4.5 文件操作
+  </a>
+  
+    <nav class="md-nav" aria-label="4.5 文件操作">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#451" class="md-nav__link">
+    4.5.1 文件类型
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#452-open" class="md-nav__link">
+    4.5.2 使用 open() 函数读取文件
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#453-open" class="md-nav__link">
+    4.5.3 使用 open() 写文件
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#46" class="md-nav__link">
+    4.6 章末小结
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-function-and-module/" class="md-nav__link">
+        第 5 章 函数与模块
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-numpy/" class="md-nav__link">
+        第 6 章 NumPy
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-matplotlib/" class="md-nav__link">
+        第 7 章 Matplotlib
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-pandas-intro/" class="md-nav__link">
+        第 8 章 Pandas 入门
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-markdown/" class="md-nav__link">
+        第 9 章 Markdown 基础
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-data-import/" class="md-nav__link">
+        第 10 章 数据导入
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-toolbox/" class="md-nav__link">
+        第 11 章 数据分析工具箱
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-advanced-pandas/" class="md-nav__link">
+        第 12 章 Pandas 进阶
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-advanced-vis/" class="md-nav__link">
+        第 13 章 数据可视化进阶
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14-stats/" class="md-nav__link">
+        第 14 章 统计分析
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15-append/" class="md-nav__link">
+        第 15 章 未言及的内容
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16-end/" class="md-nav__link">
+        结语：接下来学什么
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../author-and-recommendation/%E4%BA%A4%E4%BA%92%E7%9A%84Python%20-%20%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE.png" class="md-nav__link">
+        思维导图
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../to-readers/" class="md-nav__link">
+        对读者说的话
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../author/" class="md-nav__link">
+        作者简介
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#41-if-else" class="md-nav__link">
+    4.1 条件结构 if-else
+  </a>
+  
+    <nav class="md-nav" aria-label="4.1 条件结构 if-else">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#411-if-else" class="md-nav__link">
+    4.1.1 简单 if-else 结构
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#412" class="md-nav__link">
+    4.1.2 嵌套条件结构
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#413-if-else" class="md-nav__link">
+    4.1.3 单行 if-else
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#414" class="md-nav__link">
+    4.1.4 使用逻辑操作符
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#42-for" class="md-nav__link">
+    4.2 for 语句
+  </a>
+  
+    <nav class="md-nav" aria-label="4.2 for 语句">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#421-for" class="md-nav__link">
+    4.2.1 for 语句块
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#422-else" class="md-nav__link">
+    4.2.2 else 语句块
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#423" class="md-nav__link">
+    4.2.3 索引迭代
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#423_1" class="md-nav__link">
+    4.2.3 多列表迭代
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#424" class="md-nav__link">
+    4.2.4 列表推导式
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#425" class="md-nav__link">
+    4.2.5 条件列表推导式
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#426" class="md-nav__link">
+    4.2.6 字典迭代
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#43-while" class="md-nav__link">
+    4.3 while 语句
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#44-continuebreak-pass" class="md-nav__link">
+    4.4 continue、break 与 pass
+  </a>
+  
+    <nav class="md-nav" aria-label="4.4 continue、break 与 pass">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#441-continue" class="md-nav__link">
+    4.4.1 continue
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#442-break" class="md-nav__link">
+    4.4.2 break
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#443-pass" class="md-nav__link">
+    4.4.3 pass
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#45" class="md-nav__link">
+    4.5 文件操作
+  </a>
+  
+    <nav class="md-nav" aria-label="4.5 文件操作">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#451" class="md-nav__link">
+    4.5.1 文件类型
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#452-open" class="md-nav__link">
+    4.5.2 使用 open() 函数读取文件
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#453-open" class="md-nav__link">
+    4.5.3 使用 open() 写文件
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#46" class="md-nav__link">
+    4.6 章末小结
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+  <a href="https://github.com/ShixiangWang/pybook/edit/master/04-control-flow.md" title="Edit this page" class="md-content__button md-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+  </a>
+
+
+
+<h1 id="4">第 4 章 控制流与文件操作<a class="headerlink" href="#4" title="Permanent link">&para;</a></h1>
+<p><strong>本章内容提要</strong>：</p>
+<ul>
+<li>条件控制 if-else</li>
+<li>for 循环</li>
+<li>while 循环</li>
+<li>文件操作</li>
+</ul>
+<p>在前面两个章节中，本书对 Python 的基本数据结构及其操作进行了介绍，这足以让读者构建一些简单的数据处理程序。然而，一旦涉及略微复杂的处理、重复性非常高的计算，读者必须学习控制和循环结构，让程序根据不同的情况执行不同的计算以及自动重复。</p>
+<p>学习编写循环结构简化重复性代码是本章所要讲述的主体内容。除此之外，本章还会简单介绍文本文件的读写操作，以便于更快地帮助读者建立数据处理与分析流程概念体系——从文本数据的输入、到数据的实际处理、再到结果的导出与保存。</p>
+<p>为了能够真正做出一些有用的工具或产品，程序往往是复杂的，绝不是一些简单的顺序语句，必须有一些机制管理如何以及什么时候执行设定的语句。Python 有 3 种流程控制结构，又分为条件结构 if-else 语句和 2 种循环结构 for 语句和 while 语句。</p>
+<h2 id="41-if-else">4.1 条件结构 if-else<a class="headerlink" href="#41-if-else" title="Permanent link">&para;</a></h2>
+<p>if 关键字定义了一个条件结构块，它可以用来检验一个条件，如果条件为逻辑值真（True），程序运行给定的一块语句（称为 if 块）。如果条件为逻辑值假（False），程序运行另外一块语句（称为 else 块）。</p>
+<p>if-else 语句的格式如下：</p>
+<pre><code class="language-python">if condition:
+    语句1
+    语句2
+    ...
+else:
+    语句1
+    语句2
+    ...
+</code></pre>
+<p>其中，else 块是可选的。condition 部分是条件判断，结果必须为逻辑值，可以是单个或组合测试语句。</p>
+<p>下面给出几个条件判断的例子，包括简单的测试语句和简单测试语句的逻辑组合。</p>
+<pre><code class="language-python">In [1]: number = 5
+
+In [2]: number &gt; 2
+Out[2]: True
+In [3]: number &gt; 3 and number &lt;=5
+Out[3]: True
+
+In [4]: fiction1 = &quot;哈利波特&quot;
+In [5]: fiction2 = &quot;侏罗纪世界&quot;
+
+In [6]: fiction1 == fiction2
+Out[6]: False
+</code></pre>
+<h3 id="411-if-else">4.1.1 简单 if-else 结构<a class="headerlink" href="#411-if-else" title="Permanent link">&para;</a></h3>
+<p>利用上述的条件测试，读者可以写 2 个简单的 if 语句。</p>
+<ol>
+<li>如果输入数字 number 小于 2，打印 数字太小了 ，否则打印 数字太大了 。</li>
+<li>如果 fiction1 与 fiction2 相等，打印 原来我们都喜欢电影xxx ，否则打印 你喜欢电影xxx，我喜欢电影xxx 。</li>
+</ol>
+<p>对应第 1 个操作的程序 1 为：</p>
+<pre><code class="language-python">In [7]: if number &lt; 2:
+   ...:     print('数字太小了')
+   ...: else:
+   ...:     print('数字太大了')
+   ...:
+数字太大了
+</code></pre>
+<p>对应第 2 个操作的程序 2 为：</p>
+<pre><code class="language-python">In [9]: if fiction1 == fiction2:
+   ...:     print('原来我们都喜欢电影《' + fiction1 + '》')
+   ...: else:
+   ...:     print('你喜欢电影《'+fiction1+'》'+'，我喜欢电影《'+fiction2+'》')
+   ...:
+你喜欢电影《哈利波特》，我喜欢电影《侏罗纪世界》
+</code></pre>
+<p>冒号标志着缩进代码块的开始，冒号之后的所有代码的缩进量必须相同，直到代码块结束。使用空白符可以让 Python 的代码可读性大大优于其它语言。虽然期初看起来很奇怪，经过一段时间，读者就能适应了。一般使用缩进使用的是 4 个空格键，为方便，一些 IDE 支持用 \<Table> 键替换 4 空格键，所以读者可以使用 \<Table> 键进行缩进，也有一些 IDE 在键入冒号然后回车后会自动缩进，这样就更方便了。</p>
+<p>读者甚至能从用户获取数据然后加以判断，input() 函数可以提示用户输入数据，并转换为字符串。例如，想要获取你喜欢的科幻电影，然后判断两人喜欢的电影是否一致，仅需要添加一句代码，判断流程不需要更改。</p>
+<pre><code class="language-python">In [10]: fiction1 = input(&quot;你喜欢的科幻电影是:&quot;)
+    ...: if fiction1 == fiction2:
+    ...:     print('原来我们都喜欢电影《' + fiction1 + '》')
+    ...: else:
+    ...:     print('你喜欢电影《'+fiction1+'》'+'，我喜欢电影《'+fiction2+'》')
+    ...:
+你喜欢的科幻电影是:环太平洋
+你喜欢电影《环太平洋》，我喜欢电影《侏罗纪世界》
+</code></pre>
+<h3 id="412">4.1.2 嵌套条件结构<a class="headerlink" href="#412" title="Permanent link">&para;</a></h3>
+<p>在很多情况下，程序需要 2 种及以上的判断，这时嵌套条件结构 if-elif-else 将非常有用。其格式如下：</p>
+<pre><code class="language-python">if condition1：
+    代码块1
+elif condtion2:
+    代码块2
+else
+</code></pre>
+<p>上述代码格式中间的 elif 语句块可以根据实际情况写任意个。</p>
+<p>下面来看一个最简单的例子：判断一个数是正数还是负数，并输出判断的结果。</p>
+<pre><code class="language-python">In [13]: number = 2
+    ...: if number &lt; 0:
+    ...:     print(&quot;{}是一个负数&quot;.format(number))
+    ...: elif number &gt; 0:
+    ...:     print(&quot;{}是一个正数&quot;.format(number))
+    ...: else:
+    ...:     print(&quot;{}既不是正数也不是负数&quot;.format(number))
+    ...:
+2是一个正数
+</code></pre>
+<p>字符串的 format() 方法可以便利地格式化打印输出。在字符串中，花括号是一个占位符，在语句运行后会替换为 format() 方法中指定的数据。如果在花括号中指定数字（索引），实际输出时它会被映射为 format() 方法中对应的数值。</p>
+<p>下面例子的 3 行代码分别展示 format() 方法的 3 种使用方式。</p>
+<pre><code class="language-python">In [15]: print(&quot;{}是一个数字&quot;.format(2))
+    ...: print(&quot;{0}是一个比{1}大的数字&quot;.format(10,5))
+    ...: print(&quot;{1}是一个比{0}小的数字&quot;.format(10,5))
+    ...:
+2是一个数字
+10是一个比5大的数字
+5是一个比10小的数字
+</code></pre>
+<h3 id="413-if-else">4.1.3 单行 if-else<a class="headerlink" href="#413-if-else" title="Permanent link">&para;</a></h3>
+<p>除了将 if-else 写成一个大的语句块，读者还可以直接将它简化为一行。这样的代码更为精炼简洁。</p>
+<p>下面依旧用判断一个数是正是负的问题进行了代码演示。</p>
+<pre><code class="language-python">In [17]: number = 42
+    ...: number_type = '偶数' if number % 2 == 0 else '奇数'
+    ...: print(&quot;{} 是一个 {} &quot;.format(number, number_type))
+    ...:
+42 是一个 偶数
+</code></pre>
+<h3 id="414">4.1.4 使用逻辑操作符<a class="headerlink" href="#414" title="Permanent link">&para;</a></h3>
+<p>在前面的章节本书已经见到介绍了逻辑操作符以及一些相关函数，如 and 逻辑操作符、any() 函数。这些操作常用于条件测试中，下面对常见操作与方法进行汇总和实例说明。</p>
+<p>逻辑操作符：</p>
+<ul>
+<li>and 是逻辑与。</li>
+<li>or 是逻辑或。</li>
+<li>not 是逻辑非。</li>
+</ul>
+<p>逻辑函数：</p>
+<ul>
+<li>all() 在参数全真时返回结果为真（True）。</li>
+<li>any() 在只要有 1 个参数为真时，返回结果为真（True）</li>
+</ul>
+<p>利用上述提到的逻辑操作符，读者可以构建任意复杂的条件测试。</p>
+<p>例如，判断一个数是不是 2 和 5 的公倍数，可以使用以下代码：</p>
+<pre><code class="language-python">In [18]: number = 10
+    ...: if number % 2 == 0 and number % 5 == 0:
+    ...:     print(&quot;数字{}是2和5的公倍数&quot;.format(number))
+    ...:
+数字10是2和5的公倍数
+</code></pre>
+<p>再构建一个稍微复杂的条件判断，检测一个数既不能被 2 整除又小于 10：</p>
+<pre><code class="language-python">In [19]: number = 22
+    ...: if (not number % 2 == 0) and (number &lt; 10):
+    ...:     print(number)
+    ...: else:
+    ...:     print(&quot;输入的数不满足条件&quot;)
+    ...:
+输入的数不满足条件
+</code></pre>
+<p>上面使用了 not 操作符对 number % 2 == 0 的结果取反，即不能被 2 整除。因为涉及嵌套逻辑，所以使用英文括号分隔逻辑判断使得整体层次更为清晰易读。</p>
+<p>当条件测试项非常多时，可以使用 all() 和 any() 函数进行简化。</p>
+<pre><code>#-------------- 判断所有条件全为真时
+
+# 普通写法
+if condition1 and condition2 and condition3 and ...
+# 使用 all() 函数
+if all(condition1, condition2, condition3, ...)
+
+#-------------- 判断任一条件为真时
+
+# 普通写法
+if condition1 or condition2 or condition3 or ...
+# 使用 any() 函数
+if any(condition1, condition2, condition3, ...)
+</code></pre>
+<p>all() 和 any() 函数在进行向量化计算和判断时极为有用，例如，同时判断列表的所有元素是否都大于 2。因为 Python 列表不支持向量化计算，本书在介绍 Numpy 时再举例说明。</p>
+<p>in 操作符在判断某个元素是否存在于序列（列表、元组、集合等）中时也十分有用。</p>
+<pre><code class="language-python">In [23]: 1 in [1, 2, 4, 5]
+Out[23]: True
+</code></pre>
+<p>因为 in 操作符能够判断序列（列表、元组、字典等）的成员是否存在，因此也常用于条件测试中。</p>
+<pre><code class="language-python">In [24]: if 2 in [1,2,3,5,7,9]:
+    ...:     print(&quot;这个列表肯定不全是奇数，因为包含了数字2&quot;)
+    ...:
+这个列表肯定不全是奇数，因为包含了数字2
+</code></pre>
+<p>现在读者已经学习了如何使用条件结构，下一节开始介绍最常见循环结构 for 语句。</p>
+<h2 id="42-for">4.2 for 语句<a class="headerlink" href="#42-for" title="Permanent link">&para;</a></h2>
+<p>for 语句是最为常见的循环语句，它在一个可迭代（列表、元组等）对象上逐一提取其中的元素。这一语句使得重复性的结构代码可以被有效地缩减。</p>
+<h3 id="421-for">4.2.1 for 语句块<a class="headerlink" href="#421-for" title="Permanent link">&para;</a></h3>
+<p>for 语句的格式如下：</p>
+<pre><code>for 迭代变量 in 序列
+</code></pre>
+<p>例如，想要输出 1~100 这 100 个数字，如果事先不知道循环结构，读者需要连续输入 100 条 print 语句！</p>
+<pre><code class="language-python">print(1)
+print(2)
+print(3)
+...
+print(100)
+</code></pre>
+<p>一旦使用 for 循环，仅需要以下两行语句：</p>
+<pre><code class="language-python">In [25]: for i in range(1, 101):
+    ...:     print(i)
+    ...:
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+...
+100
+</code></pre>
+<p>for 语句中的变量 i 称为迭代变量，它依次存储序列 range(1,101) 里的所有元素。当读者使用 print() 函数逐一打印变量 i 的值时，相当于逐次打印序列中的元素。</p>
+<p>注意，range() 函数右侧区间不包含（左闭右开），即 range(1,101) 指从 1 到 100，包含 1，不包含 101。这与在前一章介绍的列表切片索引方式是一致的。</p>
+<h3 id="422-else">4.2.2 else 语句块<a class="headerlink" href="#422-else" title="Permanent link">&para;</a></h3>
+<p>在 Python 的 for 循环中，也可以使用 else 语句块。</p>
+<p>例如，打印数字 1~5，然后输出循环结束了。</p>
+<pre><code class="language-python">In [26]: for i in range(1, 6):
+    ...:     print(i)
+    ...: else:
+    ...:     print(&quot;For循环结束了。&quot;)
+    ...:
+1
+2
+3
+4
+5
+For循环结束了。
+</code></pre>
+<p>不过想要输出这样的结果并不需要 else 语句的参与，下面的代码也可以实现。</p>
+<pre><code class="language-python">In [27]: for i in range(1,6):
+    ...:     print(i)
+    ...:
+    ...: print(&quot;For循环结束了&quot;)
+    ...:
+1
+2
+3
+4
+5
+For循环结束了
+</code></pre>
+<p>注意，语句 print(&ldquo;For循环结束了&rdquo;) 并不属于 for 循环结构（不然每次输出数字也会跟着输出一次），两者中间需要空一行 Python 才能区分。</p>
+<h3 id="423">4.2.3 索引迭代<a class="headerlink" href="#423" title="Permanent link">&para;</a></h3>
+<p>for 循环能够方便地提取一个序列中的元素。但有时候，读者不仅需要知道序列的元素，还想知道元素的位置，该怎么办呢？</p>
+<p>Python 提供了 enumerate() 函数可以在 for 循环中同时操作元素与索引。一个简单的示例如下：</p>
+<pre><code class="language-python">In [28]: for n, x in enumerate('亲爱的你好吗？'):
+    ...:     print(n, x)
+    ...:
+0 亲
+1 爱
+2 的
+3 你
+4 好
+5 吗
+6 ？
+</code></pre>
+<p>enumerate() 函数可以指定一个起始点参数 start。例如，将起始点设为 1，这样输出的索引值可能更符合某些读者的感官。</p>
+<pre><code class="language-python">In [29]: for n, x in enumerate('亲爱的你好吗？', start=1):
+    ...:     print(n, x)
+    ...:
+1 亲
+2 爱
+3 的
+4 你
+5 好
+6 吗
+7 ？
+</code></pre>
+<p>可以看到，虽然输出的字符串序列还是跟前面的一样，但索引值由 0 到 6 变更为了 1 到 7。</p>
+<h3 id="423_1">4.2.3 多列表迭代<a class="headerlink" href="#423_1" title="Permanent link">&para;</a></h3>
+<p>有时候，我们会想同时对多个列表进行操作，zip() 函数提供了简便实现多列表元素同时迭代循环的方法。</p>
+<p>下面用一个非常简单的实例说明——对两个列表索引值对应的元素相加。</p>
+<pre><code class="language-python">In [30]: odd = [1, 3, 5]
+    ...: even = [2, 4, 6]
+    ...: for i, j in zip(odd, even):
+    ...:     print(&quot;和为{}&quot;.format(i+j))
+    ...:
+和为3
+和为7
+和为11
+</code></pre>
+<h3 id="424">4.2.4 列表推导式<a class="headerlink" href="#424" title="Permanent link">&para;</a></h3>
+<p>列表推导式（有时候也称列表生成式）是非常 Python 化的循环方式，它不仅体现着 Python 简洁优美的思想，而且比普通的循环方式更容易读懂和节省时间。</p>
+<p>如果想要对列表所有的数值（1~100）求平方，利用学习过的 for 循环，读者可能会编写类似下面的代码解决问题。</p>
+<pre><code class="language-python">numbers = list(range(1,101))
+result = []
+for num in numbers:
+    result.append(num * num)
+</code></pre>
+<p>列表推导式的写法如下：</p>
+<pre><code class="language-python">result = [num * num for num in numbers]
+</code></pre>
+<p>可以看到，for 关键字的右侧是已经学习过的 for 循环结构，而左侧是想要在 for 循环中执行的操作。</p>
+<p>为了让读者对两种写法的效率有更清楚的认识，本书以两种方式求取 1~100000的 平方值，并使用 time 模块计算运行时间。</p>
+<pre><code class="language-python">import time
+
+numbers = list(range(1,100001))
+fl_square_numbers = []
+
+# 计算时间
+t0 = time.perf_counter()
+
+# ------------ for 循环 ------------
+for num in numbers:
+    fl_square_numbers.append(num * num)
+
+# 计算时间
+t1 = time.perf_counter()
+
+# ------- 列表推导式 -------
+lc_square_numbers = [num * num for num in numbers]
+
+# 执行结果
+t2 = time.perf_counter()
+fl_time = t1 - t0
+lc_time = t2 - t1
+improvement = (fl_time - lc_time) / fl_time * 100
+
+# 对结果对齐并设定保留的小数点位数
+print(&quot;For循环运行时间:           {:.4f}&quot;.format(fl_time))
+print(&quot;列表推导式运行时间:         {:.4f}&quot;.format(lc_time))
+print(&quot;提升时间:                 {:.2f}%&quot;.format(improvement))
+
+if fl_square_numbers == lc_square_numbers:
+    print(&quot;\n两种计算方式结果相等&quot;)
+else:
+    print(&quot;\n两种方式计算结果不相等&quot;)
+</code></pre>
+<p>代码的执行结果如下：</p>
+<pre><code class="language-python">For循环运行时间:           0.0293
+列表推导式运行时间:         0.0082
+提升时间:                 72.14%
+
+两种计算方式结果相等
+</code></pre>
+<p>上述代码对于初学者可能有些陌生，请不要害怕，它的目的是为了展示列表推导式的效率，在该部分学习中并不要求理解和掌握所有的代码含义。注意，为避免干扰阅读和理解，上面的代码只展示了纯代码或是纯输出结果，没有列出前面序号。</p>
+<p>这个例子中，除了列表推导式本身效率的提升，没有调用 append() 方法也节省了大量时间。</p>
+<h3 id="425">4.2.5 条件列表推导式<a class="headerlink" href="#425" title="Permanent link">&para;</a></h3>
+<p>在基本列表推导式的基础上，读者可以增加条件检测，这样带条件检测的列表推导式称为条件列表推导式。条件语句既可以写在 for 语句块左侧，也可以写在 for 语句块右侧。</p>
+<p>条件列表推导式的形式如下：</p>
+<pre><code>[ 操作1 if 条件判断 else 操作2 for 迭代变量 in 可迭代对象（列表、元组、字典等）  ]
+
+[ 操作 for 迭代变量 in 可迭代对象 if 条件判断 ]
+</code></pre>
+<p>第 1 种形式是在列表推导式中使用 if-else 条件语句，如果为真，则对迭代变量执行操作 1，否则执行操作 2。</p>
+<p>第 2 种形式是只在列表推导式中使用 if 语句块，如果为真，则对迭代变量执行相应操作。</p>
+<p>为了介绍条件列表推导式的使用方式和执行过程，这里创建一个包含 9 个正整数的列表，利用条件列表推导式将列表中的奇数和偶数分开为单独的列表。</p>
+<pre><code class="language-python">In [34]: numbers = [2, 12, 3, 25, 24, 21, 5, 9, 12]
+</code></pre>
+<p>如果使用 if-else 条件语句，可以写作以下略长的形式：</p>
+<pre><code class="language-python">In [35]: odd_numbers  = []
+    ...: even_numbers = []
+    ...: [odd_numbers.append(num) if(num % 2) else even_numbers.append(num) for num in numbers]
+    ...:
+Out[35]: [None, None, None, None, None, None, None, None, None]
+
+In [36]: odd_numbers
+Out[36]: [3, 25, 21, 5, 9]
+In [37]: even_numbers
+Out[37]: [2, 12, 24, 12]
+</code></pre>
+<p>基础列表推导式加上条件结构让整个语句显得有些复杂，实际上这个语句从右到左可以分为 3 个步骤：</p>
+<ol>
+<li>迭代变量 num 依次获取可迭代变量 numbers 的元素值。</li>
+<li>对迭代变量进行条件判断，如果能被 2 整除（余数为 0），则添加元素值到变量 odd_numbers；如果不能被 2 整除（余数不为 0），则添加元素值到变量 even_numbers。</li>
+<li>整个列表结果输出，因为元素都被添加到提前声明好的两个变量中了，所以这条语句结果是一个全 None（空）的列表。</li>
+</ol>
+<p>通过以上过程读者可以领会到，带 if-else 的列表推导式看起来复杂，其实可以从由右至左读进行理解。这种用法在这里的弊端比较明显，看似只用了一条语句完成了操作，但我们不得的事先声明两个空列表让它们可以使用 append() 方法。并且，列表推导式本身的输出毫无意义。该如何进行有效地简化呢？这里得想办法利用上列表推导式本身的输出结果就是列表这一个点，既然如此，何不将奇数和偶数分别使用条件列表推导式？</p>
+<p>相应操作如下：</p>
+<pre><code class="language-python">In [38]: odd_numbers  = [num for num in numbers if num % 2]
+    ...: even_numbers = [num for num in numbers if not num % 2]
+    ...:
+
+In [39]: odd_numbers
+Out[39]: [3, 25, 21, 5, 9]
+In [40]: even_numbers
+Out[40]: [2, 12, 24, 12]
+</code></pre>
+<p>解决同样的问题，有时候拆分开来做更简洁易懂。</p>
+<p>元组的迭代基本和列表一致，本书不再阐述。除了列表和元组，字典也是频繁被使用和被迭代的对象，下一小节本书将介绍相关的操作。</p>
+<h3 id="426">4.2.6 字典迭代<a class="headerlink" href="#426" title="Permanent link">&para;</a></h3>
+<p>本书在前一章的字典部分介绍过：keys() 和 values() 方法可以分别获取字典的键与值。关于字典的一个重要特性，读者应当牢记——字典是随机的。因此正确获取元素值的方法一定是通过键进行索引，大部分针对字典的操作都应当同时针对键和值。</p>
+<p>Python 提供了 items() 方法用于字典的迭代。假设现在有一个字典，存储着用户喜欢的书籍以及用户对它们的打分，我们可以利用字典迭代输出其内容。</p>
+<pre><code class="language-python">In [41]: books = {&quot;夏洛克*福尔摩斯&quot;:98, &quot;哈利波特&quot;:80, &quot;达芬奇密码&quot;:88}
+In [42]: for book_name,book_score in books.items():
+    ...:     print(book_name, book_score, sep=&quot;:&quot;)
+    ...:
+夏洛克*福尔摩斯:98
+哈利波特:80
+达芬奇密码:88
+</code></pre>
+<p>读者如果只想对字典的键或者值进行迭代操作，分别使用 keys() 与 values() 方法即可。</p>
+<pre><code class="language-python">In [43]: for book_key in books.keys():
+    ...:     print(book_key)
+    ...:
+夏洛克*福尔摩斯
+哈利波特
+达芬奇密码
+
+In [44]: for book_score in books.values():
+    ...:     print(book_score)
+    ...:
+98
+80
+88
+</code></pre>
+<p>在实际的应用中，字典常作为计数器，存储序列（列表、元组）元素出现的次数。无论处理什么样的输入，这类用法都大同小异，有以下步骤：</p>
+<ul>
+<li>创建一个空字典</li>
+<li>对序列元素进行循环遍历</li>
+<li>如果序列元素在字典中，则以该元素为键，对其值加 1</li>
+<li>如果序列元素不在字典中，则创建一个新的字典元素，键为该序列元素，值为 1</li>
+</ul>
+<p>现在举个例子，如果从某小学随机抽取 10 名学生，分别对它们所处的年级进行计数。</p>
+<p>10 名学生的所在年级如下存储在列表中。</p>
+<pre><code class="language-python">In [45]: st_grades = [2, 3, 1, 1, 3, 5, 4, 6, 6, 1]
+</code></pre>
+<p>根据上面描述的步骤，下面的代码实现了对学生所属年级的计数。</p>
+<pre><code class="language-python">In [46]: grades_count = dict()  # 初始化字典
+
+In [47]: for st_grade in st_grades:
+    ...:     if st_grade in grades_count:
+    ...:         grades_count[st_grade] += 1  # 如果某年级已有学生，则对该年级计数加1
+    ...:     else:
+    ...:         grades_count[st_grade] = 1   # 如果某年级第一次对学生计数，则令该年级的计数为1
+    ...:
+
+In [48]: grades_count
+Out[48]: {1: 3, 2: 1, 3: 2, 4: 1, 5: 1, 6: 2}
+</code></pre>
+<p>注意，这里的 grades_count[st_grade] += 1 是 grades_count[st_grade] = grades_count[st_grade] + 1 的简写。同样的，有 -= 和 *= 用于简写。</p>
+<h2 id="43-while">4.3 while 语句<a class="headerlink" href="#43-while" title="Permanent link">&para;</a></h2>
+<p>for 语句可以解决我们常见的 90% 的循环迭代操作需求，但剩下的部分它毫无办法。读者要知道，for 循环的使用是建立在我们已知需要操作的循环次数的基础上。在不知道循环何时停止时，需要借助 while 语句的力量来完成操作。</p>
+<p>while 语句的格式如下：</p>
+<pre><code>while condition:
+  语句块
+</code></pre>
+<p>condition 部分是条件检查，结果必须为逻辑值，可以是单个或组合测试语句。需要注意的是，读者在使用 while 语句时，一定要保证循环能够被结束或者跳出，否则程序将进入死循环，软件出现卡死。严重的话，电脑甚至会宕机。不过，游戏开发代码中常用 while 语句保持等待用户输入直到退出。</p>
+<p>为了能够展示 while 语句与前面介绍的 for 语句使用条件的差异，这里使用 while 语句完成一个简单的猜数字游戏。</p>
+<p>猜数字游戏想必大家不陌生，由一个人作为裁判，选择一个数字，先指定大致范围，由众人猜测，
+根据猜测给出高或者低的评价，然后缩小范围，最后猜中的人有特别的奖励。</p>
+<p>这里设定数字范围为 0~999，为了随机化取数字，我们利用 random 模块的 randint() 函数生成随机整数。另外，为了让循环及时地停止，使用下面一节学习的 break 语句跳出循环。</p>
+<pre><code class="language-python">import random  # 导入random模块
+NUMBER = random.randint(0,999)  # 生成[0, 999]范围内的数字
+
+while True:
+  guess = int(input(&quot;请输入数字（0-999）：\n&quot;))
+  if guess == NUMBER:
+    print(&quot;恭喜！猜对了！&quot;)
+    break
+  elif guess &gt; NUMBER:
+    print(&quot;太大了...请重新猜！&quot;)
+  else:
+    print(&quot;太小了...请重新猜！&quot;)
+
+</code></pre>
+<p>本书作者操作的游戏过程如下：</p>
+<pre><code>请输入数字（0-999）：
+50
+太小了...请重新猜！
+请输入数字（0-999）：
+500
+太大了...请重新猜！
+请输入数字（0-999）：
+200
+太大了...请重新猜！
+请输入数字（0-999）：
+100
+太大了...请重新猜！
+请输入数字（0-999）：
+60
+太小了...请重新猜！
+请输入数字（0-999）：
+80
+太大了...请重新猜！
+请输入数字（0-999）：
+70
+太大了...请重新猜！
+请输入数字（0-999）：
+60
+太小了...请重新猜！
+请输入数字（0-999）：
+65
+太大了...请重新猜！
+请输入数字（0-999）：
+64
+太大了...请重新猜！
+请输入数字（0-999）：
+63
+太大了...请重新猜！
+请输入数字（0-999）：
+62
+恭喜！猜对了！
+</code></pre>
+<p>合适地使用 while 语句可以极大地减少使用循环结构时的需要的初始认知。代码不需要知道要运行多少次，只需要知道当某种条件触发时，它会立即停止。不过有时候这需要接下来一小节介绍的 continue 和 break 命令的配合。</p>
+<h2 id="44-continuebreak-pass">4.4 continue、break 与 pass<a class="headerlink" href="#44-continuebreak-pass" title="Permanent link">&para;</a></h2>
+<p>有时候，存在类似这样的问题亟待解决：一方面，数据处理的步骤是重复的、繁重的。另一方面，重复似乎没那么有规律，即单纯地使用循环结构不能解决问题。Python 提供了 continue 和 break 语句来帮助扩展循环结构的应用范围，以解决上面所述的问题。</p>
+<h3 id="441-continue">4.4.1 continue<a class="headerlink" href="#441-continue" title="Permanent link">&para;</a></h3>
+<p>continue 语句可以让当前循环跳过余下的步骤，直接进入下一次循环。</p>
+<p>这里举一个简单的例子说明 continue 语句的适用情况。在介绍例子之前，本书先介绍一个相关的数学概念——阶乘。</p>
+<p>注意，一个正整数的阶乘（factorial）是所有小于及等于该数的正整数的积，并且 0 的阶乘为 1。自然数 n 的阶乘写作 n!。</p>
+<p>例如，2 的阶乘 2! 为 2 X 1 = 2，3 的阶乘 3! 为 3 X 2 X 1 = 6，以此类推。</p>
+<p>现在有这样的一个问题：如果现在需要计算从 1 到 10，排除 3 的倍数余下的几个整数的阶乘，即 1、2、4、5、7、8、10 的阶乘，如果用循环实现呢？</p>
+<p>当然读者可以使用列表存储这几个数，然后进行循环遍历计算数的阶乘。实现的代码如下：</p>
+<pre><code class="language-python">In [1]: number_list = [1, 2, 4, 5, 7, 8, 10]
+In [2]: import math
+
+In [3]: for i in number_list:
+   ...:     print(math.factorial(i))
+1
+2
+24
+120
+5040
+40320
+3628800
+</code></pre>
+<p>这里本书直接使用了 math 模块中的 factorial() 函数计算阶乘。首先读者需要使用 import 语句导入模块，然后再以模块名后加英文点字符再加函数名的方式调用模块的函数。</p>
+<p>完成这个任务好像很简单，这与 continue 语句又有什么关系呢？思考一下，如果我们需要计算的不是简单这几个数的阶乘，而是计算 100 以内，甚至 1000、10000 以内排除 3 的倍数所剩数的阶乘呢？读者还能否使用上述的方式完成任务？</p>
+<p>结果是不能。那该如何解决这个问题呢？下面以 1000 以内为例。</p>
+<p>上面解法的笨拙之处在于读者需要手动输入列表，实际上它们是有规律的！要计算的 number_list 是一个连续整数除去 3 的倍数的一个列表，如果我们能够通过循环自动创建该列表，那么就不用手动输入列表了，前面的问题就解决了。</p>
+<pre><code class="language-python">In [4]: number_list = []
+   ...: for i in range(1, 1001):
+   ...:     if i % 3 == 0:
+   ...:         continue
+   ...:     else:
+   ...:         number_list.append(i)
+   ...:
+   ...: len(number_list)
+Out[4]: 667
+</code></pre>
+<p>上面代码使用循环构建所需的 number_list。通过 range() 函数产生数字 1 到 1000，然后当迭代变量 i 是 3 的倍数时，循环转向下一次。当迭代变量 i 不是 3 的倍数时，将数字加入列表 number_list。这样，代码自动生成了后面计算阶乘所需要的列表，避免的手动输入的困难。</p>
+<p>条条大路通罗马。如果读者熟练掌握了列表推导式，上述的循环操作便显得多余起来，下面的一行代码就可以实现了，不需要本小节介绍的 continue。</p>
+<pre><code class="language-python">number_list = [ i for i in range(1, 1001) if i % 3 != 0 ]
+</code></pre>
+<p>读者甚至可以对上述的问题用一行代码解答，如下：</p>
+<pre><code class="language-python">[ print(math.factorial(i)) for i in range(1, 1001) if i % 3 != 0 ]
+</code></pre>
+<p>这一行代码的计算量非常大，建议读者不要运行，尝试选择一个小的循环数查看结果。</p>
+<h3 id="442-break">4.4.2 break<a class="headerlink" href="#442-break" title="Permanent link">&para;</a></h3>
+<p>break 语句与 continue 语句不同，一旦循环运行到 break 会跳出循环（即停止循环）而不是转向像 continue 转向下一次循环。在前文使用 while 循环创建的猜数字游戏中，当游戏者猜中数字后，break 语句完成停止游戏的操作。除了游戏，break 在数据分析中使用也十分普遍。当遇到异常的数据或者用户在循环内部设置的测试条件被满足时，break 能够帮助及时地停止循环。</p>
+<p>本小节再列举几个使用 break 的简单例子，说明 break 在 while 循环、for 循环以及嵌套循环结构中的应用。</p>
+<h4 id="break-while">break 语句在 while 循环中的应用<a class="headerlink" href="#break-while" title="Permanent link">&para;</a></h4>
+<pre><code class="language-python">In [5]: a = 1
+   ...: while True:
+   ...:     print(a)
+   ...:     a += 1
+   ...:     if a == 10:
+   ...:         break
+1
+2
+3
+4
+5
+6
+7
+8
+9
+</code></pre>
+<p>上述代码使用 while 语句循环打印数字 1~9。while 后接的条件设置的是 True，即无限循环，因而在循环内部通过 if 语句设置条件检测，当变量 a 数值为 10 时运行 break 跳出循环，停止打印。</p>
+<h4 id="break-for">break 语句在 for 循环中的应用<a class="headerlink" href="#break-for" title="Permanent link">&para;</a></h4>
+<pre><code class="language-python">In [6]: for i in range(5,10):
+   ...:     print(i)
+   ...:     if i &gt; 7:
+   ...:         break
+5
+6
+7
+8
+</code></pre>
+<p>上述代码使用 for 语句循环打印 5~8。因为循环迭代的是 range(5,10)，即 5~10，所以在循环内部使用 if 语句设置条件检测，当 i 大于 7 时，运行 break 跳出循环，停止打印。</p>
+<h4 id="break">break 语句在嵌套循环中的应用<a class="headerlink" href="#break" title="Permanent link">&para;</a></h4>
+<pre><code class="language-python">In [7]: a = 10
+   ...: while a &lt;= 12:
+   ...:     a += 1
+   ...:     for i in range(1,7):
+   ...:         print(i)
+   ...:         if i == 5:
+   ...:             break
+1
+2
+3
+4
+5
+1
+2
+3
+4
+5
+1
+2
+3
+4
+5
+</code></pre>
+<p>上述代码使用两层嵌套循环重复打印 3 次 1~5。第 1 层循环是 while 语句，第 2 层循环是 for 语句。初始设置变量 a 值为 10，while 循环中代码每一次先令 a 加 1，然后执行嵌套的 for 循环，因为 a 设置为大于 12 则停止循环，所以可知第 1 层循环会执行 3 次。再看内部的 for 语句，迭代变量 i 从 1 到 7 递增，打印 i 的值。当 i 等于 5 时执行 break 语句，此时循环停止。注意，此时 break 语句跳出的是 for 循环，即 break 只能停止所在循环，不能停止外部循环。当需要停止多层循环时，需要使用多个 break 语句。</p>
+<h3 id="443-pass">4.4.3 pass<a class="headerlink" href="#443-pass" title="Permanent link">&para;</a></h3>
+<p>pass 关键字为 Python 提供了非操作语句，通常作为未执行代码的占位符。因为 Python 需要使用空白字符划定代码块，所以需要 pass 语句进行占位。</p>
+<p>读者在构思比较复杂的代码实现时 pass 语句是非常好的帮手，特别是它可以帮助读者检测在某些功能还未完成的情况下，已有功能是否正确实现。例如，下面是一个简单的例子，下面代码实现正负数的判断，但还未曾实现输入是 0 时的处理，因此利用 pass 语句进行占位。</p>
+<pre><code class="language-python">if x &lt; 0:
+    print('负数！')
+elif x == 0:
+    # 未来要做的事情：....
+    pass
+else:
+    print('正数！')
+</code></pre>
+<h2 id="45">4.5 文件操作<a class="headerlink" href="#45" title="Permanent link">&para;</a></h2>
+<p>数据总是存储在各式各样的文件中，包括文本、数字、图像以及视频，因此对文件进行读写是数据分析人员常见的操作之一。本节将介绍基本的文件类型以及如何使用 Python 内置的模块进行文件基本的读写操作。</p>
+<h3 id="451">4.5.1 文件类型<a class="headerlink" href="#451" title="Permanent link">&para;</a></h3>
+<p>计算机中的文件通常可以分为两种类型：二进制文件与文本文件。计算机的存储在物理上都是二进制的，所以文本文件与二进制文件的区别并不是物理上的，而是逻辑上的。这两者只是在编码层次上有差异。简单来说，文本文件是基于字符编码的文件，常见的编码有 ASCII 编码、UNICODE 编码等等（现在全世界通用的编码是 UTF-8）。二进制文件是基于值编码的文件，我们可以根据具体应用，指定某个值是什么意思，这个过程也可以看作是自定义编码。</p>
+<p>文件类型常常可以通过文件后缀名得知。后缀名为 .txt 的文件是典型的文本文件，另外常用于存储表格数据的 csv 文件、xlsx 文件等也都是文本文件，二进制文件则通常是一些可执行的程序软件、图像、视频。在大部分情况下，数据处理的文件都是文本文件。</p>
+<p>在磁盘上读写文件的功能都是由操作系统提供的，现代操作系统不允许普通的程序直接操作磁盘，所以，读写文件就是请求操作系统打开一个文件对象（通常称为文件描述符），然后，通过操作系统提供的接口从这个文件对象中读取数据（读文件），或者把数据写入这个文件对象（写文件）。</p>
+<h3 id="452-open">4.5.2 使用 open() 函数读取文件<a class="headerlink" href="#452-open" title="Permanent link">&para;</a></h3>
+<p>Python 提供了 open() 函数用于打开一个文本文件，并返回文件对象，利用该对象 Python 用户能够操作文本。open() 函数常用形式是接收两个参数：文件名（file）和模式（mode），即如果要以读文件的模式打开一个文件对象，除了传入文件路径，还需要以 r 指定为读模式。如果该文件无法被打开，Python 会抛出 OS Error。</p>
+<p>为了介绍如何实际读取文本，首先在 Python 工作目录下使用文本编辑器创建一个文本文件，命名为 test.txt，其内容如下：</p>
+<pre><code>这是文本的第一行
+这是文本的第二行
+这是文本的第三行
+这是文本的最后一行
+</code></pre>
+<p>在 IPython 中，使用 %pwd 命令即可快速获取当前 Python 的工作目录。本书作者当前的工作目录如下：</p>
+<pre><code class="language-python">In [8]: %pwd
+Out[8]: '/Users/wsx'
+</code></pre>
+<p>如果创建的文件在工作目录下，在 IPython 中使用 %ls 命令可以查看当前目录下的文件或文件夹。</p>
+<pre><code class="language-python">In [8]: %ls
+Applications/    Library/         Public/          work_script.pbs*
+Desktop/         Movies/          go/
+Documents/       Music/           test.txt
+Downloads/       Pictures/        tmp/
+</code></pre>
+<p>下面使用 open() 函数读取 test.txt 文件。</p>
+<pre><code class="language-python">In [9]: f = open('test.txt', 'r')
+</code></pre>
+<p>这样就成功地打开了一个文件。如果文件不存在，Python 就会抛出一个 IOError 的错误，并且给出错误码和详细的信息告知用户文件不存在。</p>
+<pre><code class="language-python">In [10]: f1 = open('test1.txt', 'r')
+---------------------------------------------------------------------------
+FileNotFoundError                         Traceback (most recent call last)
+&lt;ipython-input-10-ef17b5d7a1d3&gt; in &lt;module&gt;
+----&gt; 1 f1 = open('test1.txt', 'r')
+
+FileNotFoundError: [Errno 2] No such file or directory: 'test1.txt'
+</code></pre>
+<p>当文件打开成功后，接下来用户可以调用 read() 方法一次读取文件的全部内容，Python 会将其表示为一个 str 对象。</p>
+<pre><code class="language-python">In [11]: f.read()
+Out[11]: '这是文本的第一行\n这是文本的第二行\n这是文本的第三行\n这是文本的最后一行\n'
+</code></pre>
+<p>文件对象会占用操作系统的资源，并且操作系统同一时间能打开的文件数量也是有限的，因此文件使用完毕后必须关闭，Python 用户读取文件的最后一步是调用 close() 方法关闭文件。</p>
+<pre><code class="language-python">In [12]: f.close()
+</code></pre>
+<p>注意，文件读写可能产生 IO Error，一旦发生这种情况，后面使用 f.close() 关闭文件就不起作用了。为了保证无论发生什么情况都能正确关闭文件，读者可以使用 try&hellip;finally 语句块来实现文件的正确关闭。例如，读者可以使用下面代码来确保读取上面的 test.txt 异常时能够关闭文件。</p>
+<pre><code class="language-python">try:
+    f = open('test.txt', 'r')
+    print(f.read())
+finally:
+    if f:
+        f.close()
+</code></pre>
+<p>只需要修改文件名（包括路径），上述代码即可应用于任何文本文件的读取。但是每次都这么写实在繁琐，因此 Python 引入了 with 语句来自动帮助用户自动调用 close() 方法。</p>
+<pre><code class="language-python">with open('test.txt', 'r') as f:
+    print(f.read())
+</code></pre>
+<p>上述代码与 try&hellip;finally 效果一致，但明显更为简洁，并且不必显式调用 close() 方法。</p>
+<p>虽然 read() 方法可以一次性将文件所有内容读取进来，但是实际使用的并不多。如果文件过大，超过计算机内存限制，不仅文件内容不能完全读进 Python，计算机也容易崩溃。为了保险起见，读者可以反复调用 read(size) 方法，这样每次最多读取 size 个字节的内容。不过这种方式使用的也不多，因为一般处理文件都是按行进行的，因而 Python 提供了 readline() 方法可以每次读取一行内容，而 readlines() 方法则可以一次读取所有内容并按行返回为列表。具体使用什么方法读者需要根据自己的需求决定。</p>
+<p>下面代码使用 readlines() 方法将文件内容读取为列表，然后使用 for 循环进行处理。</p>
+<pre><code class="language-python">In [13]: for line in f.readlines():
+    ...:     print(line.strip())  # 把末尾的'\n'删掉
+这是文本的第一行
+这是文本的第二行
+这是文本的第三行
+这是文本的最后一行
+</code></pre>
+<p>前面介绍的是读取文本文件，并且是 UTF-8 编码的文本文件。如果要读取二进制文件，如图片、视频等等，只需要将读取模式设置为 &lsquo;rb&rsquo; 即可。</p>
+<pre><code class="language-python">In [14]: f = open('/Users/wsx/Pictures/cover.png', 'rb')
+In [15]: f.read()  # 下面输出的结果太多，因此省略
+Out[15]: b'\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00 ...
+</code></pre>
+<p>除了文件类型，文件的字符编码也是经常需要关注的。open() 函数打开文件默认使用 UTF-8 编码，如果要读取非 UTF-8 编码的文本文件，需要给 open() 函数传入 encoding 参数。</p>
+<p>例如，中文一般使用 GBK 编码。下面代码读取一个 GBK 编码的文本文件，读者可以看看使用不同的编码参数得到的结果有什么不同。</p>
+<pre><code class="language-python">In [16]: f = open('/Users/wsx/Documents/gbk.txt', 'r', encoding='UTF-8')
+In [17]: f.read()
+---------------------------------------------------------------------------
+UnicodeDecodeError                        Traceback (most recent call last)
+&lt;ipython-input-17-571e9fb02258&gt; in &lt;module&gt;
+----&gt; 1 f.read()
+
+/Volumes/Data/miniconda3/lib/python3.6/codecs.py in decode(self, input, final)
+    319         # decode input (taking the buffer into account)
+    320         data = self.buffer + input
+--&gt; 321         (result, consumed) = self._buffer_decode(data, self.errors, final)
+    322         # keep undecoded input until the next call
+    323         self.buffer = data[consumed:]
+
+UnicodeDecodeError: 'utf-8' codec can't decode byte 0xd5 in position 0: invalid continuation byte
+In [18]: f = open('/Users/wsx/Documents/gbk.txt', 'r', encoding='gbk')
+In [19]: f.read()
+Out[19]: '这是GBK编码的文本，如果你不正确解码就看不到正确内容喔~'
+</code></pre>
+<h3 id="453-open">4.5.3 使用 open() 写文件<a class="headerlink" href="#453-open" title="Permanent link">&para;</a></h3>
+<p>写文件和读文件的步骤是一样的，唯一区别是调用 open() 函数时，读者需要指定模式 &lsquo;w&rsquo; 或者 &lsquo;wb&rsquo; 表示在对文本文件或二进制文件进行写入操作。</p>
+<p>下面演示对前面的 test.txt 写入两行文字，然后再读取进来查看是否成功写入。</p>
+<pre><code class="language-python">In [20]: f = open('test.txt', 'w')
+In [21]: f.write('我给文本加一行\n')
+Out[21]: 8
+In [22]: f.write('我再加一行，这是最后一行')
+Out[22]: 12
+In [23]: f.close()
+</code></pre>
+<p>读者可以反复调用 write() 方法来将内容写入文件，不过需要注意在最后一定要使用 f.close() 关闭文件，否则将存在丢失数据的可能。这是因为当使用 Python 将内容写入文件时，操作系统不会立即将数据写入磁盘，而是暂时将文本放到内存中缓存，当计算资源空闲时才进行写入，只有调用 close() 方法后，操作系统才会保证把没有写入的数据全部写入磁盘文件。因此，在进行文本写入时使用 with 语句也还是最为保险的方式。</p>
+<pre><code class="language-python">with open('test.txt', 'w') as f:
+  f.write('我给文本加一行\n')
+  f.write('我再加一行，这是最后一行')
+</code></pre>
+<p>现在文件已经已经写入了，这时候通过 open() 将内容读取进来查看。</p>
+<pre><code class="language-python">In [24]: with open('test.txt', 'r') as f:
+    ...:     for line in f.readlines():
+    ...:         print(line.strip())
+我给文本加一行
+我再加一行，这是最后一行
+</code></pre>
+<p>内容的确成功的写入进了 test.txt 文件，但原先的内容被删除了。仅仅设定写模式 &lsquo;w&rsquo; 会首先清空掉文件的内容，然后将要写入的内容写进文件。为了执行文本的追加而不是覆盖操作，读者需要使用 &lsquo;wa&rsquo; 来替换 &lsquo;w&rsquo;，&rsquo;a&rsquo; 为 append（追加）的缩写。所有模式的定义及含义可以阅读 Python 的官方文档。</p>
+<h2 id="46">4.6 章末小结<a class="headerlink" href="#46" title="Permanent link">&para;</a></h2>
+<p>一个复杂的程序是简单的语句与各类控制循环结构的组合。本章详细介绍了控制结构 if-else 语句，循环结构 for 语句与 while 语句，通过实例介绍了它们的基本操作和较为复杂的嵌套操作，以及应用它们操作常见的列表、元组和字典等序列对象。</p>
+<p>除此之外，本章介绍了 Python 基本的文件读写操作，帮助读者构建数据读写的认知体系，也为之后理解更高级的文件操作和处理打下基础。</p>
+
+
+
+
+              
+            </article>
+            
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="../03-data-structure/" class="md-footer__link md-footer__link--prev" aria-label="Previous: 第 3 章 基本数据结构" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              第 3 章 基本数据结构
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../05-function-and-module/" class="md-footer__link md-footer__link--next" aria-label="Next: 第 5 章 函数与模块" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              第 5 章 函数与模块
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright © 2020 ShixiangWang
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.expand", "navigation.indexes", "navigation.top"], "search": "../assets/javascripts/workers/search.ecf98df9.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.9c69f0bc.min.js"></script>
+      
+    
+  </body>
+</html>

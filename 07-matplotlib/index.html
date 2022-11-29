@@ -1,0 +1,1992 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Shixiang Wang">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-8.4.1">
+    
+    
+      
+        <title>第 7 章 Matplotlib - 交互的Python：数据分析入门</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.69437709.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.cbb835fc.min.css">
+        
+      
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#7-matplotlib" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="交互的Python：数据分析入门" class="md-header__button md-logo" aria-label="交互的Python：数据分析入门" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            交互的Python：数据分析入门
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              第 7 章 Matplotlib
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/ShixiangWang/pybook" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href=".." class="md-tabs__link">
+      阅读说明
+    </a>
+  </li>
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../%E5%A4%A7%E7%BA%B2/" class="md-tabs__link md-tabs__link--active">
+        正文
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../author-and-recommendation/%E4%BA%A4%E4%BA%92%E7%9A%84Python%20-%20%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE.png" class="md-tabs__link">
+      思维导图
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../to-readers/" class="md-tabs__link">
+      对读者说的话
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../author/" class="md-tabs__link">
+      作者简介
+    </a>
+  </li>
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="交互的Python：数据分析入门" class="md-nav__button md-logo" aria-label="交互的Python：数据分析入门" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    交互的Python：数据分析入门
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/ShixiangWang/pybook" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        阅读说明
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          正文
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="正文" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          正文
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%A4%A7%E7%BA%B2/" class="md-nav__link">
+        大纲
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../0-%E5%89%8D%E8%A8%80/" class="md-nav__link">
+        前言
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../00-%E5%86%85%E5%AE%B9%E6%8F%90%E8%A6%81/" class="md-nav__link">
+        内容提要
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-introduction/" class="md-nav__link">
+        第 1 章 Python 介绍及学习前的准备
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-base/" class="md-nav__link">
+        第 2 章 Python 入门示例及基础知识
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-data-structure/" class="md-nav__link">
+        第 3 章 基本数据结构
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-control-flow/" class="md-nav__link">
+        第 4 章 控制流与文件操作
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-function-and-module/" class="md-nav__link">
+        第 5 章 函数与模块
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-numpy/" class="md-nav__link">
+        第 6 章 NumPy
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          第 7 章 Matplotlib
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        第 7 章 Matplotlib
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#71-matplotlib" class="md-nav__link">
+    7.1 Matplotlib入门
+  </a>
+  
+    <nav class="md-nav" aria-label="7.1 Matplotlib入门">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#711-matplotlib" class="md-nav__link">
+    7.1.1 Matplotlib库简介
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#712" class="md-nav__link">
+    7.1.2 命名约定
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#713" class="md-nav__link">
+    7.1.3 如何展示图形
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#714" class="md-nav__link">
+    7.1.4 保存图形
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#715" class="md-nav__link">
+    7.1.5 两种绘图接口
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#72" class="md-nav__link">
+    7.2 基本图形绘制
+  </a>
+  
+    <nav class="md-nav" aria-label="7.2 基本图形绘制">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#721" class="md-nav__link">
+    7.2.1 线图
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#722" class="md-nav__link">
+    7.2.2 散点图
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#723" class="md-nav__link">
+    7.2.3 条形图
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#724" class="md-nav__link">
+    7.2.4 直方图
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#725" class="md-nav__link">
+    7.2.5 饼图
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#726" class="md-nav__link">
+    7.2.6 箱线图
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#73" class="md-nav__link">
+    7.3 多图与自定义
+  </a>
+  
+    <nav class="md-nav" aria-label="7.3 多图与自定义">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#731" class="md-nav__link">
+    7.3.1 多图
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#732" class="md-nav__link">
+    7.3.2 设置风格
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#733" class="md-nav__link">
+    7.3.3 两种接口映射
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#74" class="md-nav__link">
+    7.4 章末小结
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-pandas-intro/" class="md-nav__link">
+        第 8 章 Pandas 入门
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-markdown/" class="md-nav__link">
+        第 9 章 Markdown 基础
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-data-import/" class="md-nav__link">
+        第 10 章 数据导入
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-toolbox/" class="md-nav__link">
+        第 11 章 数据分析工具箱
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-advanced-pandas/" class="md-nav__link">
+        第 12 章 Pandas 进阶
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-advanced-vis/" class="md-nav__link">
+        第 13 章 数据可视化进阶
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14-stats/" class="md-nav__link">
+        第 14 章 统计分析
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15-append/" class="md-nav__link">
+        第 15 章 未言及的内容
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16-end/" class="md-nav__link">
+        结语：接下来学什么
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../author-and-recommendation/%E4%BA%A4%E4%BA%92%E7%9A%84Python%20-%20%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE.png" class="md-nav__link">
+        思维导图
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../to-readers/" class="md-nav__link">
+        对读者说的话
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../author/" class="md-nav__link">
+        作者简介
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#71-matplotlib" class="md-nav__link">
+    7.1 Matplotlib入门
+  </a>
+  
+    <nav class="md-nav" aria-label="7.1 Matplotlib入门">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#711-matplotlib" class="md-nav__link">
+    7.1.1 Matplotlib库简介
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#712" class="md-nav__link">
+    7.1.2 命名约定
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#713" class="md-nav__link">
+    7.1.3 如何展示图形
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#714" class="md-nav__link">
+    7.1.4 保存图形
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#715" class="md-nav__link">
+    7.1.5 两种绘图接口
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#72" class="md-nav__link">
+    7.2 基本图形绘制
+  </a>
+  
+    <nav class="md-nav" aria-label="7.2 基本图形绘制">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#721" class="md-nav__link">
+    7.2.1 线图
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#722" class="md-nav__link">
+    7.2.2 散点图
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#723" class="md-nav__link">
+    7.2.3 条形图
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#724" class="md-nav__link">
+    7.2.4 直方图
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#725" class="md-nav__link">
+    7.2.5 饼图
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#726" class="md-nav__link">
+    7.2.6 箱线图
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#73" class="md-nav__link">
+    7.3 多图与自定义
+  </a>
+  
+    <nav class="md-nav" aria-label="7.3 多图与自定义">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#731" class="md-nav__link">
+    7.3.1 多图
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#732" class="md-nav__link">
+    7.3.2 设置风格
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#733" class="md-nav__link">
+    7.3.3 两种接口映射
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#74" class="md-nav__link">
+    7.4 章末小结
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+  <a href="https://github.com/ShixiangWang/pybook/edit/master/07-matplotlib.md" title="Edit this page" class="md-content__button md-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+  </a>
+
+
+
+<h1 id="7-matplotlib">第 7 章 Matplotlib<a class="headerlink" href="#7-matplotlib" title="Permanent link">&para;</a></h1>
+<p><strong>本章内容提要</strong>：</p>
+<ul>
+<li>Matplotlib 命名约定</li>
+<li>Matplotlib 三种绘图场景</li>
+<li>Matplotlib 两种应用接口</li>
+<li>基本图形绘制</li>
+</ul>
+<p>简单的图形可以给数据分析师带来比其他任何设备更多的信息。在上一章中，本书介绍了 Python 数据分析最核心的底层库 NumPy、基于 ndarray 对象的数组操作方法与基本统计。本章将开始指引读者从更直观的角度——图形——了解数据的分布与规律，先学习 Matplotlib 库的基本理念和接口，然后学习如何绘制常见的图形以及更多的自定义。</p>
+<h2 id="71-matplotlib">7.1 Matplotlib入门<a class="headerlink" href="#71-matplotlib" title="Permanent link">&para;</a></h2>
+<h3 id="711-matplotlib">7.1.1 Matplotlib库简介<a class="headerlink" href="#711-matplotlib" title="Permanent link">&para;</a></h3>
+<p>数据可视化是数据分析最核心的工作之一，它既能帮助我们探索数据，如寻找异常值，也能够帮助我们汇总分析结果，即所谓的一图胜千言。Python 有着众多的库可以进行静态或动态的数据可视化，其中最流行的是 Matplotlib（<a href="https://matplotlib.org/">https://matplotlib.org/</a>）。因此，本书主要利用 Matplotlib 向读者介绍如何合理地选择和创建图形。</p>
+<p>Matplotlib 库的历史并不是很久远，它是 John Hunter 在 2002 年启动的一个项目，目的是为 Python 构建商业科学计算软件 MATLAB 的绘图接口，在 2003 年发布了 0.1 版本（实验版本）。Matplotlib 的最重要特点是它可以很好地与许多的操作系统和图形后端工作，这意味着我们可以不管使用什么操作系统或是想要什么输出格式的图形（PDF、JPG、PNG、GIF 等）都可以依靠它。这种跨平台，一切皆可用的特性成为了 Matplotlib 最大的长处，并为 Matplotlib 带来了大量的基础用户和活跃的开发者。</p>
+<p>目前，Matplotlib 已经和 IPython 合作，简化了在 IPython Shell 和 Jupyter Notebook 中进行交互式绘图的方式。除此之外，Python 社区出现了许多以 Matplotlib 为底层的可视化计算库，其中最有名的是 Seaborn（<a href="https://seaborn.pydata.org/">https://seaborn.pydata.org/</a>），在本书后续的章节我们会学习它。</p>
+<h3 id="712">7.1.2 命名约定<a class="headerlink" href="#712" title="Permanent link">&para;</a></h3>
+<p>在深入了解如何使用 Matplotlib 创建图形之前，本书先向读者介绍一些 Python 科学计算社区通用的命名约定。</p>
+<p>在导入 NumPy 包时，我们使用 Python 社区约定的 np 替代 numpy。这里，我们也使用 Matplotlib 的一些标准简写用于导入。</p>
+<pre><code class="language-python">import matplotlib as mpl
+import matplotlib.pyplot as plt
+</code></pre>
+<p>Python 用户基本上绘图只会用到 pyplot 子模块中的功能特性，因此 plt 是使用 Matplotlib 绘图最常用的简写。</p>
+<h3 id="713">7.1.3 如何展示图形<a class="headerlink" href="#713" title="Permanent link">&para;</a></h3>
+<p>Matplotlib 最佳的使用方法依赖于用户如何使用它，通常有 3 种应用绘图的场景：脚本、IPython Shell 和 Jupyter Notebook。</p>
+<h4 id="_1">使用脚本绘制<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h4>
+<p>读者如果想要在脚本中使用 Matplotlib，通常使用 plt.show() 函数。该函数会寻找当前活跃的所有图形队形，打开一个或多个交互式的窗口展示图形。</p>
+<p>假设下面是代码文件 plot.py 的内容：</p>
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+
+# 导入模块/包
+import matplotlib.pyplot as plt
+import numpy as np
+
+# 生成数据
+x = np.linspace(0, 10, 200)
+
+# 绘制图形
+plt.plot(x, np.sin(x))
+plt.plot(x, np.cos(x))
+
+# 显示图形
+plt.show()
+</code></pre>
+<p>接下来在终端中运行该脚本，读者将看到一个显示图形的窗口弹出来。在此处，plt.show() 函数在后台进行了多项工作，它与系统的交互式图形后端进行交流，而 Matplotlib 向我们隐藏了所有的细节。</p>
+<pre><code class="language-shell">$ python plot.py
+</code></pre>
+<p><img alt="图7-1 使用脚本绘制图形结果" src="../assets/1565968443953.png" /></p>
+<p>注意，如果是编写脚本文件进行绘图，一个文件尽量只使用一次 plt.show() 函数，如果使用多次，图形后端行为将可能因为频繁的调用出毛病。</p>
+<h4 id="ipython-shell">从 IPython Shell 绘制<a class="headerlink" href="#ipython-shell" title="Permanent link">&para;</a></h4>
+<p>在 IPython Shell 中使用 Matplotlib 非常方便，读者如果指定 Matplotlib 模式，IPython 可以工作得非常好。启动 IPython 后键入魔术命令 %matplotlib 能够激活该模式。</p>
+<pre><code class="language-python">%matplotlib
+import matplotlib.pyplot as plt
+# Using matplotlib backend: Qt5Agg
+</code></pre>
+<p>这时候读者如果调用 plt.plot() 函数就会打开一个图形窗口，然后接下来输入的绘图指令会不断更新这个图。有时候，一些对图形属性的更改不会及时生效，读者可以利用 plt.draw() 函数强制执行。</p>
+<h4 id="jupyter-notebook">在 Jupyter Notebook 中绘制<a class="headerlink" href="#jupyter-notebook" title="Permanent link">&para;</a></h4>
+<p>在 Jupyter Notebook 中使用 Matplotlib 进行交互式绘图也是使用魔术命令 %matplotlib，它跟在 IPython Shell 中的工作方式差不多。读者可以使用以下两种选项：</p>
+<ul>
+<li>%matplotlib notebook 会在 Notebook 中嵌入交互式图形。</li>
+<li>%matplotlib inline 会在 Notebook 中嵌入静态图形。</li>
+</ul>
+<p>第二种方式更为常用。</p>
+<pre><code class="language-python">%matplotlib inline
+</code></pre>
+<p>运行这条命令后，Notebook 任何创建图形的单元格都会嵌入对应的 PNG 图形。例如，下面创建了一幅跟刚才执行 python 脚本类似的图形，不过这里略微修改了绘图数据的并设置了线条的类型。</p>
+<pre><code class="language-python">import numpy as np
+x = np.linspace(0, 10, 100)
+
+fig = plt.figure()  # 生成一个空白图形并将其赋给fig对象
+plt.plot(x, np.sin(x), '-')   # 绘制实线
+plt.plot(x, np.cos(x), '--')  # 绘制虚线
+</code></pre>
+<p><img alt="图7-2 使用 Notebook 绘制图形结果" src="../assets/1566008307111.png" /></p>
+<p>请读者试试先运行 %matplotlib notebook，再运行上述代码观察执行的结果与 %matplotlib inline 有何不同。</p>
+<p>在本章接下来的内容中，本书统一使用 IPython Shell 的方式进行绘图。</p>
+<h3 id="714">7.1.4 保存图形<a class="headerlink" href="#714" title="Permanent link">&para;</a></h3>
+<p>前面已经介绍过，Matplotlib 支持各种系统和图形格式。Matplotlib 的好用点还在于，保存所有图形格式的代码都是一样的，只需要调用图形对象的 savefig() 方法，非常简单易用。</p>
+<p>例如，我们创建上面正弦余弦曲线图，然后用 png 格式保存，并进行检查。</p>
+<pre><code class="language-python">In [1]: %matplotlib
+   ...: import matplotlib.pyplot as plt
+Using matplotlib backend: Qt5Agg
+
+In [2]: import numpy as np
+   ...: x = np.linspace(0, 10, 100)
+   ...:
+   ...: fig = plt.figure()  # 生成一个空白图形并将其赋给 fig 对象
+   ...: plt.plot(x, np.sin(x), '-')   # 绘制实线
+   ...: plt.plot(x, np.cos(x), '--')  # 绘制虚线
+Out[2]: [&lt;matplotlib.lines.Line2D at 0x7f90d0955f98&gt;]
+
+In [3]: # 保存图形
+   ...: fig.savefig(&quot;first.png&quot;)
+   ...:
+   ...: # 调用系统命令 ls 检查
+   ...: !ls -l first.png
+-rw-r--r-- 1 wsx wsx 37468 8月  17 10:26 first.png
+</code></pre>
+<p>pdf 是常见的矢量图形格式，现在我们使用一样的函数，仅改动一下保存的文件拓展名。</p>
+<pre><code class="language-python">In [4]: # 保存 pdf 矢量图
+   ...: fig.savefig(&quot;first.pdf&quot;)
+   ...:
+   ...: # 调用系统命令 ls 检查
+   ...: !ls -l first.pdf
+-rw-r--r-- 1 wsx wsx 8555 8月  17 10:26 first.pdf
+</code></pre>
+<p>读者不妨使用 pdf 阅读器打开该文件看看。</p>
+<p>下面代码结果列出 Matplotlib 支持的所有图形格式：</p>
+<pre><code class="language-python">In [5]: fig.canvas.get_supported_filetypes()
+Out[5]:
+{'ps': 'Postscript',
+ 'eps': 'Encapsulated Postscript',
+ 'pdf': 'Portable Document Format',
+ 'pgf': 'PGF code for LaTeX',
+ 'png': 'Portable Network Graphics',
+ 'raw': 'Raw RGBA bitmap',
+ 'rgba': 'Raw RGBA bitmap',
+ 'svg': 'Scalable Vector Graphics',
+ 'svgz': 'Scalable Vector Graphics',
+ 'jpg': 'Joint Photographic Experts Group',
+ 'jpeg': 'Joint Photographic Experts Group',
+ 'tif': 'Tagged Image File Format',
+ 'tiff': 'Tagged Image File Format'}
+</code></pre>
+<p>注意，由于不同读者使用的操作系统以及安装的图形后端都可能不同，因此支持的图形格式可能也会有所变化，因而如果与上述输出不一致也是正常的。</p>
+<h3 id="715">7.1.5 两种绘图接口<a class="headerlink" href="#715" title="Permanent link">&para;</a></h3>
+<p>在前面的几小节中，我们使用类似 MATLAB 的命令操作方式进行图形的创建工作。除了这种操作方式，Matplotlib 还提供了比较原生的 Python 方式操作图形：这种方式把每一个图形都看作一个对象，读者可以通过对象方法的调用达到图形元素增改的目的。</p>
+<p>MATLAB 操作方式非常地简便，而面向对象的方式则功能强大。大多数数据分析师或数据科学家在代码中往往同时使用两者，因此代码阅读时容易产生困惑。本小节对两种绘图接口进行简要介绍，帮助读者理清它们的区别。</p>
+<h4 id="matlab">MATLAB 样式接口<a class="headerlink" href="#matlab" title="Permanent link">&para;</a></h4>
+<p>MATLAB 样式接口由 plt 模块提供，plt 包含一系列绘图命令（函数），名称与 MATLAB 基本一致。下面展示了如何利用 plt 快速绘制包含两个子图的图形：</p>
+<pre><code class="language-python">In [6]: # 创建一个图形
+   ...: plt.figure()
+   ...:
+   ...: # 创建两个子图面板
+   ...: # 创建第1个子图
+   ...: plt.subplot(2, 1, 1)
+   ...: plt.plot(x, np.cos(x))  # 绘制图形
+   ...:
+   ...: # 创建第2个子图
+   ...: plt.subplot(2, 1, 2)
+   ...: plt.plot(x, np.sin(x))  # 绘制图形
+Out[6]: [&lt;matplotlib.lines.Line2D at 0x7f90d2fbfbe0&gt;]
+</code></pre>
+<p><img alt="图7-3 使用 MATLAB 样式绘图" src="../assets/1566009197372.png" /></p>
+<p>这里使用了 3 个命令，每一个都非常简明：</p>
+<ul>
+<li>figure() 函数创建一个空白图形。</li>
+<li>subplot(rows, columns, subplot_number) 函数创建子图，第 1 个参数设定子图行数，第 2 个参数设定子图列数，第 3 个参数设定子图序号。</li>
+<li>plot(x, y) 函数绘制图形，第 1 个参数为 x 轴提供数据，第 2 个参数为 y 轴提供数据。</li>
+</ul>
+<p>对于简单的图形来说，这种接口是极好的，它既快又简单。然而，如果绘制的图形比较复杂，可能就不适应或者出问题了。例如，当我们在操作第 2 个子图的时候，想要对已经绘制的第 1 个子图进行增删改，该怎么办？MATLAB 样式接口不可能完成这个任务。不过，我们还有更好的办法——面向对象接口。</p>
+<h4 id="_2">面向对象接口<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h4>
+<p>面向对象接口可以应对更为复杂的绘图场景，它通过图和坐标轴等图形对象方法的调用来实现各种绘图操作。</p>
+<p>现在，我们用面对对象接口实现刚才的图形。</p>
+<pre><code class="language-python">In [7]: # 首先创建一个图形网格
+   ...: fig, ax = plt.subplots(2)
+   ...:
+   ...: # 在坐标轴对象上调用 plot() 方法
+   ...: ax[0].plot(x, np.cos(x))
+   ...: ax[1].plot(x, np.sin(x))
+Out[7]: [&lt;matplotlib.lines.Line2D at 0x7f90d2d9a160&gt;]
+</code></pre>
+<p>显示的图形与 MATLAB 接口实现一致，所以这里不再展示。</p>
+<p>这里 subplot() 函数返回一个元组，其中第 2 个元素是一个包含坐标轴对象的数组，在坐标轴对象上调用方法即可绘制、修改图形。</p>
+<p>可以看到，两种接口绘制图形的操作都比较简单。对于简单的图形，选择哪一种接口取决于读者的喜好。至于绘制复杂的图形，还是需要掌握面向对象的接口。</p>
+<h2 id="72">7.2 基本图形绘制<a class="headerlink" href="#72" title="Permanent link">&para;</a></h2>
+<p>上一节本书向读者介绍了 Matplotlib 的绘图场景以及绘图接口，这一节我们接着学习常见图形的绘制，包括线图、散点图、直方图、饼图等。不同类型的图形有很多相同的元素，在线图一小节中本书会详细地进行介绍，以便于读者在其他类型图形绘制的学习中能够快速理解、掌握和应用。</p>
+<h3 id="721">7.2.1 线图<a class="headerlink" href="#721" title="Permanent link">&para;</a></h3>
+<p>线图常常用来表示某个变量随另一个变量变化的趋势，如金融领域中的经济走势图、医院中的心电图。</p>
+<p>pyplot 模块提供的 plot() 函数可以轻松地绘制线图，该函数需要读者提供 y 轴的数据或者同时提供 x 轴和 y 轴的数据。如果只提供 y 轴的数据，那么函数会自动将 x 轴数据设为同等长度的整数序列，从 0 开始。</p>
+<p>下面代码结果显示无论是使用 Python 内置的函数 range() 或者使用 numpy 模块提供的 arange() 函数生成序列 1 到 10，绘制的图形完全一致，如图7-4、图7-5。可见我们使用 Matplotlib 绘图的重点是准备数据，它会自动帮我们处理好不同的数据类型。</p>
+<pre><code class="language-python">In [8]: import numpy as np
+   ...: import matplotlib.pyplot as plt
+   ...:
+   ...: plt.plot(range(1, 11))
+Out[8]: [&lt;matplotlib.lines.Line2D at 0x7f90d2d20c50&gt;]
+</code></pre>
+<p><img alt="图7-4 简单线图，使用 range() 生成 x 轴数据" src="../assets/1566009715829.png" /></p>
+<pre><code class="language-python">In [9]: plt.plot(np.arange(1,11))
+Out[9]: [&lt;matplotlib.lines.Line2D at 0x7f90d2b2d160&gt;]
+</code></pre>
+<p><img alt="图7-5 简单线图，使用 np.arange() 生成 x 轴数据" src="../assets/1566009847601.png" /></p>
+<p>我们再来看看面向对象接口的使用。</p>
+<pre><code class="language-python">In [10]: fig = plt.figure()
+    ...: ax  = plt.axes()
+
+In [11]: type(fig)
+Out[11]: matplotlib.figure.Figure
+In [12]: type(ax)
+Out[12]: matplotlib.axes._subplots.AxesSubplot
+</code></pre>
+<p><img alt="图7-6 首先生成空白坐标轴" src="../assets/1566010077143.png" /></p>
+<p>上面代码先使用 figure() 函数创建了一个 Figure 对象，Figure 对象可以看做包含一切图形元素的容器，如坐标轴、文字、标签。axes() 然后创建了一个 Axes（坐标轴）对象，也就是我们上面看到的一个包含刻度和标签的箱子，如图7-6。</p>
+<p>通常在使用 Matplotlib 绘图时，我们都使用 fig 指向一个 Figure 对象，ax 指向一个坐标轴对象。</p>
+<p>现在我们已经有了坐标轴，所需要做的是往上添加数据。</p>
+<p>在上一节中，我们使用了 linspace() 函数但没有进行解释，该函数可以创建一个等长的数据序列。例如，linspace(0, 5, 20) 就会将 0 到 5 分割为 20 份。</p>
+<pre><code class="language-python">In [13]: fig = plt.figure()
+    ...: ax = plt.axes()
+    ...:
+    ...: x = np.linspace(0, 5, 20)
+    ...: ax.plot(x, np.cos(x))
+Out[13]: [&lt;matplotlib.lines.Line2D at 0x7f90d2fa3fd0&gt;]
+</code></pre>
+<p><img alt="图7-7 使用面向对象接口绘图" src="../assets/1566010369211.png" /></p>
+<p>当我们需要在一个图中绘制多条曲线时，最简单的办法就是多次调用 plot() 函数。</p>
+<pre><code class="language-python">In [14]: plt.plot(x, np.sin(x))
+    ...: plt.plot(x, np.cos(x))
+Out[14]: [&lt;matplotlib.lines.Line2D at 0x7f90d2a58eb8&gt;]
+</code></pre>
+<p><img alt="图7-8 一图多曲线" src="../assets/1566010491532.png" /></p>
+<p>上面 Matplotlib 为曲线自动设置了颜色和类型，在实际应用时我们常需要自定义，它们分别可以使用关键字参数 color 和 linestype 进行设定。</p>
+<p>color 参数接收一个代表任何颜色的字符串，支持多种不同类型的颜色编码，如名字、颜色代码、十六进制、RGB 等。</p>
+<pre><code class="language-python">In [16]: plt.plot(x, 2*x,   color = &quot;red&quot;)           # 按名字指定颜色
+    ...: plt.plot(x, 2*x+1, color = &quot;g&quot;)             # 短颜色编码（rgbcmyk）
+    ...:
+    ...: plt.plot(x, 2*x+2, color = &quot;0.6&quot;)           # 灰度，范围在0-1之间
+    ...: plt.plot(x, 2*x+3, color = &quot;#FFEE22&quot;)       # 十六进制编码
+    ...: plt.plot(x, 2*x+4, color = (0.8, 0.7, 0.1)) # RGB元组，值从0到1
+    ...: plt.plot(x, 2*x+5, color = &quot;chartreuse&quot;)    # 支持所有的HTML颜色名
+    ...: 字
+Out[16]: [&lt;matplotlib.lines.Line2D at 0x7f90b3832630&gt;]
+</code></pre>
+<p><img alt="图7-9 线图颜色的使用" src="../assets/1566010624845.png" /></p>
+<p>通过设定 linestype 参数，我们可以展示非常丰富的线条类型，包括虚线、实现、点划线。</p>
+<pre><code class="language-python">In [17]: plt.plot(x, 2*x,   linestyle = 'solid')   # 实线
+    ...: plt.plot(x, 2*x+1, linestyle = 'dashed')  # 虚线
+    ...: plt.plot(x, 2*x+2, linestyle = 'dashdot') # 点划线
+    ...: plt.plot(x, 2*x+3, linestyle = 'dotted')  # 小圆点
+Out[17]: [&lt;matplotlib.lines.Line2D at 0x7f903f3b1cf8&gt;]
+</code></pre>
+<p><img alt="图7-10 线图线条类型的使用" src="../assets/1566010719188.png" /></p>
+<p>为了简便，读者也可以使用相应的字符代码。</p>
+<pre><code class="language-python">In [18]: plt.plot(x, 2*x,   linestyle = '-')   # 实线
+    ...: plt.plot(x, 2*x+1, linestyle = '--')  # 虚线
+    ...: plt.plot(x, 2*x+2, linestyle = '-.')  # 点划线
+    ...: plt.plot(x, 2*x+3, linestyle = ':')   # 小圆点
+Out[18]: [&lt;matplotlib.lines.Line2D at 0x7f903f396fd0&gt;]
+</code></pre>
+<p>线条类型和颜色往往组合使用，为了简便，我们可以提供一个同时包含线条类型代码和颜色代码的字符串，作为非关键字参数传入 plot() 函数。</p>
+<pre><code class="language-python">In [19]: plt.plot(x, 2*x,   '--c')   # 青色的虚线
+    ...: plt.plot(x, 2*x+2, '-.k')   # 黑色的点划线
+Out[19]: [&lt;matplotlib.lines.Line2D at 0x7f903f3779b0&gt;]
+</code></pre>
+<p><img alt="图7-11 线图线条类型与颜色组合" src="../assets/1566010869416.png" /></p>
+<p>了解了如何为线图设定颜色和线条类型后，我们接下来系统地看一下 plot() 函数常见的参数列表。</p>
+<pre><code class="language-python">plot(x, y, linestyle,
+     linewidth, color, marker,
+     markersize, markeredgecolor,
+     label, alpha)
+</code></pre>
+<p>下面是具体的说明：</p>
+<ul>
+<li>x - 线图x轴数据</li>
+<li>y - 线图y轴数据</li>
+<li>linestyle - 线条类型</li>
+<li>linewidth - 线条宽度</li>
+<li>color - 颜色</li>
+<li>marker - 可以为线图添加散点，该参数指定点的形状</li>
+<li>markersize - 指定点的大小</li>
+<li>markeredgecolor - 指定点的边框色</li>
+<li>label - 图例标签</li>
+</ul>
+<p>虽然 plot() 函数提供了图例标签信息，但需要配合 legend() 函数才能显示。</p>
+<pre><code class="language-python">In [20]: x = np.linspace(0, 20, 100)
+    ...: plt.plot(x, 2*x,   '--c', label = 'dashed cyan')
+    ...: plt.plot(x, 2*x+6, '-.k', label = 'dashdot black')
+    ...:
+    ...: plt.legend()
+Out[20]: &lt;matplotlib.legend.Legend at 0x7f903de46c18&gt;
+</code></pre>
+<p><img alt="图7-12 图例的使用" src="../assets/1566011014665.png" /></p>
+<p>plot() 函数其他几个选项主要用于自定义线条和描述数据点。线图中线条描述了连续的变化，但实际观测的数据值是有限的，因此在一些分析中，同时观测线条和点是非常有必要的。</p>
+<p>下面的代码示例将 plot() 函数涉及的常见选项都进行自定义设定。</p>
+<pre><code class="language-python">In [21]: x = range(0, 20)
+    ...: y = np.cos(x)
+    ...:
+    ...: plt.plot(x, y, linestyle = '-.',
+    ...:      linewidth = 2, color = 'blue', marker = 'o',
+    ...:      markersize = 12, markeredgecolor = 'red',
+    ...:      label = 'Example Plot', alpha = 0.8)
+    ...: plt.legend()
+Out[21]: &lt;matplotlib.legend.Legend at 0x7f903de12d68&gt;
+</code></pre>
+<p><img alt="图7-13 线图自定义" src="../assets/1566011155999.png" /></p>
+<p>了解了如何创建一个美观的带点线图后，读者只要对相应的选项略加更改就可以创建自己喜欢的线图。线条与点的类型、颜色与大小的选择在实际应用时都需要花费时间进行探索。</p>
+<p>图形的作用除了显示数据的变化趋势或模式，还常用于比较。下面代码新增了一条红色的曲线，两者的差异一目了然。</p>
+<pre><code class="language-python">In [22]: x = range(0, 20)
+    ...: y = np.cos(x)
+    ...: y2 = np.sin(x) - 0.5
+    ...:
+    ...: plt.plot(x, y, linestyle = '-.',
+    ...:      linewidth = 2, color = 'blue', marker = 'o',
+    ...:      markersize = 12, markeredgecolor = 'red',
+    ...:      label = 'Blue line', alpha = 0.8)
+    ...: plt.plot(x, y2, linestyle = '--',
+    ...:      linewidth = 2, color = 'red', marker = 'x',
+    ...:      markersize = 6, markeredgecolor = 'red',
+    ...:      label = 'Red line')
+    ...: plt.legend()
+Out[22]: &lt;matplotlib.legend.Legend at 0x7f903e7b7c18&gt;
+</code></pre>
+<p><img alt="图7-14 线图用于趋势对比" src="../assets/1566011228901.png" /></p>
+<p>图虽然现在已经绘制好了，但缺乏一些必要的说明：坐标轴标签以及图标题。</p>
+<p>实现这些需求非常简单，x 与 y 轴标签可以分别通过 xlabel() 和 ylabel() 函数添加，而图标题可以使用 title() 添加。</p>
+<p>为方便演示，下面代码绘制一条简单的余弦曲线，并添加轴标签和标题。</p>
+<pre><code class="language-python">In [23]: x = np.linspace(0, 200, 100)
+    ...: plt.plot(x, np.cos(x))
+    ...: plt.xlabel('Time (s)')
+    ...: plt.ylabel('Cos(x)')
+    ...: plt.title('A simple cosine curve')
+Out[23]: Text(0.5,1,'A simple cosine curve')
+</code></pre>
+<p><img alt="图7-15 添加坐标轴标签与标题" src="../assets/1566011365121.png" /></p>
+<p>上面所有绘制的图形都显示了所有的数据区域，有时候我们想要把焦点放到某一个区域，这时需要对轴的范围进行限制，针对 x 轴和 y 轴的范围的限制 Matplotlib 提供了 xlim() 和 ylim() 实现。</p>
+<p>现在我们将 x 轴范围限定在 50 到 150，y轴范围限定在 -0.5 到 0.5。</p>
+<pre><code class="language-python">In [24]: plt.plot(x, np.cos(x))
+    ...: plt.xlim(50, 150)
+    ...: plt.ylim(-0.5, 0.5)
+Out[24]: (-0.5, 0.5)
+</code></pre>
+<p><img alt="图7-16 可视化特定区域" src="../assets/1566011464100.png" /></p>
+<p>如果我们将上面设定的参数值反过来，我们就实现了坐标轴的反转。</p>
+<pre><code class="language-python">In [25]: plt.plot(x, np.cos(x))
+    ...: plt.xlim(150, 50)
+    ...: plt.ylim(0.5, -0.5)
+Out[25]: (0.5, -0.5)
+</code></pre>
+<p><img alt="图7-17 坐标轴反转" src="../assets/1566011545524.png" /></p>
+<p>除了使用 xlim() 和 ylim() 函数分别设置 x 轴和 y 轴的范围，Matplotlib 还提供了函数 axis() 对它们同时进行设定，该函数需要一个形如 [xmin, xmax, ymin, ymax] 的列表作为参数。</p>
+<pre><code class="language-python">In [26]: plt.plot(x, np.cos(x))
+    ...: plt.axis([25, 150, -1, 0])
+    ...: plt.xlabel('Time (s)')
+    ...: plt.ylabel('Cos(x)')
+    ...: plt.title('A cosine curve with limited x and y')
+Out[26]: Text(0.5,1,'A cosine curve with limited x and y')
+</code></pre>
+<p><img alt="图7-18 可视化特定区域(二)" src="../assets/1566011646740.png" /></p>
+<p>有意思的是，axis() 函数除了支持数值列表作为输入，还支持字符选项，Matplotlib 会根据输入的字符选项自动地对轴进行调整，这对用户实在太友好不过了。</p>
+<p>axis() 函数常见支持的选项有：</p>
+<ul>
+<li>axis(&lsquo;off&rsquo;)    - 关闭轴线和标签</li>
+<li>axis(&lsquo;equal&rsquo;)  - 使x轴与y轴保持与屏幕一致的高宽比（横纵比）</li>
+<li>axis(&lsquo;tight&rsquo;)  - 使x与y轴限制在有数据的区域</li>
+<li>axis(&lsquo;square&rsquo;) - 使x与y轴坐标一致</li>
+</ul>
+<p>下面通过一些图来认识这些选项的实际效果，其他 axis() 支持的选项请通过 plt.axis? 访问函数文档。</p>
+<pre><code class="language-python">In [27]: plt.plot(x, np.cos(x))
+    ...: plt.axis('off')
+Out[27]: (-10.0, 210.0, -1.0999621189366728, 1.0999981961398415)
+</code></pre>
+<p><img alt="图7-19 去掉轴" src="../assets/1566011764310.png" /></p>
+<pre><code class="language-python">In [28]: plt.plot(x, np.cos(x))
+    ...: plt.axis('square')
+Out[28]: (-10.0, 210.0, -1.0999621189366728, 218.90003788106333)
+</code></pre>
+<p><img alt="图7-20 使 x 轴 y 轴坐标一致" src="../assets/1566011842818.png" /></p>
+<pre><code class="language-python">In [29]: plt.plot(x, np.cos(x))
+    ...: plt.axis('equal')
+Out[29]: (-10.0, 210.0, -1.0999621189366728, 1.0999981961398415)
+</code></pre>
+<p><img alt="图7-21 与屏幕一致的纵横比" src="../assets/1566011901725.png" /></p>
+<pre><code class="language-python">In [30]: plt.plot(x, np.cos(x))
+    ...: plt.axis('tight')
+Out[30]: (-10.0, 210.0, -1.0999621189366728, 1.0999981961398415)
+</code></pre>
+<p><img alt="图7-22 默认选项" src="../assets/1566012009692.png" /></p>
+<p>这一小节本书以线图为对象向读者详细地介绍了如何使用 Matplotlib 绘制线图这一常见的图形以及如何添加标签、标题、轴范围限定等等自定自定义操作。有了线图作为学习的基础，本书接下来的几个小节将不再对自定义的操作进行赘述，只对基础图形的绘图函数进行必要的介绍。</p>
+<h3 id="722">7.2.2 散点图<a class="headerlink" href="#722" title="Permanent link">&para;</a></h3>
+<p>散点图在观察数据量以及数据的分布时非常有用。Matplotlib 提供了两种方式绘制点图：一种是我们上一小节学习的 plot() 函数，另一种是这一小节将要介绍的 scatter() 函数。</p>
+<p>对于简单的图形，读者选择使用两种方式的哪一种取决于自己的习惯。plot() 函数比较简单，而 scatter() 则提供了更多可以自定义的特性。不过，这也意味着后者在实现上会需要更多的计算资源，因此对于大型的数据集，plot() 可能更为实用。</p>
+<p>我们先通过两个简单的点图来了解两种方式使用上的不同。plot() 函数默认绘制的是线图，为了显示点图，我们需要传入非关键字参数 &ldquo;o&rdquo; 表示点，而 scatter() 函数不需要这样的设定。</p>
+<pre><code class="language-python">In [31]: import numpy as np
+    ...: import matplotlib.pyplot as plt
+    ...:
+    ...: x = range(1, 11)
+    ...: plt.plot(x, x, &quot;o&quot;, color = &quot;red&quot;) # 设定为红色的点
+Out[31]: [&lt;matplotlib.lines.Line2D at 0x7f903a168048&gt;]
+</code></pre>
+<p><img alt="图7-23 使用 plot() 函数绘制点图" src="../assets/1566012156747.png" /></p>
+<p>scatter() 函数使用关键字参数 marker 可以设定点的类型，默认是用 &ldquo;o&rdquo; 表示的小圆点。</p>
+<pre><code class="language-python">In [32]: x = range(1, 11)
+    ...: plt.scatter(x, x)
+Out[32]: &lt;matplotlib.collections.PathCollection at 0x7f903f04c668&gt;
+In [33]: plt.scatter(x, x, marker = 'o')  # 与上面代码输出图形一致
+</code></pre>
+<p><img alt="图7-24 使用 scatter() 函数绘制点图" src="../assets/1566012247119.png" /></p>
+<p>Python 支持很多种点类型，如圆点、方块、三角形。为了方便展示点的符号与对应的类型，下面生成一堆随机的数据点并调用 for 循环根据不同的点类型绘制图形，并用图例直观展示符号与点类型的对应关系。</p>
+<pre><code class="language-python">In [34]: # 创建一个隔离的随机数生成器
+    ...: rng = np.random.RandomState(123456)
+    ...:
+    ...: # 循环绘制点图
+    ...: for marker in ['o', '.', ',', 'x', '+', 'v', '^', '&lt;', '&gt;', 's', 'd
+    ...: ']:
+    ...:     plt.scatter(list(rng.rand(5)), list(rng.rand(5)), marker = mark
+    ...: er,
+    ...:                label=&quot;marker='{0}'&quot;.format(marker))
+    ...:
+    ...: # 显示图例
+    ...: plt.legend(numpoints=1)
+    ...: plt.xlim(0, 2)  # 避免图例与点重叠
+Out[34]: (0, 2)
+</code></pre>
+<p><img alt="图7-25 点与符号" src="../assets/1566012427766.png" /></p>
+<p>如果数据点太多，点和点会重叠到一起，这样图形可能会不美观并且会阻碍读者对于数据量的判断（如图7-26）。比较好的解决办法是为点设置一定的透明度（如图7-27）。</p>
+<pre><code class="language-python">In [35]: rng = np.random.RandomState(12)
+    ...: x = rng.randn(200)
+    ...: y = rng.randn(200)
+    ...:
+    ...: _ = plt.scatter(x, y)
+</code></pre>
+<p><img alt="图7-26 未设置透明度之前" src="../assets/1566012512679.png" /></p>
+<pre><code class="language-python">In [36]: plt.scatter(x, y, alpha=0.5)  # 为数据点设置透明度
+Out[36]: &lt;matplotlib.collections.PathCollection at 0x7f903ec65b00&gt;
+</code></pre>
+<p><img alt="图7-27 设置透明度之后" src="../assets/1566012584741.png" /></p>
+<p>另外，点的大小和颜色常常用来表示有价值的信息，它们分别可以通过关键字参数 s 和 c 进行设置。</p>
+<pre><code class="language-python">In [37]: colors = rng.rand(200)
+    ...: sizes = 1000 * rng.rand(200)
+    ...:
+    ...: plt.scatter(x, y, c=colors, s=sizes, alpha=0.3)
+Out[37]: &lt;matplotlib.collections.PathCollection at 0x7f903e90cb70&gt;
+</code></pre>
+<p><img alt="图7-28 设置点的大小和颜色" src="../assets/1566012743480.png" /></p>
+<p>我们还可以将颜色条加上，以显示颜色代表的数值信息。</p>
+<pre><code class="language-python">In [38]: plt.scatter(x, y, c=colors, s=sizes, alpha=0.3)
+    ...: plt.colorbar()
+Out[38]: &lt;matplotlib.colorbar.Colorbar at 0x7f903e89a438&gt;
+</code></pre>
+<p><img alt="图7-29 加上颜色条" src="../assets/1566012814718.png" /></p>
+<h3 id="723">7.2.3 条形图<a class="headerlink" href="#723" title="Permanent link">&para;</a></h3>
+<p>条形图也是一种常用的图形，常见于各种 PPT 的展示中，为各种职业人士所喜爱。对于各种场景下数值的比较，它非常简单直观。Matplotlib 提供了 bar() 函数绘制条形图，本小节通过几个例子向读者介绍如何绘制垂直条形图、水平条形图、分组条形图以及堆叠条形图。</p>
+<h4 id="_3">垂直条形图<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h4>
+<p>现在假设某销售公司需要在 PPT 中展示几位员工的年度销售业绩，条形图就是一个很好的选择。为简单起见，我们只绘制小红、小王、小李、小张四位员工的业绩，它们分别是 400 万、300 万、250 万以及 375 万。</p>
+<p>下面我们会在图中标注一些中文信息，而 Matplotlib 本身对中文的支持并不是很优化，在绘图之前，请使用下面代码进行设置。</p>
+<pre><code class="language-python">In [39]: import numpy as np
+    ...: import matplotlib.pyplot as plt
+    ...:
+    ...: plt.rcParams['font.sans-serif']=['SimHei']  # 用来正常显示中文标签
+    ...: plt.rcParams['axes.unicode_minus']=False    # 用来正常显示负号
+</code></pre>
+<p>接下来我们生成数据并绘制条形图。</p>
+<pre><code class="language-python">In [40]: member = [u'小红', u'小王', u'小李', u'小张']
+    ...: sales  = [400, 300, 250, 375]
+    ...:
+    ...: # 绘图
+    ...: plt.bar(range(4), sales, align = 'center',color='steelblue', alpha
+    ...: = 0.7)
+    ...: # 添加y轴标签
+    ...: plt.ylabel(u'年度销售额（万）')
+    ...: # 添加标题
+    ...: plt.title(u'员工年度销售额对比')
+    ...: # 添加刻度标签
+    ...: plt.xticks(range(4), member)
+    ...: # 设置Y轴的刻度范围
+    ...: plt.ylim([200,500])
+    ...:
+    ...: # 在没有条形图上方添加数值标签
+    ...: for x,y in enumerate(sales):
+    ...:     plt.text(x,y+10,'%s' %round(y,1),ha='center')
+</code></pre>
+<p><img alt="图7-30 垂直条形图示例" src="../assets/1566013182248.png" /></p>
+<p>创建条形图与创建点图或线图没什么差别，我们都是给函数提供 x 轴与 y 轴数据，不过不同的图形有着不同的数据展示方式和自定义选项。这里 bar() 函数设置 x 轴刻度标签为水平居中，条形图的填充色为铁蓝色，同时设置透明度为 0.7。</p>
+<p>另外，我们添加了 y 轴标签、标题、x 轴刻度标签值，使得图形更富有信息。为了突显条形图各柱体之间的差异，这里将 y 轴范围设置在 200 到 500。</p>
+<p>最后，我们通过循环的方式，在条形的上方添加的数值标签，指定具体的数值，更加方便查看。</p>
+<h4 id="_4">水平条形图<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h4>
+<p>如果想要将上面的垂直条形图改变为水平条形图，我们只需要将 bar() 函数调整为 barh() 函数，并将相应的标签进行调整即可。</p>
+<pre><code class="language-python">In [41]: # 绘图
+    ...: plt.barh(range(4), sales, align = 'center',color='steelblue', alpha
+    ...:  = 0.7)
+    ...: # 添加y轴标签
+    ...: plt.xlabel(u'年度销售额（万）')
+    ...: # 添加标题
+    ...: plt.title(u'员工年度销售额对比')
+    ...: # 添加刻度标签
+    ...: plt.yticks(range(4), member)
+    ...: # 设置X轴的刻度范围
+    ...: plt.xlim([200,500])
+    ...:
+    ...: # 在没有条形图右方添加数值标签
+    ...: for x,y in enumerate(sales):
+    ...:     plt.text(y+10,x,'%s' %y,va='center')
+</code></pre>
+<p><img alt="图7-31 水平条形图示例" src="../assets/1566013434471.png" /></p>
+<p>在添加条形图的数值标签时需要注意，在水平条形图中，x 轴表示的是销售额，y 轴表示员工，所以 text() 函数前两个参数的顺序恰好与上一幅图的相反。</p>
+<h4 id="_5">分组条形图<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h4>
+<p>很多时候需要展示的数据并不像上面一样简单。例如，我们拓展一下问题的复杂度：现在需要使用水平条形图展示每位员工前 3 个月的销售额。此时，我们需要将每位员工的销售额按月分组，然后分别绘制条形图进行展示，代码实现如下：</p>
+<pre><code class="language-python">In [42]: member = [u'小红', u'小王', u'小李', u'小张']
+    ...: sales_jan  = [30, 42, 25, 35]  # 一月份的销售额
+    ...: sales_feb  = [60, 55, 10, 27]  # 二月份的销售额
+    ...: sales_mar  = [40, 20, 5, 70]   # 三月份的销售额
+    ...:
+    ...: bar_width = 0.2  # 设置分组条形的宽度
+    ...:
+    ...: # 绘图
+    ...: plt.bar(range(4), sales_jan, label = u'一月',
+    ...:         color = 'steelblue', alpha = 0.7, width = bar_width)
+    ...: # 也可以使用numpy模块的arange()函数构造横坐标
+    ...: plt.bar(np.arange(4) + bar_width, sales_feb, label = u&quot;二月&quot;,
+    ...:         color = 'indianred', alpha = 0.7, width = bar_width)
+    ...: plt.bar(np.arange(4) + bar_width*2, sales_mar, label = u&quot;三月&quot;,
+    ...:         color = 'green', alpha = 0.7, width = bar_width)
+    ...:
+    ...: # 添加y轴标签
+    ...: plt.ylabel('月度销售额（万）')
+    ...: # 添加标题
+    ...: plt.title('员工第一季度月度销售额对比')
+    ...: # 添加刻度标签
+    ...: plt.xticks(np.arange(4)+bar_width, member)
+    ...: # 添加图例
+    ...: plt.legend()
+    ...: plt.xlim(-0.5, 4.5)
+Out[42]: (-0.5, 4.5)
+</code></pre>
+<p><img alt="图7-32 分组条形图示例" src="../assets/1566013535017.png" /></p>
+<p>分组条形图比简单条形图更复杂之处在于，在摆放数据 x 轴坐标和刻度位置时需要进行额外的计算和调整。在执行坐标的计算时，推荐读者使用 numpy，因为它支持广播机制，这让向量化的算术运算变得简单。例如，这个例子中，在设置第二个和第三个条形的x轴坐标时，我们使用了 np.arange(4) + bar_width 和 np.arange(4) + bar_width*2，而通过 Python 列表实现将十分复杂。</p>
+<h4 id="_6">堆叠条形图<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h4>
+<p>堆叠条形图是分组条形图展示的另一种形式，它把分类的数据堆叠在一起，显得更简约紧密，同时提供了求和信息。在实现上，绘制的思路与上一小节的条形图一样，不过前者是垂直偏移，后者是水平偏移。</p>
+<p>下面使用同样的数据，我们将其展示为堆叠条形图。</p>
+<pre><code class="language-python">In [43]: # 绘图
+    ...: plt.bar(np.arange(4), sales_jan, label = u'一月',
+    ...:         color = 'steelblue', alpha = 0.7)
+    ...: # 也可以使用numpy模块的arange()函数构造横坐标
+    ...: plt.bar(np.arange(4), sales_feb, bottom = sales_jan, label = u&quot;二月
+    ...: &quot;,
+    ...:         color = 'indianred', alpha = 0.7)
+    ...: plt.bar(np.arange(4), sales_mar, bottom = np.array(sales_jan) + np.
+    ...: array(sales_feb), label = u&quot;三月&quot;,
+    ...:         color = 'green', alpha = 0.7)
+    ...:
+    ...: # 添加y轴标签
+    ...: plt.ylabel('月度销售额（万）')
+    ...: # 添加标题
+    ...: plt.title('员工第一季度月度销售额对比')
+    ...: # 添加刻度标签
+    ...: plt.xticks(np.arange(4), member)
+    ...: # 添加图例
+    ...: plt.legend()
+    ...: plt.xlim(-0.5, 4.5)
+Out[43]: (-0.5, 4.5)
+</code></pre>
+<p><img alt="图7-33 堆叠条形图示例" src="../assets/1566013707092.png" /></p>
+<p>这里有 2 点非常关键：一是 bottom 选项的使用，它让数据在该基础之上进行一个偏移；二是 NumPy 模块 array() 函数的使用，它将列表类型的数据转换为 ndarray 以便于元素级别（向量化）运算。</p>
+<p>本书关于条形图绘制的介绍到此结束，接下来的一小节将对与条形图形似而神不似的直方图进行介绍。</p>
+<h3 id="724">7.2.4 直方图<a class="headerlink" href="#724" title="Permanent link">&para;</a></h3>
+<p>一个简单的直方图是读者了解数据很好的开始：它可以直观地展示了数据的分布，包括数值分布的区间，密度与形状。在实际的工作过程中，读者可能需要对数据进行数学建模和统计分析，这些数据处理技术往往基于数据符合某些假设，而直方图是检查数据最好的选择之一。</p>
+<p>下面我们通过 NumPy 模块提供的随机数据生成函数产生符合正态分布的随机数据，并以它为样例绘制直方图。</p>
+<pre><code class="language-python">In [44]: import numpy as np
+    ...: import matplotlib.pyplot as plt
+    ...:
+    ...: randn_data = np.random.randn(1000)
+    ...:
+    ...: plt.hist(randn_data)
+Out[44]:
+(array([  5.,  20.,  57., 130., 206., 215., 207., 106.,  44.,  10.]),
+ array([-3.18406638, -2.57808999, -1.97211359, -1.3661372 , -0.76016081,
+        -0.15418442,  0.45179198,  1.05776837,  1.66374476,  2.26972115,
+         2.87569755]),
+ &lt;a list of 10 Patch objects&gt;)
+</code></pre>
+<p><img alt="图7-34 直方图" src="../assets/1566029014148.png" /></p>
+<p>hist() 函数也有非常多的选项用于调整图形。</p>
+<pre><code class="language-python">plt.hist(x, bins=10, range=None, normed=False,
+        weights=None, cumulative=False, bottom=None,
+        histtype='bar', align='mid', orientation='vertical',
+        rwidth=None, log=False, color=None,
+        label=None, stacked=False)
+</code></pre>
+<ul>
+<li>x - 指定要绘制直方图的数据</li>
+<li>bins - 指定直方图条形的个数</li>
+<li>range - 指定直方图数据的上下边界，默认包含绘图数据的最大值和最小值</li>
+<li>density - 是否将直方图的频数转换成频率</li>
+<li>weights - 为每一个数据点设置权重</li>
+<li>cumulative - 是否需要计算累计频数或频率</li>
+<li>bottom - 可以为直方图的每个条形添加基准线，默认为0</li>
+<li>histtype - 指定直方图的类型，默认为bar，除此还有’barstacked’、‘step’、‘stepfilled’</li>
+<li>align - 设置条形边界值的对其方式，默认为mid，除此还有’left’和’right’</li>
+<li>orientation - 设置直方图的摆放方向，默认为垂直方向</li>
+<li>rwidth - 设置直方图条形宽度的百分比</li>
+<li>log - 是否需要对绘图数据进行log变换</li>
+<li>color - 设置直方图的填充色</li>
+<li>label - 设置直方图的标签，可通过legend展示其图例</li>
+<li>stacked - 当有多个数据时，是否需要将直方图呈堆叠摆放，默认水平摆放</li>
+</ul>
+<p>现在我们更改几个最常用的选项看看。</p>
+<pre><code class="language-python">In [45]: _ = plt.hist(randn_data, bins=30, density=True,
+    ...:          histtype='step', color='steelblue')
+</code></pre>
+<p><img alt="图7-35 更改直方图的几个常用选项" src="../assets/1566029142554.png" /></p>
+<p>如果要比较多个数据的分布，使用选项 histtype=&rsquo;stepfilled&rsquo; 和设置一定的透明度会很好用。</p>
+<pre><code class="language-python">In [45]: _ = plt.hist(randn_data, bins=30, density=True,
+    ...:          histtype='step', color='steelblue')
+
+In [46]: x1 = np.random.normal(0, 0.4, 1000)
+    ...: x2 = np.random.normal(-3, 1, 1000)
+    ...: x3 = np.random.normal(2, 2, 1000)
+    ...:
+    ...: kwargs = dict(histtype='stepfilled', alpha=0.5, density=True, bins=
+    ...: 50)
+    ...:
+    ...: _ = plt.hist(x1, **kwargs)
+    ...: _ = plt.hist(x2, **kwargs)
+    ...: _ = plt.hist(x3, **kwargs)
+</code></pre>
+<p><img alt="图7-36 使用直方图比较 3 个数据分布" src="../assets/1566029266277.png" /></p>
+<p>有时候，我们不仅仅想通过直方图直观地看到，而且想获取不同条形个数下区间内的频数/频率。NumPy 提供的 histogram() 函数可以满足这个需求。</p>
+<p>下面我们从 randn_data 中提取设置 10 个条形时的各自的频数。</p>
+<pre><code class="language-python">In [47]: counts, bin_edges = np.histogram(randn_data, bins=10)
+    ...: print(counts)
+[  5  20  57 130 206 215 207 106  44  10]
+</code></pre>
+<p>设置 density=True 可以获取相应的频率。</p>
+<pre><code class="language-python">In [48]: density, bin_edges = np.histogram(randn_data, bins=10, density=True
+    ...: )
+    ...: print(density)
+[0.00825115 0.03300459 0.09406307 0.21452981 0.33994724 0.3547993
+ 0.34159747 0.17492431 0.07261009 0.01650229]
+
+</code></pre>
+<p>如果使用的是二维数据，Matplotlib 同样提供了函数 hist2d() 来查看数据的分布。相比于一维数据中直方图将数据切分到不同的区间中去，二维直方图在两个维度进行切分，因此会得到一个一个的小矩形。</p>
+<p>同样地，我们使用随机数据生成函数生成二维的随机数据用于绘图演示。</p>
+<pre><code class="language-python">In [49]: # 创建二维随机数据
+    ...: mean = [0, 0]  # 均值
+    ...: cov = [[1, 1], [1, 2]]  # 协方差矩阵
+    ...: x, y = np.random.multivariate_normal(mean, cov, 10000).T
+    ...:
+    ...: # 绘制图形
+    ...: plt.hist2d(x, y, bins=30, cmap='Reds')
+    ...: cb = plt.colorbar()
+    ...: cb.set_label(u'计数')
+</code></pre>
+<p><img alt="图7-37 二维直方图" src="../assets/1566029521952.png" /></p>
+<h3 id="725">7.2.5 饼图<a class="headerlink" href="#725" title="Permanent link">&para;</a></h3>
+<p>饼图也是常见且为人喜爱的一种图形，它可以表示离散变量各水平的占比情况。Matplotlib 提供了 pie() 函数用于饼图的绘制，下面我们看一个简单的例子：</p>
+<pre><code class="language-python">In [50]: import matplotlib.pyplot as plt
+    ...: _ = plt.pie(range(5))
+</code></pre>
+<p><img alt="图7-38 饼图" src="../assets/1566029603380.png" /></p>
+<p>接着我们看一下 pie() 提供的一些详细选项：</p>
+<pre><code>plt.pie(x, explode=None, labels=None, colors=None,
+        autopct=None, pctdistance=0.6, shadow=False,
+        labeldistance=1.1, startangle=None,
+        radius=None, counterclock=True, wedgeprops=None,
+        textprops=None, center=(0, 0), frame=False)
+</code></pre>
+<ul>
+<li>x - 绘图的数据</li>
+<li>explode - 指定饼图某些部分的突出显示</li>
+<li>labels - 添加标签</li>
+<li>colors - 指定填充色</li>
+<li>autopct - 自动添加百分比显示，可以采用格式化的方法显示</li>
+<li>pctdistance - 设置百分比标签与圆心的距离</li>
+<li>shadow - 是否添加阴影效果</li>
+<li>labeldistance - 设置各扇形标签与圆心的距离</li>
+<li>startangle - 设置饼图的初始摆放角度</li>
+<li>radius - 设置饼图的半径大小</li>
+<li>counterclock - 是否让饼图按逆时针顺序呈现</li>
+<li>wedgeprops - 设置饼图内外边界的属性，如边界线的粗细、颜色等</li>
+<li>textprops - 设置饼图中文本的属性，如字体大小、颜色等</li>
+<li>center - 指定饼图的中心点位置，默认为原点</li>
+<li>frame - 是否要显示饼图背后的图框，如果设置为True的话，需要同时控制图框x轴、y轴的范围和饼图的中心位置</li>
+</ul>
+<p>使用这些选项，我们可以实现丰富的饼图呈现效果。</p>
+<p>假设某劳务公司现在统计了职工的学历占比情况，现在想要使用饼图展现出来，并突出硕士学位的群体。我们通过这个需求的实现学习一些常用选项的用法。</p>
+<pre><code class="language-python">In [51]: # 构造数据
+    ...: edu = [0.26,0.35,0.32,0.09,0.08]
+    ...: labels = [u'中专',u'大专',u'本科',u'硕士',u'其他']
+    ...:
+    ...: explode = [0,0,0,0.1,0]  # 突出硕士群体
+    ...: colors=['#9999ff','#ff9999','#7777aa','#2442aa','#dd5555'] # 自定义
+    ...: 颜色
+    ...:
+    ...: # 绘制饼图
+    ...: _ = plt.pie(x = edu,
+    ...:         explode=explode,
+    ...:         labels=labels,         # 添加教育水平标签
+    ...:         colors=colors,         # 设置饼图的自定义填充色
+    ...:         autopct='%.1f%%',      # 设置百分比的格式，这里保留一位小数
+    ...:
+    ...:         pctdistance=0.8,       # 设置百分比标签与圆心的距离
+    ...:         labeldistance = 1.2,   # 设置教育水平标签与圆心的距离
+    ...:         startangle = 180,      # 设置饼图的初始角度
+    ...:         radius = 1.5,          # 设置饼图的半径
+    ...:         counterclock = False,  # 是否逆时针，这里设置为顺时针方向
+    ...:         wedgeprops = {'linewidth': 1.5, 'edgecolor':'green'},  # 设
+    ...: 置饼图内外边界的属性值
+    ...:         textprops = {'fontsize':12, 'color':'k'},  # 设置文本标签的
+    ...: 属性值
+    ...:         center = (2,2),  # 设置饼图的原点
+    ...:         frame = 0 )  # 是否显示饼图的图框，这里设置显示
+</code></pre>
+<p><img alt="图7-39 职工学历分布" src="../assets/1566030049989.png" /></p>
+<h3 id="726">7.2.6 箱线图<a class="headerlink" href="#726" title="Permanent link">&para;</a></h3>
+<p>箱线图是本节介绍的最后一种图形。箱线图一般用来展现数据的分布，如上下四分位值、中位数等。同时，箱线图可以直观地展示异常点。</p>
+<p>Matplotlib 提供了 boxplot() 函数绘制箱线图，下面看一个简单的例子。</p>
+<pre><code class="language-python">In [53]: import matplotlib.pyplot as plt
+    ...:
+    ...: _ = plt.boxplot(range(10))  # 10个数，0-9
+</code></pre>
+<p><img alt="图7-40 箱线图简单示例" src="../assets/1566030181185.png" /></p>
+<p>箱线图虽然看起来简单，但包含的数据信息非常丰富。橙色的线条表示中位数，中间条形的上下边界分别对应上四分位数（75% 的数据都小于该值）与下四位分数（25% 的数据小于该值），从条形延伸出两条线段，两条线段的终点表示数据的最大值和最小值。</p>
+<pre><code class="language-python">In [54]: print(np.median(np.arange(10)))  # 中位数
+    ...:
+    ...: print(np.quantile(np.arange(10), 0.25))  # 下4分位数，也叫第1分位数
+    ...:
+    ...: print(np.quantile(np.arange(10), 0.75))  # 上4分位数，也叫第3分位数
+    ...:
+4.5
+2.25
+6.75
+</code></pre>
+<p>boxplot() 函数同样提供了丰富的自定义选项。</p>
+<pre><code class="language-python">plt.boxplot(x, notch=None, sym=None, vert=None,
+             whis=None, positions=None, widths=None,
+             patch_artist=None, meanline=None, showmeans=None,
+             showcaps=None, showbox=None, showfliers=None,
+             boxprops=None, labels=None, flierprops=None,
+             medianprops=None, meanprops=None,
+             capprops=None, whiskerprops=None)
+</code></pre>
+<ul>
+<li>x - 绘图数据</li>
+<li>notch - 是否是凹口的形式展现箱线图，默认非凹口</li>
+<li>sym - 指定异常点的形状，默认为 + 号显示</li>
+<li>vert - 是否需要将箱线图垂直摆放，默认垂直摆放</li>
+<li>whis - 指定上下须与上下四分位的距离，默认为 1.5 倍的四分位差</li>
+<li>positions - 指定箱线图位置，默认为 [0,1,2…]</li>
+<li>widths - 指定箱线图宽度，默认为 0.5</li>
+<li>patch_artist - 是否填充箱体的颜色</li>
+<li>meanline - 是否用线的形式表示均值，默认用点来表示</li>
+<li>showmeans - 是否显示均值，默认不显示</li>
+<li>showcaps - 是否显示箱线图顶端和末端的两条线，默认显示</li>
+<li>showbox - 是否显示箱线图的箱体，默认显示</li>
+<li>showfliers - 是否显示异常值，默认显示</li>
+<li>boxprops - 设置箱体的属性，如边框色，填充色等</li>
+<li>labels - 为箱线图添加标签，类似于图例的作用</li>
+<li>filerprops - 设置异常值的属性，如异常点的形状、大小、填充色等</li>
+<li>medianprops - 设置中位数的属性，如线的类型、粗细等</li>
+<li>meanprops - 设置均值的属性，如点的大小、颜色等</li>
+<li>capprops - 设置箱线图顶端和末端线条的属性，如颜色、粗细等</li>
+<li>whiskerprops - 设置须的属性，如颜色、粗细、线的类型等</li>
+</ul>
+<p>箱线图通常在进行多组数据比较时使用。下面代码展示了 3 组简单数据的箱线图，添加凹口、均值点、颜色以及每组的标签。设定这几个选项已经适用于绝大多数情况。</p>
+<pre><code class="language-python">In [55]: _ = plt.boxplot([range(10), range(20), range(30)],
+    ...:                 patch_artist=True,
+    ...:                 boxprops={'color':'red'},
+    ...:                 notch=True, showmeans=True,
+    ...:                 labels=[&quot;label1&quot;, &quot;label2&quot;, &quot;label3&quot;])
+</code></pre>
+<p><img alt="图7-41 使用箱线图进行比较" src="../assets/1566030359191.png" /></p>
+<h2 id="73">7.3 多图与自定义<a class="headerlink" href="#73" title="Permanent link">&para;</a></h2>
+<p>上一节聚焦于各种常见图形绘制方法的介绍，本节在其基础上介绍如何组织多个图形、介绍自定义图形更多的操作方法。</p>
+<h3 id="731">7.3.1 多图<a class="headerlink" href="#731" title="Permanent link">&para;</a></h3>
+<p>数据可视化的结果往往不是一个图形可以完全呈现出来的，表明某个主题或观点的图形常被放置在一起组成多图。Matplotlib 提供了多种方式可以在一个图形中绘制多个子图。</p>
+<h4 id="_7">网格子图<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h4>
+<p>Matplotlib 的 subplot() 函数提供了一种简单的方式在网格中绘制子图。下面的代码创建了 4 个子图，分割为 2 行 2 列。子图的索引从 1 开始，从左上到右下依次增加，该信息也标注在了每个子图的中心。</p>
+<pre><code class="language-python">In [56]: import matplotlib.pyplot as plt
+    ...:
+    ...: for i in range(1, 5):
+    ...:     plt.subplot(2, 2, i)  # 2行2列，子图索引i
+    ...:     plt.text(0.5, 0.5, str((2, 2, i)),
+    ...:              fontsize=18, ha='center')
+</code></pre>
+<p><img alt="图7-42 网格子图" src="../assets/1566030513027.png" /></p>
+<p>上面子图间的空隙比较小，读者可以通过 subplots_adjust() 对间隔进行调整。</p>
+<pre><code class="language-python">In [57]: plt.subplots_adjust(hspace=0.4, wspace=0.4)  # 调整子图之间的高与宽
+    ...: 间隔
+    ...:
+    ...: for i in range(1, 5):
+    ...:     plt.subplot(2, 2, i)  # 2行2列，子图索引i
+    ...:     plt.text(0.5, 0.5, str((2, 2, i)),
+    ...:              fontsize=18, ha='center')
+</code></pre>
+<p><img alt="图7-43 调整子图间距" src="../assets/1566030610383.png" /></p>
+<p>这样图形看起来就舒服很多了。</p>
+<h4 id="_8">手动绘制子图<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h4>
+<p>简单的多图排列使用 subplot() 函数就可以很好地解决，但有时候我们想要将子图绘制在特定的位置，这时 subplot() 函数就不能满足了。</p>
+<p>Matplotlib 提供了 axes() 函数生成一个标准的坐标轴对象，该函数可以传入一个 4 元素的列表 [left, bottom, width, height] 指定图形在坐标系统中的位置。坐标系统左下角到右上角从 0 到 1 变化。</p>
+<p>下面代码在图形的左上方添加了一个子图。</p>
+<pre><code class="language-python">In [58]: ax1 = plt.axes()  # 标准坐标轴
+    ...: # 子图距离左侧0.2，下方0.65，宽度0.2，高度0.2
+    ...: ax2 = plt.axes([0.2, 0.65, 0.2, 0.2])
+</code></pre>
+<p><img alt="图7-44 手动绘制子图" src="../assets/1566030719209.png" /></p>
+<p>需要注意的是，列表中值与其看作小数，我们把它们看作百分数更为合适。我们可以把标准坐标轴看作长宽都是 100%，子图距离左侧 20% 的长度，距离下方 65% 的长度，宽度占标准坐标轴宽度 20%，高度占标准坐标轴高度 20%。</p>
+<p>理解了手动绘制的原理之后，我们可以绘制同享 x 轴的多图。</p>
+<pre><code class="language-python">In [59]: x = np.linspace(0, 10)  # 创建x轴数据
+    ...:
+    ...: fig = plt.figure()      # 创建图形对象
+    ...:
+    ...: ax1 = plt.axes([0.1, 0.5, 0.8, 0.4],
+    ...:         xticklabels=[], ylim=(-1.2, 1.2))
+    ...: plt.plot(np.sin(x))     # 绘制子图1
+    ...:
+    ...: ax2 = plt.axes([0.1, 0.1, 0.8, 0.4],
+    ...:                    ylim=(-1.2, 1.2))
+    ...: plt.plot(np.cos(x))     # 绘制子图2
+Out[59]: [&lt;matplotlib.lines.Line2D at 0x7f903a48fda0&gt;]
+</code></pre>
+<p><img alt="图7-45 同享一个 x 轴" src="../assets/1566030891387.png" /></p>
+<p>上面代码首先创建了一个空白的图形对象，然后在上面绘制了 2 个子图：第 1 个子图绘制在图形的上方，去掉了横轴的刻度标签；第 2 个子图绘制在图形的下方。我们需要注意这里手动绘制多图的要点在于根据需求计算放置坐标轴的位置，上面 2 个坐标轴除了距离图形底部的位置不一样，其他坐标设定完全一致。并且，每个子图坐标轴的高度是 0.4，所以第 1 个子图距离底部的位置要设定为 0.5，这样上面子图的坐标轴底部边界线与下面子图的坐标轴顶部边界线才完全匹配（图中间的线条）。</p>
+<h3 id="732">7.3.2 设置风格<a class="headerlink" href="#732" title="Permanent link">&para;</a></h3>
+<p>图形整体的样式（也称风格或主题）也可以多种多样，这无法通过我们前面学习过的操作实现，Matplotlib 库提供的 style.use() 函数可以为创建的图形设置合适的美学风格。</p>
+<p>例如，下面代码可以确保生成的图形使用经典的 Matplotlib 风格：</p>
+<pre><code class="language-python">In [60]: plt.style.use('classic')
+</code></pre>
+<p>我们绘制简单的图形看一看显示效果。</p>
+<pre><code class="language-python">In [61]: rng = np.random.RandomState(12)
+    ...: x = rng.randn(200)
+    ...: y = rng.randn(200)
+    ...:
+    ...: _ = plt.scatter(x, y)
+</code></pre>
+<p><img alt="图7-46 设置经典风格" src="../assets/1566031061659.png" /></p>
+<p>下面代码可以更换为 seaborn 库 white 风格。</p>
+<pre><code class="language-python">In [62]: plt.style.use('seaborn-white')
+    ...:
+    ...: _ = plt.scatter(x, y)
+</code></pre>
+<p><img alt="图7-47 使用 seaborn 库 white 风格" src="../assets/1566031144809.png" /></p>
+<p>下面代码可以更换为流行 R 包 ggplot2 风格。</p>
+<pre><code class="language-python">In [63]: plt.style.use('ggplot')
+    ...:
+    ...: _ = plt.scatter(x, y)
+</code></pre>
+<p><img alt="图7-48 使用 ggplot 风格" src="../assets/1566031232055.png" /></p>
+<p>下面代码列出所有支持的风格。</p>
+<pre><code class="language-python">In [64]: print(plt.style.available)
+['seaborn-dark', 'seaborn-ticks', 'classic', 'seaborn-white',
+ 'fast', 'seaborn-whitegrid', 'tableau-colorblind10', 'seaborn',
+ 'seaborn-deep', 'Solarize_Light2', 'seaborn-colorblind',
+ 'seaborn-darkgrid', 'dark_background', 'seaborn-bright',
+ 'ggplot', 'seaborn-talk', 'seaborn-notebook', 'grayscale',
+ 'fivethirtyeight', 'bmh', 'seaborn-dark-palette', 'seaborn-pastel',
+ '_classic_test', 'seaborn-poster', 'seaborn-muted', 'seaborn-paper']
+</code></pre>
+<p>所有支持的风格示例可以通过 <a href="https://matplotlib.org/gallery/style_sheets/style_sheets_reference.html">https://matplotlib.org/gallery/style_sheets/style_sheets_reference.html</a> 查看。</p>
+<h3 id="733">7.3.3 两种接口映射<a class="headerlink" href="#733" title="Permanent link">&para;</a></h3>
+<p>在本章的大部分内容的介绍中，我们只使用了 Matplotlib 的一种接口，即 Matlab 样式接口。这样做的目的是为了提高读者学习的连贯性，方便理解。对于每一种 Matlab 样式接口操作，基本都有相应的面向对象操作与之对应。在学习和熟练一种接口的基础上理解另一种就更加顺手了。</p>
+<p>下面列出两种接口常见的操作函数映射：</p>
+<pre><code>plt.plot()   -&gt; ax.plot()
+plt.legend() -&gt; ax.legend()
+plt.xlabel() -&gt; ax.set_xlabel()
+plt.ylabel() -&gt; ax.set_ylabel()
+plt.xlim()   -&gt; ax.set_xlim()
+plt.ylim()   -&gt; ax.set_ylim()
+plt.title()  -&gt; ax.set_title()
+</code></pre>
+<p>面向对象的方式读者可以使用 set() 方法一次性对所有样式进行设定。下面画一个简单的正弦图说明：</p>
+<pre><code class="language-python">In [65]: plt.style.use('grayscale')
+    ...: x = np.linspace(0, 10)
+    ...:
+    ...: ax = plt.axes()
+    ...: ax.plot(x, np.sin(x))
+    ...: _ = ax.set(xlim=(0,10), ylim=(-2,2),
+    ...:       xlabel='x', ylabel='sin(x)',
+    ...:       title='A Simple Plot')
+</code></pre>
+<p><img alt="图7-49 使用 set() 方法设置图形" src="../assets/1566031500991.png" /></p>
+<h2 id="74">7.4 章末小结<a class="headerlink" href="#74" title="Permanent link">&para;</a></h2>
+<p>本章首先简单介绍了 Matplotlib 库的历史，然后介绍了脚本、IPython Shell 和 Jupyter Notebook 3 种不同应用场景下 Matplotlib 的操作方式，紧接着介绍了如何 2 种不同的接口：一种是 Matlab 样式的，命令式的操作，绘制简单和基础的图形非常方便；另一种基于面向对象，除了可以实现基本的绘图，多用于复杂的图形构造。在读者对于 Matplotlib 有了整体轮廓的基础上，本章随后向读者介绍常见基础图形的绘制方法，包括：点图、线图、条形图、直方图、饼图以及箱线图。最后的内容则聚焦于多图的实现和图形风格的设定。</p>
+<p>写得一手好代码并不能代表能画得一手好图。本章的内容旨在帮助读者打开使用 Matplotlib 进行绘图的大门、理清各类绘图函数和方法基本的内在联系。在实际的数据可视化工作中，读者往往需要耗费大量的精力对绘图代码进行反复修改，查阅和理解相关函数文档。这些努力都是值得的，它会同时锤炼读者的代码编写能力和绘图、审美等能力。</p>
+
+
+
+
+              
+            </article>
+            
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="../06-numpy/" class="md-footer__link md-footer__link--prev" aria-label="Previous: 第 6 章 NumPy" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              第 6 章 NumPy
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../08-pandas-intro/" class="md-footer__link md-footer__link--next" aria-label="Next: 第 8 章 Pandas 入门" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              第 8 章 Pandas 入门
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright © 2020 ShixiangWang
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.expand", "navigation.indexes", "navigation.top"], "search": "../assets/javascripts/workers/search.ecf98df9.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.9c69f0bc.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,15 @@
+```shell
+# 除了使用浏览器，也可以通过终端运行以下命令下载 Anaconda
+# wget -c https://repo.anaconda.com/archive/Anaconda3-2018.12-Linux-x86_64.sh
+
+# 添加执行权限
+chmod u+x Anaconda3-2018.12-Linux-x86_64.sh
+# 执行安装
+./Anaconda3-2018.12-Linux-x86_64.sh
+
+# 也可以直接使用Bash进行安装
+bash Anaconda3-2018.12-Linux-x86_64.sh
+```
+```shell
+jupyter notebook
+```

@@ -1,0 +1,2065 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Shixiang Wang">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-8.4.1">
+    
+    
+      
+        <title>第 8 章 Pandas 入门 - 交互的Python：数据分析入门</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.69437709.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.cbb835fc.min.css">
+        
+      
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#8-pandas" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="交互的Python：数据分析入门" class="md-header__button md-logo" aria-label="交互的Python：数据分析入门" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            交互的Python：数据分析入门
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              第 8 章 Pandas 入门
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/ShixiangWang/pybook" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href=".." class="md-tabs__link">
+      阅读说明
+    </a>
+  </li>
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../%E5%A4%A7%E7%BA%B2/" class="md-tabs__link md-tabs__link--active">
+        正文
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../author-and-recommendation/%E4%BA%A4%E4%BA%92%E7%9A%84Python%20-%20%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE.png" class="md-tabs__link">
+      思维导图
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../to-readers/" class="md-tabs__link">
+      对读者说的话
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../author/" class="md-tabs__link">
+      作者简介
+    </a>
+  </li>
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="交互的Python：数据分析入门" class="md-nav__button md-logo" aria-label="交互的Python：数据分析入门" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    交互的Python：数据分析入门
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/ShixiangWang/pybook" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        阅读说明
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          正文
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="正文" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          正文
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%A4%A7%E7%BA%B2/" class="md-nav__link">
+        大纲
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../0-%E5%89%8D%E8%A8%80/" class="md-nav__link">
+        前言
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../00-%E5%86%85%E5%AE%B9%E6%8F%90%E8%A6%81/" class="md-nav__link">
+        内容提要
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-introduction/" class="md-nav__link">
+        第 1 章 Python 介绍及学习前的准备
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-base/" class="md-nav__link">
+        第 2 章 Python 入门示例及基础知识
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-data-structure/" class="md-nav__link">
+        第 3 章 基本数据结构
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-control-flow/" class="md-nav__link">
+        第 4 章 控制流与文件操作
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-function-and-module/" class="md-nav__link">
+        第 5 章 函数与模块
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-numpy/" class="md-nav__link">
+        第 6 章 NumPy
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-matplotlib/" class="md-nav__link">
+        第 7 章 Matplotlib
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          第 8 章 Pandas 入门
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        第 8 章 Pandas 入门
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#81-pandas" class="md-nav__link">
+    8.1 Pandas 简介
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#82-pandas" class="md-nav__link">
+    8.2 Pandas 的数据结构
+  </a>
+  
+    <nav class="md-nav" aria-label="8.2 Pandas 的数据结构">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#821-series" class="md-nav__link">
+    8.2.1 Series
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#822-dataframe" class="md-nav__link">
+    8.2.2 DataFrame
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#83-pandas" class="md-nav__link">
+    8.3 Pandas 对象基本操作
+  </a>
+  
+    <nav class="md-nav" aria-label="8.3 Pandas 对象基本操作">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#831" class="md-nav__link">
+    8.3.1 查看数据
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#832" class="md-nav__link">
+    8.3.2 转置
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#833" class="md-nav__link">
+    8.3.3 重索引
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#834" class="md-nav__link">
+    8.3.4 删除数据
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#835" class="md-nav__link">
+    8.3.5 重赋值
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#836" class="md-nav__link">
+    8.3.6 索引与过滤
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#837" class="md-nav__link">
+    8.3.7 算术运算
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#838" class="md-nav__link">
+    8.3.8 函数应用
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#839" class="md-nav__link">
+    8.3.9 排序
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#84" class="md-nav__link">
+    8.4 基本统计分析
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#85" class="md-nav__link">
+    8.5 章末小结
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-markdown/" class="md-nav__link">
+        第 9 章 Markdown 基础
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-data-import/" class="md-nav__link">
+        第 10 章 数据导入
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-toolbox/" class="md-nav__link">
+        第 11 章 数据分析工具箱
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-advanced-pandas/" class="md-nav__link">
+        第 12 章 Pandas 进阶
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-advanced-vis/" class="md-nav__link">
+        第 13 章 数据可视化进阶
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14-stats/" class="md-nav__link">
+        第 14 章 统计分析
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15-append/" class="md-nav__link">
+        第 15 章 未言及的内容
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16-end/" class="md-nav__link">
+        结语：接下来学什么
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../author-and-recommendation/%E4%BA%A4%E4%BA%92%E7%9A%84Python%20-%20%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE.png" class="md-nav__link">
+        思维导图
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../to-readers/" class="md-nav__link">
+        对读者说的话
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../author/" class="md-nav__link">
+        作者简介
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#81-pandas" class="md-nav__link">
+    8.1 Pandas 简介
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#82-pandas" class="md-nav__link">
+    8.2 Pandas 的数据结构
+  </a>
+  
+    <nav class="md-nav" aria-label="8.2 Pandas 的数据结构">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#821-series" class="md-nav__link">
+    8.2.1 Series
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#822-dataframe" class="md-nav__link">
+    8.2.2 DataFrame
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#83-pandas" class="md-nav__link">
+    8.3 Pandas 对象基本操作
+  </a>
+  
+    <nav class="md-nav" aria-label="8.3 Pandas 对象基本操作">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#831" class="md-nav__link">
+    8.3.1 查看数据
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#832" class="md-nav__link">
+    8.3.2 转置
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#833" class="md-nav__link">
+    8.3.3 重索引
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#834" class="md-nav__link">
+    8.3.4 删除数据
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#835" class="md-nav__link">
+    8.3.5 重赋值
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#836" class="md-nav__link">
+    8.3.6 索引与过滤
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#837" class="md-nav__link">
+    8.3.7 算术运算
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#838" class="md-nav__link">
+    8.3.8 函数应用
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#839" class="md-nav__link">
+    8.3.9 排序
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#84" class="md-nav__link">
+    8.4 基本统计分析
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#85" class="md-nav__link">
+    8.5 章末小结
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+  <a href="https://github.com/ShixiangWang/pybook/edit/master/08-pandas-intro.md" title="Edit this page" class="md-content__button md-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+  </a>
+
+
+
+<h1 id="8-pandas">第 8 章 Pandas 入门<a class="headerlink" href="#8-pandas" title="Permanent link">&para;</a></h1>
+<p><strong>本章内容提要</strong>：</p>
+<ul>
+<li>Pandas 数据结构介绍</li>
+<li>Series 与 DataFrame 的创建</li>
+<li>Pandas 对象索引与操作</li>
+<li>基本统计分析</li>
+</ul>
+<p>虽然 NumPy 库构成了 Python 数据科学计算的基石，但我们在实际进行数据处理时极少会使用到它。Python 数据科学家/分析师们首选的工具是 Pandas 库，它强大的数据结构和灵活实用的操作、函数/方法征服了整个 Python 科学社区。本章将对 Pandas 的数据结构和基本操作方法进行介绍。</p>
+<h2 id="81-pandas">8.1 Pandas 简介<a class="headerlink" href="#81-pandas" title="Permanent link">&para;</a></h2>
+<p>Pandas 的名字来自面板数据（Panel data）和数据分析（Data analysis）的组合，最初由 AQR Capital Management 于 2008 年开发，2009 年底开源并逐步成长为 Python 的核心计算分析工具。Pandas 库最初的目的是服务于金融分析，因此对时间序列分析有非常好的支持。</p>
+<p>Pandas 库基于 NumPy 库构建，纳入了大量计算分析库和标准的数据模型，比如由 R 语言数据框对象 data.frame 启发创建了著名的 DataFrame 数据结构。来自 NumPy 库的底层支持和高效数据结构表征和操作方法的实现让使用 Pandas 库清洗和分析数据变得快速又简单。</p>
+<p>Pandas 采用了 NumPy 库的编码风格，不过前者聚焦于表格和混杂数据的处理，而后者则适合数值数组数据的处理和计算分析。日常的商业和科研数据处理分析工作者面对的正是大量的表格和混杂数据，因此 Pandas 非常实用且应用广泛。</p>
+<p>在正式学习 Pandas 之前，读者需要了解 Pandas 库导入约定：</p>
+<pre><code class="language-python">import pandas as pd
+</code></pre>
+<p>Pandas 提供的数据结构 Series 和 DataFrame 使用非常频繁，所以直接将它们导入当前命名空间会非常方便：</p>
+<pre><code class="language-python">from pandas import Series, DataFrame
+</code></pre>
+<h2 id="82-pandas">8.2 Pandas 的数据结构<a class="headerlink" href="#82-pandas" title="Permanent link">&para;</a></h2>
+<p>Pandas 主要有两个数据结构：Series 和 DataFrame，它们的存在可以帮助数据分析人员更容易地存储数据、高效地处理数据。日常的分析任务几乎都可以通过 Pandas 完成。</p>
+<h3 id="821-series">8.2.1 Series<a class="headerlink" href="#821-series" title="Permanent link">&para;</a></h3>
+<p>Series 形似字典，包含索引（也称数据标签）和数据两部分。不过，Pandas 库是基于 NumPy 库构建的，所以 Series 实际上是通过一维的 NumPy 数组实现的。</p>
+<p>下面代码分别使用了字典、NumPy 数组和 Series 存储 0、1、2。</p>
+<pre><code class="language-python">In [1]: import pandas as pd
+In [2]: import numpy as np
+
+In [4]: {'0':0, '1':1, '2': 2}
+Out[4]: {'0': 0, '1': 1, '2': 2}
+
+In [5]: np.arange(3)
+Out[5]: array([0, 1, 2])
+
+In [6]: pd.Series(range(3))
+Out[6]:
+0    0
+1    1
+2    2
+dtype: int64
+</code></pre>
+<p>3 种方式存储的数据是一样的，但可以看到 Series 对象的输出形式与前两者有所不同，它更方便理解和观察：左侧显示了数据标签，右侧显示了数据值，下方显示数据的类型是 64 位整型。</p>
+<p>上面我们给 Series() 函数只传入了一个数据序列，并没有设置索引，因而函数会自动创建一个从 0 开始、与数据长度相同的整数型索引。读者可以使用 index 和 values 属性获取 Series 对象的标签和索引，下面展示了一个例子：</p>
+<pre><code class="language-python">In [7]: scores = pd.Series([80, 90, 97])
+
+In [8]: scores.index
+Out[8]: RangeIndex(start=0, stop=3, step=1)
+In [9]: scores.values
+Out[9]: array([80, 90, 97])
+</code></pre>
+<p>scores.values 的结果证实了 Series 对象的数据值的确是一个一维的 ndarray。scores.index 的结果显示 Series 对象的索引是一个 RangeIndex 对象，它与 range(3) 类似，这样存储的好处是当数据很大时，只需要 3 个信息：起点、终点和步长就可以表示所有的索引值。</p>
+<p>在一般的情况下，我们希望数据索引能表示有更为明确含义的信息。</p>
+<p>例如，上面 scores 实际存储了某位同学的语数外成绩，下面的设置能够让这信息显示得更完整：</p>
+<pre><code class="language-python">In [10]: scores = pd.Series([80, 90, 97], index=[u'语文',u'数学',u'外语'])
+In [11]: scores
+Out[11]:
+语文    80
+数学    90
+外语    97
+dtype: int64
+
+In [12]: scores.index
+Out[12]: Index(['语文', '数学', '外语'], dtype='object')
+In [13]: scores.values
+Out[13]: array([80, 90, 97])
+</code></pre>
+<p>读者通过对已经创建好的 Series 对象属性重新进行赋值，可以修改该对象。</p>
+<p>例如，我们将标签修改为英文或者是更改语文成绩为 95。</p>
+<pre><code class="language-python">In [14]: scores2 = scores  # 创建一个新拷贝
+In [15]: scores2.index = ['Chinese', 'Math', 'English']
+In [16]: scores2.values[0] = 95
+In [17]: scores2
+Out[17]:
+Chinese    95
+Math       90
+English    97
+dtype: int64
+</code></pre>
+<p>注意，上述将 scores 赋值为 scores2 后，修改 scores2 也会造成 scores 的修改。如果不想要它们相互影响，应当使用 copy() 方法生成 scores2。</p>
+<pre><code class="language-python">In [19]: scores
+Out[19]:
+Chinese    95
+Math       90
+English    97
+dtype: int64
+</code></pre>
+<p>与字典操作相似，Series 对象可以通过索引获取对象的值，索引可以是单个的值或是列表。</p>
+<pre><code class="language-python">In [21]: scores[['Math', 'Chinese']]
+Out[21]:
+Math       90
+Chinese    95
+dtype: int64
+In [22]: scores['Math']
+Out[22]: 90
+</code></pre>
+<p>当然，直接使用整数下标也是可行的。</p>
+<p>Series 结构上与字典非常相似，除了上述从列表创建 Series，也可以直接通过字典创建。</p>
+<pre><code class="language-python">In [23]: score_dict = {u'语文':95, u'数学':90, u'外语':97}
+In [24]: scores3 = pd.Series(score_dict)
+In [25]: scores3
+Out[25]:
+语文    95
+数学    90
+外语    97
+dtype: int64
+</code></pre>
+<p>一些针对字典的操作也可以用于 Series 中，如判断 外语 是否存在。</p>
+<pre><code class="language-python">In [26]: u'外语' in scores3
+Out[26]: True
+In [27]: u'物理' in scores3
+Out[27]: False
+</code></pre>
+<p>除了 index 与 values 属性，Series 对象本身及其索引都有一个 name 属性，该属性可以用来设定更明确的数据含义。</p>
+<pre><code class="language-python">In [29]: scores3.name = 'xx中学期中成绩'
+In [30]: scores3.index.name = '学科'
+In [31]: scores3
+Out[31]:
+学科
+语文    95
+数学    90
+外语    97
+Name: xx中学期中成绩, dtype: int64
+</code></pre>
+<h3 id="822-dataframe">8.2.2 DataFrame<a class="headerlink" href="#822-dataframe" title="Permanent link">&para;</a></h3>
+<p>Series 对象只能有效地表示一维的数据，而数据分析工作常常面对的是表格类型的数据，即一组有序的数据列，每一列都可以是不同的数据类型。Pandas 库引入了 DataFrame（中文念作 数据框 ）用以表征表格数据，DataFrame 包含行、列索引，可以看作用等长 Series 组成的字典。</p>
+<p>最常用于创建 DataFrame 的方式是传入一个等长列表或 ndarray 组成的字典。</p>
+<pre><code class="language-python">In [32]: df = {'姓名': ['小明','小王','小张'], '语文':[80,85,90], '数学':[99,88,86] }
+In [33]: df
+Out[33]: {'姓名': ['小明', '小王', '小张'], '语文': [80, 85, 90], '数学': [99, 88, 86]}
+In [34]: df = pd.DataFrame(df)
+In [35]: df
+Out[35]:
+   姓名  语文  数学
+0  小明  80  99
+1  小王  85  88
+2  小张  90  86
+</code></pre>
+<p>与 Series 类似，如果创建 DataFrame 没有指定索引，会被自动加上。通过 columns 选项可以指定列标签（名）以及顺序。</p>
+<pre><code class="language-python">In [36]: df2 = pd.DataFrame(df, columns=['数学', '语文', '姓名'])
+In [37]: df2
+Out[37]:
+   数学  语文  姓名
+0  99  80  小明
+1  88  85  小王
+2  86  90  小张
+</code></pre>
+<p>如果传入的 columns 在数据中找不到，就会产生缺失值。</p>
+<pre><code class="language-python">In [38]: df3 = pd.DataFrame(df, columns=['数学', '语文','外语', '姓名'])
+In [39]: df3
+Out[39]:
+   数学  语文  外语  姓名
+0  99  80 NaN  小明
+1  88  85 NaN  小王
+2  86  90 NaN  小张
+</code></pre>
+<p>行标签可以通过 index 选项指定，上面姓名可以设为行标签，这样就可以去除姓名这一列了。</p>
+<pre><code class="language-python">In [43]: df = {'姓名': ['小明','小王','小张'], '语文':[80,85,90], '数学':[99,88,86]}
+    ...:
+In [44]: df3 = pd.DataFrame(df, columns=['数学', '语文'], index=['小明','小王','小张
+    ...: '])
+In [45]: df3
+Out[45]:
+    数学  语文
+小明  99  80
+小王  88  85
+小张  86  90
+</code></pre>
+<p>通过标签获取 DataFrame 数据需要通过名称或 loc 属性进行，前者访问行，后者访问列。</p>
+<pre><code class="language-python">In [51]: df3['数学']
+Out[51]:
+小明    99
+小王    88
+小张    86
+Name: 数学, dtype: int64
+In [54]: df3.loc['小王']
+Out[54]:
+数学    88
+语文    85
+Name: 小王, dtype: int64
+</code></pre>
+<p>可以发现返回的都是 Series 对象。</p>
+<p>创建 DataFrame 还可以使用嵌套字典，字典外层的键会作为列标签，而内层的键会作为行标签。</p>
+<pre><code class="language-python">In [55]: df = {'语文':{'小明':80,'小王':85,'小张':90}, '数学':{'小明':99,'小王':88,'小张':86}} In [56]: pd.DataFrame(df)
+Out[56]:
+    语文  数学
+小张  90  86
+小明  80  99
+小王  85  88
+</code></pre>
+<p>DataFrame 的 index 和 columns 属性可以设置 name 属性。</p>
+<pre><code class="language-python">In [58]: df3.index.name = '姓名'
+In [59]: df3.columns.name = '学科'
+In [60]: df3
+Out[60]:
+学科  数学  语文
+姓名
+小明  99  80
+小王  88  85
+小张  86  90
+</code></pre>
+<p>DataFrame 的 values属性会返回 DataFrame 存储的数据，数据类型是二维的 ndarrary。</p>
+<pre><code class="language-python">In [61]: df3.values
+Out[61]:
+array([[99, 80],
+       [88, 85],
+       [86, 90]])
+</code></pre>
+<h2 id="83-pandas">8.3 Pandas 对象基本操作<a class="headerlink" href="#83-pandas" title="Permanent link">&para;</a></h2>
+<p>使用合适的 Pandas 数据结构（Series或DataFrame）存储需要分析的数据后，读者一般需要对数据进行筛选和操作，以获得最后所需的数据，然后可能是提供数据汇总报表、可视化乃至统计分析与建模。本节将介绍 Pandas 基本的数据操作功能，读者将学习操作 Series 和 DataFrame 对象的基本手段。</p>
+<h3 id="831">8.3.1 查看数据<a class="headerlink" href="#831" title="Permanent link">&para;</a></h3>
+<p>在前面的内容中本书引入的数据都非常简单，我们直接打印输出就可以观察变量存储的数据。然而数据过长时，可能就不适用计算机显示器的显示屏，影响阅读和理解。在实际的操作中，我们仅需要观察少量的数据而不用打印所有的数据就可以了解数据的结构，Pandas 引入了 head() 和 tail() 方法显示 Series 或 DataFrame 对象的头部和尾部数据，默认是 5 个（行）。</p>
+<pre><code class="language-python">In [62]: s1 = pd.Series(np.random.rand(1000))
+In [63]: s1.head()
+Out[63]:
+0    0.797903
+1    0.458301
+2    0.800034
+3    0.078226
+4    0.999968
+dtype: float64
+
+In [64]: d1 = pd.DataFrame({'a':np.random.rand(1000), 'b':np.random.rand(1000)})
+In [65]: d1.head()
+Out[65]:
+          a         b
+0  0.298372  0.612369
+1  0.952201  0.606749
+2  0.608556  0.381032
+3  0.297048  0.939676
+4  0.364875  0.360786
+
+In [66]: s1.tail()
+Out[66]:
+995    0.047546
+996    0.752907
+997    0.479628
+998    0.007178
+999    0.960005
+dtype: float64
+
+In [67]: d1.tail()
+Out[67]:
+            a         b
+995  0.571106  0.175381
+996  0.789444  0.520254
+997  0.298536  0.305487
+998  0.739158  0.594261
+999  0.850966  0.328761
+</code></pre>
+<p>在方法中传入正整数作为参数即可修改显示的数目。</p>
+<pre><code class="language-python">In [68]: d1.head(10)
+Out[68]:
+          a         b
+0  0.298372  0.612369
+1  0.952201  0.606749
+2  0.608556  0.381032
+3  0.297048  0.939676
+4  0.364875  0.360786
+5  0.013640  0.267650
+6  0.854873  0.251575
+7  0.349147  0.065307
+8  0.816777  0.932590
+9  0.612475  0.385550
+</code></pre>
+<h3 id="832">8.3.2 转置<a class="headerlink" href="#832" title="Permanent link">&para;</a></h3>
+<p>DataFrame 的 T 属性可以获取转置结果。</p>
+<pre><code class="language-python">In [69]: d1.T
+Out[69]:
+        0         1         2      ...          997       998       999
+a  0.298372  0.952201  0.608556    ...     0.298536  0.739158  0.850966
+b  0.612369  0.606749  0.381032    ...     0.305487  0.594261  0.328761
+
+[2 rows x 1000 columns]
+</code></pre>
+<h3 id="833">8.3.3 重索引<a class="headerlink" href="#833" title="Permanent link">&para;</a></h3>
+<p>重索引是 Pandas 库一个重要的操作，它用于创建符合指定索引顺序的新对象。</p>
+<pre><code class="language-python">In [73]: s2 = pd.Series(np.random.rand(5), index=['b', 'a', 'd', 'c', 'e'])
+In [74]: s2
+Out[74]:
+b    0.630239
+a    0.173525
+d    0.787798
+c    0.176230
+e    0.712007
+dtype: float64
+
+In [75]: s3 = s2.reindex(['a', 'b', 'c', 'd', 'e', 'f'])
+
+In [76]: s3
+Out[76]:
+a    0.173525
+b    0.630239
+c    0.176230
+d    0.787798
+e    0.712007
+f         NaN
+dtype: float64
+
+</code></pre>
+<p>如果设置的索引值不存在，就引入了缺失值 NaN。缺失值和非缺失值可以通过 is.null() 方法和 notnull() 方法进行判断。</p>
+<pre><code class="language-python">In [77]: s3.isnull()
+Out[77]:
+a    False
+b    False
+c    False
+d    False
+e    False
+f     True
+dtype: bool
+In [78]: s3.notnull()
+Out[78]:
+a     True
+b     True
+c     True
+d     True
+e     True
+f    False
+dtype: bool
+</code></pre>
+<p>有时重索引需要做一些插值处理，这可以通过 method 选项设定，如 ffill 可实现前向填充。</p>
+<pre><code class="language-python">In [89]: s4 = pd.Series(np.random.randint(2, 10, 3), index = [0,2,4])
+In [90]: s4
+Out[90]:
+0    6
+2    2
+4    2
+dtype: int64
+In [91]: s4.reindex(np.arange(8), method='ffill')
+Out[91]:
+0    6
+1    6
+2    2
+3    2
+4    2
+5    2
+6    2
+7    2
+dtype: int64
+</code></pre>
+<p>针对 DataFrame，reindex() 方法可以修改行索引和列索引。如果只传入一个序列，只修改行索引。使用 columns 关键字参数则可以修改列索引。</p>
+<pre><code class="language-python">In [92]: d2 = pd.DataFrame(np.random.randint(2,20,9).reshape((3,3)), index=['c', 'b', 'e'], columns=['Test1', 'Test2', 'Test3'])
+In [93]: d2
+Out[93]:
+   Test1  Test2  Test3
+c      4     19     12
+b     11      2      4
+e      3     19     12
+
+In [94]: d3 = d2.reindex(['a', 'b', 'c', 'd'])
+In [95]: d3
+Out[95]:
+   Test1  Test2  Test3
+a    NaN    NaN    NaN
+b   11.0    2.0    4.0
+c    4.0   19.0   12.0
+d    NaN    NaN    NaN
+
+In [96]: d2.reindex(['a', 'b', 'c', 'd', 'e'], columns=[])
+Out[96]:
+Empty DataFrame
+Columns: []
+Index: [a, b, c, d, e]
+
+In [97]: d2.reindex(['a', 'b', 'c', 'd', 'e'], columns=['Test2', 'Test4', 'Test1', '
+    ...: Test3'])
+Out[97]:
+   Test2  Test4  Test1  Test3
+a    NaN    NaN    NaN    NaN
+b    2.0    NaN   11.0    4.0
+c   19.0    NaN    4.0   12.0
+d    NaN    NaN    NaN    NaN
+e   19.0    NaN    3.0   12.0
+</code></pre>
+<p>也可以只使用 columns 关键字参数重索引列。</p>
+<pre><code class="language-python">In [98]: d2.reindex(columns=['Test3', 'Test1', 'Test4', 'Test2'])
+Out[98]:
+   Test3  Test1  Test4  Test2
+c     12      4    NaN     19
+b      4     11    NaN      2
+e     12      3    NaN     19
+</code></pre>
+<h3 id="834">8.3.4 删除数据<a class="headerlink" href="#834" title="Permanent link">&para;</a></h3>
+<p>如果想要删除数据的列，可以使用 del 关键字。</p>
+<pre><code class="language-python">In [99]: d2
+Out[99]:
+   Test1  Test2  Test3
+c      4     19     12
+b     11      2      4
+e      3     19     12
+
+In [100]: del d2['Test3']
+In [101]: d2
+Out[101]:
+   Test1  Test2
+c      4     19
+b     11      2
+e      3     19
+</code></pre>
+<p>该操作对于行并不适用。Pandas提供了 drop() 方法用于数据项删除场景，读者只需要提供一个索引数组或列表。</p>
+<pre><code class="language-python">In [102]: d2.drop('b')
+Out[102]:
+   Test1  Test2
+c      4     19
+e      3     19
+
+In [103]: d2.drop(['b','c'])
+Out[103]:
+   Test1  Test2
+e      3     19
+</code></pre>
+<p>默认执行的删除操作对象是行，如果需要删除列，设定 axis=&rsquo;columns&rsquo;。</p>
+<pre><code class="language-python">In [104]: d2.drop('Test2', axis='columns')
+Out[104]:
+   Test1
+c      4
+b     11
+e      3
+</code></pre>
+<p>注意，上面 drop 方法的调用是产生一个修改后的数据对象，有时候数据很大，我们可能需要就地修改，此时可以设定 inplace=True。</p>
+<h3 id="835">8.3.5 重赋值<a class="headerlink" href="#835" title="Permanent link">&para;</a></h3>
+<p>将列表或数组赋值给某个列时，其长度必须跟 DataFrame 的长度相匹配。如果赋值的是一个 Series，就会精确匹配 DataFrame 的索引，所有的空位都将被填上缺失值：</p>
+<pre><code class="language-python">In [108]: d2['New_column'] = pd.Series([1])
+In [109]: d2
+Out[109]:
+   Test1  Test2  New_column
+c      4     19         NaN
+b     11      2         NaN
+e      3     19         NaN
+
+In [111]: d2['New_column'] = pd.Series([1, 2, 3])
+In [112]: d2
+Out[112]:
+   Test1  Test2  New_column
+c      4     19         NaN
+b     11      2         NaN
+e      3     19         NaN
+
+In [113]: d2['New_column'] = pd.Series([1, 2, 3], index=['c','b','e'])
+In [114]: d2
+Out[114]:
+   Test1  Test2  New_column
+c      4     19           1
+b     11      2           2
+e      3     19           3
+</code></pre>
+<p>上面变量 d2 因为设定了自定义的索引，当我们给新的列添加数值时，如果没有相应地指定索引，因为索引不匹配，所以最后得到的结果都是 NaN。</p>
+<h3 id="836">8.3.6 索引与过滤<a class="headerlink" href="#836" title="Permanent link">&para;</a></h3>
+<p>Pandas 库支持丰富的索引标签，更适用于实际复杂数据的选择过滤，因此需要理解多种操作方式。</p>
+<h4 id="_1">简单索引<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h4>
+<p>对于 Series 对象，提取单个数据使用下标（从 0 开始）或标签值，提取多个数据可以使用列表或者切片。</p>
+<pre><code class="language-python">In [119]: s2
+Out[119]:
+b    0.630239
+a    0.173525
+d    0.787798
+c    0.176230
+e    0.712007
+dtype: float64
+
+In [120]: s2[1]
+Out[120]: 0.17352490256429942
+In [121]: s2['a']
+Out[121]: 0.17352490256429942
+In [122]: s2[['a','b','c']]
+Out[122]:
+a    0.173525
+b    0.630239
+c    0.176230
+dtype: float64
+In [123]: s2['b':'d']
+Out[123]:
+b    0.630239
+a    0.173525
+d    0.787798
+dtype: float64
+</code></pre>
+<p>在索引的时候进行赋值，就会修改相应的数据。</p>
+<pre><code class="language-python">In [124]: s2['b':'d'] = [1, 2, 3]
+In [125]: s2
+Out[125]:
+b    1.000000
+a    2.000000
+d    3.000000
+c    0.176230
+e    0.712007
+dtype: float64
+</code></pre>
+<p>针对 DataFrame 对象标签索引是获取一个或多个列，而数值切片是提取行，如果只输入数值则会报错，读者需要额外注意。</p>
+<pre><code class="language-python">In [126]: d2['Test1']
+Out[126]:
+c     4
+b    11
+e     3
+Name: Test1, dtype: int64
+
+In [127]: d2[0]
+---------------------------------------------------------------------------
+KeyError                                  Traceback (most recent call last)
+~/anaconda3/lib/python3.7/site-packages/pandas/core/indexes/base.py in get_loc(self, key, method, tolerance)
+   3077             try:
+-&gt; 3078                 return self._engine.get_loc(key)
+   3079             except KeyError:
+
+...
+
+KeyError: 0
+
+During handling of the above exception, another exception occurred:
+
+KeyError                                  Traceback (most recent call last)
+&lt;ipython-input-127-f827a0df080c&gt; in &lt;module&gt;
+----&gt; 1 d2[0]
+
+~/anaconda3/lib/python3.7/site-packages/pandas/core/frame.py in __getitem__(self, key)
+   2686             return self._getitem_multilevel(key)
+...
+
+KeyError: 0
+
+In [128]: d2[:0]
+Out[128]:
+Empty DataFrame
+Columns: [Test1, Test2, New_column]
+Index: []
+
+In [129]: d2[:1]
+Out[129]:
+   Test1  Test2  New_column
+c      4     19           1
+In [130]: d2[:2]
+Out[130]:
+   Test1  Test2  New_column
+c      4     19           1
+b     11      2           2
+
+</code></pre>
+<h4 id="_2">利用逻辑操作索引<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h4>
+<p>Pandas 对象一大特点是可以通过逻辑比较操作快速筛选所需数据，与 ndarray 类似。下面代码演示了通过逻辑操作选择 Series 对象小于 1 子集的例子：</p>
+<pre><code>In [131]: s2
+Out[131]:
+b    1.000000
+a    2.000000
+d    3.000000
+c    0.176230
+e    0.712007
+dtype: float64
+
+In [132]: s2 &lt; 1
+Out[132]:
+b    False
+a    False
+d    False
+c     True
+e     True
+dtype: bool
+
+In [133]: s2[s2 &lt; 1]
+Out[133]:
+c    0.176230
+e    0.712007
+dtype: float64
+
+</code></pre>
+<p>类似地，我们也可以将该操作应用于 DataFrame 对象，它进行的是行筛选。</p>
+<pre><code class="language-python">In [134]: d2
+Out[134]:
+   Test1  Test2  New_column
+c      4     19           1
+b     11      2           2
+e      3     19           3
+
+In [135]: d2[d2['Test2'] &gt; 10]
+Out[135]:
+   Test1  Test2  New_column
+c      4     19           1
+e      3     19           3
+</code></pre>
+<p>这个可以方便进行重赋值操作。</p>
+<p>假设我们 d2 对象中存储的数大于 10 都是异常值，我们将它们重赋值为 10。</p>
+<pre><code class="language-python">In [136]: d2[d2['Test2'] &gt; 10] = 10
+In [137]: d2
+Out[137]:
+   Test1  Test2  New_column
+c     10     10          10
+b     11      2           2
+e     10     10          10
+</code></pre>
+<h4 id="loc-iloc">使用 loc 和 iloc 索引<a class="headerlink" href="#loc-iloc" title="Permanent link">&para;</a></h4>
+<p>简单索引部分介绍的针对 DataFrame 的索引含义不清晰，使用时很容易混淆，导致代码报错。为了方便且准确地获取，Pandas 库引入了特殊运算符 loc 和 iloc 分别接受字符标签和整数标签。</p>
+<p>先看一个示例，使用字符标签选取 d2 对象第 2 行的第 2 和第 3 列。</p>
+<pre><code class="language-python">In [138]: d2.loc['b', ['Test2', 'New_column']]
+Out[138]:
+Test2         2
+New_column    2
+Name: b, dtype: int64
+</code></pre>
+<p>这与下面代码的是等价的：</p>
+<pre><code class="language-python">In [139]: d2.iloc[1, [1,2]]
+Out[139]:
+Test2         2
+New_column    2
+Name: b, dtype: int64
+</code></pre>
+<p>我们可以在方括号内自由地使用切片。</p>
+<pre><code class="language-python">In [140]: d2.iloc[:1, 1:]
+Out[140]:
+   Test2  New_column
+c     10          10
+</code></pre>
+<p>不仅如此，标签索引是可以级联的。例如，我们增加一级筛选，先选 d2 对象的第 2 行，然后大于 10 的列。</p>
+<p>下面的输出显示了每一步的结果：</p>
+<pre><code class="language-python">In [143]: d2
+Out[143]:
+   Test1  Test2  New_column
+c     10     10          10
+b     11      2           2
+e     10     10          10
+
+In [144]: d2.iloc[1, ]
+Out[144]:
+Test1         11
+Test2          2
+New_column     2
+Name: b, dtype: int64
+
+In [145]: d2.iloc[1, ][d2.iloc[1,] &gt; 10]
+Out[145]:
+Test1    11
+Name: b, dtype: int64
+</code></pre>
+<p>如果要索引单个元素，我们可以使用类似的运算符 at 和 iat。</p>
+<p>字符索引、整数索引、切片、iloc 和 loc 操作符以及逻辑索引等都可以实现数据的筛选。可见，对于想要的结果 Pandas 库提供了灵活多样的实现方式。</p>
+<p>最后，下表对 DataFrame 各种索引方式进行简单汇总。</p>
+<p>表8-1 DataFrame 索引方式</p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>df[val]</td>
+<td>选取一或多列（列子集）</td>
+</tr>
+<tr>
+<td>df.loc[val]</td>
+<td>使用标签选取一或多行（行子集）</td>
+</tr>
+<tr>
+<td>df.loc[:,val]</td>
+<td>使用标签选取列子集</td>
+</tr>
+<tr>
+<td>df.loc[val1, val2]</td>
+<td>使用标签同时选择行与列</td>
+</tr>
+<tr>
+<td>df.iloc[val]</td>
+<td>使用整数选取行子集</td>
+</tr>
+<tr>
+<td>df.iloc[:, val]</td>
+<td>使用整数选取列子集</td>
+</tr>
+<tr>
+<td>df.iloc[val1, val2]</td>
+<td>使用整数同时选择行与列</td>
+</tr>
+<tr>
+<td>df.at[i_label, j_label]</td>
+<td>使用标签获取指定位置标量值</td>
+</tr>
+<tr>
+<td>df.iat[i, j]</td>
+<td>使用整数索引获取指定位置标量值</td>
+</tr>
+<tr>
+<td>reindex</td>
+<td>通过标签选取行或列</td>
+</tr>
+</tbody>
+</table>
+<p>Pandas 库提供的方括号 [] 可以代表多种含义，包括单元素索引、多元素切片、逻辑索引等等，因此让 Python 猜测我们使用方括号意图会非常低效。为了高效和书写的一致性，本书推荐使用基于位置的 at 和 loc，以及基于标签的 iat 和 iloc。</p>
+<h3 id="837">8.3.7 算术运算<a class="headerlink" href="#837" title="Permanent link">&para;</a></h3>
+<p>Pandas 对象可以进行算术运算，如果存在不同的标签，相同的标签才会对齐运算，这与 NumPy 数组是不同的。下面分别以 Series 和 DataFrame 举例说明。</p>
+<pre><code class="language-python">In [11]: s1 = pd.Series(range(5), index = ['c', 'a', 'b', 'e', 'f'])
+In [12]: s2 = pd.Series([2.1, 1.1,  3.2, -4], index = ['a', 'd', 'b', 'c'])
+In [13]: s1
+Out[13]:
+c    0
+a    1
+b    2
+e    3
+f    4
+dtype: int64
+In [14]: s2
+Out[14]:
+a    2.1
+d    1.1
+b    3.2
+c   -4.0
+dtype: float64
+In [15]: s1 + s2
+Out[15]:
+a    3.1
+b    5.2
+c   -4.0
+d    NaN
+e    NaN
+f    NaN
+dtype: float64
+</code></pre>
+<p>由于一些标签不重叠，Pandas 引入了 NaN 值。注意，只要存在 NaN 值，所有的算术操作结果都只会是 NaN 值，NaN 值被广播了。</p>
+<p>DataFrame 是一张二维表，所以算术运算造成的对齐现象会同时在行和列上发生。</p>
+<pre><code class="language-python">In [16]: df1 = pd.DataFrame(np.arange(12.).reshape((3,4)), columns=['a', 'b', 'c', 'd'], index=['a', 'b', 'c'])
+In [17]: df2 = pd.DataFrame(np.arange(16.).reshape((4,4)), columns=['a', 'e', 'c', 'd'], index=['b', 'a', 'd', 'c'])
+In [18]: df1
+Out[18]:
+     a    b     c     d
+a  0.0  1.0   2.0   3.0
+b  4.0  5.0   6.0   7.0
+c  8.0  9.0  10.0  11.0
+In [19]: df2
+Out[19]:
+      a     e     c     d
+b   0.0   1.0   2.0   3.0
+a   4.0   5.0   6.0   7.0
+d   8.0   9.0  10.0  11.0
+c  12.0  13.0  14.0  15.0
+In [20]: df1 + df2
+Out[20]:
+      a   b     c     d   e
+a   4.0 NaN   8.0  10.0 NaN
+b   4.0 NaN   8.0  10.0 NaN
+c  20.0 NaN  24.0  26.0 NaN
+d   NaN NaN   NaN   NaN NaN
+</code></pre>
+<p>如果想要使用值进行填充，可以通过方法 add() 实现，给选项 fill_value 传入参数值。</p>
+<pre><code class="language-python">In [21]: df1.add(df2, fill_value=2)
+Out[21]:
+      a     b     c     d     e
+a   4.0   3.0   8.0  10.0   7.0
+b   4.0   7.0   8.0  10.0   3.0
+c  20.0  11.0  24.0  26.0  15.0
+d  10.0   NaN  12.0  13.0  11.0
+</code></pre>
+<p>其他算术操作类似，因此不再赘述。</p>
+<h3 id="838">8.3.8 函数应用<a class="headerlink" href="#838" title="Permanent link">&para;</a></h3>
+<p>Pandas 本身就是基于 NumPy 库构建的，前面我们也了解到 DataFrame 和 Series 存储数据使用的就是 ndarray，因此 Pandas 对象除了支持 Pandas 库提供的函数和方法，也天然支持 NumPy 各类函数操作。</p>
+<p>例如，求取绝对值。</p>
+<pre><code class="language-python">In [22]: np.abs(df1)
+Out[22]:
+     a    b     c     d
+a  0.0  1.0   2.0   3.0
+b  4.0  5.0   6.0   7.0
+c  8.0  9.0  10.0  11.0
+In [23]: -np.abs(df1)
+Out[23]:
+     a    b     c     d
+a -0.0 -1.0  -2.0  -3.0
+b -4.0 -5.0  -6.0  -7.0
+c -8.0 -9.0 -10.0 -11.0
+In [24]: np.abs(-np.abs(df1))
+Out[24]:
+     a    b     c     d
+a  0.0  1.0   2.0   3.0
+b  4.0  5.0   6.0   7.0
+c  8.0  9.0  10.0  11.0
+</code></pre>
+<p>不过函数应用最精彩的操作来自于 apply() 函数，它可以传入一个函数作为参数对 Pandas 对象的行或列进行运算，如求取 df1 对象的列和。</p>
+<pre><code class="language-python">In [25]: df1.apply(sum)
+Out[25]:
+a    12.0
+b    15.0
+c    18.0
+d    21.0
+dtype: float64
+</code></pre>
+<p>当然有时候为了避免函数命名的麻烦，也可以引入一个匿名函数。下面的操作实现求取每列的残差值。</p>
+<pre><code class="language-python">In [26]: df1.apply(lambda x: x - x.mean())
+Out[26]:
+     a    b    c    d
+a -4.0 -4.0 -4.0 -4.0
+b  0.0  0.0  0.0  0.0
+c  4.0  4.0  4.0  4.0
+</code></pre>
+<p>默认是以行为计算轴，即对每列应用函数，如果想要以列为计算轴进行操作，设定选项 axis=&rsquo;columns&rsquo; 即可。</p>
+<pre><code class="language-python">In [27]: df1.apply(lambda x: x - x.mean(), axis='columns')
+Out[27]:
+     a    b    c    d
+a -1.5 -0.5  0.5  1.5
+b -1.5 -0.5  0.5  1.5
+c -1.5 -0.5  0.5  1.5
+</code></pre>
+<p>掌握 apply() 方法的核心在于将行或列一组值当做标量对待，那么这里应用函数其实跟对标量用函数计算本质是一样的。</p>
+<h3 id="839">8.3.9 排序<a class="headerlink" href="#839" title="Permanent link">&para;</a></h3>
+<p>数据的排序是一种重要的操作，对于 Series 对象和 DataFrame 对象，Panda 库提供了 sort_index() 方法和 sort_values() 方法分别按标签和值进行排序。</p>
+<pre><code class="language-python">In [29]: s1 = pd.Series([2, 1, 3, 5, 4], index=['b', 'a', 'd', 'c', 'f'])
+In [30]: s1.sort_index()
+Out[30]:
+a    1
+b    2
+c    5
+d    3
+f    4
+dtype: int64
+In [31]: s1.sort_values()
+Out[31]:
+a    1
+b    2
+d    3
+f    4
+c    5
+dtype: int64
+</code></pre>
+<p>默认是升序排列，设定 ascending=False 可以改为降序。</p>
+<pre><code class="language-python">In [32]: s1.sort_values(ascending=False)
+Out[32]:
+c    5
+f    4
+d    3
+b    2
+a    1
+dtype: int64
+</code></pre>
+<p>DataFrame 对象有 2 个维度，默认是按照行进行排序，如果想要该为按列排序，需要将 axis 选项设为 1。</p>
+<p>在操作 DataFrame 时，有一个排序参数非常实用，就是 by。它可以根据某一列值进行排序，例如在实际处理中，我们可能需要根据月份和日期排序，而数据本身是杂乱的，这个选项就可以派上大用场。</p>
+<pre><code class="language-python">In [34]: df = pd.DataFrame({u'月份':[2, 1, 4, 3], u'日期':[29, 16, 14, 22], u'销量': [150, 44, 300, 68]})
+In [35]: df
+Out[35]:
+  月份 日期 销量
+0   2  29  150
+1   1  16   44
+2   4  14  300
+3   3  22   68
+In [36]: df.sort_values(by='月份')
+Out[36]:
+  月份 日期 销量
+1   1  16   44
+0   2  29  150
+3   3  22   68
+2   4  14  300
+In [37]: df.sort_values(by='日期')
+Out[37]:
+  月份 日期 销量
+2   4  14  300
+1   1  16   44
+3   3  22   68
+0   2  29  150
+In [38]: df.sort_values(by=['月份', '日期'])
+Out[38]:
+  月份 日期  销量
+1   1  16   44
+0   2  29  150
+3   3  22   68
+2   4  14  300
+In [39]: df.sort_values(by='销量')
+Out[39]:
+  月份 日期  销量
+1   1  16   44
+3   3  22   68
+0   2  29  150
+2   4  14  300
+</code></pre>
+<h2 id="84">8.4 基本统计分析<a class="headerlink" href="#84" title="Permanent link">&para;</a></h2>
+<p>Pandas 对象本身存在一组常用的统计值计算方法，主要用于汇总，如计算总和，分位数等。</p>
+<pre><code class="language-python">In [40]: df.sum()
+Out[40]:
+月份     10
+日期     81
+销量    562
+dtype: int64
+In [41]: df.quantile()
+Out[41]:
+月份      2.5
+日期     19.0
+销量    109.0
+Name: 0.5, dtype: float64
+In [42]: df.quantile([0.1, 0.9])
+Out[42]:
+     月份  日期    销量
+0.1  1.3  14.6   51.2
+0.9  3.7  26.9  255.0
+</code></pre>
+<p>也有方法计算累计值，如累计和：</p>
+<pre><code class="language-python">In [43]: df.cumsum()
+Out[43]:
+  月份 日期 销量
+0   2  29  150
+1   3  45  194
+2   7  59  494
+3  10  81  562
+</code></pre>
+<p>不过，我们常用 describe() 方法观测多个统计值，从数值的角度理解数据的大致分布情况。</p>
+<pre><code class="language-python">In [44]: df.describe()
+Out[44]:
+         月份         日期         销量
+count  4.000000   4.000000    4.00000
+mean   2.500000  20.250000  140.50000
+std    1.290994   6.751543  115.61286
+min    1.000000  14.000000   44.00000
+25%    1.750000  15.500000   62.00000
+50%    2.500000  19.000000  109.00000
+75%    3.250000  23.750000  187.50000
+max    4.000000  29.000000  300.00000
+</code></pre>
+<p>下表列出常用的描述统计相关方法。</p>
+<p>表8-2 常用统计描述方法</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>count</td>
+<td>非 NaN 值数量</td>
+</tr>
+<tr>
+<td>describe</td>
+<td>汇总统计</td>
+</tr>
+<tr>
+<td>min、max</td>
+<td>最小最大值</td>
+</tr>
+<tr>
+<td>argmin、argmax</td>
+<td>最小值最大值整数索引位置</td>
+</tr>
+<tr>
+<td>idxmin、idxmax</td>
+<td>最小值最大值标签位置</td>
+</tr>
+<tr>
+<td>quantile</td>
+<td>分位数</td>
+</tr>
+<tr>
+<td>mean、median、sum</td>
+<td>均值、中位数、总和</td>
+</tr>
+<tr>
+<td>mad</td>
+<td>平均绝对离差</td>
+</tr>
+<tr>
+<td>var、std</td>
+<td>方差、标准差</td>
+</tr>
+<tr>
+<td>rank</td>
+<td>排名（秩序）</td>
+</tr>
+<tr>
+<td>cumsum、cumprod</td>
+<td>累计和、累计积</td>
+</tr>
+<tr>
+<td>cor</td>
+<td>相关性</td>
+</tr>
+<tr>
+<td>cov</td>
+<td>协方差</td>
+</tr>
+</tbody>
+</table>
+<h2 id="85">8.5 章末小结<a class="headerlink" href="#85" title="Permanent link">&para;</a></h2>
+<p>虽然本章已经介绍了大量关于 Pandas 的内容，包括 2 个核心数据对象 Series 和 DataFrame，以及如何创建、使用它们。但这些还远远不够，它们仅仅是读者熟练掌握 Pandas 的基础。再接下来的更多章节中，我们将更深入地对 Pandas 进行学习并更广泛地将它应用到示例中去。Pandas，它是 Python 数据分析的灵魂工具。</p>
+
+
+
+
+              
+            </article>
+            
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="../07-matplotlib/" class="md-footer__link md-footer__link--prev" aria-label="Previous: 第 7 章 Matplotlib" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              第 7 章 Matplotlib
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../09-markdown/" class="md-footer__link md-footer__link--next" aria-label="Next: 第 9 章 Markdown 基础" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              第 9 章 Markdown 基础
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright © 2020 ShixiangWang
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.expand", "navigation.indexes", "navigation.top"], "search": "../assets/javascripts/workers/search.ecf98df9.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.9c69f0bc.min.js"></script>
+      
+    
+  </body>
+</html>

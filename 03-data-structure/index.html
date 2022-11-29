@@ -1,0 +1,1888 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Shixiang Wang">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-8.4.1">
+    
+    
+      
+        <title>第 3 章 基本数据结构 - 交互的Python：数据分析入门</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.69437709.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.cbb835fc.min.css">
+        
+      
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#3" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="交互的Python：数据分析入门" class="md-header__button md-logo" aria-label="交互的Python：数据分析入门" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            交互的Python：数据分析入门
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              第 3 章 基本数据结构
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/ShixiangWang/pybook" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href=".." class="md-tabs__link">
+      阅读说明
+    </a>
+  </li>
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../%E5%A4%A7%E7%BA%B2/" class="md-tabs__link md-tabs__link--active">
+        正文
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../author-and-recommendation/%E4%BA%A4%E4%BA%92%E7%9A%84Python%20-%20%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE.png" class="md-tabs__link">
+      思维导图
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../to-readers/" class="md-tabs__link">
+      对读者说的话
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../author/" class="md-tabs__link">
+      作者简介
+    </a>
+  </li>
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="交互的Python：数据分析入门" class="md-nav__button md-logo" aria-label="交互的Python：数据分析入门" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    交互的Python：数据分析入门
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/ShixiangWang/pybook" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        阅读说明
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          正文
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="正文" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          正文
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%A4%A7%E7%BA%B2/" class="md-nav__link">
+        大纲
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../0-%E5%89%8D%E8%A8%80/" class="md-nav__link">
+        前言
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../00-%E5%86%85%E5%AE%B9%E6%8F%90%E8%A6%81/" class="md-nav__link">
+        内容提要
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-introduction/" class="md-nav__link">
+        第 1 章 Python 介绍及学习前的准备
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-base/" class="md-nav__link">
+        第 2 章 Python 入门示例及基础知识
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          第 3 章 基本数据结构
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        第 3 章 基本数据结构
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    3.1 列表
+  </a>
+  
+    <nav class="md-nav" aria-label="3.1 列表">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#311" class="md-nav__link">
+    3.1.1 列表的创建
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#312" class="md-nav__link">
+    3.1.2 修改列表元素
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#313" class="md-nav__link">
+    3.1.3 遍历列表
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#314" class="md-nav__link">
+    3.1.4 列表操作符
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#315" class="md-nav__link">
+    3.1.5 列表切片
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#316" class="md-nav__link">
+    3.1.6 列表方法、函数与操作
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#317" class="md-nav__link">
+    3.1.7 列表与字符串
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#317_1" class="md-nav__link">
+    3.1.7 列表对象与值
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#32" class="md-nav__link">
+    3.2 元组
+  </a>
+  
+    <nav class="md-nav" aria-label="3.2 元组">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#321" class="md-nav__link">
+    3.2.1 元组的创建
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#322" class="md-nav__link">
+    3.2.2 元组操作
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#323" class="md-nav__link">
+    3.2.3 元组与列表的区别
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#33" class="md-nav__link">
+    3.3 字典
+  </a>
+  
+    <nav class="md-nav" aria-label="3.3 字典">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#331" class="md-nav__link">
+    3.3.1 字典的创建与使用
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#332" class="md-nav__link">
+    3.3.2 字典操作
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#34" class="md-nav__link">
+    3.4 集合
+  </a>
+  
+    <nav class="md-nav" aria-label="3.4 集合">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#341" class="md-nav__link">
+    3.4.1 集合的创建
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#343" class="md-nav__link">
+    3.4.3 冰冻集
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#35" class="md-nav__link">
+    3.5 章末小结
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-control-flow/" class="md-nav__link">
+        第 4 章 控制流与文件操作
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-function-and-module/" class="md-nav__link">
+        第 5 章 函数与模块
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-numpy/" class="md-nav__link">
+        第 6 章 NumPy
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-matplotlib/" class="md-nav__link">
+        第 7 章 Matplotlib
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-pandas-intro/" class="md-nav__link">
+        第 8 章 Pandas 入门
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-markdown/" class="md-nav__link">
+        第 9 章 Markdown 基础
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-data-import/" class="md-nav__link">
+        第 10 章 数据导入
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-toolbox/" class="md-nav__link">
+        第 11 章 数据分析工具箱
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-advanced-pandas/" class="md-nav__link">
+        第 12 章 Pandas 进阶
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-advanced-vis/" class="md-nav__link">
+        第 13 章 数据可视化进阶
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14-stats/" class="md-nav__link">
+        第 14 章 统计分析
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15-append/" class="md-nav__link">
+        第 15 章 未言及的内容
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16-end/" class="md-nav__link">
+        结语：接下来学什么
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../author-and-recommendation/%E4%BA%A4%E4%BA%92%E7%9A%84Python%20-%20%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE.png" class="md-nav__link">
+        思维导图
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../to-readers/" class="md-nav__link">
+        对读者说的话
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../author/" class="md-nav__link">
+        作者简介
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#31" class="md-nav__link">
+    3.1 列表
+  </a>
+  
+    <nav class="md-nav" aria-label="3.1 列表">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#311" class="md-nav__link">
+    3.1.1 列表的创建
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#312" class="md-nav__link">
+    3.1.2 修改列表元素
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#313" class="md-nav__link">
+    3.1.3 遍历列表
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#314" class="md-nav__link">
+    3.1.4 列表操作符
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#315" class="md-nav__link">
+    3.1.5 列表切片
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#316" class="md-nav__link">
+    3.1.6 列表方法、函数与操作
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#317" class="md-nav__link">
+    3.1.7 列表与字符串
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#317_1" class="md-nav__link">
+    3.1.7 列表对象与值
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#32" class="md-nav__link">
+    3.2 元组
+  </a>
+  
+    <nav class="md-nav" aria-label="3.2 元组">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#321" class="md-nav__link">
+    3.2.1 元组的创建
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#322" class="md-nav__link">
+    3.2.2 元组操作
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#323" class="md-nav__link">
+    3.2.3 元组与列表的区别
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#33" class="md-nav__link">
+    3.3 字典
+  </a>
+  
+    <nav class="md-nav" aria-label="3.3 字典">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#331" class="md-nav__link">
+    3.3.1 字典的创建与使用
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#332" class="md-nav__link">
+    3.3.2 字典操作
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#34" class="md-nav__link">
+    3.4 集合
+  </a>
+  
+    <nav class="md-nav" aria-label="3.4 集合">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#341" class="md-nav__link">
+    3.4.1 集合的创建
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#343" class="md-nav__link">
+    3.4.3 冰冻集
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#35" class="md-nav__link">
+    3.5 章末小结
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+  <a href="https://github.com/ShixiangWang/pybook/edit/master/03-data-structure.md" title="Edit this page" class="md-content__button md-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+  </a>
+
+
+
+<h1 id="3">第 3 章 基本数据结构<a class="headerlink" href="#3" title="Permanent link">&para;</a></h1>
+<p><strong>本章内容提要</strong>：</p>
+<ul>
+<li>列表及操作</li>
+<li>元组及操作</li>
+<li>字典及操作</li>
+<li>集合简介</li>
+</ul>
+<p>本书在上一章介绍了数字（整数、浮点数）、逻辑值和字符串等 Python 内置的基本数据类型。在实际的操作中，如果仅仅依赖它们很难高效地完成复杂的数据处理任务。基于对基本数据类型的构建，Python 拓展出列表、元组、字典与集合等更为实用的数据结构，以简化程序的编写与任务的实现。这些数据结构内置于 Python，是数据分析经常要操作的对象。本章我们将学习这几者的概念，并详细介绍其操作方法。</p>
+<h2 id="31">3.1 列表<a class="headerlink" href="#31" title="Permanent link">&para;</a></h2>
+<p>列表（list）是 Python 中最有用的一种内置类型，是处理一组有序项目的数据结构，或者说，是一个有序对象的集合。通俗地理解，列表即序列，它是一系列数值的序列。在前文介绍的字符串中，字符串包含的值是一个一个字符。而在列表中，值可以是任意类型。列表的值一般也称为列表的元素。列表的元素通过英文逗号分隔，并包含在方括号内。</p>
+<h3 id="311">3.1.1 列表的创建<a class="headerlink" href="#311" title="Permanent link">&para;</a></h3>
+<p>下面创建一个简单的列表存储英语中的 5 个元音字母：</p>
+<pre><code class="language-python">In [1]: vowels = ['a', 'e', 'i', 'o', 'u']
+In [2]: vowels
+Out[2]: ['a', 'e', 'i', 'o', 'u']
+</code></pre>
+<p>读者可以不添加任何元素来初始化一个列表：</p>
+<pre><code class="language-python">In [3]: array_init = []
+In [4]: array_init
+Out[4]: []
+</code></pre>
+<p>读者如果想要提取列表中的元素，使用索引是一种方法，将索引值写在变量名后的方括号内，如提取列表 vowels 中的 i：</p>
+<pre><code class="language-python">In [5]: vowels[2]
+Out[5]: 'i'
+</code></pre>
+<p>这里为什么方括号内填入的是 2 而不是 3 跟 Python 的索引机制有关——Python 的索引是从 0 开始的（当然也有从 1 开始索引的语言，比如数据分析中也非常流行的 R 语言）。</p>
+<p>因此列表 vowels 元素与其的索引之间有以下对应关系：</p>
+<pre><code>a e i o u
+0 1 2 3 4
+</code></pre>
+<p>前文提到，列表的元素可以是任意类型，因此列表可以嵌套列表。例如，读者可以用以下列表来依次表示两个长方形的名称、面积与相应的长和宽：</p>
+<pre><code class="language-python">In [7]: rectangle = ['长方形1', 20, [4, 5], '长方形2', 16, [4, 4]]
+In [8]: rectangle
+Out[8]: ['长方形1', 20, [4, 5], '长方形2', 16, [4, 4]]
+</code></pre>
+<p>如果列表太长，不方便直接观察列表的长度，读者可以利用 len() 函数进行计算。</p>
+<pre><code class="language-python">In [9]: len(rectangle)
+Out[9]: 6
+</code></pre>
+<p>结果显示 rectangle 长度为 6，读者可以使用索引值 0 到 5 提取 rectangle 的元素。再次注意 Python 索引值是从 0 开始的，如果使用的索引值超出界限，Python 会报错提示我们使用的列表索引超出范围。</p>
+<pre><code class="language-python">In [10]: rectangle[6]
+---------------------------------------------------------------------------
+IndexError                                Traceback (most recent call last)
+&lt;ipython-input-10-6e16763c0048&gt; in &lt;module&gt;()
+----&gt; 1 rectangle[6]
+
+IndexError: list index out of range
+</code></pre>
+<p>除了从头创建一个列表，读者可以使用 list() 函数将其他数据类型转换为列表，如下面的字符串：</p>
+<pre><code class="language-python">In [17]: aseq = &quot;atggctaggc&quot;
+In [18]: list(aseq)
+Out[18]: ['a', 't', 'g', 'g', 'c', 't', 'a', 'g', 'g', 'c']
+</code></pre>
+<h3 id="312">3.1.2 修改列表元素<a class="headerlink" href="#312" title="Permanent link">&para;</a></h3>
+<p>和字符串不同，列表是可以修改的，只需要对指定的列表元素重新赋值即可。</p>
+<p>例如，用一个列表存储 10 以内的奇数：</p>
+<pre><code class="language-python">In [11]: odd_numbers = [1, 3, 5, 7, 8]
+</code></pre>
+<p>当读者发现最后一个元素写错了，不需要像以下重新创建列表。</p>
+<pre><code class="language-python">In [12]: odd_numbers = [1, 3, 5, 7, 9]
+</code></pre>
+<p>上面读者需要重新输入创建一个新的列表来纠正之前错误的输入，但其实只需要修改写错的元素，即利用索引对错误的元素重新赋值。</p>
+<pre><code class="language-python">In [13]: odd_numbers = [1, 3, 5, 7, 8]
+In [14]: odd_numbers[4] = 9
+In [15]: odd_numbers
+Out[15]: [1, 3, 5, 7, 9]
+</code></pre>
+<p>读者除了使用自然数进行索引元素，还可以使用负整数进行反向索引，比如 odd_numbers[-1] 也对应着 9：</p>
+<pre><code class="language-python">In [16]: odd_numbers[-1]
+Out[16]: 9
+</code></pre>
+<p>我们依旧可以用之前的列表 vowels 来表示列表元素与反向索引之间的对应关系，如下：</p>
+<pre><code> a   e   i   o   u
+-5  -4  -3  -2  -1
+</code></pre>
+<h3 id="313">3.1.3 遍历列表<a class="headerlink" href="#313" title="Permanent link">&para;</a></h3>
+<p>想象一下，如果列表元素非常多，而我们想要对列表中的每一个元素进行操作或变换，难道要一个一个利用索引取出，然后修改吗？逐一访问列表的元素称为遍历列表。这里需要初步借助下一章介绍的循环来解决类似的问题。</p>
+<p>循环的力量在于将单一枯燥的重复性工作交给机器去实现，而读者只需要关注去掉循环的操作本身。</p>
+<p>最常用的循环结构是 for 循环。如果需要逐一打印 10 以内的奇数，读者不需要逐步使用 print() 函数打印列表的每一个元素。</p>
+<pre><code class="language-python">print(odd_numbers[0])
+print(odd_numbers[1])
+print(odd_numbers[2])
+print(odd_numbers[3])
+print(odd_numbers[4])
+</code></pre>
+<p>读者只需要两行代码就可以实现列表的遍历，如下所示：</p>
+<pre><code class="language-python">In [24]: for i in odd_numbers:
+             print(i)
+
+1
+3
+5
+7
+9
+</code></pre>
+<p>这里列表 odd_numbers 中元素的值会逐个传给 i，然后通过 print() 函数将i的值输出打印。使用循环除了代码更清晰简洁，另一个好处是读者不需要知道列表有多长！既然 for 循环可以遍历列表中所有的元素，那么如果元素是一个列表，它会对这个列表接着遍历吗？</p>
+<p>假设创建一个列表存储小明、小红、小蓝3个人跳远的成绩记录，表示如下：</p>
+<pre><code class="language-python">In [26]: nested_list = ['记录', 3, ['小明', '小红', '小蓝'], [2.30, 2.41, 2.33]]
+</code></pre>
+<p>使用 for 循环是将该列表中的所有元素一个一个输出呢？还是其他的结果？</p>
+<pre><code class="language-python">In [27]: for i in nested_list:
+    ...:     print(i)
+    ...:
+记录
+3
+['小明', '小红', '小蓝']
+[2.3, 2.41, 2.33]
+</code></pre>
+<p>结果显示：for 循环并没有将列表所有元素单个传入变量 i，而是将列表最外面一层的元素传入了变量 i。打个比方，简单的列表像一层洋葱，而嵌套了列表的列表相当于多层的洋葱，for 循环它只负责剥开一层。</p>
+<p>因此，如果想剥开例子中的两层洋葱 nested_list，读者需要使用两次 for 循环。for 循环操作和使用本书下一章会详细地进行介绍。</p>
+<h3 id="314">3.1.4 列表操作符<a class="headerlink" href="#314" title="Permanent link">&para;</a></h3>
+<p>列表操作符可以帮助读者便利地操作列表，有时候读者会感觉使用它们如同使用数值的加减乘除一样简单。</p>
+<h4 id="_1">+ 号<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h4>
+<p>加号 + 不仅能用于数字相加，字符连接，还能用于列表的拼接。</p>
+<pre><code>In [28]: a = [1, 2, 3]
+In [29]: b = [4, 5, 6]
+In [30]: a + b
+Out[30]: [1, 2, 3, 4, 5, 6]
+</code></pre>
+<p>a + b 的结果是将列表 b 中的元素拼接到了列表 a 的后面，生成了一个新的列表。</p>
+<p>如果两个列表是不同的数据类型，还能拼接吗？</p>
+<pre><code>In [31]: b = [4, 5, '6']
+In [32]: a + b
+Out[32]: [1, 2, 3, 4, 5, '6']
+</code></pre>
+<p>代码运行结果说明是可以的，列表包容万物，而含不同数据类型列表拼接只是将它们 放 到了一起，并没有其他特殊的操作。</p>
+<h4 id="_2">* 号<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h4>
+<p>星号 * 操作符可以将列表重复指定的次数，如下所示：</p>
+<pre><code class="language-python">In [33]: a * 5
+Out[33]: [1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3]
+</code></pre>
+<h3 id="315">3.1.5 列表切片<a class="headerlink" href="#315" title="Permanent link">&para;</a></h3>
+<p>除了上一小节提到的 + 操作符与 * 操作符，冒号 : 操作符可以对列表执行切片操作。切片操作是利用冒号操作符进行取子集的过程。因为该操作符经常使用，所以单列一小节进行介绍。</p>
+<p>例如，如果存在下面 1 个包含 7 个字母的列表：</p>
+<pre><code class="language-python">In [34]: letters7 = ['a', 'b', 'c', 'd', 'e', 'f', 'g']
+</code></pre>
+<p>读者如果只想要 a、b、c、d 四个字母，那么切片操作如下：</p>
+<pre><code class="language-python">In [37]: you_want = letters7[0:4]
+In [38]: you_want
+Out[38]: ['a', 'b', 'c', 'd']
+</code></pre>
+<p>列表索引规则是 start:stop:step，其中 stop 值不被包含在内（即区间前闭后开）。上面代码中 start 对应 0（再次提醒 Python 索引从 0 开始），stop 对应 4，而 step 默认为 1，可以省略。</p>
+<p>理解了切片的规则，读者就可以知道下面的操作会得到一样的结果。</p>
+<pre><code class="language-python">In [39]: letters7[0:4:1]
+Out[39]: ['a', 'b', 'c', 'd']
+</code></pre>
+<p>索引的起始位置也可以省略，默认从 0 开始。</p>
+<pre><code class="language-python">In [40]: letters7[:4]
+Out[40]: ['a', 'b', 'c', 'd']
+</code></pre>
+<p>索引的终止位置也可以省略，默认为列表长度，也就是到最后一个元素。</p>
+<pre><code class="language-python">In [41]: letters7[:7]
+Out[41]: ['a', 'b', 'c', 'd', 'e', 'f', 'g']
+In [42]: letters7[4:]
+Out[42]: ['e', 'f', 'g']
+</code></pre>
+<p>注意，加 : 操作符与不加 : 是不同的。加 : 操作符结果返回的是一个列表，而不加返回的是元素本身。</p>
+<pre><code class="language-python">In [43]: letters7[-1]
+Out[43]: 'g'
+In [44]: letters7[-1:]
+Out[44]: ['g']
+</code></pre>
+<p>如果理解了上面的操作，理解接下来的操作结果也顺理成章：</p>
+<pre><code class="language-python">In [45]: letters7[::1]
+Out[45]: ['a', 'b', 'c', 'd', 'e', 'f', 'g']
+In [46]: letters7[::2]
+Out[46]: ['a', 'c', 'e', 'g']
+</code></pre>
+<p>步长还可以取负整数，代表逆序切片。</p>
+<pre><code class="language-python">In [47]: letters7[::-1]
+Out[47]: ['g', 'f', 'e', 'd', 'c', 'b', 'a']
+In [48]: letters7[::-2]
+Out[48]: ['g', 'e', 'c', 'a']
+</code></pre>
+<p>另外，切片运算符放到赋值语句等号左边的时候可以对多个元素进行更新。</p>
+<pre><code class="language-python">In [49]: letters7[0:2] = ['h', 'i']
+In [50]: letters7
+Out[50]: ['h', 'i', 'c', 'd', 'e', 'f', 'g']
+</code></pre>
+<p>注意，左右两边可以不等长。</p>
+<pre><code class="language-python">In [51]: letters7[0:2] = ['a']
+In [52]: letters7
+Out[52]: ['a', 'c', 'd', 'e', 'f', 'g']
+In [53]: letters7[0:1] = ['a', 'b']
+In [54]: letters7
+Out[54]: ['a', 'b', 'c', 'd', 'e', 'f', 'g']
+</code></pre>
+<p>如果是单个元素，等号右侧不加方括号也行：</p>
+<pre><code class="language-python">In [55]: letters7[0:2] = 'h'
+In [56]: letters7
+Out[56]: ['h', 'c', 'd', 'e', 'f', 'g']
+</code></pre>
+<h3 id="316">3.1.6 列表方法、函数与操作<a class="headerlink" href="#316" title="Permanent link">&para;</a></h3>
+<p>Python 为列表提供了很多方法，用来简化列表的各项常用操作。常用操作包括添加元素、删除元素、插入元素等。本小节将一一进行介绍。</p>
+<p>注意，当下文提及方法时，一般指在变量名后加点号然后加函数。例如，list.append() 指对列表 list 使用 append() 方法。</p>
+<h4 id="_3">添加元素<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h4>
+<p>Python 有三种方法可以为列表添加元素，分别是 append()、insert() 和 extend()。</p>
+<ul>
+<li>append(element)：将元素 element 添加到列表的末尾。</li>
+</ul>
+<p>```python
+  In [59]: example_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+  In [60]: example_list.append(11)
+  In [61]: example_list
+  Out[61]: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]</p>
+<p>```</p>
+<ul>
+<li>insert(position, element)：将元素 element 插入列表指定 position 位置。</li>
+</ul>
+<p><code>python
+  In [62]: example_list.insert(2, 12)
+  In [63]: example_list
+  Out[63]: [1, 2, 12, 3, 4, 5, 6, 7, 8, 9, 10, 11]</code></p>
+<ul>
+<li>extend(list)：使用另一个列表做参数，然后把所有的元素添加到一个列表上。</li>
+</ul>
+<p><code>python
+  In [64]: example_list.extend([13,14])
+  In [65]: example_list
+  Out[65]: [1, 2, 12, 3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14]</code></p>
+<h4 id="_4">删除元素<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h4>
+<p>同样地，Python 也有三种方法删除列表中的元素。</p>
+<ul>
+<li>pop([index])：移除索引位置 index 的元素并返回它的值，如果没有参数，默认删除和返回最后一个。</li>
+</ul>
+<p><code>python
+  In [67]: example_list.pop()
+  Out[67]: 14
+  In [68]: example_list.pop(2)
+  Out[68]: 12</code></p>
+<ul>
+<li>remove(element)：移除参数中指定的元素 element，如果存在多个同样的值，移除最左边的。不像 pop()，这个方法不返回任何值。</li>
+</ul>
+<p><code>python
+  In [69]: example_list.remove(13)
+  In [70]: example_list
+  Out[70]: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]</code></p>
+<ul>
+<li>另一种方式是使用 del 命令, del list[0] 类似于 list.pop(0)，但前者不会返回被删除的元素。</li>
+</ul>
+<p><code>python
+  In [71]: del example_list[10]
+  In [72]: example_list
+  Out[72]: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]</code></p>
+<p>除了上面提到的 3 种方法，另有 clear() 方法可以清洗列表，它会清空列表所有元素。</p>
+<pre><code class="language-python">In [73]: example_list.clear()
+In [74]: example_list
+Out[74]: []
+</code></pre>
+<h4 id="_5">列表排序<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h4>
+<p>当把数值数据存储在列表后，一个常见的需求是对列表中的值进行排序，sort() 方法可以实现。</p>
+<pre><code class="language-python">In [78]: a = [3, 1, 2, 5, 4, 6]
+In [79]: a.sort()
+In [80]: a
+Out[80]: [1, 2, 3, 4, 5, 6]
+</code></pre>
+<p>可以看到，使用 sort() 方法后，列表本身被改变了，如果不想要改变原始列表，可以使用 sorted() 函数并把结果赋值给新的变量。</p>
+<pre><code class="language-python">In [81]: nums = [-1, 34, 0.2, -4, 309]
+In [82]: nums_desc = sorted(nums, reverse=True)
+In [83]: nums
+Out[83]: [-1, 34, 0.2, -4, 309]
+In [84]: nums_desc
+Out[84]: [309, 34, 0.2, -1, -4]
+</code></pre>
+<p>reverse() 方法可以将列表按位置翻转。</p>
+<pre><code class="language-python">In [90]: nums
+Out[90]: [1, 2, 2, 2, 3, 3, 4, 5]
+In [91]: nums.reverse()
+In [92]: nums
+Out[92]: [5, 4, 3, 3, 2, 2, 2, 1]
+</code></pre>
+<h4 id="_6">简单统计<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h4>
+<p>min() 与 max() 函数可以计算列表最小值与最大值。</p>
+<pre><code class="language-python">In [85]: min(nums)
+Out[85]: -4
+In [86]: max(nums)
+Out[86]: 309
+</code></pre>
+<p>如果想要对出现相同元素计数，可以使用 count() 方法。</p>
+<pre><code class="language-python">In [87]: nums = [1, 2, 2, 2, 3, 3, 4, 5]
+In [88]: nums.count(2)
+Out[88]: 3
+In [89]: nums.count(3)
+Out[89]: 2
+</code></pre>
+<p>sum() 函数可以对数值列表求和。</p>
+<pre><code class="language-python">In [93]: sum(nums)
+Out[93]: 22
+</code></pre>
+<h4 id="_7">逻辑判断<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h4>
+<p>读者如果需要查看列表中是否存在某个元素，可以使用关键字 in ，结果返回的是逻辑值。</p>
+<pre><code class="language-python">In [76]: 4 in example_list
+Out[76]: False
+In [77]: 3 in example_list
+Out[77]: True
+</code></pre>
+<p>all() 与 any() 函数可以用于逻辑值列表，all() 判别是否列表所有值都为真，全真时返回真 True，否则返回假 False；any() 判别只要任一元素为真则返回 True，否则返回假 False。</p>
+<pre><code class="language-python">In [94]: conditions = [True, False, True]
+In [95]: all(conditions)
+Out[95]: False
+In [96]: any(conditions)
+Out[96]: True
+</code></pre>
+<p>有时候，如果想要比较两个列表是否一致，可以直接使用两个等于号进行逻辑判断。</p>
+<pre><code class="language-python">In [97]: a = [1, 2, 3, 4]
+
+In [98]: a == [1, 2, 3, 5]
+Out[98]: False
+In [99]: a == [1, 3, 2, 4]
+Out[99]: False
+In [100]: a == [1, 2, 3, 4]
+Out[100]: True
+</code></pre>
+<h4 id="_8">最常见操作方法汇总<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h4>
+<p>上面介绍了大量的列表操作、函数与方法，但实际上可用的远不止这些，当读者对 Python 有深入了解后，还可以自己创建操作列表的方法和函数。</p>
+<p>下表对最常见的操作方法进行汇总：</p>
+<p>表3-1 常见列表操作方法汇总</p>
+<table>
+<thead>
+<tr>
+<th>表示</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>l.append(x)</td>
+<td>添加元素x到列表</td>
+</tr>
+<tr>
+<td>l.count(x)</td>
+<td>计算列表中x出现的次数</td>
+</tr>
+<tr>
+<td>l.index(x)</td>
+<td>返回元素x的位置（索引）</td>
+</tr>
+<tr>
+<td>l.remove(x)</td>
+<td>从列表中移除x</td>
+</tr>
+<tr>
+<td>l.reverse()</td>
+<td>翻转列表</td>
+</tr>
+<tr>
+<td>l.sort()</td>
+<td>列表排序</td>
+</tr>
+</tbody>
+</table>
+<h3 id="317">3.1.7 列表与字符串<a class="headerlink" href="#317" title="Permanent link">&para;</a></h3>
+<p>字符串是一系列字符的序列，而列表是一系列值的序列，但一个由字符组成的列表是不同于字符串的。要把一个字符串转换成字符列表，可以用 list() 这个函数。</p>
+<p>下面是一个将字符串转换为字符列表的例子：</p>
+<pre><code class="language-python">In [101]: s = 'interactive Python'
+In [102]: t = list(s)
+In [103]: t
+Out[103]:
+['i',
+ 'n',
+ 't',
+ 'e',
+ 'r',
+ 'a',
+ 'c',
+ 't',
+ 'i',
+ 'v',
+ 'e',
+ ' ',
+ 'P',
+ 'y',
+ 't',
+ 'h',
+ 'o',
+ 'n']
+</code></pre>
+<p>在上面代码中，list() 这个函数将一个字符串分开成一个个字符（字母）。如果读者想把字符串切分成一个个单词，可以使用 split() 方法，如下所示：</p>
+<pre><code class="language-python">In [104]: s.split()
+Out[104]: ['interactive', 'Python']
+</code></pre>
+<p>注意，方法中有一个可选的参数是定界符，它是用来确定单词边界的。</p>
+<p>下面例子用短横线作为定界符拆分两个单词：</p>
+<pre><code class="language-python">In [105]: s = 'interactive-Python'
+In [107]: s.split('-')
+Out[107]: ['interactive', 'Python']
+</code></pre>
+<p>另一个方法 join() 的功能与 split() 方法的功能相反，它接收一个字符串列表，然后把所有元素拼接到一起作为字符串。join() 是一个字符串方法，所以必须把 join() 放到定界符后面来调用，并且传递一个列表作为参数。</p>
+<pre><code class="language-python">In [108]: t = ['我','是', '谁', '？']
+In [109]: ''.join(t)
+Out[109]: '我是谁？'
+</code></pre>
+<p>注意，上面代码中定界符是一个空格字符。</p>
+<h3 id="317_1">3.1.7 列表对象与值<a class="headerlink" href="#317_1" title="Permanent link">&para;</a></h3>
+<p>请读者思考这样一个问题：下面对象 a 与 b 是同一个对象吗？</p>
+<pre><code class="language-python">In [4]: a = 'banana'
+In [5]: b = 'banana'
+</code></pre>
+<p>如果把对象看成篮子，内容 banana 看作篮子里的鸡蛋。读者现在需要判断的是，变量名 a 和 b 是同一个篮子的两个便签（鸡蛋只有一个），还是两个不同篮子（每一个篮子都有一个鸡蛋）的便签？</p>
+<p>读者如果想要得到问题的答案，可以使用 i s操作符。</p>
+<pre><code class="language-python">In [6]: a is b
+Out[6]: True
+</code></pre>
+<p>从上面的代码运行结果来看，答案是第一种情况：Python 只创建了一个字符串对象，内容为 banana ，然后 a 和 b 都是这个对象的便签。</p>
+<p>另外，可以使用 id() 函数提取对象的唯一标识符。这就像个人身份证一样，虽然同一个人可能会有不同的称呼，但身份证号码只有一个。</p>
+<pre><code class="language-python">In [10]: id(a)
+Out[10]: 1691582590008
+In [11]: id(b)
+Out[11]: 1691582590008
+</code></pre>
+<p>从结果中可见 a 和 b 确实是完全相同的。那么，如果改变 a，b 也会改变吗？</p>
+<pre><code class="language-python">In [12]: a = &quot;orange&quot;
+In [13]: b
+Out[13]: 'banana'
+</code></pre>
+<p>结果是不会。实际上，Python 对象是它指向的内容，变量名 a 和 b 本身只是一个方便使用的标签，所以当我们将另一个字符串赋值给变量 a 时，Python 实际上是先创建了一个字符串对象，内容是 orange，然后给这个对象打上标签 a。</p>
+<p>不过如果创建两个列表，尽管它们的内容相同，它们也是不同的对象，下面的代码运行结果可以验证这一点。</p>
+<pre><code class="language-python">In [14]: a = [1, 2, 3]
+In [15]: b = [1, 2, 3]
+
+In [16]: a is b
+Out[16]: False
+
+In [17]: id(a)
+Out[17]: 1691581888264
+In [18]: id(b)
+Out[18]: 1691582794120
+</code></pre>
+<p>在这个情况下，可以说两个列表是相等的，因为它们有相同的元素，但它们不是同一个列表，因为他们并不是同一个对象。如果两个对象是同一个对象，那它们必然是相等的，但如果它们相等，却未必是同一个对象。</p>
+<p>注意，如果这里的 b 不是重新创建，而是将 a 赋值给 b，那么 a 和 b 就是完全相同的，因为它们指向同一个列表对象。</p>
+<pre><code class="language-python">In [19]: b = a
+
+In [20]: a is b
+Out[20]: True
+
+In [21]: id(b)
+Out[21]: 1691581888264
+</code></pre>
+<p>因而我们尽量不要对 Python 的列表进行 e=f=e=c=a 这样的赋值操作，一旦我们修改了某一个元素，其他变量全都会跟着改变！</p>
+<pre><code class="language-python">In [22]: e = a
+
+In [23]: e
+Out[23]: [1, 2, 3]
+In [24]: a
+Out[24]: [1, 2, 3]
+
+In [25]: a[1] = 4
+In [26]: e
+Out[26]: [1, 4, 3]
+</code></pre>
+<p>到这里，Python 列表的基础知识和相应操作本章都一一作了介绍。本章的大部分内容都是在讲解列表，列表不仅作为 Python 最核心的概念和数据结构，而且也是理解其他基础数据结构的桥梁。读者如果掌握好列表，本章接下来介绍的数据结构都可以触类旁通，使用和操作方法大同小异。重要的差异都会提示和强调，读者需要留心注意。</p>
+<h2 id="32">3.2 元组<a class="headerlink" href="#32" title="Permanent link">&para;</a></h2>
+<p>元组（tuple）就是不可更改的列表，一旦创建，便不可更改。除了表示的方式有点不一样、元组的元素不可更改，其他的特性与前面学习的列表基本一致。因此，读者在掌握列表用法之后，元组的学习将变得相对简单。</p>
+<h3 id="321">3.2.1 元组的创建<a class="headerlink" href="#321" title="Permanent link">&para;</a></h3>
+<pre><code class="language-python">In [1]: a_tuple = (1, 2, 3)
+In [2]: a_list = [1, 2, 3]
+</code></pre>
+<p>上面代码分别创建了一个元组和列表，可以清晰看到它们定义的差别所在。不过，其实元组的语法是一系列用逗号分隔的值，也就是说括号是可以省略的。</p>
+<pre><code class="language-python">In [6]: another_tuple = 1,2,3
+In [7]: type(another_tuple)
+Out[7]: tuple
+</code></pre>
+<p>作为初学者，创建元组时尽量使用括号，这样在书写和查看代码时可以非常清楚地区分什么是列表、什么是元组。Python 中常见的数据类型在表示上都有非常鲜明的特点，这都可以帮助读者构建优良的代码。</p>
+<p>读者如果创建的元组只有一个元素时，需要特别注意：元组中的元素后需要一个逗号。</p>
+<p>请看下面的代码：</p>
+<pre><code class="language-python">In [8]: 1
+Out[8]: 1
+
+In [9]: (1)
+Out[9]: 1
+
+In [10]: 1,
+Out[10]: (1,)
+
+In [11]: (1,)
+Out[11]: (1,)
+</code></pre>
+<p>前两个命令创建的都是数字 1，后两个命令创建的才是元组，包含元素数字 1。</p>
+<p>除了使用逗号分隔创建元组，创建元组的另一种方式是使用 tuple() 函数。如果参数为一个序列（比如字符串、列表或者元组），结果就会得到一个以该序列元素组成的元组。</p>
+<pre><code class="language-python">In [14]: tuple(&quot;Python&quot;)
+Out[14]: ('P', 'y', 't', 'h', 'o', 'n')
+In [15]: tuple([&quot;I&quot;, &quot;am&quot;, [&quot;learning&quot;, &quot;Python&quot;]])
+Out[15]: ('I', 'am', ['learning', 'Python'])
+</code></pre>
+<h3 id="322">3.2.2 元组操作<a class="headerlink" href="#322" title="Permanent link">&para;</a></h3>
+<p>能适用于列表的操作符和方法，基本也适用于元组。</p>
+<h4 id="_9">操作符<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h4>
+<pre><code class="language-python">In [16]: ('a',) + ('b',)
+Out[16]: ('a', 'b')
+
+In [17]: ('a',) * 3
+Out[17]: ('a', 'a', 'a')
+</code></pre>
+<h4 id="_10">切片<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h4>
+<pre><code class="language-python">In [18]: pythonName = tuple(&quot;Python&quot;)
+In [19]: pythonName
+Out[19]: ('P', 'y', 't', 'h', 'o', 'n')
+
+In [20]: pythonName[0]
+Out[20]: 'P'
+In [21]: pythonName[0:3]
+Out[21]: ('P', 'y', 't')
+In [22]: pythonName[3:]
+Out[22]: ('h', 'o', 'n')
+</code></pre>
+<h4 id="_11">修改<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h4>
+<p>元组是不可修改的，所以不能使用 append()、pop() 等方法对元素进行添加、删除、修改等操作。</p>
+<pre><code class="language-python">In [23]: pythonName[0] = 'p'
+---------------------------------------------------------------------------
+TypeError                                 Traceback (most recent call last)
+&lt;ipython-input-23-19ded1757eee&gt; in &lt;module&gt;()
+----&gt; 1 pythonName[0] = 'p'
+
+TypeError: 'tuple' object does not support item assignment
+</code></pre>
+<p>不过读者可以用另一个元组来替换已有的元组。</p>
+<pre><code class="language-python">In [24]: newName = ('p',) + pythonName[1:]
+In [25]: newName
+Out[25]: ('p', 'y', 't', 'h', 'o', 'n')
+</code></pre>
+<h4 id="_12">变量值交换<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h4>
+<p>利用中间变量对变量的值进行交换是常见的一个操作。</p>
+<p>例如，想要交换变量 a 和 b 的值，我们一般会采用如下策略：</p>
+<pre><code># a 和 b 是已经创建的变量，t 是一个临时变量
+t = a
+a = b
+b = t
+</code></pre>
+<p>有了元组，读者就可以使用下面一行代码简化这一过程。</p>
+<pre><code>a, b = b, a
+</code></pre>
+<h3 id="323">3.2.3 元组与列表的区别<a class="headerlink" href="#323" title="Permanent link">&para;</a></h3>
+<p>学到这里，读者可能会产生疑问：元组能做的事情列表好像都能做，列表还没有元组这么多的约束，那么只用列表不是更好吗？</p>
+<p>元组相比于列表的一个优点是可以使代码更安全，特别是跟数据有关的，它不能修改的属性看起来是一层灵活性限制，其实也是一层安全性的保障，而且这个属性让元组像一个坐标系统（中学数学也用括号来填入坐标并用逗号分隔），比如三个元素 c(x,y,z)，所以它广泛用于参数的传递。关于参数传递，本书在函数章节会更详细地讲述。另外，元组一个隐形的优点是它会比列表占用更少的内存，这在大数据计算时需要考量。</p>
+<h2 id="33">3.3 字典<a class="headerlink" href="#33" title="Permanent link">&para;</a></h2>
+<p>字典含义和表示都与其语义相似，就像小时候查找汉字，我们可以通过拼音字母（或笔画）进行检索。Python 中的字典读者可以自己定义名字，然后通过这个名字查找到对应的数值。其中的名字叫做 键 ，对应的数值简称 值 ，所以字典也称 键值对 。需要注意的是，字典没有顺序一说，所有的值仅能用键获取。</p>
+<p>简而言之，字典被看作无序的键值对或有名字的元素列表。</p>
+<h3 id="331">3.3.1 字典的创建与使用<a class="headerlink" href="#331" title="Permanent link">&para;</a></h3>
+<p>下面代码使用字典存储了 3 个人的体重数据。</p>
+<pre><code class="language-python">In [5]: weight = {'小红':65, '小明':45, '我':75}
+</code></pre>
+<p>字典的内容放在花括号内，键值对以英文冒号连接，不同的键值对以英文逗号隔开。</p>
+<p>下面代码查看对字典的打印输出：</p>
+<pre><code class="language-python">In [6]: weight
+Out[6]: {'小明': 45, '小红': 65, '我': 75}
+</code></pre>
+<p>从结果中可以看到，输出的顺序与键入的顺序是有出入的（也有可能相同）。</p>
+<p>有了字典，读者可以比列表更简单和直观地提取对应内容的数据。例如，想知道小明的体重，读者可以使用下面的代码。</p>
+<pre><code class="language-python">In [7]: weight['小明']
+Out[7]: 45
+</code></pre>
+<p>既然字典有键与值的区分，那么该如何获取键与值的内容呢？为此 Python 提供了两个方法，分别是 keys() 和 values()。</p>
+<pre><code class="language-python">In [8]: weight.keys()
+Out[8]: dict_keys(['小红', '小明', '我'])
+In [9]: weight.values()
+Out[9]: dict_values([65, 45, 75])
+</code></pre>
+<p>因为字典需要唯一的键去提取正确的内容（值），所以并不是所有的对象都可以用作键。只有不能改变的元组、数字、字符串等能作为键。</p>
+<p>读者如果想要初始化字典，类似于列表使用符号 []，元组使用符号 ()，字典使用符号 {}。</p>
+<pre><code class="language-python">In [10]: int_dict = {}
+In [11]: int_dict
+Out[11]: {}
+</code></pre>
+<p>除了重新创建字典，还可以把从其他数据类型转换为字典。例如，下面有一个存储了 RGB 16 进制的列表，我们使用 dict() 函数将其转换为字典。</p>
+<pre><code class="language-python">In [13]: rgb = [('red', 'ff0000'), ('green', '00ff00'), ('blue', '0000ff')]
+
+In [14]: dict(rgb)
+Out[14]: {'blue': '0000ff', 'green': '00ff00', 'red': 'ff0000'}
+</code></pre>
+<p>另外读者还可以以传递参数给 dict() 函数的方式创建字典，下面代码创建的字典与上面代码创建的字典完全相同。</p>
+<pre><code class="language-python">In [15]: dict(red='ff0000',green='00ff00', blue='0000ff')
+Out[15]: {'blue': '0000ff', 'green': '00ff00', 'red': 'ff0000'}
+</code></pre>
+<p>如果需要不断地往字典中添加键值，先初始化字典，然后使用赋值的方式添加键值对。</p>
+<pre><code class="language-python">In [16]: rgb = {}
+
+In [17]: rgb['red'] = 'ff0000'
+In [18]: rgb['green'] = '00ff00'
+In [19]: rgb['blue'] = '0000ff'
+
+In [20]: rgb
+Out[20]: {'blue': '0000ff', 'green': '00ff00', 'red': 'ff0000'}
+</code></pre>
+<h3 id="332">3.3.2 字典操作<a class="headerlink" href="#332" title="Permanent link">&para;</a></h3>
+<p>一些常见的函数、方法都可以用在字典上。</p>
+<p>例如，提取字典长度。</p>
+<pre><code class="language-python">In [21]: len(rgb)
+Out[21]: 3
+</code></pre>
+<p>使用 pop() 方法可以从字典中删除某个值，并返回该值。注意，需要指明键。</p>
+<pre><code class="language-python">In [22]: rgb.pop()
+---------------------------------------------------------------------------
+TypeError                                 Traceback (most recent call last)
+&lt;ipython-input-22-1654217e28c5&gt; in &lt;module&gt;()
+----&gt; 1 rgb.pop()
+
+TypeError: pop expected at least 1 arguments, got 0
+
+In [23]: rgb.pop('blue')
+Out[23]: '0000ff'
+In [24]: rgb
+Out[24]: {'green': '00ff00', 'red': 'ff0000'}
+</code></pre>
+<p>使用 del 关键字可以删除字典。</p>
+<pre><code class="language-python">In [25]: del rgb
+In [26]: rgb
+---------------------------------------------------------------------------
+NameError                                 Traceback (most recent call last)
+&lt;ipython-input-26-d412e57c3c38&gt; in &lt;module&gt;()
+----&gt; 1 rgb
+
+NameError: name 'rgb' is not defined
+</code></pre>
+<p>使用 get() 方法可以无意外地获取字典值，它需要提供两个参数，除了键，还需要指定如果查找不到应当返回的信息。</p>
+<pre><code class="language-python">In [28]: rgb.get('red', '键不存在')
+Out[28]: 'ff0000'
+In [29]: rgb.get('yellow', '键不存在')
+Out[29]: '键不存在'
+</code></pre>
+<p>如果想要字典的顺序不改变，可以使用 collections 模块的 OrderedDict() 函数。下面的代码将之前创建的字典 rgb 转换为了有序字典，另外还给出了一个新的创建示例，可以发现列表输出的顺序确实没有改变了。</p>
+<pre><code class="language-python">In [32]: from collections import OrderedDict
+
+In [33]: OrderedDict(rgb)
+Out[33]: OrderedDict([('red', 'ff0000'), ('green', '00ff00'), ('blue', '0000ff')])
+
+In [35]: order_dict = OrderedDict()
+In [36]: order_dict['a'] = 1
+In [37]: order_dict['b'] = 2
+In [38]: order_dict['c'] = 3
+In [39]: order_dict
+Out[39]: OrderedDict([('a', 1), ('b', 2), ('c', 3)])
+</code></pre>
+<h2 id="34">3.4 集合<a class="headerlink" href="#34" title="Permanent link">&para;</a></h2>
+<p>集合是无序的对象集，它和字典一样使用花括号，但没有键值对的概念。集合属于可变的数据类型，一般用于保持序列的唯一性——也就是同样的元素仅出现一次。</p>
+<h3 id="341">3.4.1 集合的创建<a class="headerlink" href="#341" title="Permanent link">&para;</a></h3>
+<p>在使用集合时一定要注意集合的无序和唯一两个特点，避免出错。</p>
+<p>下面代码展示了当集合出现不唯一的字符时，创建的集合中只会保存一个。</p>
+<pre><code class="language-python">In [40]: a_set = {1, 2, 3, 4, 5, 5, 4}
+In [41]: a_set
+Out[41]: {1, 2, 3, 4, 5}
+</code></pre>
+<p>既然集合与字典都使用花括号，那么如果要初始化一个空集合，该怎么办？花括号还能用吗？</p>
+<pre><code class="language-python">In [42]: a_set = {}
+In [43]: a_set.add(1)
+---------------------------------------------------------------------------
+AttributeError                            Traceback (most recent call last)
+&lt;ipython-input-43-2a4eeb394ac5&gt; in &lt;module&gt;()
+----&gt; 1 a_set.add(1)
+
+AttributeError: 'dict' object has no attribute 'add'
+</code></pre>
+<p>结果报错了，信息显示字典没有 add 属性，说明花括号仅能初始化字典。</p>
+<p>集合对应的函数是 set()，因而读者必须使用它初始化或将其他数据类型转换为字典。</p>
+<pre><code class="language-python">In [44]: a_set = set()
+In [45]: a_set.add(1)
+In [46]: a_set
+Out[46]: {1}
+</code></pre>
+<h4 id="342">3.4.2 集合操作<a class="headerlink" href="#342" title="Permanent link">&para;</a></h4>
+<p>集合的常见用处就是进行集合操作，这涉及 3 个基本方面：合集（并集）、交集与差集。</p>
+<h4 id="_13">合集<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h4>
+<p>合集使用 union() 方法。</p>
+<pre><code class="language-python">In [47]: a_set = set([1, 2, 3, 4, 5])
+In [48]: b_set = set([4, 5, 6, 7, 8])
+In [49]: a_set
+Out[49]: {1, 2, 3, 4, 5}
+In [50]: b_set
+Out[50]: {4, 5, 6, 7, 8}
+
+In [51]: a_set.union(b_set)
+Out[51]: {1, 2, 3, 4, 5, 6, 7, 8}
+</code></pre>
+<h4 id="_14">交集<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h4>
+<p>交集使用 intersection() 方法。</p>
+<pre><code class="language-python">In [52]: a_set.intersection(b_set)
+Out[52]: {4, 5}
+</code></pre>
+<h4 id="_15">差集<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h4>
+<p>差集使用 difference() 方法。</p>
+<pre><code class="language-python">In [53]: a_set.difference(b_set)
+Out[53]: {1, 2, 3}
+</code></pre>
+<h3 id="343">3.4.3 冰冻集<a class="headerlink" href="#343" title="Permanent link">&para;</a></h3>
+<p>前面一小节提到，集合是可变的数据类型。在实际的数据分析当中，有时希望集合存储的数据不能改变，以防止信息被恶意篡改或者其他数据失真的情况。</p>
+<p>冰冻集（frozenset）提供了集合的不可变版本，它的内容不能改变，因此不存在 add() 与 remove() 方法。frozenset() 函数可以将输入的迭代对象转换为冰冻集。</p>
+<pre><code class="language-python">In [1]: fs = frozenset(['a', 'b'])
+In [2]: fs
+Out[2]: frozenset({'a', 'b'})
+
+In [3]: fs.remove('a')
+---------------------------------------------------------------------------
+AttributeError                            Traceback (most recent call last)
+&lt;ipython-input-3-b55f44b7e2c9&gt; in &lt;module&gt;()
+----&gt; 1 fs.remove('a')
+
+AttributeError: 'frozenset' object has no attribute 'remove'
+
+In [4]: fs.add('c')
+---------------------------------------------------------------------------
+AttributeError                            Traceback (most recent call last)
+&lt;ipython-input-4-34531eab3bc0&gt; in &lt;module&gt;()
+----&gt; 1 fs.add('c')
+
+AttributeError: 'frozenset' object has no attribute 'add'
+</code></pre>
+<p>由于冰冻集是不可变对象，所以可以用作字典的键。</p>
+<h2 id="35">3.5 章末小结<a class="headerlink" href="#35" title="Permanent link">&para;</a></h2>
+<p>本章详细地介绍了 Python 内置的几个重要基本数据结构：</p>
+<ul>
+<li>列表</li>
+<li>元组</li>
+<li>字典</li>
+<li>集合</li>
+</ul>
+<p>其中，列表是日常工作分析主要接触和使用的数据结构。元组与列表极为相似，但它们存在一个重要的区别——元组不可修改！字典实现了键与值的配对，可以快速实现内容的索引。集合相对而言少用些，它存储数据唯一值的一个集合。这几者使用的初始化符号或是函数都是不同的，读者需要能够区分并熟练掌握。本章的绝大部分内容和核心都放在列表部分，列表的重要性毫无疑问是几者的第一，理解列表也可以快速帮助读者理解其他几个数据结构的意义与操作方法。在接下来的章节中，本书也将更深入地介绍和运用它们。</p>
+
+
+
+
+              
+            </article>
+            
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="../02-base/" class="md-footer__link md-footer__link--prev" aria-label="Previous: 第 2 章 Python 入门示例及基础知识" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              第 2 章 Python 入门示例及基础知识
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../04-control-flow/" class="md-footer__link md-footer__link--next" aria-label="Next: 第 4 章 控制流与文件操作" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              第 4 章 控制流与文件操作
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright © 2020 ShixiangWang
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.expand", "navigation.indexes", "navigation.top"], "search": "../assets/javascripts/workers/search.ecf98df9.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.9c69f0bc.min.js"></script>
+      
+    
+  </body>
+</html>

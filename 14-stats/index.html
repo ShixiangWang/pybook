@@ -1,0 +1,1366 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Shixiang Wang">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-8.4.1">
+    
+    
+      
+        <title>第 14 章 统计分析 - 交互的Python：数据分析入门</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.69437709.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.cbb835fc.min.css">
+        
+      
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#14" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="交互的Python：数据分析入门" class="md-header__button md-logo" aria-label="交互的Python：数据分析入门" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            交互的Python：数据分析入门
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              第 14 章 统计分析
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/ShixiangWang/pybook" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href=".." class="md-tabs__link">
+      阅读说明
+    </a>
+  </li>
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../%E5%A4%A7%E7%BA%B2/" class="md-tabs__link md-tabs__link--active">
+        正文
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../author-and-recommendation/%E4%BA%A4%E4%BA%92%E7%9A%84Python%20-%20%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE.png" class="md-tabs__link">
+      思维导图
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../to-readers/" class="md-tabs__link">
+      对读者说的话
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../author/" class="md-tabs__link">
+      作者简介
+    </a>
+  </li>
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="交互的Python：数据分析入门" class="md-nav__button md-logo" aria-label="交互的Python：数据分析入门" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    交互的Python：数据分析入门
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/ShixiangWang/pybook" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        阅读说明
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          正文
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="正文" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          正文
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%A4%A7%E7%BA%B2/" class="md-nav__link">
+        大纲
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../0-%E5%89%8D%E8%A8%80/" class="md-nav__link">
+        前言
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../00-%E5%86%85%E5%AE%B9%E6%8F%90%E8%A6%81/" class="md-nav__link">
+        内容提要
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-introduction/" class="md-nav__link">
+        第 1 章 Python 介绍及学习前的准备
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-base/" class="md-nav__link">
+        第 2 章 Python 入门示例及基础知识
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-data-structure/" class="md-nav__link">
+        第 3 章 基本数据结构
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-control-flow/" class="md-nav__link">
+        第 4 章 控制流与文件操作
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-function-and-module/" class="md-nav__link">
+        第 5 章 函数与模块
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-numpy/" class="md-nav__link">
+        第 6 章 NumPy
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-matplotlib/" class="md-nav__link">
+        第 7 章 Matplotlib
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-pandas-intro/" class="md-nav__link">
+        第 8 章 Pandas 入门
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-markdown/" class="md-nav__link">
+        第 9 章 Markdown 基础
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-data-import/" class="md-nav__link">
+        第 10 章 数据导入
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-toolbox/" class="md-nav__link">
+        第 11 章 数据分析工具箱
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-advanced-pandas/" class="md-nav__link">
+        第 12 章 Pandas 进阶
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-advanced-vis/" class="md-nav__link">
+        第 13 章 数据可视化进阶
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          第 14 章 统计分析
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        第 14 章 统计分析
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#141" class="md-nav__link">
+    14.1 概括性度量
+  </a>
+  
+    <nav class="md-nav" aria-label="14.1 概括性度量">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1411" class="md-nav__link">
+    14.1.1 集中趋势的度量
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#141-2" class="md-nav__link">
+    14.1. 2 离散程度的度量
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1413" class="md-nav__link">
+    14.1.3 偏态与峰态的度量
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#142" class="md-nav__link">
+    14.2 统计分布
+  </a>
+  
+    <nav class="md-nav" aria-label="14.2 统计分布">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1421" class="md-nav__link">
+    14.2.1 正态分布
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1422" class="md-nav__link">
+    14.2.2 二项分布
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1423" class="md-nav__link">
+    14.2.3 伯努利分布
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1424" class="md-nav__link">
+    14.2.4 指数分布
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1425" class="md-nav__link">
+    14.2.5 泊松分布
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#143" class="md-nav__link">
+    14.3 假设检验
+  </a>
+  
+    <nav class="md-nav" aria-label="14.3 假设检验">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1431-u-t" class="md-nav__link">
+    14.3.1 u 与 t 统计量
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1432-t" class="md-nav__link">
+    14.3.2 一个 t 检验实例
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1433-t" class="md-nav__link">
+    14.3.3 两样本 t 检验
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#144" class="md-nav__link">
+    14.4 章末小结
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15-append/" class="md-nav__link">
+        第 15 章 未言及的内容
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16-end/" class="md-nav__link">
+        结语：接下来学什么
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../author-and-recommendation/%E4%BA%A4%E4%BA%92%E7%9A%84Python%20-%20%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE.png" class="md-nav__link">
+        思维导图
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../to-readers/" class="md-nav__link">
+        对读者说的话
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../author/" class="md-nav__link">
+        作者简介
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#141" class="md-nav__link">
+    14.1 概括性度量
+  </a>
+  
+    <nav class="md-nav" aria-label="14.1 概括性度量">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1411" class="md-nav__link">
+    14.1.1 集中趋势的度量
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#141-2" class="md-nav__link">
+    14.1. 2 离散程度的度量
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1413" class="md-nav__link">
+    14.1.3 偏态与峰态的度量
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#142" class="md-nav__link">
+    14.2 统计分布
+  </a>
+  
+    <nav class="md-nav" aria-label="14.2 统计分布">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1421" class="md-nav__link">
+    14.2.1 正态分布
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1422" class="md-nav__link">
+    14.2.2 二项分布
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1423" class="md-nav__link">
+    14.2.3 伯努利分布
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1424" class="md-nav__link">
+    14.2.4 指数分布
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1425" class="md-nav__link">
+    14.2.5 泊松分布
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#143" class="md-nav__link">
+    14.3 假设检验
+  </a>
+  
+    <nav class="md-nav" aria-label="14.3 假设检验">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1431-u-t" class="md-nav__link">
+    14.3.1 u 与 t 统计量
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1432-t" class="md-nav__link">
+    14.3.2 一个 t 检验实例
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#1433-t" class="md-nav__link">
+    14.3.3 两样本 t 检验
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#144" class="md-nav__link">
+    14.4 章末小结
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+  <a href="https://github.com/ShixiangWang/pybook/edit/master/14-stats.md" title="Edit this page" class="md-content__button md-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+  </a>
+
+
+
+<h1 id="14">第 14 章 统计分析<a class="headerlink" href="#14" title="Permanent link">&para;</a></h1>
+<p><strong>本章内容提要</strong>:</p>
+<ul>
+<li>数据的概括性度量</li>
+<li>统计分布</li>
+<li>假设检验</li>
+</ul>
+<p>统计学是关于认识客观现象总体数量特征和数量关系的科学。一些常见的概念早已深入到生活的各个方面，如求和、求均值、相关性等。不同的领域中统计分析的重要性不太一样。不管怎样，掌握基础的统计分析方法是有必要的。本章将介绍一些描述性统计、统计分布和假设检验的基本理论和在 Python 中的实现。</p>
+<h2 id="141">14.1 概括性度量<a class="headerlink" href="#141" title="Permanent link">&para;</a></h2>
+<p>对于两组数据，我们常常无法通过一对一的比较来得出它们的关系（如大或小）。为了了解和比较数据的分布情况，我们需要提取数据分布的特征。我们一般从三个方面对数据分布的特征进行描述：</p>
+<ul>
+<li>分布的集中趋势：反映了数据点向其中心值聚集的程度。</li>
+<li>分布的离散程度：反映了数据点远离中心值的程度。</li>
+<li>分布的形状：反映数据分布偏斜的程度和峰度。</li>
+</ul>
+<p>接下来逐一介绍它们，我们依旧使用 mtcars 数据集进行探究，先导入需要的库和数据。</p>
+<pre><code class="language-python">In [1]: import statistics as st # 标准库
+   ...: import numpy as np
+   ...: import pandas as pd
+   ...: mtcars = pd.read_csv('files/chapter10/mtcars.csv')
+</code></pre>
+<h3 id="1411">14.1.1 集中趋势的度量<a class="headerlink" href="#1411" title="Permanent link">&para;</a></h3>
+<p>集中趋势反映了一组数据中心点的所在位置。不同的数据类型使用的集中趋势度量不同。</p>
+<ul>
+<li>分类数据：众数</li>
+<li>顺序数据：中位数、众数</li>
+<li>数值数据：均值（平均数）、中位数、众数</li>
+</ul>
+<p>Python 标准库、NumPy 库和 Pandas 库都有计算实现。</p>
+<h4 id="_1">均值<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h4>
+<p>均值反映总体的一般水平，有算数平均数、几何平均数等几种类型。</p>
+<p>算数平均数最为常用，它是一组数据总和与数量的比值。</p>
+<pre><code class="language-python">In [2]: st.mean([1, 2, 3])  # 标准库计算
+Out[2]: 2
+In [3]: np.mean([1, 2, 3])  # NumPy 库计算Out[3]: 2.0
+In [4]: pd.Series([1, 2, 3]).mean()  # Pandas 库计算
+Out[4]: 2.0
+</code></pre>
+<p>几何平均数又称为对数平均数，它是若干项值连乘积开其项数次方的算术根，常用于计算当各数据值的连乘积等于总比率或总速度时的平均比率或平均速度，如计算投资的年利率。如果数据存在 0 值，几何平均数无效。</p>
+<p>Python 标准库需要 3.8 版本后才有几何平均数计算函数。NumPy 库没有该函数的实现，我们可以根据定义自己写个函数。</p>
+<pre><code class="language-python">In [5]: def geo_mean(iterable):
+   ...:     a = np.log(iterable)
+   ...:     return np.exp(a.sum()/len(a))
+In [6]: geo_mean([1, 2, 3])
+Out[6]: 1.8171205928321397
+</code></pre>
+<p>我们可以导入 SciPy 库中的计算函数进行验证。SciPy 是著名的科学计算库，提供了一系列的统计分析功能。</p>
+<p>读者可以在终端中使用以下命令之一安装 SciPy 库：</p>
+<pre><code class="language-bash"># 安装方法 1
+conda install scipy
+# 安装方法 2
+pip install scipy
+</code></pre>
+<p>然后导入函数进行计算。</p>
+<pre><code class="language-python">In [7]: from scipy.stats.mstats import gmean
+   ...: gmean([1, 2, 3])
+Out[7]: 1.8171205928321397
+</code></pre>
+<h4 id="_2">中位数<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h4>
+<p>中位数是一组数据中间位置的值，它不受极端值的影响。</p>
+<pre><code class="language-python">In [8]: st.median([1, 2, 1000])
+Out[8]: 2
+In [9]: np.median([1, 2, 1000])
+Out[9]: 2.0
+</code></pre>
+<p>注意，当数据有偶数项时，中位数是最中间两个数的平均值。</p>
+<pre><code class="language-python">In [10]: pd.Series([1, 2, 3, 1000]).median()
+Out[10]: 2.5
+</code></pre>
+<h4 id="_3">众数<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h4>
+<p>众数是一组数据中出现次数最多的值，不受极端值影响。它的断点是不容易确定，可能有一个众数，也可能有多个众数。如果数据是均匀分布，那么没有众数。</p>
+<p>检测众数推荐使用 Pandas 的 mode() 方法，Python 标准库中的 mode() 函数无法检测有多个众数的情况。</p>
+<pre><code class="language-python">In [11]: pd.Series([1, 2, 2, 3, 3, 5]).mode()
+Out[11]:
+0    2
+1    3
+dtype: int64
+</code></pre>
+<p>平均数、中位数与众数三者的关系与总体分布的特征有关，读者可以参考以下标准进行选择。</p>
+<ul>
+<li>当数据呈对称分布时，三个代表值相等或者接近相等，这时则应选择均值作为集中趋势的代表值。</li>
+<li>当数据中存在极端值时，平均数易受极端值的影响使得数据发生偏斜，对于偏态分布的数据，平均数代表性较差。因此当数据为偏态分布，特别是偏斜程度较大时，可以考虑使用中位数或者众数，这时他们的代表性都比平均数好。</li>
+</ul>
+<h3 id="141-2">14.1. 2 离散程度的度量<a class="headerlink" href="#141-2" title="Permanent link">&para;</a></h3>
+<p>集中趋势反映的是数据的平均水平，探究的是共性，看不出一组数据内部的差异。研究组内的差异需要通过离散程度进行测量。测量离散程度的方法有极差、方差和标准差等。</p>
+<h4 id="_4">极差<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h4>
+<p>极差就是一组数据内最大值减去最小值，这个计算很容易，使用不多。</p>
+<pre><code class="language-python">In [12]: a = [1, 2, 3, 1000]    ...: max(a) - min(a)
+Out[12]: 999
+</code></pre>
+<h4 id="_5">方差<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h4>
+<p>方差是一组数据与其平均数的离差平方和除以自由度，其中数据量减 1 称为自由度。自由度是指附加给独立的观测值的约束或者限制。比如一组数据 a、b、c，一旦均值确定，那么 3 个数据中只有两个值可以自由选择。</p>
+<pre><code class="language-python">In [13]: pd.Series([1, 2, 3, 1]).var()
+Out[13]: 0.9166666666666666
+In [14]: pd.Series([1, 2, 3, 1000]).var()
+Out[14]: 249001.66666666666
+</code></pre>
+<p>虽然只改变了一个数据，但上面的方差发生了极大的变化。</p>
+<h4 id="_6">标准差<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h4>
+<p>标准差是方差的平方根，与方差相比，标准差的单位跟数据的计量单位相同。因此标准差是测量数值型数据离散程度最重要也是最常用的指标。</p>
+<pre><code class="language-python">In [15]: pd.Series([1, 2, 3, 1]).std()
+Out[15]: 0.9574271077563381
+</code></pre>
+<p>数据分析之前探究数据的分布是比较重要的，Pandas 库提供了 describe() 方法直接对整个 DataFrame 对象描述性统计量计算，其中最重要的两个指标便是均值（算数平均数）和方差。</p>
+<pre><code class="language-python">In [16]: mtcars.describe()
+Out[16]:
+             mpg        cyl        disp  ...         am       gear     carb
+count  32.000000  32.000000   32.000000  ...  32.000000  32.000000  32.0000
+mean   20.090625   6.187500  230.721875  ...   0.406250   3.687500   2.8125
+std     6.026948   1.785922  123.938694  ...   0.498991   0.737804   1.6152
+min    10.400000   4.000000   71.100000  ...   0.000000   3.000000   1.0000
+25%    15.425000   4.000000  120.825000  ...   0.000000   3.000000   2.0000
+50%    19.200000   6.000000  196.300000  ...   0.000000   4.000000   2.0000
+75%    22.800000   8.000000  326.000000  ...   1.000000   4.000000   4.0000
+max    33.900000   8.000000  472.000000  ...   1.000000   5.000000   8.0000
+
+[8 rows x 11 columns]
+</code></pre>
+<h3 id="1413">14.1.3 偏态与峰态的度量<a class="headerlink" href="#1413" title="Permanent link">&para;</a></h3>
+<p>前面介绍了集中趋势和离散程度这两个数据分布的重要特征，读者如果想要全面了解数据的特点，还要知道数据分布的形态是否对称、偏斜的程度等。</p>
+<h4 id="_7">偏态<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h4>
+<p>偏态是对数据分布对称性的度量。如果数据分布是对称的，那么偏态系数为在 -1 和 1 之间，完全对称时为 0；偏态系数为正值时为右偏分布，为负值时为左偏分布。</p>
+<p>我们看下 mtcars 数据集中展示的汽车重量的偏态如何。</p>
+<pre><code class="language-python">In [17]: mtcars.wt.skew()
+Out[17]: 0.4659161067929868
+</code></pre>
+<p>不难推断出该重量分布大致是对称的，不过有稍微的右偏。接下来我们使用核密度图验证一下。</p>
+<pre><code class="language-python">In [18]: %matplotlib # Notebook 使用 %matplotlib inline
+    ...: mtcars.wt.plot(kind='kde')
+</code></pre>
+<p><img alt="图14-1 汽车数据集变量 wt 分布图" src="../14-stats.assets/image-20191230232350998.png" /></p>
+<h4 id="_8">峰态<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h4>
+<p>峰态是对数据分布平峰或者尖峰程度的测量。通常与标准正态分布相比较，即均值为 0，标准差为 1 的分布。如果一组数据服从标准正态分布，那么峰态系数为 0；若峰态系数大于 0，则分布更尖，也意味着数据更为集中；若峰态系数小于 0，则分布更平，数据分布更分散。</p>
+<p>由此可以推断，汽车重量的分布峰态应该与 0 接近，可能大于 0，我们计算看看。</p>
+<pre><code class="language-python">In [19]: mtcars.wt.kurtosis()
+Out[19]: 0.41659466963492564
+</code></pre>
+<p>那么分散的分布的峰态是怎么样的呢？我们选择 cyl 变量进行计算和可视化。</p>
+<pre><code class="language-python">In [20]: mtcars.cyl.kurtosis()
+Out[20]: -1.7627938970111958
+In [21]: mtcars.cyl.plot(kind='kde')
+</code></pre>
+<p><img alt="图14-2 汽车数据集变量 cyl 分布图" src="../14-stats.assets/image-20191230232550894.png" /></p>
+<h2 id="142">14.2 统计分布<a class="headerlink" href="#142" title="Permanent link">&para;</a></h2>
+<p>人们在生活实践中发现，不同变量数据分布的形状和变化是有规律的，例如人的年龄、身高分布，都是两头低，中间高。历史上数学家们对于数据分布的公式化描述形成了不同的统计分布。根据分布是否连续将分布分为了连续分布和离散分布，对应的变量称为连续型变量和离散变量。接下来本书对常见的统计学分布进行介绍和可视化。</p>
+<h3 id="1421">14.2.1 正态分布<a class="headerlink" href="#1421" title="Permanent link">&para;</a></h3>
+<p>正态分布，也称高斯分布，它是最重要的连续分布。世界上绝大部分的分布都属于正态分布，例如人的身高、体重、考试成绩、降雨量等等。原因在于根据中心极限定理，如果一个事物受到多种因素的影响，不管每个因素本身是什么分布，它们相加后，结果的平均值就是正态分布。而世界上许多事物都受到多种因素的影响，这导致了正态分布的常见。具体的公式推导和相关知识请读者查阅专业的统计学教材。</p>
+<p>正态分布如同一条钟形曲线（也有这个叫法），中间高、两边低、左右对称。它有两个重要的参数：均值和标准差。</p>
+<p>下面代码绘制了一条标准的正态分布曲线，均值为 0，标准差为 1。</p>
+<pre><code class="language-python">In [22]: from scipy import stats
+    ...: import matplotlib.pyplot as plt
+    ...: mu = 0 # 均值
+    ...: sigma = 1 # 标准差
+    ...: x = np.arange(-5,5,0.1)
+    ...: y = stats.norm.pdf(x,mu,sigma)  # 生成正态分布概率函数值
+    ...: plt.plot(x, y)
+    ...: plt.title('Normal: $\mu$=%.1f, $\sigma^2$=%.1f' % (mu,sigma))
+    ...: plt.xlabel('x')
+    ...: plt.ylabel('Probability density', fontsize=15)
+    ...: plt.show()
+</code></pre>
+<p><img alt="图14-3 标准正态分布" src="../14-stats.assets/image-20191230233657424.png" /></p>
+<h3 id="1422">14.2.2 二项分布<a class="headerlink" href="#1422" title="Permanent link">&para;</a></h3>
+<p>二项分布是一种离散分布，二项是指某事件有两种可能结果，称一种为成功，另一种为失败，如抛掷硬币。一般将成功的概率记为 p，所以失败的概率为 1-p。</p>
+<p>抛掷硬币是一个典型的二项分布，当我们计算抛掷硬币 n 次，有 k 次正面朝上的概率时，可以用二项分布表示，它的概率密度函数为：</p>
+<p>$$
+P(X=k) = C_n^kp^k(1-p)^{n-k}
+$$</p>
+<p>统计学中称抛掷一次硬币为试验，二项分布要求每次试验彼此独立，显然抛掷硬币这个事情是符合的。</p>
+<p>二项分布是求在事件发生次数固定情况下，事件成功不同次数下的分布情况。
+现在假设抛掷硬币 10 次，正面朝上的概率是 0.5，正面朝上的次数的分布如何？我们重复 10 次画图看看。</p>
+<pre><code class="language-python">In [23]: # 使用rvs()函数模拟一个二项随机变量
+    ...: data = stats.binom.rvs(n=10,p=0.5,size=10)
+    ...:
+    ...: plt.hist(data, density=True)
+    ...: plt.xlabel('x')
+    ...: plt.ylabel('Probability density', fontsize=15)
+    ...: plt.title('Binormal: n=10,$p$=0.5')
+    ...: plt.show()
+</code></pre>
+<p><img alt="图14-4 二项分布" src="../14-stats.assets/image-20191230234020193.png" /></p>
+<p>可以看到分布非常离散，如果我们增加重复次数，如 1000 次，分布将接近正态分布。</p>
+<pre><code class="language-python">In [24]: data = stats.binom.rvs(n=10,p=0.5,size=1000)
+    ...: plt.hist(data, density=True)
+    ...: plt.xlabel('x')
+    ...: plt.ylabel('Probability density', fontsize=15)
+    ...: plt.title('Binormal: n=10,$p$=0.5')
+    ...: plt.show()
+</code></pre>
+<p><img alt="图14-5 二项分布（2）" src="../14-stats.assets/image-20191230234149623.png" /></p>
+<h3 id="1423">14.2.3 伯努利分布<a class="headerlink" href="#1423" title="Permanent link">&para;</a></h3>
+<p>伯努利分布是二项分布的特例，它是只进行了一次试验的情况，因此伯努利分布描述了具有两个结果的事件。</p>
+<pre><code class="language-python">In [25]: data = stats.bernoulli.rvs(p=0.6, size=10)
+    ...: plt.hist(data)
+    ...: plt.xlabel('x')
+    ...: plt.ylabel('Frequency', fontsize=15)
+    ...: plt.title('Bernouli: $p$=0.5')
+    ...: plt.show()
+</code></pre>
+<p><img alt="图14-6 伯努利分布" src="../14-stats.assets/image-20191230234242528.png" /></p>
+<h3 id="1424">14.2.4 指数分布<a class="headerlink" href="#1424" title="Permanent link">&para;</a></h3>
+<p>指数分布是一种连续分布，用于表示独立随机事件发生的时间间隔。如旅客进入机场的时间间隔、打进客服中心电话的时间间隔。它的概率密度函数为：</p>
+<p>$$
+f(x) = \lambda e^{-\lambda x}
+$$</p>
+<p>其中 λ 是分布的核心参数，表示每单位事件内发生某事件的次数。</p>
+<pre><code class="language-python">In [26]: data = stats.expon.rvs(scale=2,size=1000) # scale参数表示λ的倒数
+    ...: plt.hist(data, density=True, bins=20)
+    ...: plt.xlabel('x')
+    ...: plt.ylabel('Probability density', fontsize=15)
+    ...: plt.title('Exponential: 1/$\lambda$=2')
+    ...: plt.show()
+</code></pre>
+<p><img alt="图14-7 指数分布" src="../14-stats.assets/image-20191231003035336.png" /></p>
+<p>scale 是 λ 的倒数，也是指数分布的数学期望，即事件发生的事件间隔。</p>
+<h3 id="1425">14.2.5 泊松分布<a class="headerlink" href="#1425" title="Permanent link">&para;</a></h3>
+<p>泊松分布是离散分布，描述了单位时间内事件发生的次数，它的核心参数也是 λ 。其概率密度函数为：</p>
+<p>$$
+P(X=k)=\frac{\lambda^k}{k!}e^{-\lambda}
+$$</p>
+<p>泊松分布的均值和方差均为 λ 。</p>
+<pre><code class="language-python">In [27]: data = stats.poisson.rvs(mu=2,size=1000) # scale参数表示λ的倒数
+    ...: plt.hist(data, density=True, bins=20)
+    ...: plt.xlabel('x')
+    ...: plt.ylabel('Probability density', fontsize=15)
+    ...: plt.title('Poisson: $\lambda$=2')
+    ...: plt.show()
+</code></pre>
+<p><img alt="图14-8 泊松分布" src="../14-stats.assets/image-20191231003204811.png" /></p>
+<h2 id="143">14.3 假设检验<a class="headerlink" href="#143" title="Permanent link">&para;</a></h2>
+<p>假设检验是对总体参数做一个尝试性假设，该假设称为原假设，然后定义一个和原假设完全对立的假设叫备择假设。其中备择假设是我们希望成立的，而原假设是我们不希望成立的。通过假设检验，如果我们发现原假设不成立，那么就可以得出备择假设的结果。</p>
+<p>上面的术语对于没有学过统计的读者会很困惑，所以简单举例说明。现在假设存在 A 和 B 两个公司，A 公司的产品质量检测有一组数据，B 公司同样的产品质量检测也有一组数据，我们想要比较 A 公司的产品是否与 B 公司的产品有差异。读者可能会问，直接比较两组数据的均值不就好了吗？这的确是一个简单易行的办法，但它并不可靠，容易受到产品抽样或批次等因素的影响。</p>
+<p>对于这个例子，我们可以使用假设检验进行以下的步骤：</p>
+<ol>
+<li>建立原假设：A 公司和 B 公司的产品质量没有差异。</li>
+<li>计算统计量和对应的概率值 p。</li>
+<li>进行判断，一般而言，p 值小于 0.05 时我们认为原假设不成立，接受备择假设。</li>
+<li>下结论：A 公司和 B 公司的产品质量有差异。</li>
+</ol>
+<p>在第 2 步中，我们常计算 t 统计量。t 统计量来自于 t 分布，t 分布是一种与正态分布近似的分布。在介绍使用 t 分布进行假设检验之前，我们需要了解下 u 统计量和 t 统计量。</p>
+<h3 id="1431-u-t">14.3.1 u 与 t 统计量<a class="headerlink" href="#1431-u-t" title="Permanent link">&para;</a></h3>
+<p>上一节我们已经绘制过标准正态分布，它有一个经验法则：正态分布有 有 69.3%的值在均值加减一个标准差的范围内，95.4%的值在两个标准差内，99.7%的值在三个标准差内。</p>
+<p><img alt="图14-9 标准正态分布经验法则图示（图片来自网络）" src="../14-stats.assets/1000.jpg" /></p>
+<p>人们用表格的形式将正态分布一些重要位置的概率值记录了下来，然后提出了 u 变换将非标准正态分布转换为标准正态分布，这样就能照着前面表格的记录查找对应的概率了。</p>
+<p>u 变换计算公式为：</p>
+<p>$$
+u = \frac{X - \mu}{\sigma}
+$$</p>
+<p>u 值的分布也叫 u 分布。该变换适用于数据总体均值和方差已知的情况。这里 𝜎 是总体方差，𝜇 是总体均值。</p>
+<p>一般情况下我们收集的数据都是样本数据，例如我们调查全国人民的平均身高，我们不可能全部调查和记录，而是进行抽样调查用来表示总体。因而大多数情况下总体方差是未知的，所以 t 变换出现了，它使用样本方差替换总体方差。</p>
+<p>t 变换的计算公式为：</p>
+<p>$$
+t = \frac{x - \mu}{s/\sqrt{n}}
+$$</p>
+<p>t 值的分布也叫 t 分布，t 分布引入了自由度的概念，当样本量为 n 值，自由度为 n-1。如果 n 大于 30，t 分布逼近正态分布。这里 s 是样本方差，𝜇 是总体均值。</p>
+<h3 id="1432-t">14.3.2 一个 t 检验实例<a class="headerlink" href="#1432-t" title="Permanent link">&para;</a></h3>
+<p>假设我国女性平均身高为 1.60 cm，现在从某地区随机抽取 10 名女性调查身高：1.75、1.58、1.71、1.64、1.55、1.72、1.62、1.83、1.63、1.65，请问该地区身高与全国女性平均身高是否有差异？</p>
+<p>这里原假设为无差异，备择假设为有差异。我们使用 SciPy 提供的单样本 t 检验函数进行检验。</p>
+<pre><code class="language-python">In [28]: from scipy import stats
+    ...: height = [1.75, 1.58, 1.71, 1.64, 1.55, 1.72, 1.62, 1.83, 1.63, 1.65]
+    ...: print(stats.ttest_1samp(height, 1.60))
+Ttest_1sampResult(statistic=2.550797248729806, pvalue=0.03115396848888224)
+</code></pre>
+<p>结果显示 t 统计量为 2.55，p 值为 0.03。p 值小于 0.05，说明某地区身高与全国平均身高没有差异的概率很小，所以推翻原假设，接受备择假设，下结论：该地区身高与全国女性平均身高是有差异。</p>
+<h3 id="1433-t">14.3.3 两样本 t 检验<a class="headerlink" href="#1433-t" title="Permanent link">&para;</a></h3>
+<p>t 检验更常用于两样本的比较，如前面引入的 A 公司和 B 公司的产品质量差异。我们构造数据，设定 A 公司质量评分平均为 9，方差为 10；B 公司质量评分平均为 7，方差为 10。它们存在统计学显著的差异吗？</p>
+<pre><code class="language-python">In [29]: quality_A = stats.norm.rvs(loc = 9,scale = 10,size = 500)
+    ...: quality_B = stats.norm.rvs(loc = 7,scale = 10,size = 500)
+    ...:
+    ...: _ = plt.hist(quality_A, density=True, alpha=0.5)
+    ...: _ = plt.hist(quality_B, density=True, color=&quot;red&quot;, alpha=0.5)
+</code></pre>
+<p><img alt="图14-10 两样本数据分布直方图" src="../14-stats.assets/image-20191230234822443.png" /></p>
+<p>p 小于 0.05，我们下结论，A 和 B 公司产品质量存在差异。</p>
+<h2 id="144">14.4 章末小结<a class="headerlink" href="#144" title="Permanent link">&para;</a></h2>
+<p>本章从描述统计量、统计分布和统计检验 3 个方面的内容向读者介绍了统计分析的基本知识以及如何使用 Python 进行计算或可视化它们。掌握描述性统计量和统计分布可以帮助读者在分析时掌握数据分布的核心特性。掌握统计检验可以帮助读者从科学的角度对数据进行比较、判断并产生可靠结论。除了常用的 t 检验，还有很多其他的检验方法，包括卡方检验、非参数检验等等，读者如果感兴趣可以通过专业的统计学书籍或其他网络资料进行学习。</p>
+
+
+
+
+              
+            </article>
+            
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="../13-advanced-vis/" class="md-footer__link md-footer__link--prev" aria-label="Previous: 第 13 章 数据可视化进阶" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              第 13 章 数据可视化进阶
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../15-append/" class="md-footer__link md-footer__link--next" aria-label="Next: 第 15 章 未言及的内容" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              第 15 章 未言及的内容
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright © 2020 ShixiangWang
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.expand", "navigation.indexes", "navigation.top"], "search": "../assets/javascripts/workers/search.ecf98df9.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.9c69f0bc.min.js"></script>
+      
+    
+  </body>
+</html>

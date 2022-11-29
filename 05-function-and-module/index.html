@@ -1,0 +1,1674 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Shixiang Wang">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-8.4.1">
+    
+    
+      
+        <title>第 5 章 函数与模块 - 交互的Python：数据分析入门</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.69437709.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.cbb835fc.min.css">
+        
+      
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#5" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="交互的Python：数据分析入门" class="md-header__button md-logo" aria-label="交互的Python：数据分析入门" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            交互的Python：数据分析入门
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              第 5 章 函数与模块
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/ShixiangWang/pybook" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href=".." class="md-tabs__link">
+      阅读说明
+    </a>
+  </li>
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../%E5%A4%A7%E7%BA%B2/" class="md-tabs__link md-tabs__link--active">
+        正文
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../author-and-recommendation/%E4%BA%A4%E4%BA%92%E7%9A%84Python%20-%20%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE.png" class="md-tabs__link">
+      思维导图
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../to-readers/" class="md-tabs__link">
+      对读者说的话
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../author/" class="md-tabs__link">
+      作者简介
+    </a>
+  </li>
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="交互的Python：数据分析入门" class="md-nav__button md-logo" aria-label="交互的Python：数据分析入门" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    交互的Python：数据分析入门
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/ShixiangWang/pybook" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        阅读说明
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          正文
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="正文" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          正文
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%A4%A7%E7%BA%B2/" class="md-nav__link">
+        大纲
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../0-%E5%89%8D%E8%A8%80/" class="md-nav__link">
+        前言
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../00-%E5%86%85%E5%AE%B9%E6%8F%90%E8%A6%81/" class="md-nav__link">
+        内容提要
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-introduction/" class="md-nav__link">
+        第 1 章 Python 介绍及学习前的准备
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-base/" class="md-nav__link">
+        第 2 章 Python 入门示例及基础知识
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-data-structure/" class="md-nav__link">
+        第 3 章 基本数据结构
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-control-flow/" class="md-nav__link">
+        第 4 章 控制流与文件操作
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          第 5 章 函数与模块
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        第 5 章 函数与模块
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#51" class="md-nav__link">
+    5.1 函数
+  </a>
+  
+    <nav class="md-nav" aria-label="5.1 函数">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#511" class="md-nav__link">
+    5.1.1  为什么使用函数
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#512" class="md-nav__link">
+    5.1.2 函数的调用
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#513" class="md-nav__link">
+    5.1.3 函数的创建
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#514" class="md-nav__link">
+    5.1.4 函数作用域
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#515" class="md-nav__link">
+    5.1.5 递归函数
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#52" class="md-nav__link">
+    5.2 函数的参数
+  </a>
+  
+    <nav class="md-nav" aria-label="5.2 函数的参数">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#521" class="md-nav__link">
+    5.2.1 位置参数
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#522" class="md-nav__link">
+    5.2.2 关键字参数
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#523" class="md-nav__link">
+    5.2.3 可变参数
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#53" class="md-nav__link">
+    5.3 模块
+  </a>
+  
+    <nav class="md-nav" aria-label="5.3 模块">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#531" class="md-nav__link">
+    5.3.1 模块与包结构
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#532" class="md-nav__link">
+    5.3.2 模块的创建
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#533" class="md-nav__link">
+    5.3.3 模块的作用域
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#534" class="md-nav__link">
+    5.3.4 三方模块的安装
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#535" class="md-nav__link">
+    5.3.5 模块的使用
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#54" class="md-nav__link">
+    5.4 章末小结
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-numpy/" class="md-nav__link">
+        第 6 章 NumPy
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-matplotlib/" class="md-nav__link">
+        第 7 章 Matplotlib
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-pandas-intro/" class="md-nav__link">
+        第 8 章 Pandas 入门
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../09-markdown/" class="md-nav__link">
+        第 9 章 Markdown 基础
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-data-import/" class="md-nav__link">
+        第 10 章 数据导入
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-toolbox/" class="md-nav__link">
+        第 11 章 数据分析工具箱
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-advanced-pandas/" class="md-nav__link">
+        第 12 章 Pandas 进阶
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-advanced-vis/" class="md-nav__link">
+        第 13 章 数据可视化进阶
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14-stats/" class="md-nav__link">
+        第 14 章 统计分析
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15-append/" class="md-nav__link">
+        第 15 章 未言及的内容
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16-end/" class="md-nav__link">
+        结语：接下来学什么
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../author-and-recommendation/%E4%BA%A4%E4%BA%92%E7%9A%84Python%20-%20%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE.png" class="md-nav__link">
+        思维导图
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../to-readers/" class="md-nav__link">
+        对读者说的话
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../author/" class="md-nav__link">
+        作者简介
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#51" class="md-nav__link">
+    5.1 函数
+  </a>
+  
+    <nav class="md-nav" aria-label="5.1 函数">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#511" class="md-nav__link">
+    5.1.1  为什么使用函数
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#512" class="md-nav__link">
+    5.1.2 函数的调用
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#513" class="md-nav__link">
+    5.1.3 函数的创建
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#514" class="md-nav__link">
+    5.1.4 函数作用域
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#515" class="md-nav__link">
+    5.1.5 递归函数
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#52" class="md-nav__link">
+    5.2 函数的参数
+  </a>
+  
+    <nav class="md-nav" aria-label="5.2 函数的参数">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#521" class="md-nav__link">
+    5.2.1 位置参数
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#522" class="md-nav__link">
+    5.2.2 关键字参数
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#523" class="md-nav__link">
+    5.2.3 可变参数
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#53" class="md-nav__link">
+    5.3 模块
+  </a>
+  
+    <nav class="md-nav" aria-label="5.3 模块">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#531" class="md-nav__link">
+    5.3.1 模块与包结构
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#532" class="md-nav__link">
+    5.3.2 模块的创建
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#533" class="md-nav__link">
+    5.3.3 模块的作用域
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#534" class="md-nav__link">
+    5.3.4 三方模块的安装
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#535" class="md-nav__link">
+    5.3.5 模块的使用
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#54" class="md-nav__link">
+    5.4 章末小结
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+  <a href="https://github.com/ShixiangWang/pybook/edit/master/05-function-and-module.md" title="Edit this page" class="md-content__button md-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+  </a>
+
+
+
+<h1 id="5">第 5 章 函数与模块<a class="headerlink" href="#5" title="Permanent link">&para;</a></h1>
+<p><strong>本章内容提要</strong>：</p>
+<ul>
+<li>为什么使用函数</li>
+<li>函数的创建与使用</li>
+<li>函数的参数</li>
+<li>模块与包</li>
+<li>第三方模块的下载与使用</li>
+</ul>
+<p>在上一章中，本书介绍了如何使用控制与循环结构来自动化反复进行的操作。尽管利用这些控制流操作可以极大简化一些处理任务，但针对一些日常的工作任务，我们可能需要频繁地拷贝大段的代码，进行修改。这种简化的力度仍显不够，而且极容易出错，因此我们需要新的工具来提升程序编写的效率。在这种情况下，我们可以自己创建函数或者使用标准模块/三方模块中提供的简便函数。本章将向读者详尽地介绍如何创建函数和设定函数参数，以及使用第三方模块。</p>
+<h2 id="51">5.1 函数<a class="headerlink" href="#51" title="Permanent link">&para;</a></h2>
+<h3 id="511">5.1.1  为什么使用函数<a class="headerlink" href="#511" title="Permanent link">&para;</a></h3>
+<p>在第 2 章中，本书已经介绍过使用身高和体重值便可以计算出 BMI 指数。假设读者现在需要计算 3 个人的 BMI 指数，于是使用如下代码：</p>
+<pre><code class="language-python"># 用 w 表示体重，h 表示身高
+w1 = 70.2
+w2 = 60.6
+w3 = 54.3
+h1 = 1.90
+h2 = 1.73
+h3 = 1.65
+BMI_1 = w1 / h1 ** 2
+BMI_2 = w2 / h2 ** 2
+BMI_3 = w3 / h3 ** 2
+</code></pre>
+<p>此处代码中出现了规律的重复。读者可以首先思考下用循环的方式进行优化：将体重数据与身高数据分别存储在列表中，然后使用 for 循环遍历并计算 BMI 指数。然而这种优化方式有两个问题，一是代码的输入量并没有减轻，二是如果接下来要计算另一个人的 BMI 指数，还需要重新创建输入列表。</p>
+<p>函数是最基本的代码抽象方式，借助函数，读者可以不用关注底层的具体计算过程，而从更高层次对问题进行思考。读者如果将核心的计算步骤抽象为函数表示，将极大地简化上述问题的处理。
+例如，步骤 BMI = w / h**2 写为更有意义的函数 calcBMI()，每次调用 calcBMI(w, h) 就可以计算一次 BMI 指数，而且函数本身只需要写一次就可以多次调用。</p>
+<p>几乎所有的编程语言都支持函数，Python 当然也不例外，读者在前面章节中其实也已经多次见过函数的使用。Python 不但能非常灵活地创建函数，而且本身内置很多可用的函数，开箱即用。</p>
+<h3 id="512">5.1.2 函数的调用<a class="headerlink" href="#512" title="Permanent link">&para;</a></h3>
+<p>Python 内置的函数无需进行导入操作，只需要知道函数的名称和参数，读者就可以直接在代码中调用。例如，abs() 函数可以求取绝对值，它只需要一个输入参数。读者可以输入 help(函数名) 或者 函数名?  查看函数的文档，以下用 abs() 函数进行演示。</p>
+<pre><code class="language-python">In [1]: help(abs)
+In [2]: abs?
+Signature: abs(x, /)
+Docstring: Return the absolute value of the argument.
+Type:      builtin_function_or_method
+</code></pre>
+<p>读者将需要进行绝对值处理的数值作为参数输入 abs() 函数即可实现调用。</p>
+<pre><code class="language-python">In [3]: abs(-1)
+Out[3]: 1
+In [4]: abs(1)
+Out[4]: 1
+</code></pre>
+<p>读者在进行函数调用时需要注意输入参数的数目和类型，如果数目或类型与函数预期的不一致，Python 会抛出 TypeError 错误，并给出错误信息。</p>
+<pre><code class="language-python">In [5]: abs('a')
+---------------------------------------------------------------------------
+TypeError                                 Traceback (most recent call last)
+&lt;ipython-input-5-f2001f88707b&gt; in &lt;module&gt;
+----&gt; 1 abs('a')
+
+TypeError: bad operand type for abs(): 'str'
+
+In [6]: abs(1, 2)
+---------------------------------------------------------------------------
+TypeError                                 Traceback (most recent call last)
+&lt;ipython-input-6-6c188a838f2b&gt; in &lt;module&gt;
+----&gt; 1 abs(1, 2)
+
+TypeError: abs() takes exactly one argument (2 given)
+</code></pre>
+<p>有些函数可以接收任意多个数目的参数，如 max()，它可以返回一组数的最大值。</p>
+<pre><code class="language-python">In [7]: max(2,1,3,4,5,2,3,10,2,4,5)
+Out[7]: 10
+</code></pre>
+<p>本质上，函数名其实是指向一个函数对象的引用（在 Python 里一切都是对象，变量都是对对象的引用，方便我们使用）。所以，读者完全可以把函数名赋值给一个变量，这相当于给函数起了个别名，有时候可以简化使用。</p>
+<pre><code class="language-python">In [8]: a = abs
+In [9]: a(-10)
+Out[9]: 10
+</code></pre>
+<p>当然，这里将 abs() 函数重命名为 a() 是不可取的，它降低了代码的可读性和可维护性。</p>
+<p>一般而言，Python 内建的 callable() 函数可以用来判断函数是否可调用。</p>
+<h3 id="513">5.1.3 函数的创建<a class="headerlink" href="#513" title="Permanent link">&para;</a></h3>
+<p>有时候，Python 内置的函数以及三方模块的函数不能满足工作需求，读者需要自己创建函数，因而本小节将指导读者如何自己创建函数。</p>
+<p>Python使用 def 关键字对函数进行定义：在 def 语句后依次写出函数名、括号、参数与英文冒号，并在随后的代码块中编写函数体，如果想要返回一些结果，则使用 return 语句。下面定义了一个 fib 函数，用于打印到指定参数为止得到的斐波那契数列。</p>
+<pre><code class="language-python">In [10]: def fib(n):
+    ...:      &quot;&quot;&quot;打印斐波那契数列到n&quot;&quot;&quot;
+    ...:      a, b = 0, 1
+    ...:      while a &lt; n:
+    ...:          print(a, end=' ')
+    ...:          a, b = b, a+b
+    ...:      print()
+
+In [11]: fib(10) # 调用函数，打印
+0 1 1 2 3 5 8
+In [12]: fib(2000)
+0 1 1 2 3 5 8 13 21 34 55 89 144 233 377 610 987 1597
+</code></pre>
+<p>根据上述的代码，现在对函数的创建进行更详细地介绍：关键字 def 引入了函数的定义，它的后面必须跟上一个函数名以及用括号括起来的正式参数列表。构建函数体的代码语句从下一行开始，而且必须正确缩进。函数体的第一个语句是一个可选的字符串文本，它称为函数说明字符串（docstring）。在函数中包含 docstring 是良好代码的体现，这样别人在使用该函数时能很容易理解该函数的功能及用法。</p>
+<h3 id="514">5.1.4 函数作用域<a class="headerlink" href="#514" title="Permanent link">&para;</a></h3>
+<p>执行函数会引入新的符号表，它用于函数指定的局部变量。也就是说，函数本身形成了一个相对独立的命名空间，即函数作用域，它在寻找变量值时会先从函数内部寻找，如果没有找到，它会在函数外部寻找。如果在函数外部都没有找到，Python 就会抛出错误。通常，当调用函数时，函数的实际参数值就会被引入为一个函数的局部变量。</p>
+<p>为了更好地帮助读者理解局部变量的概念，现在对 fib() 函数进行简单的修改。</p>
+<pre><code class="language-python"> def fib(n):
+    &quot;&quot;&quot;打印斐波那契数列到n&quot;&quot;&quot;
+    print(&quot;n是局部变量，它的值是&quot;+str(n)) # 打印函数的局部变量n
+    a, b = 0, 1
+    while a &lt; n:
+        print(a, end=' ')
+        a, b = b, a+b
+    print()
+</code></pre>
+<p>然后对该函数进行以下调用：</p>
+<pre><code class="language-python">In [13]: c = 10
+    ...: fib(c)
+    ...:
+    ...: print(n)
+n是局部变量，它的值是10
+0 1 1 2 3 5 8
+---------------------------------------------------------------------------
+NameError                                 Traceback (most recent call last)
+&lt;ipython-input-13-9748ce91e137&gt; in &lt;module&gt;
+      2 fib(c)
+      3
+----&gt; 4 print(n)
+
+NameError: name 'n' is not defined
+</code></pre>
+<p>这里在函数外创建了一个变量 c，存储 fib() 函数实际要传入的数值，然后调用函数。在函数定义部分，我们使用了变量 n 来指示输入参数，因此函数内部创建了一个局部变量 n 来指示实际传入变量 c 的值。不过 n 的作用范围仅限于函数内部，读者如果在函数的外部使用该变量，Python 会抛出变量 n 未定义的错误。</p>
+<p>上面的函数运行最后是将结果打印出来，大多数时候我们更希望将结果存储在变量中，这时需要利用 return 语句。实际上，即使用户没有显式地在函数中使用 return 语句进行结果的返回，Python 也会调用 return 语句返回 None 值，不过 None 值通过会被 Python 解释器抑制，只有使用 print 语句才能显式地观测到它。</p>
+<pre><code class="language-python">In [14]: fib(0)
+n是局部变量，它的值是0
+In [15]: print(fib(0))
+n是局部变量，它的值是0
+None # 这里是函数最后返回的None值
+</code></pre>
+<h3 id="515">5.1.5 递归函数<a class="headerlink" href="#515" title="Permanent link">&para;</a></h3>
+<p>函数的实际调用就是一行语句，因此用户可以在函数中调用不同的函数，只要知道如何正确地传递各个参数以及处理好函数返回的结果。这种方式大大简化了代码阅读的复杂性，各个函数自身的运行逻辑被封装在内部，使用者只需要关注如何合理地调用它们处理问题。大多数情况，读者看到的是一个函数调用其他函数。除此之外，函数还可以实现自我调用，这种函数称为递归函数。因其具有函数嵌套与自我调用的特点，这一小节本书着重对其进行介绍。</p>
+<p>一个介绍递归函数最好的例子就是计算阶乘。阶乘的相关概念本书在上一章的 continue 语句部分已经介绍过，此处不再赘述。</p>
+<p>阶乘可以直观展示为 n! = 1 x 2 x 3 x &hellip; x n 的形式，也可以展示为递归的方式 n! = (n-1)! x n，读者可以通过图5-1中不断循环的捧着画框的蒙娜丽莎对递归进行直观地理解。</p>
+<p>此时如果令函数 factorial(n) 为 n!，那么递归的函数表示法为：factorial(n) = factorial(n-1) x n。</p>
+<p><img alt="图5-1 递归可视化：捧着画框的蒙娜丽莎 (图片来自网络)" src="../images/chapter5/mnlisha.png" /></p>
+<p>现在用实际的代码表征这一过程，并对结果进行测试。</p>
+<pre><code class="language-python">In [16]: def factorial(n):
+    ...:     if n == 1:
+    ...:         return 1
+    ...:     else:
+    ...:         return n * factorial(n-1)
+
+In [17]: factorial(1)
+Out[17]: 1
+
+In [18]: factorial(5)
+Out[18]: 120
+
+In [19]: factorial(10)
+Out[19]: 3628800
+</code></pre>
+<p>factorial(5) 的计算过程可以表示如下：</p>
+<pre><code>===&gt; factorial(5)
+===&gt; 5 * factorial(4)
+===&gt; 5 * (4 * factorial(3))
+===&gt; 5 * (4 * (3 * factorial(2)))
+===&gt; 5 * (4 * (3 * (2 * factorial(1))))
+===&gt; 5 * (4 * (3 * (2 * 1)))
+===&gt; 5 * (4 * (3 * 2))
+===&gt; 5 * (4 * 6)
+===&gt; 5 * 24
+===&gt; 120
+</code></pre>
+<p>相比对使用循环进行阶乘的运算，递归在逻辑上更加清晰，定义更加简单，不过运算过程更为抽象。理论上，所有的递归函数都可以写成循环的形式。在使用递归函数时需要注意必须有一个明确的递归结束条件，以避免无限调用。</p>
+<p>递归函数的最大问题是效率低，占用了大量的内存和时间，当递归次数过多时容易发生栈溢出。发生栈溢出的原因是，在计算机中函数的调用时通过堆栈（stack）来实现的，每进行一次调用，栈帧就会增加一层，每当函数返回，栈帧就减少一层，然而计算机提供的栈帧不是无限大的，就像我们不可能真正地在上面蒙娜丽莎画像上画出无限个捧着画框的子图，当递归调用次数过多时，就会发生栈溢出。</p>
+<pre><code class="language-python">In [20]: factorial(1000)
+Out[20]: 402387260077093773543702433923003985719374864210714632543799910429938512398629020592044208486969404800479988610197196058631666872994808558901323829669944590997424504087073759918823627727188732519779505950995276120874975462497043601418278094646496291056393887437886487337119181045825783647849977012476632889835955735432513185323958463075557409114262417474349347553428646576611667797396668820291207379143853719588249808126867838374559731746136085379534524221586593201928090878297308431392844403281231558611036976801357304216168747609675871348312025478589320767169132448426236131412508780208000261683151027341827977704784635868170164365024153691398281264810213092761244896359928705114964975419909342221566832572080821333186116811553615836546984046708975602900950537616475847728421889679646244945160765353408198901385442487984959953319101723355556602139450399736280750137837615307127761926849034352625200015888535147331611702103968175921510907788019393178114194545257223865541461062892187960223838971476088506276862967146674697562911234082439208160153780889893964518263243671616762179168909779911903754031274622289988005195444414282012187361745992642956581746628302955570299024324153181617210465832036786906117260158783520751516284225540265170483304226143974286933061690897968482590125458327168226458066526769958652682272807075781391858178889652208164348344825993266043367660176999612831860788386150279465955131156552036093988180612138558600301435694527224206344631797460594682573103790084024432438465657245014402821885252470935190620929023136493273497565513958720559654228749774011413346962715422845862377387538230483865688976461927383814900140767310446640259899490222221765904339901886018566526485061799702356193897017860040811889729918311021171229845901641921068884387121855646124960798722908519296819372388642614839657382291123125024186649353143970137428531926649875337218940694281434118520158014123344828015051399694290153483077644569099073152433278288269864602789864321139083506217095002597389863554277196742822248757586765752344220207573630569498825087968928162753848863396909959826280956121450994871701244516461260379029309120889086942028510640182154399457156805941872748998094254742173582401063677404595741785160829230135358081840096996372524230560855903700624271243416909004153690105933983835777939410970027753472000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+
+In [21]: factorial(100000)
+---------------------------------------------------------------------------
+RecursionError                            Traceback (most recent call last)
+&lt;ipython-input-21-43ad924d46ef&gt; in &lt;module&gt;
+----&gt; 1 factorial(100000)
+
+&lt;ipython-input-16-b3332bd42a71&gt; in factorial(n)
+      3         return 1
+      4     else:
+----&gt; 5         return n * factorial(n-1)
+
+... last 1 frames repeated, from the frame below ...
+
+&lt;ipython-input-16-b3332bd42a71&gt; in factorial(n)
+      3         return 1
+      4     else:
+----&gt; 5         return n * factorial(n-1)
+
+RecursionError: maximum recursion depth exceeded in comparison
+</code></pre>
+<p>上面代码运行结果显示当计算 1000 的阶乘时，计算机还能正常运行并计算出结果，而将输入参数设为 100,000 时，Python 直接报错提示递归已经超出支持的最大深度。</p>
+<h2 id="52">5.2 函数的参数<a class="headerlink" href="#52" title="Permanent link">&para;</a></h2>
+<p>定义函数的时候把参数的名字和位置确定下来，就完成了函数的接口的定义。对于函数的使用者来说，只需要知道如何传递正确的参数，以及函数将返回什么样的值就够了，函数内部的复杂逻辑被封装起来，使用者无需了解。这就如同用铅笔写字、素描或做其他事情，读者无需知道铅笔的制造过程。反之，函数创建者应当考虑函数内部的逻辑，合适地设定函数的参数以方便使用者能够轻松调用。</p>
+<p>Python 的函数定义非常简单，但灵活度很大。函数的参数主要可以分为位置参数、关键字参数与可变参数 3 种类型，合理组合 3 种参数类型定义函数接口，不但能处理复杂的参数，还可以简化函数调用者的代码。</p>
+<h3 id="521">5.2.1 位置参数<a class="headerlink" href="#521" title="Permanent link">&para;</a></h3>
+<p>位置参数的含义可以比较直观的理解，它是通过位置指定的参数。既然关键在于位置，那么参数名就显得不那么重要了。位置参数是创建函数时通常使用的参数，下面用一个简单例子说明。</p>
+<p>创建一个函数用来计算数值 x 的 n 次幂。</p>
+<pre><code class="language-python">In [22]: def power(x, n):
+    ...:     s = 1
+    ...:     while n &gt; 0:
+    ...:         n = n - 1
+    ...:         s = s * x
+    ...:     return s
+
+In [23]: power(2, 2)
+Out[23]: 4
+In [24]: power(2, 3)
+Out[24]: 8
+</code></pre>
+<p>这里 power(x, n) 函数两个参数 x 和 n 都是位置参数，在调用时传入的值会依次传给 x 和 n。</p>
+<p>有意思的是，如果显式地指定参数名，会存在报错的情况，如下所示：</p>
+<pre><code class="language-python">In [25]: power(x = 2, 5)
+  File &quot;&lt;ipython-input-40-b1e390a5e3ac&gt;&quot;, line 1
+    power(x = 2, 5)
+                ^
+SyntaxError: positional argument follows keyword argument
+
+In [26]: power(2, n = 5)
+Out[26]: 32
+In [27]: power(x = 2, n = 5)
+Out[27]: 32
+</code></pre>
+<p>可以发现，在几种调用方式中，如果先输入带参数名的参数，后面就不能接位置参数了。</p>
+<h3 id="522">5.2.2 关键字参数<a class="headerlink" href="#522" title="Permanent link">&para;</a></h3>
+<p>为什么上面参数带名字会报错呢？这是因为在使用 power(x = 2, 5) 时我们引入了一个新的参数类型——关键字参数，它干扰了 Python 对于参数的解析。在 Python 的逻辑里面，关键字参数必须放到位置参数的后面，不然它不知道谁是谁，而这里恰恰相反，所以 Python 抛出错误。</p>
+<p>对于关键字参数，位置就不重要了，而是通过名字指定，这时调用者可以任意地修改顺序。关键字参数最有用的形式是给为一个或多个参数指定一个默认参数值，这样创建出来的函数用户通过设定少量参数即可调用。</p>
+<p>例如，下面的 ask_ok() 函数：它向用户发出询问，如果用户同意并输入 y 或 ye 或 yes，函数都会返回 True；如果用户不同意并输入 n 或 no 或 nop 或 nope，函数会返回 False；其他情况会提示用户再次输入。</p>
+<pre><code class="language-python">In [28]: def ask_ok(prompt, retries=4, reminder='Please try again!'):
+    ...:     while True:
+    ...:         ok = input(prompt)
+    ...:         if ok in ('y', 'ye', 'yes'):
+    ...:             return True
+    ...:         if ok in ('n', 'no', 'nop', 'nope'):
+    ...:             return False
+    ...:         retries = retries - 1
+    ...:         if retries &lt; 0:
+    ...:             raise ValueError('invalid user response')
+    ...:         print(reminder)
+</code></pre>
+<p>该函数可以通过几种不同的方式调用：</p>
+<ul>
+<li>仅给出一个必需参数：ask_ok(&ldquo;你真想退出吗？&rdquo;)。</li>
+<li>指定一个可选参数：ask_ok(&ldquo;你真想退出吗？&rdquo;, 2)。</li>
+<li>或者给出所有的参数：ask_ok(&ldquo;你真想退出吗？&rdquo;, 1, &ldquo;不好意思，只能是yes或no！&rdquo;)</li>
+</ul>
+<p>下面对这几种调用方式进行简单的测试。</p>
+<pre><code class="language-python">In [29]: ask_ok(&quot;你真想退出吗？&quot;)
+你真想退出吗？y
+Out[29]: True
+
+In [30]: ask_ok(&quot;你真想退出吗？&quot;, 2)
+你真想退出吗？fgfg
+Please try again!
+你真想退出吗？fewe
+Please try again!
+你真想退出吗？gdhgds
+---------------------------------------------------------------------------
+ValueError                                Traceback (most recent call last)
+&lt;ipython-input-24-e2ab09b6f802&gt; in &lt;module&gt;
+----&gt; 1 ask_ok(&quot;你真想退出吗？&quot;, 2)
+
+&lt;ipython-input-22-16d7c37266ff&gt; in ask_ok(prompt, retries, reminder)
+      8         retries = retries - 1
+      9         if retries &lt; 0:
+---&gt; 10             raise ValueError('invalid user response')
+     11         print(reminder)
+
+ValueError: invalid user response
+
+In [31]: ask_ok(&quot;你真想退出吗？&quot;, 1, &quot;不好意思，只能是yes或no！&quot;)
+你真想退出吗？npe
+不好意思，只能是yes或no！
+你真想退出吗？yes
+Out[31]: True
+</code></pre>
+<p>可以看到，无论是简单调用还是复杂调用，函数只需要定义一个，因此关键字参数降低了函数的使用难度，也给函数的使用提供了灵活性。</p>
+<p>虽然使用关键字参数设定默认值非常有用，但使用不当会出现较大的问题。下面定义了一个简单的函数来说明这个问题。</p>
+<pre><code class="language-python">In [32]: def f(a, L=[]):
+    ...:     L.append(a)
+    ...:     return L
+
+In [33]: print(f(1))
+    ...: print(f(2))
+    ...: print(f(3))
+[1]
+[1, 2]
+[1, 2, 3]
+</code></pre>
+<p>结果非常奇怪，在第 2 次和第 3 次调用时前面的结果居然还在，可是在函数定义时设定了默认参数为空列表！这是因为 Python 只对函数的默认值计算一次，所以当默认参数是可变对象如列表、字典时，参数会累积变化，看起来它继承了前面调用的输入。为了解决这个问题，我们需要将默认参数设定为不可变对象 None。</p>
+<pre><code class="language-python">In [34]: def f(a, L=None):
+    ...:     if L is None:
+    ...:         L = []
+    ...:     L.append(a)
+    ...:     return L
+
+In [35]: print(f(1))
+    ...: print(f(2))
+    ...: print(f(3))
+[1]
+[2]
+[3]
+</code></pre>
+<p>现在无论调用多少次，函数也不会出现问题了。</p>
+<h3 id="523">5.2.3 可变参数<a class="headerlink" href="#523" title="Permanent link">&para;</a></h3>
+<p>在上面的例子中，我们能够传入的参数是有限的。如果我们想要向函数传入成千上万个（虽然说有点夸张，但一些实际情况就是如此）参数，我们需要新的解决办法。</p>
+<p>现在我们定义一个函数用于计算任意个参数的平方和：</p>
+<pre><code class="language-python">In [36]: def calcSquareSum(*numbers):
+    ...:     sum = 0
+    ...:     for n in numbers:
+    ...:         sum = sum + n * n
+    ...:     return sum
+
+In [37]: calcSquareSum(1, 2, 3)
+Out[37]: 14
+In [38]: calcSquareSum()
+Out[38]: 0
+
+In [39]: input = [3, 4, 5]
+In [40]: calcSquareSum(*input)
+Out[40]: 50
+</code></pre>
+<p>这里无论 input 有多长，函数都是可以使用的。显然，星号发挥着至关重要的作用，函数识别到该符号会将输入的位置参数自动组装为元组，这一点可以通过以下代码验证。</p>
+<pre><code class="language-python">In [41]: def print_params(*params):
+   ...:      print(params)
+   ...:
+
+In [42]: print_params(1, 3, 5, 7, 9)
+(1, 3, 5, 7, 9)
+</code></pre>
+<p>简而言之，星号起着收集“剩余”位置参数的作用。为什么要强调“剩余”和“位置参数”呢？一方面，该操作可以与单个位置参数搭配使用；另一方面，该操作不能用于关键字参数。</p>
+<pre><code class="language-python">In [43]: def print_params2(name, *params):
+   ...:      print(name, params)
+   ...:
+In [44]: print_params2(&quot;Admin&quot;, 1, 2, 3, 4)  # 我们会看到 name 和 params 是分开的
+Admin (1, 2, 3, 4)
+In [45]: print_params({&quot;a&quot;:1, &quot;b&quot;:2})  # 我们得到的是元组而不是字典
+({'a': 1, 'b': 2},)
+</code></pre>
+<p>相应地，为了处理关键字参数，Python 引入了两个星号。</p>
+<pre><code class="language-python">In [46]: def person(name, age, **kw):  # 这里的kw就是关键字参数
+    ...:     print('性别：', name, '年龄', age, '其他', kw)
+
+In [47]: person(&quot;Shixiang&quot;, 25)
+性别： Shixiang 年龄 25 其他 {}
+
+In [48]: person(&quot;小丹&quot;, 25, city = &quot;上海&quot;, job = &quot;数据分析工程师&quot;)
+性别： 小丹 年龄 25 其他 {'city': '上海', 'job': '数据分析工程师'}
+</code></pre>
+<p>总结一下，可变参数并没有概念上的创新，它实质上是位置参数和关键字参数的变体，用来处理任意输入参数的情形。</p>
+<h2 id="53">5.3 模块<a class="headerlink" href="#53" title="Permanent link">&para;</a></h2>
+<p>实际完成一个软件开发或者数据分析流程的代码量往往是巨大的，一个文件里所存储的代码越长就越不容易维护。为了编写可维护的代码，程序员通常将函数按照功能进行分组并将它们放到不同的文件中去，这样每个文件中的代码就少了很多，功能专一，因此便于查找、调试错误，增加功能特性等，很多编程语言都采用这种组织代码的方式。</p>
+<p>Python 中，每一个以 .py 为文件扩展名的代码文件都是一个模块（Module）。模块大大提高了代码的可维护性和应用范围，编写代码不需要从头开始，用户可以选择直接引用别人已经创建好的优秀模块，这包括 Python 内置的模块和来自第三方的模块。数据分析常常就是建立在众多的计算模块基础之上，如 Numpy、Pandas 和 Scipy 等，基于这些行业标准级别的模块，读者可以快速实现数据的读取、操作、分析、可视化以及结果输出。</p>
+<p>模块学习的核心在于了解模块、安装模块以及学习使用模块提供的函数。下面分别进行介绍。</p>
+<h3 id="531">5.3.1 模块与包结构<a class="headerlink" href="#531" title="Permanent link">&para;</a></h3>
+<p>上面提到，一个 .py 文件就是一个模块，例如一个 abc.py 文件就是一个叫 abc 的模块。因为世界上非常多的 Python 使用者，大家在创建模块时文件名都会采用易用易懂的命名规则，所以模块名很容易与其他的模块冲突。为了解决这个问题，Python 引入了包对模块进行组织。包其实就是一个包含众多模块的目录，只要包名不与别的包名冲突，那么该包所有的模块都不会产生冲突。</p>
+<p>下面展示了一个名字为 fib 包的结构，该包下面有 3 个模块，这里的 abc.py 模块名字不再是 abc，而是 fib.abc。</p>
+<pre><code class="language-shell">fib
+├── __init__.py
+├── abc.py
+└── fib.py
+</code></pre>
+<p>每一个包目录下都会有一个 __init__.py文件，它的模块名为包名 fib，该文件可以为空，也可以有 Python 代码，它必须存在于包的目录下，不然 Python 会将该目录当做普通目录，而非包。</p>
+<p>包也可以嵌套存在，组成多层次的包结构，如下所示：</p>
+<pre><code class="language-shell">fib
+├── __init__.py
+├── abc.py
+└── fib.py
+└── calc
+  ├── __init__.py
+  ├── def.py
+  └── calculation.py
+</code></pre>
+<p>这里 def.py 的模块名是 fib.calc.def。每多一个层级，其中的模块名就多一个层级，层级之间用英文句号 . 区分。模块名要遵循 Python 变量命名规范，不要使用中文、特殊字符。</p>
+<h3 id="532">5.3.2 模块的创建<a class="headerlink" href="#532" title="Permanent link">&para;</a></h3>
+<p>本小节以内置的 sys 和 math 模块为例，编写一个 fact 模块，用于计算阶乘。</p>
+<p>首先用文本编辑器创建一个以 .py 为文件拓展名的文本文件，然后输入以下代码：</p>
+<pre><code class="language-python">#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+&quot;&quot;&quot;这是一个计算阶乘的模块，
+它利用了math模块和sys模块&quot;&quot;&quot;
+
+__author__ = 'Shixiang'
+
+import sys
+import math
+
+def fact():
+    args = sys.argv
+    if len(args)==1:
+        print('请重新运行并输入一个数字。')
+    elif len(args)==2:
+        print(math.factorial(int(args[1])))
+    else:
+        print('这个函数只接收一个参数，而且必须是数字！')
+
+if __name__=='__main__':
+    fact()
+</code></pre>
+<p>上面代码中的第 1、2 行是标准的注释，其中第一行的注释可以让该模块直接在 Linux 系统和 macOS 系统上运行，第 2 行注释指定代码文件使用标准的 UTF-8 编码。这两行注释是标准的规范，请读者在编写模块时务必遵守。</p>
+<p>接下来的一行是字符串，它是对整个模块的功能说明，一般称为文档字符串（docstring），这跟编写函数是一致的。任何模块/函数代码的第一个字符串都被视为文档注释。</p>
+<p>__author__ = &lsquo;Shixiang&rsquo; 这里使用专门的变量记录模块的作者，别人在使用时可以查看模块的创作者是谁。</p>
+<p>上述提及的内容是 Python 模块文件的标准版本，是一个可选项，读者可以删除不写，但本书建议读者都使用标准的写法。</p>
+<p>随后的内容是真正的代码部分，使用 import 关键字可以直接导入已经安装好的 Python 模块，导入后 Python 用户就可以使用模块名来引用模块提供的函数、参数等等。这里利用 sys 和 math 变量名我们可以访问这两个模块的所有功能。</p>
+<p>fact 模块使用了 sys 模块的 argv 值以及 math 模块中的 factorial() 函数。argv 变量用 list 的形式存储了 Python 命令行的所有参数，其中第一个参数永远是被运行 Python 文件的文件名称，这里即是 fact.py，第二个是需要模块使用者输入的数字。</p>
+<p>在实际运行 fact 模块前，我们再来看看最后两行代码的含义。</p>
+<pre><code class="language-python">if __name__=='__main__':
+    fact()
+</code></pre>
+<p>当使用命令行运行 fact 模块时，Python 解释器会将特殊变量 __name__ 变为 __main__，但如果在其他地方导入 fact 模块，该判断语句将失效。这种操作方便我们通过命令行测试代码，但直接在代码中使用 import 导入该模块也依然有效。</p>
+<p>通过命令行运行代码需要打开操作系统的终端，并将其切换到 fib.py 文件所在的目录。下面美元符号是终端提示符，读者无需理会。</p>
+<pre><code class="language-shell">$ python3 fib.py
+请重新运行并输入一个数字。
+$ python3 fib.py 3
+6
+</code></pre>
+<p>IPython 提供了更便捷的方式运行 .py 文件（这些方式在 IPython Shell、Jupyter Notebook 以及 nteract 软件中操作是一致的），一种方式与命令行运行类似，在命令前加一个英文感叹号，这样 IPython 会将其自动解析为系统命令运行。</p>
+<pre><code class="language-python">In [49]: !python3 fib.py 3
+6
+</code></pre>
+<p>IPython 还提供了魔术命令 %run 运行模块文件，更多魔术命令请在 IPython 中输入 %magic 阅读与学习。</p>
+<pre><code class="language-python">In [50]: %run fib.py 3
+6
+
+In [51]: %run fib.py 5
+120
+</code></pre>
+<h3 id="533">5.3.3 模块的作用域<a class="headerlink" href="#533" title="Permanent link">&para;</a></h3>
+<p>前面本书介绍过函数的作用域，模块也有其作用域。在一个模块中，读者可以定义很多函数和变量，但有的函数和变量我们希望给别人使用，有的函数和变量希望仅仅在模块内部使用。</p>
+<p>在 Python中，模块的作用域是通过符号前缀 _ 来实现的。正常的函数和变量名是公开的，可以被直接引用，如 abc、weight123。而类似 __xxx__ 这样的变量是特殊变量，它们虽然也可以被直接引用，但是有些特殊用途，例如上面的阶乘模块代码中，__author__、__name__ 就是特殊变量，另外模块定义的文档注释也可以用特殊变量 __doc__ 访问。非公开（或称私有）的函数名或变量名类似 _xxx 和 __xxx，它们不应该被直接引用（而非不能），如 _abc，__abc。</p>
+<p>在模块的逻辑中，它会将私有函数或变量隐藏起来，这样可以实现更高层级的代码封装和抽象。例如，某个模块只实现一个功能函数，但因为实现代码复杂，作者写了很多的函数组合实现各个细节部分，使用一个主函数调用，因而作者只想提供主函数作为公开函数，其他的函数对用户不可见。这种情况下使用私有函数对用户也是有好处的，用户只需要关注实现功能的主函数，其中的内部逻辑无需了解，私有函数都其公开反而是一种干扰。</p>
+<p>因此，在编写模块时，读者不需要使用的函数或变量全部定义为私有函数或私有变量，需要使用的函数或变量则定义为公开函数或私有变量。</p>
+<h3 id="534">5.3.4 三方模块的安装<a class="headerlink" href="#534" title="Permanent link">&para;</a></h3>
+<p>Python 本身内置了非常多的模块（约 200 个），涵盖了众多的功能需求，安装 Python 后就可以立刻使用，如 sys 模块包含系统相关的参数与函数、builtins 模块包含内置对象、os 模块包含多方面的操作系统接口、math 模块提供了数学处理函数。</p>
+<p>当内置模块不能满足需求时，如果想要实现的功能代码并不复杂，读者可以先尝试自己编写代码解决。如果想要实现的功能太过复杂，超过自身的能力，读者可以通过网络搜索实现相关功能的三方模块。PyPI（Python Package Index）是 Python 的软件仓库，它目前提供了接近 16 万个 Python 软件包，涵盖互联网世界的各个领域。Anaconda 是 Python 常用计算包的软件仓库，它目前提供了近 2000 个计算软件包，涵盖了数据分析领域各个方面。</p>
+<p>PyPI 和 Anaconda 提供的软件包分别可以通过 pip 工具和 conda 工具进行安装，它们具有极为相似的语法，简单易上手。</p>
+<p>因为本书的学习是基于 Anaconda 的，所以这里介绍 conda 工具的使用。</p>
+<p>conda 工具是一个命令行工具，在终端命令行中使用 &ndash;help 选项可以列出所有 conda 支持的命令以及它们的解释。</p>
+<pre><code class="language-shell">$ conda --help
+usage: conda [-h] [-V] command ...
+
+conda is a tool for managing and deploying applications, environments and packages.
+
+Options:
+
+positional arguments:
+  command
+    clean        Remove unused packages and caches.
+    config       Modify configuration values in .condarc. This is modeled
+                 after the git config command. Writes to the user .condarc
+                 file (/Users/wsx/.condarc) by default.
+    create       Create a new conda environment from a list of specified
+                 packages.
+    help         Displays a list of available conda commands and their help
+                 strings.
+    info         Display information about current conda install.
+    install      Installs a list of packages into a specified conda
+                 environment.
+    list         List linked packages in a conda environment.
+    package      Low-level conda package utility. (EXPERIMENTAL)
+    remove       Remove a list of packages from a specified conda environment.
+    uninstall    Alias for conda remove. See conda remove --help.
+    search       Search for packages and display associated information. The
+                 input is a MatchSpec, a query language for conda packages.
+                 See examples below.
+    update       Updates conda packages to the latest compatible version. This
+                 command accepts a list of package names and updates them to
+                 the latest versions that are compatible with all other
+                 packages in the environment. Conda attempts to install the
+                 newest versions of the requested packages. To accomplish
+                 this, it may update some packages that are already installed,
+                 or install additional packages. To prevent existing packages
+                 from updating, use the --no-update-deps option. This may
+                 force conda to install older versions of the requested
+                 packages, and it does not prevent additional dependency
+                 packages from being installed. If you wish to skip dependency
+                 checking altogether, use the '--force' option. This may
+                 result in an environment with incompatible packages, so this
+                 option must be used with great caution.
+    upgrade      Alias for conda update. See conda update --help.
+
+optional arguments:
+  -h, --help     Show this help message and exit.
+  -V, --version  Show the conda version number and exit.
+</code></pre>
+<p>如果是在 IPython 环境中，读者使用 !conda &ndash;help 也可以返回与上述一致的结果。</p>
+<p>常用的操作是搜索、安装以及删除（卸载）包，分别对应 search、install 和 remove 子命令。</p>
+<p>下面是搜索 ipython 包的例子。</p>
+<pre><code class="language-shell">$ conda search ipython
+Loading channels: done
+# Name                  Version           Build  Channel
+ipython                    0.13          py26_0  pkgs/free
+ipython                    0.13          py27_0  pkgs/free
+ipython                  0.13.1          py26_0  pkgs/free
+ipython                  0.13.1          py26_1  pkgs/free
+ipython                  0.13.1          py27_0  pkgs/free
+ipython                  0.13.1          py27_1  pkgs/free
+ipython                  0.13.1          py33_0  pkgs/free
+ipython                  0.13.1          py33_1  pkgs/free
+ipython                  0.13.2          py26_0  pkgs/free
+ipython                  0.13.2          py27_0  pkgs/free
+ipython                  0.13.2          py33_0  pkgs/free
+ipython                   1.0.0          py26_0  pkgs/free
+ipython                   1.0.0          py27_0  pkgs/free
+ipython                   1.0.0          py33_0  pkgs/free
+... 此处省略若干行
+</code></pre>
+<p>上述结果中可以看到存在不同的 Python 版本和包版本，所以读者安装时需要注意自己使用的 Python 版本以及想要安装的包版本。默认情况下，conda 会根据用户的 Python 版本安装最新版本的包，用户也可以通过等号进行版本指定。</p>
+<pre><code class="language-shell">$ conda install ipython       # conda 自动安装ipython包的最新版本
+$ conda install ipython=0.13  # conda 安装ipython包，这里指定版本为0.13
+</code></pre>
+<p>为了检测是否包已经安装成功，可以在 IPython 中用 import 语句导入包，如果没有报错，则安装成功。</p>
+<h3 id="535">5.3.5 模块的使用<a class="headerlink" href="#535" title="Permanent link">&para;</a></h3>
+<p>本书在前面介绍的章节中已经在不时地使用着模块，Python 通过 import 关键字可以导入模块，然后使用它。本小节旨在更加详细地介绍导入模块的方法以及简介模块搜索路径的知识。</p>
+<p>当存在多个模块需要导入使用时，读者只需要用英文逗号将模块名分割即可。例如下面导入 3 个模块：</p>
+<pre><code class="language-python">import sys, os, time
+</code></pre>
+<p>不过，Python 风格指南建议将每个导入语句单独一行书写。</p>
+<pre><code class="language-python">import sys
+import os
+import time
+</code></pre>
+<p>有时模块的名字过长或者不好理解，每次编写显得很麻烦，读者可以使用 as 语句将模块名重命名。</p>
+<pre><code class="language-python">import sys as system
+</code></pre>
+<p>现在 sys 模块就有了 system 的别名。Python 中有不少包都有着公认的别名，如 numpy 导入为 np。使用英文句号（成员操作符）可以导入指定模块的子模块，matplotlib 包的子模块 pyplot 就常被导入为 plt。</p>
+<pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+</code></pre>
+<p>有时候我们仅想要使用某个模块特定的函数，这可以通过 from 语句进行导入，例如从 math 模块中导入阶乘函数 factorial()。</p>
+<pre><code class="language-python">from math import factorial
+</code></pre>
+<p>这样读者可以直接使用 factorial() 函数了。如果使用 import math 的方式，读者必须通过 math.factorial() 才能调用该函数。</p>
+<p>如果想要导入模块的全部内容，可以使用星号符。</p>
+<pre><code class="language-python">from os import *
+</code></pre>
+<p>这样导入的好处是调用起来方便，不需要使用成员操作符，但带来的麻烦更大，当导入的多个模块存在同名函数或变量时，这样 Python 的命名空间很混乱，你不知道你使用的到底是哪一个，因此本书不推荐使用该方式导入模块函数。</p>
+<p>使用模块时读者除了需要了解几种不同的导入方式，还需要注意模块的搜索路径。</p>
+<p>当 Python 用户加载模块时，Python 会在指定的路径下搜索对应的 .py 文件，如果找不到就会报错：</p>
+<pre><code class="language-python">In [1]: import somemodule
+---------------------------------------------------------------------------
+ModuleNotFoundError                       Traceback (most recent call last)
+&lt;ipython-input-1-b58142f7538b&gt; in &lt;module&gt;()
+----&gt; 1 import somemodule
+
+ModuleNotFoundError: No module named 'somemodule'
+</code></pre>
+<p>默认情况下 Python 会搜索 Python 自身的系统环境变量（找到安装包所在路径）以及当前目录（用户可能自己创建的模块路径）。Python 的搜索路径可以通过 sys 模块的 path 变量获取，如下所示：</p>
+<pre><code class="language-python">In [2]: import sys
+
+In [3]: sys.path
+Out[3]:
+['',
+ '/home/zd/anaconda3/bin',
+ '/home/zd/anaconda3/lib/python37.zip',
+ '/home/zd/anaconda3/lib/python3.7',
+ '/home/zd/anaconda3/lib/python3.7/lib-dynload',
+ '/home/zd/anaconda3/lib/python3.7/site-packages',
+ '/home/zd/anaconda3/lib/python3.7/site-packages/IPython/extensions',
+ '/home/zd/.ipython']
+</code></pre>
+<p>有两种办法可以添加自定义的搜索路径：一种是修改上面所见的 sys.path 变量，因为它是一个列表，所以可以通过 append() 方法添加路径（字符串），该操作在 Python 退出后会失效，这意味着每一次进入 Python 都需要重新设置；另一种方法是设置环境变量 PYTHONPATH，该变量内容会被自动加入到模块搜索路径中，一旦设定，永久有效。不过该方法需要读者掌握一定系统知识，因此本书不作详细介绍。</p>
+<h2 id="54">5.4 章末小结<a class="headerlink" href="#54" title="Permanent link">&para;</a></h2>
+<p>函数和模块是 Python 用户常见的操作对象，因此熟练地掌握如何使用和创建函数、使用模块极为重要。本章从函数的使用、创建、参数设定，模块的安装、导入与创建以及相关注意事项方面都作了详尽的介绍，读者在实际的操作中需要多加练习。关于编写函数与模块有两条注意事项：一个好的函数一般来说调用者（用户）需要设定的参数数目很少，因此读者在编写时需要合适设置一些默认参数；创建模块时名字不能和 Python 自带的模块名称一样，否则会产生冲突。</p>
+
+
+
+
+              
+            </article>
+            
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="../04-control-flow/" class="md-footer__link md-footer__link--prev" aria-label="Previous: 第 4 章 控制流与文件操作" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              第 4 章 控制流与文件操作
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../06-numpy/" class="md-footer__link md-footer__link--next" aria-label="Next: 第 6 章 NumPy" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              第 6 章 NumPy
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright © 2020 ShixiangWang
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.expand", "navigation.indexes", "navigation.top"], "search": "../assets/javascripts/workers/search.ecf98df9.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.9c69f0bc.min.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,1296 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Shixiang Wang">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-8.4.1">
+    
+    
+      
+        <title>第 9 章 Markdown 基础 - 交互的Python：数据分析入门</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.69437709.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.cbb835fc.min.css">
+        
+      
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#9-markdown" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="交互的Python：数据分析入门" class="md-header__button md-logo" aria-label="交互的Python：数据分析入门" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            交互的Python：数据分析入门
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              第 9 章 Markdown 基础
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/ShixiangWang/pybook" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href=".." class="md-tabs__link">
+      阅读说明
+    </a>
+  </li>
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../%E5%A4%A7%E7%BA%B2/" class="md-tabs__link md-tabs__link--active">
+        正文
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../author-and-recommendation/%E4%BA%A4%E4%BA%92%E7%9A%84Python%20-%20%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE.png" class="md-tabs__link">
+      思维导图
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../to-readers/" class="md-tabs__link">
+      对读者说的话
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../author/" class="md-tabs__link">
+      作者简介
+    </a>
+  </li>
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="交互的Python：数据分析入门" class="md-nav__button md-logo" aria-label="交互的Python：数据分析入门" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    交互的Python：数据分析入门
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/ShixiangWang/pybook" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        阅读说明
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          正文
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="正文" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          正文
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%A4%A7%E7%BA%B2/" class="md-nav__link">
+        大纲
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../0-%E5%89%8D%E8%A8%80/" class="md-nav__link">
+        前言
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../00-%E5%86%85%E5%AE%B9%E6%8F%90%E8%A6%81/" class="md-nav__link">
+        内容提要
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01-introduction/" class="md-nav__link">
+        第 1 章 Python 介绍及学习前的准备
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02-base/" class="md-nav__link">
+        第 2 章 Python 入门示例及基础知识
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03-data-structure/" class="md-nav__link">
+        第 3 章 基本数据结构
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04-control-flow/" class="md-nav__link">
+        第 4 章 控制流与文件操作
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05-function-and-module/" class="md-nav__link">
+        第 5 章 函数与模块
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06-numpy/" class="md-nav__link">
+        第 6 章 NumPy
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07-matplotlib/" class="md-nav__link">
+        第 7 章 Matplotlib
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08-pandas-intro/" class="md-nav__link">
+        第 8 章 Pandas 入门
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          第 9 章 Markdown 基础
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        第 9 章 Markdown 基础
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#91-markdown" class="md-nav__link">
+    9.1 Markdown 简介
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#92-markdown" class="md-nav__link">
+    9.2 Markdown 语法
+  </a>
+  
+    <nav class="md-nav" aria-label="9.2 Markdown 语法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#921" class="md-nav__link">
+    9.2.1 块元素
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#922" class="md-nav__link">
+    9.2.2 内联元素
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#93-python-markdown" class="md-nav__link">
+    9.3 联合 Python 与 Markdown
+  </a>
+  
+    <nav class="md-nav" aria-label="9.3 联合 Python 与 Markdown">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#931" class="md-nav__link">
+    9.3.1 代码块与文本块
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#932" class="md-nav__link">
+    9.3.2 文档范例
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#94" class="md-nav__link">
+    9.4 章末小结
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../10-data-import/" class="md-nav__link">
+        第 10 章 数据导入
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../11-toolbox/" class="md-nav__link">
+        第 11 章 数据分析工具箱
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../12-advanced-pandas/" class="md-nav__link">
+        第 12 章 Pandas 进阶
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../13-advanced-vis/" class="md-nav__link">
+        第 13 章 数据可视化进阶
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../14-stats/" class="md-nav__link">
+        第 14 章 统计分析
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../15-append/" class="md-nav__link">
+        第 15 章 未言及的内容
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../16-end/" class="md-nav__link">
+        结语：接下来学什么
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../author-and-recommendation/%E4%BA%A4%E4%BA%92%E7%9A%84Python%20-%20%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE.png" class="md-nav__link">
+        思维导图
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../to-readers/" class="md-nav__link">
+        对读者说的话
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../author/" class="md-nav__link">
+        作者简介
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#91-markdown" class="md-nav__link">
+    9.1 Markdown 简介
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#92-markdown" class="md-nav__link">
+    9.2 Markdown 语法
+  </a>
+  
+    <nav class="md-nav" aria-label="9.2 Markdown 语法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#921" class="md-nav__link">
+    9.2.1 块元素
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#922" class="md-nav__link">
+    9.2.2 内联元素
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#93-python-markdown" class="md-nav__link">
+    9.3 联合 Python 与 Markdown
+  </a>
+  
+    <nav class="md-nav" aria-label="9.3 联合 Python 与 Markdown">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#931" class="md-nav__link">
+    9.3.1 代码块与文本块
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#932" class="md-nav__link">
+    9.3.2 文档范例
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#94" class="md-nav__link">
+    9.4 章末小结
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+  <a href="https://github.com/ShixiangWang/pybook/edit/master/09-markdown.md" title="Edit this page" class="md-content__button md-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+  </a>
+
+
+
+<h1 id="9-markdown">第 9 章 Markdown 基础<a class="headerlink" href="#9-markdown" title="Permanent link">&para;</a></h1>
+<p><strong>本章内容提要</strong>：</p>
+<ul>
+<li>为什么学习 Markdown</li>
+<li>Markdown 支持软件</li>
+<li>Markdown 基础语法</li>
+<li>Markdown 文档范例</li>
+</ul>
+<p>网络促进了知识的传播与分享。各大技术博客、自建博客中，伴随着当前编程技术知识流行于网络的，还有书写知识的工具，它就是 Markdown。也许会有读者对一本 Python 书籍使用一章的篇幅讲解 Markdown 的知识感到奇怪，但毋庸置疑的是，潮流已经将它与 Python 联系在一起，让我们勇敢地拥抱它吧。</p>
+<h2 id="91-markdown">9.1 Markdown 简介<a class="headerlink" href="#91-markdown" title="Permanent link">&para;</a></h2>
+<p>Markdown 由 John Gruber 于 2004 年创建，它是一种轻量级标记语言。轻量级标记语言是指一类用简单语法表述文字格式的文本语言，即直接能从字面上进行阅读和理解。Markdown 的目的是提供一种容易阅读、容易书写的纯文字格式，它吸收了电子邮件中许多已有的标  记特性，并可以有效地转换为富文本语言，如 HTML。</p>
+<p>由于 Markdown 轻量、易读、易写的特性，并且支持图片、表格、数学公式，目前许多网站都采用 Markdown 来编写帮助文档或发布消息，比较有名的有 GitHub、reddit 和 Stack Overflow。另外，Markdown 也常用与博文、书籍的撰写。甚至当前网络应用、App 专门提供 Markdown 服务，如简书、Slack。</p>
+<p>随着时间的推移，出现了许多 Markdown 的实现。这些实现的目的是在 Markdown 基础语法之上添加一些额外的功能，如列表、脚注等。另外，在数据分析领域，一种新型的文档出现了，它可以将文本嵌入运行的代码中，称为动态文档，而文本书写的语法正是 Markdown。目前流行的动态文档主要有 2 种，一种是 Jupyter Notebook，它支持多种编程语言，包括 R、Python；另一种是 Rmarkdown，它在 Markdown 的基础上增加了 R 语言代码块的执行功能（也有对 Python、Shell 的支持，但功能较弱）。</p>
+<p>动态文档的出现使得数据分析不再像是在写单纯的功能脚本，而是图文并茂的文章，而且增强了交互性和可重复性，已经是当下数据分析人员必备的一个技能之一。</p>
+<p>在本章接下来的内容中，本书将对 Markdown 的基础语法进行简要介绍并结合 Python 分析实际使用进行举例。</p>
+<h2 id="92-markdown">9.2 Markdown 语法<a class="headerlink" href="#92-markdown" title="Permanent link">&para;</a></h2>
+<p>为了更好地向读者展示 Markdown 语法的显示效果，这一节本书使用了一个开源且非常流行的工具 Typora。读者可以下载该软件并自己根据学习和理解测试效果，当然也可以使用 Jupyter Notebook 或 nteract，不过相对而言 Typora 更为美观。</p>
+<h3 id="921">9.2.1 块元素<a class="headerlink" href="#921" title="Permanent link">&para;</a></h3>
+<h4 id="_1">段落<a class="headerlink" href="#_1" title="Permanent link">&para;</a></h4>
+<p>Markdown 中，段落是通过一个及以上空行来分割的。如下所示：</p>
+<pre><code>这是第一段话
+
+这是第二段话
+</code></pre>
+<p>如果只是使用回车键，内容还是属于一段，文字是连接起来的。</p>
+<p>例如， 这是第一句话。这是第二句话。 可以写为如下形式：</p>
+<pre><code>这是第一句话。
+这是第二句话。
+</code></pre>
+<h4 id="_2">标题<a class="headerlink" href="#_2" title="Permanent link">&para;</a></h4>
+<p>Markdown 支持 6 级标题，一般前四级比较常用。指定标题的方式是在文字前面添加井号键，有几个就是几级标题。</p>
+<pre><code># 这是一级标题
+
+## 这是二级标题
+
+### 这是三级标题
+
+#### 这是四级标题
+
+##### 这是五级标题
+
+###### 这是六级标题
+</code></pre>
+<p>注意井号后面加一个空格。</p>
+<p><img alt="图9-1 标题预览" src="../assets/1565877938229.png" /></p>
+<h4 id="_3">引用<a class="headerlink" href="#_3" title="Permanent link">&para;</a></h4>
+<p>Markdown使用符号 &gt; 起始一段块引用。引用也可以有多段文字，换行以单独的 &gt; 为一行。</p>
+<pre><code>&gt; 这里有3段引用，前面2段引用是在一起的，最后一段引用是独立的。
+&gt;
+&gt; 这是第2段引用。
+
+
+&gt; 这是第3段引用。
+</code></pre>
+<p>下面则是 Markdown 显示的效果。</p>
+<blockquote>
+<p>这里有3段引用，前面2段引用是在一起的，最后一段引用是独立的。</p>
+<p>这是第2段引用。</p>
+<p>这是第3段引用。</p>
+</blockquote>
+<h4 id="_4">列表<a class="headerlink" href="#_4" title="Permanent link">&para;</a></h4>
+<p>输入 * 元素1 就可以创建一个无序列表，除了使用星号 *，还可以使用 +、-。一般常用 * 或者 -。而输入 1. 元素1 可以创建有序列表。</p>
+<p>Markdown 源代码如下：</p>
+<pre><code>## 无序列表
+
+* 石头
+* 剪刀
+* 布
+
+## 有序列表
+
+1. 石头
+2. 剪刀
+3. 布
+</code></pre>
+<p><img alt="图9-2 列表预览" src="../assets/1565878138608.png" /></p>
+<h4 id="_5">任务列表<a class="headerlink" href="#_5" title="Permanent link">&para;</a></h4>
+<p>在列表符号后面使用 [ ] 或 [x] 可以分别标记未完成或完成状态。例如：</p>
+<pre><code>## 作业完成情况
+
+- [ ] 语文
+- [x] 数学
+- [ ] 物理
+- [ ] 英语
+- [x] 化学
+</code></pre>
+<p>注意，标记未完成时括号内一定要有一个空格。</p>
+<p><img alt="图9-3 任务列表预览" src="../assets/1565878216261.png" /></p>
+<h4 id="_6">代码块<a class="headerlink" href="#_6" title="Permanent link">&para;</a></h4>
+<p>代码块以 3 个符号 ` 起始（键盘上 \<ESC> 键下方的撇号），同样以 3 个 ` 结束。除了对代码格式比较友好，很多支持 Markdown 的工具、网站对代码块都自动高亮的功能。</p>
+<pre><code class="language-gfm">下面是一个例子：
+
+```
+def test():
+    print(&quot;Hello World!&quot;)
+```
+
+
+语法高亮：
+
+```python
+def test():
+    print(&quot;语法高亮&quot;)
+```
+</code></pre>
+<p><img alt="图9-4 代码块预览" src="../assets/1565878297820.png" /></p>
+<h4 id="_7">数学块<a class="headerlink" href="#_7" title="Permanent link">&para;</a></h4>
+<p>有不少 Markdown 编辑器通过 MathJax 支持 LaTex 数学表达式。</p>
+<p>数学公式使用两个美元符 \$\$ 开始和结束。</p>
+<pre><code>$$
+\mathbf{V}_1 \times \mathbf{V}_2 =  \begin{vmatrix}
+\mathbf{i} &amp; \mathbf{j} &amp; \mathbf{k} \\
+\frac{\partial X}{\partial u} &amp;  \frac{\partial Y}{\partial u} &amp; 0 \\
+\frac{\partial X}{\partial v} &amp;  \frac{\partial Y}{\partial v} &amp; 0 \\
+\end{vmatrix}
+$$
+</code></pre>
+<p>效果如下：</p>
+<p><img alt="图9-5 公式预览" src="../assets/1565878448091.png" /></p>
+<p>这里只是展示 Markdown 支持这种数学公式，LaTex 语法本身读者需要参考其他资料学习使用。</p>
+<h4 id="_8">表格<a class="headerlink" href="#_8" title="Permanent link">&para;</a></h4>
+<p>使用 |列1|列2| 就可以添加 2 列表格，标题行和内容行使用 |&mdash;| 进行分隔。</p>
+<pre><code>| 标题1   | 标题2 |
+| -------| ----- |
+| Cell1  | Cell3 |
+| Cell2  | Cell4 |
+</code></pre>
+<p><img alt="图9-6 表格预览" src="../assets/1565878505816.png" /></p>
+<p>对齐可以通过对分隔行增加英文冒号 : 标记实现。</p>
+<pre><code>| 左对齐  | 中心对齐 | 右对齐 |
+| :----- |:-------:| -----:|
+| c1     | 这一列   | $16 |
+| c2     | 是中心   | $120 |
+| c3     | 对齐     | $11 |
+</code></pre>
+<p><img alt="图9-7 表格对齐预览" src="../assets/1565878560237.png" /></p>
+<h4 id="_9">脚注<a class="headerlink" href="#_9" title="Permanent link">&para;</a></h4>
+<pre><code>你可以像这样添加脚注[^footnote]。
+
+[^footnote]: 这是一段脚注文字
+</code></pre>
+<p>效果如下：</p>
+<p><img alt="图9-8 脚注预览" src="../assets/1565878612454.png" /></p>
+<h4 id="_10">水平线<a class="headerlink" href="#_10" title="Permanent link">&para;</a></h4>
+<p>在空行中使用 *** 或者 &mdash; 就可以生成一条水平分隔线。</p>
+<h3 id="922">9.2.2 内联元素<a class="headerlink" href="#922" title="Permanent link">&para;</a></h3>
+<h4 id="_11">链接<a class="headerlink" href="#_11" title="Permanent link">&para;</a></h4>
+<p>Markdown 支持行内和参考两种链接方式，链接的文字都是写在方括号内。</p>
+<p>行内链接的写法如下：</p>
+<pre><code>[这个链接](https://baidu.com)会跳转到百度
+</code></pre>
+<p><img alt="图9-9 行内链接预览" src="../assets/1565878849732.png" /></p>
+<p>参考链接的写法如下：</p>
+<pre><code>[这个链接][id]会跳转到百度
+
+[id]: https://baidu.com
+</code></pre>
+<p><img alt="图9-10 参考链接预览" src="../assets/1565878886705.png" /></p>
+<h4 id="url">URL<a class="headerlink" href="#url" title="Permanent link">&para;</a></h4>
+<p>URL 使用 2 个尖括号将文本包围，与链接不同的是 URL 的显示的就是尖括号内的文字，不能自定义显示内容。</p>
+<pre><code>&lt;https://baidu.com&gt;
+
+&lt;xxx@163.com&gt;
+</code></pre>
+<p><img alt="图9-11 URL 预览" src="../assets/1565878937914.png" /></p>
+<h4 id="_12">图片<a class="headerlink" href="#_12" title="Permanent link">&para;</a></h4>
+<p>图片跟链接相似，但是需要在链接的前面添加一个英文感叹号 ! 符号。</p>
+<pre><code>![说明文字](图片路径.jpg)
+![说明文字](图片路径.png)
+
+例如：
+![](https://www.baidu.com/img/dong_96c3c31cae66e61ed02644d732fcd5f8.gif)
+</code></pre>
+<p><img alt="图9-12 图片预览(图片来自网络)" src="../assets/1565878990096.png" /></p>
+<p>路径可以是 URL，可以是计算机本地的绝对路径或相对路径。</p>
+<h4 id="_13">强调与加粗<a class="headerlink" href="#_13" title="Permanent link">&para;</a></h4>
+<p>Markdown 使用星号或下划线强调文字。</p>
+<pre><code>*使用星号*
+
+_使用下划线_
+</code></pre>
+<p><em>使用星号</em></p>
+<p><em>使用下划线</em></p>
+<p>使用两个符号则是进行加粗。</p>
+<pre><code>**使用2个星号**
+
+__使用2个下划线__
+</code></pre>
+<p><strong>使用2个星号</strong></p>
+<p><strong>使用2个下划线</strong></p>
+<h4 id="_14">删除线<a class="headerlink" href="#_14" title="Permanent link">&para;</a></h4>
+<p>Markdown 使用2个波浪线 ~ 对文字进行删除标记。</p>
+<pre><code>~~这是一段被删除线标记的文字~~
+</code></pre>
+<p>~~这是一段被删除线标记的文字~~</p>
+<h4 id="_15">下划线<a class="headerlink" href="#_15" title="Permanent link">&para;</a></h4>
+<p>下划线需要原生 HTML 标签支持。</p>
+<pre><code>&lt;u&gt;这段文字会被下划线标记&lt;/u&gt;
+</code></pre>
+<p><u>这段文字会被下划线标记</u></p>
+<h4 id="_16">上标与下标<a class="headerlink" href="#_16" title="Permanent link">&para;</a></h4>
+<p>Markdown 下标使用单个波浪号 ~，上标使用 ^。下面写法可以创建水分子和 X 的平方。</p>
+<pre><code>H~2~O
+
+X^2^
+</code></pre>
+<p>H~2~O</p>
+<p>X^2^</p>
+<h4 id="_17">行内代码<a class="headerlink" href="#_17" title="Permanent link">&para;</a></h4>
+<p>前面提到了代码块，但有时候代码很短，需要使用行内代码，这时候用单个的符号 ` 即可。</p>
+<pre><code>`x = y = 3`
+</code></pre>
+<p><code>x = y = 3</code></p>
+<h4 id="_18">行内公式<a class="headerlink" href="#_18" title="Permanent link">&para;</a></h4>
+<p>行内公式使用单个美元符 \$ 开始和结束：</p>
+<pre><code>$y = a \times x + b$
+</code></pre>
+<p>效果如下：</p>
+<p>$y = a \times x + b$</p>
+<h2 id="93-python-markdown">9.3 联合 Python 与 Markdown<a class="headerlink" href="#93-python-markdown" title="Permanent link">&para;</a></h2>
+<h3 id="931">9.3.1 代码块与文本块<a class="headerlink" href="#931" title="Permanent link">&para;</a></h3>
+<p>Notebook 支持两种不同的输入，一是代码块（这里我们指 Python 代码），二是文本块，即 Markdown 内容。</p>
+<p>图9-13用 nteract 显示了一个代码块，点击右上方的菜单栏后，会出现多个选项。最后一个选项能够将代码块转变为文本块，点击后的结果如图9-14所示。</p>
+<p><img alt="图9-13 nteract 显示的代码块" src="../assets/1565881098150.png" /></p>
+<p><img alt="图9-14 nteract 显示的文本块" src="../assets/1565881258155.png" /></p>
+<p>Jupyter Notebook 支持的快捷键可能操作起来更轻松，m 键将代码块转换为文本块，而 y 键将文本块转换为代码块。</p>
+<p>在我们了解代码块和文本块之后，我们就可以自由地使用它们编写动态的程序文档，即 Notebook。一般而言，我们使用 Markdown 标题构建文档的整个逻辑结构，使用正文和相关标记如链接等增加对文档、代码块的说明，利用代码块执行计算并展示文字结果或图形，一个简单的示例如图9-15所示。</p>
+<p><img alt="图9-15 Notebook 书写简单示例" src="../assets/1565883426201.png" /></p>
+<h3 id="932">9.3.2 文档范例<a class="headerlink" href="#932" title="Permanent link">&para;</a></h3>
+<p>上节提到的 Markdown 语法内容颇多，它们虽然简单，但也需要时间学习和掌握。本节以 绘制引力波曲线 为题写一个简单的 Markdown 文章，以帮助读者对 Markdown 的整体使用有更深的了解。</p>
+<p>下面是源代码：</p>
+<pre><code class="language-gfm"># 绘制引力波曲线
+
+## 数据下载与准备
+
+第一个引力波文件：[H1_Strain.wav](http://python123.io/dv/H1_Strain.wav) （点击下载）
+
+第二个引力波文件：[L1_Strain.wav](http://python123.io/dv/L1_Strain.wav) （点击下载）
+
+引力波参考文件：[wf_template.txt](http://python123.io/dv/wf_template.txt) （点击后保存下载）
+
+将上述文件下载到本地并保存到一个目录中，在该目录中创建一个 Notebook 文件，并依次运行下面的代码行。
+
+## 导入包
+
+本例需要使用到 3 个三方包，下面我们将它们依次导入。
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.io import wavfile
+```
+
+## 导入数据
+
+接下来我们使用 scipy 包提供的函数导入引力波文件，使用 numpy 包提供的函数导入参考文件。
+
+```python
+rate_h, hstrain= wavfile.read(r&quot;H1_Strain.wav&quot;,&quot;rb&quot;)
+rate_l, lstrain= wavfile.read(r&quot;L1_Strain.wav&quot;,&quot;rb&quot;)
+reftime, ref_H1 = np.genfromtxt('wf_template.txt').transpose()
+
+# 这里我们使用频率的倒数来确定波的周期
+htime_interval = 1/rate_h
+ltime_interval = 1/rate_l
+```
+
+### 简单查看数据
+
+```python
+# 使用 print() 函数对各项输入的数据进行简单的查看
+print(rate_h, hstrain)
+print(rate_l, lstrain)
+print(reftime, ref_H1)
+```
+
+## 绘图
+
+```python
+# 设定在 Notebook 中使用绘图
+%matplotlib inline
+```
+
+接下来我们依次根据 2 个波文件和 1 个参考文件提供的数据绘制波形图，以子图的形式将它们绘制在一起。
+
+```python
+htime_len = hstrain.shape[0]/rate_h
+htime = np.arange(-htime_len/2, htime_len/2 , htime_interval)
+plt.subplot(2,2,1)
+plt.plot(htime, hstrain, 'y')
+plt.xlabel('Time (seconds)')
+plt.ylabel('H1 Strain')
+plt.title('H1 Strain')
+
+ltime_len = lstrain.shape[0]/rate_l
+ltime = np.arange(-ltime_len/2, ltime_len/2 , ltime_interval)
+plt.subplot(2,2,2)
+plt.plot(ltime, lstrain, 'g')
+plt.xlabel('Time (seconds)')
+plt.ylabel('L1 Strain')
+plt.title('L1 Strain')
+
+plt.subplot(2, 1, 2)
+plt.plot(reftime, ref_H1)
+plt.xlabel('Time (seconds)')
+plt.ylabel('Template Strain')
+plt.title('Template')
+plt.tight_layout()
+```
+</code></pre>
+<p>请读者下载所需文件后在同一目录下新建一个Jupyter Notebook，然后将代码放入代码块中，将文本内容放入文本块中然后运行查看效果，如图9-16、图9-17所示。</p>
+<p><img alt="图9-16 Notebook 示例(一)" src="../assets/1565965546720.png" /></p>
+<p><img alt="图9-17 Notebook 示例(二)" src="../assets/1565965576073.png" /></p>
+<p>就这样，一篇联合 Python 和 Markdown 的动态文档就生成了。读者可以随时根据需要修改相应的文字或代码，然后对文档进行更新。然后，读者可以将文档导出为多种格式如 HTML、PDF 进行分享或者是汇报。</p>
+<h2 id="94">9.4 章末小结<a class="headerlink" href="#94" title="Permanent link">&para;</a></h2>
+<p>数据分析是本书的核心主题，当下动态文档推动着更高效的分析报告和可重复性科学研究，Markdown 是动态文档的核心工具之一。本章简要地对 Markdown 基础语法进行了介绍，并为在实际工作中如何将 Markdown 与 Python 进行联合使用提供了范例。</p>
+
+
+
+
+              
+            </article>
+            
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="../08-pandas-intro/" class="md-footer__link md-footer__link--prev" aria-label="Previous: 第 8 章 Pandas 入门" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              第 8 章 Pandas 入门
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../10-data-import/" class="md-footer__link md-footer__link--next" aria-label="Next: 第 10 章 数据导入" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              第 10 章 数据导入
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright © 2020 ShixiangWang
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.expand", "navigation.indexes", "navigation.top"], "search": "../assets/javascripts/workers/search.ecf98df9.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.9c69f0bc.min.js"></script>
+      
+    
+  </body>
+</html>
