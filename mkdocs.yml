@@ -1,5 +1,5 @@
 site_name: 交互的 Python
-docs_dir: "."
+docs_dir: "docs"
 site_dir: "site"
 theme:
   name: material
