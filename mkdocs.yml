@@ -1,4 +1,4 @@
-site_name: 交互的 Python
+site_name: 交互的Python：数据分析入门
 docs_dir: "docs"
 site_dir: "site"
 theme:
@@ -15,10 +15,33 @@ edit_uri: https://github.com/ShixiangWang/pybook/edit/master/
 site_author: Shixiang Wang
 copyright: Copyright © 2020 ShixiangWang
 nav:
-    - Home: index.md
+    - 阅读说明: README.md
+    - 正文:
+        - 大纲.md
+        - 0-前言.md
+        - 00-内容提要.md
+        - 01-introduction.md
+        - 02-base.md
+        - 03-data-structure.md
+        - 04-control-flow.md
+        - 05-function-and-module.md
+        - 06-numpy.md
+        - 07-matplotlib.md
+        - 08-pandas-intro.md
+        - 09-markdown.md
+        - 10-data-import.md
+        - 11-toolbox.md
+        - 12-advanced-pandas.md
+        - 13-advanced-vis.md
+        - 14-stats.md
+        - 15-append.md
+        - 16-end.md
+    - 思维导图: author-and-recommendation/交互的Python - 思维导图.png
+    - 对读者说的话: to-readers.md
+    - 作者简介: author.md
 markdown_extensions:
     - smarty
     - toc:
         permalink: True
         separator: "-"
-        toc_depth: 4
+        toc_depth: 3
